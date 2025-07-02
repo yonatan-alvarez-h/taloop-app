@@ -1,6 +1,7 @@
 import React from "react";
 import type { Dataset } from "../../types/dataset";
 import DatasetOwner from "./DatasetOwner";
+import DatasetPreview from "./DatasetPreview";
 import "./DatasetCard.css";
 
 interface DatasetDetailsProps {
@@ -95,7 +96,12 @@ const DatasetDetails: React.FC<DatasetDetailsProps> = ({ dataset }) => {
       <div style={{ marginBottom: 18 }}>
         <DatasetOwner owner={dataset.owner} />
       </div>
-      {/* Aquí puedes agregar más detalles, vistas previas, ejemplos, etc. */}
+      <div style={{ marginBottom: 18 }}>
+        <h6 className="fw-bold mb-2" style={{ color: "#2d3748" }}>
+          Vista previa
+        </h6>
+        <DatasetPreview dataset={dataset} />
+      </div>
     </div>
   );
 };

@@ -53,9 +53,9 @@ const DatasetList: React.FC<DatasetListProps> = ({
             setPage(1);
           }}
         >
-          <option value={5}>5</option>
-          <option value={10}>10</option>
-          <option value={15}>15</option>
+          <option value={4}>4</option>
+          <option value={8}>10</option>
+          <option value={16}>20</option>
         </select>
       </div>
       <div className="d-flex justify-content-center mt-4">
