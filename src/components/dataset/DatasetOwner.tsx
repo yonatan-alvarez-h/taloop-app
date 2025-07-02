@@ -35,25 +35,7 @@ const DatasetOwner: React.FC<DatasetOwnerProps> = ({ owner }) => (
       >
         {owner.type === "empresa" ? "Empresa" : "Usuario"}
       </span>
-      {owner.website && (
-        <div>
-          <a
-            href={owner.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: "#0D8ABC",
-              fontSize: "0.9em",
-              textDecoration: "underline",
-            }}
-          >
-            {owner.website}
-          </a>
-        </div>
-      )}
-      {owner.email && (
-        <div style={{ color: "#888", fontSize: "0.9em" }}>{owner.email}</div>
-      )}
+      {/* No mostrar website ni email en la Card ni detalles */}
       {owner.description && (
         <div style={{ color: "#666", fontSize: "0.9em" }}>
           {owner.description}

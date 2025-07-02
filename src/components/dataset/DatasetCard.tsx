@@ -119,46 +119,89 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
       </div>
     </div>
     {/* Categoría y tags */}
-    {dataset.category && (() => {
-      const color = categoryColors[dataset.category.toLowerCase()] || '#6366f1';
-      return (
-        <div
-          className="dataset-category"
-          style={{
-            width: "fit-content",
-            textAlign: "left",
-            fontSize: "1em",
-            color: "#fff",
-            background: color,
-            padding: "2px 14px",
-            borderRadius: 16,
-            marginBottom: 6,
-            fontWeight: 600,
-            letterSpacing: "0.01em",
-            textTransform: "capitalize",
-            boxShadow: `0 1px 6px ${color}22`,
-          }}
-        >
-          {dataset.category}
-        </div>
-      );
-    })()}
     <div
-      style={{ display: "flex", alignItems: "center", marginBottom: 8, gap: 8 }}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        marginBottom: 2,
+        gap: 8,
+        minWidth: 0,
+      }}
     >
-      <DatasetTags tags={dataset.tags} style={{ flex: 1, gap: 4 }} />
-      <div className="dataset-owner ms-3" style={{ flexShrink: 0 }}>
+      {/* Categoría */}
+      {dataset.category &&
+        (() => {
+          const color =
+            categoryColors[dataset.category.toLowerCase()] || "#6366f1";
+          return (
+            <div
+              className="dataset-category"
+              style={{
+                flex: "0 1 35%",
+                maxWidth: "35%",
+                minWidth: 0,
+                textAlign: "left",
+                fontSize: "1em",
+                color: "#fff",
+                background: color,
+                padding: "2px 14px",
+                borderRadius: 16,
+                fontWeight: 600,
+                letterSpacing: "0.01em",
+                textTransform: "capitalize",
+                boxShadow: `0 1px 6px ${color}22`,
+                marginBottom: 0,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {dataset.category}
+            </div>
+          );
+        })()}
+      {/* Owner */}
+      <div
+        className="dataset-owner ms-3"
+        style={{
+          flex: "0 1 80%",
+          maxWidth: "80%",
+          minWidth: 0,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+          fontSize: "1.04em",
+          fontWeight: 500,
+        }}
+      >
         <DatasetOwner owner={dataset.owner} />
       </div>
     </div>
-    <div style={{ display: 'flex', alignItems: 'center', marginBottom: 0, gap: 8 }}>
+    <div style={{ width: "100%", marginBottom: 8 }}>
+      <DatasetTags
+        tags={dataset.tags}
+        style={{ gap: 4, flexWrap: "wrap", minWidth: 0, overflow: "hidden" }}
+      />
+    </div>
+    <div
+      style={{ display: "flex", alignItems: "center", marginBottom: 0, gap: 8 }}
+    >
       <div className="dataset-fields" style={{ flex: 1 }}>
         <span className="fw-bold">Campos:</span>{" "}
-        <DatasetFields fields={dataset.fields} style={{ gap: 6, paddingTop: 2 }} />
+        <DatasetFields
+          fields={dataset.fields}
+          style={{ gap: 6, paddingTop: 2 }}
+        />
       </div>
       <button
         className="btn btn-outline-primary btn-sm"
-        style={{ fontWeight: 500, letterSpacing: 0.2, borderRadius: 6, minWidth: 110, padding: '4px 18px' }}
+        style={{
+          fontWeight: 500,
+          letterSpacing: 0.2,
+          borderRadius: 6,
+          minWidth: 110,
+          padding: "4px 18px",
+        }}
         onClick={() => window.open(`/datasets/${dataset.id}`, "_self")}
       >
         Ver detalles
