@@ -177,11 +177,16 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
         <DatasetOwner owner={dataset.owner} />
       </div>
     </div>
-    <div style={{ width: "100%", marginBottom: 8 }}>
+    <div style={{ width: "100%", marginBottom: 8, display: 'flex', alignItems: 'center' }}>
       <DatasetTags
-        tags={dataset.tags}
+        tags={dataset.tags.slice(0, 5)}
         style={{ gap: 4, flexWrap: "wrap", minWidth: 0, overflow: "hidden" }}
       />
+      {dataset.tags.length > 5 && (
+        <span style={{ color: '#888', fontSize: '0.95em', marginLeft: 6 }}>
+          +{dataset.tags.length - 5} más
+        </span>
+      )}
     </div>
     <div
       style={{ display: "flex", alignItems: "center", marginBottom: 0, gap: 8 }}

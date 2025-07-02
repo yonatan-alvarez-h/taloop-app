@@ -9,7 +9,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "11",
     title: "Producción Agrícola 2024",
     category: "Agricultura",
-    tags: ["agricultura", "producción", "2024", "cultivos"],
+    tags: [
+      "agricultura",
+      "producción",
+      "2024",
+      "cultivos",
+      "exportación",
+      "rendimiento",
+      "regiones",
+      "siembra",
+    ],
     description:
       "Datos de producción agrícola por región y tipo de cultivo para el año 2024. Incluye toneladas producidas, superficie sembrada y rendimiento por hectárea. Útil para análisis de tendencias agrícolas y políticas alimentarias.",
     fields: [
@@ -62,7 +71,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "12",
     title: "Ranking de Universidades 2024",
     category: "Educacion",
-    tags: ["universidades", "ranking", "educacion", "2024"],
+    tags: [
+      "universidades",
+      "ranking",
+      "educacion",
+      "2024",
+      "calidad",
+      "empleabilidad",
+      "investigación",
+      "matrícula",
+    ],
     description:
       "Ranking nacional de universidades basado en indicadores de calidad académica, empleabilidad, investigación y satisfacción estudiantil. Incluye puntajes y posiciones por área de estudio.",
     fields: [
@@ -91,7 +109,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "13",
     title: "Consumo de Agua por Hogar",
     category: "MedioAmbiente",
-    tags: ["agua", "consumo", "hogares", "medioambiente"],
+    tags: [
+      "agua",
+      "consumo",
+      "hogares",
+      "medioambiente",
+      "sostenibilidad",
+      "ciudades",
+      "tarifas",
+      "recursos",
+    ],
     description:
       "Consumo mensual de agua potable por hogar en distintas ciudades, con detalle por tipo de vivienda y número de habitantes. Útil para estudios de sostenibilidad y gestión de recursos hídricos.",
     fields: [
@@ -120,7 +147,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "14",
     title: "Eventos Deportivos Nacionales",
     category: "Deportes",
-    tags: ["deportes", "eventos", "nacional", "2024"],
+    tags: [
+      "deportes",
+      "eventos",
+      "nacional",
+      "2024",
+      "atletismo",
+      "fútbol",
+      "premios",
+      "participantes",
+    ],
     description:
       "Listado de eventos deportivos nacionales con fechas, sedes, disciplinas y participantes. Ideal para análisis de impacto deportivo y planificación de coberturas mediáticas.",
     fields: [
@@ -173,7 +209,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "15",
     title: "Índice de Criminalidad 2024",
     category: "Seguridad",
-    tags: ["criminalidad", "seguridad", "2024", "regiones"],
+    tags: [
+      "criminalidad",
+      "seguridad",
+      "2024",
+      "regiones",
+      "delitos",
+      "estadísticas",
+      "zonas",
+      "resolución",
+    ],
     description:
       "Datos de criminalidad por región, tipo de delito y mes. Incluye tasas por cada 100,000 habitantes y evolución anual. Útil para estudios de seguridad ciudadana y políticas públicas.",
     fields: [
@@ -226,7 +271,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "1",
     title: "Ventas 2024",
     category: "Finanzas",
-    tags: ["ventas", "2024", "finanzas"],
+    tags: [
+      "ventas",
+      "2024",
+      "finanzas",
+      "productos",
+      "clientes",
+      "ingresos",
+      "tendencias",
+      "análisis",
+    ],
     description:
       "Este dataset contiene el registro completo de todas las ventas realizadas durante el año 2024, incluyendo información detallada por producto, fecha, cantidad y monto total. Ideal para análisis de tendencias, proyecciones y reportes financieros avanzados.",
     fields: [
@@ -276,7 +330,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "2",
     title: "Usuarios",
     category: "Personas",
-    tags: ["usuarios", "registro", "personas"],
+    tags: [
+      "usuarios",
+      "registro",
+      "personas",
+      "segmentación",
+      "crecimiento",
+      "marketing",
+      "datos",
+      "plataforma",
+    ],
     description:
       "Base de datos con todos los usuarios registrados en la plataforma, con campos como nombre, correo electrónico y fecha de registro. Útil para segmentación, campañas de marketing y análisis de crecimiento de usuarios.",
     fields: [
@@ -323,7 +386,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "3",
     title: "Inventario",
     category: "Logística",
-    tags: ["stock", "productos", "almacen"],
+    tags: [
+      "stock",
+      "productos",
+      "almacen",
+      "inventario",
+      "categorías",
+      "proveedores",
+      "logística",
+      "gestión",
+    ],
     description:
       "Inventario actualizado de productos disponibles en almacén, con detalle de cantidades, ubicaciones y categorías. Permite optimizar la gestión de stock, prever faltantes y mejorar la logística interna.",
     fields: [
@@ -373,7 +445,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "4",
     title: "Empleados",
     category: "Recursos Humanos",
-    tags: ["empleados", "rrhh", "personal"],
+    tags: [
+      "empleados",
+      "rrhh",
+      "personal",
+      "talento",
+      "puestos",
+      "departamentos",
+      "contacto",
+      "historial",
+    ],
     description:
       "Información completa sobre los empleados activos de la empresa, incluyendo puesto, fecha de ingreso, historial laboral y datos de contacto. Esencial para recursos humanos y gestión de talento.",
     fields: [
@@ -422,7 +503,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "5",
     title: "Ventas 2023",
     category: "Finanzas",
-    tags: ["ventas", "2023", "finanzas", "histórico"],
+    tags: [
+      "ventas",
+      "2023",
+      "finanzas",
+      "histórico",
+      "comparativa",
+      "anual",
+      "clientes",
+      "productos",
+    ],
     description:
       "Histórico detallado de todas las ventas realizadas durante el año 2023, útil para comparar el desempeño anual, identificar patrones de consumo y realizar análisis retrospectivos de la actividad comercial.",
     fields: [
@@ -472,7 +562,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "6",
     title: "Clima Histórico",
     category: "Medio Ambiente",
-    tags: ["clima", "meteorología", "histórico"],
+    tags: [
+      "clima",
+      "meteorología",
+      "histórico",
+      "temperatura",
+      "precipitaciones",
+      "regiones",
+      "tendencias",
+      "ambiente",
+    ],
     description:
       "Registros diarios de temperatura, humedad, precipitaciones y viento de los últimos 10 años en distintas regiones del país. Útil para estudios ambientales, agricultura y predicción de tendencias climáticas.",
     fields: [
@@ -528,7 +627,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "7",
     title: "Movilidad Urbana",
     category: "Transporte",
-    tags: ["movilidad", "transporte", "urbano"],
+    tags: [
+      "movilidad",
+      "transporte",
+      "urbano",
+      "rutas",
+      "tráfico",
+      "horarios",
+      "medios",
+      "planificación",
+    ],
     description:
       "Datos anonimizados de desplazamientos urbanos, incluyendo rutas, horarios y medios de transporte utilizados. Ideal para análisis de tráfico, planificación urbana y optimización de rutas.",
     fields: [
@@ -578,7 +686,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "8",
     title: "Consumo Energético Residencial",
     category: "Energía",
-    tags: ["energía", "consumo", "hogares"],
+    tags: [
+      "energía",
+      "consumo",
+      "hogares",
+      "eléctrico",
+      "tarifas",
+      "ciudades",
+      "eficiencia",
+      "sostenibilidad",
+    ],
     description:
       "Consumo mensual de energía eléctrica en hogares de diferentes ciudades, con detalle por tipo de vivienda y tarifa aplicada. Útil para estudios de eficiencia energética y políticas públicas.",
     fields: [
@@ -631,7 +748,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "9",
     title: "Encuesta de Satisfacción 2024",
     category: "Clientes",
-    tags: ["encuesta", "satisfacción", "clientes"],
+    tags: [
+      "encuesta",
+      "satisfacción",
+      "clientes",
+      "opinión",
+      "calidad",
+      "recomendación",
+      "segmentación",
+      "análisis",
+    ],
     description:
       "Resultados de la encuesta anual de satisfacción de clientes, con respuestas a preguntas sobre calidad, atención y recomendación. Incluye segmentación por edad y región.",
     fields: [
@@ -678,7 +804,16 @@ const datasetsData: DatasetWithSamples[] = [
     id: "10",
     title: "Precios de Combustibles",
     category: "Energía",
-    tags: ["combustibles", "precios", "histórico"],
+    tags: [
+      "combustibles",
+      "precios",
+      "histórico",
+      "gasolina",
+      "diésel",
+      "gas",
+      "estaciones",
+      "variación",
+    ],
     description:
       "Histórico mensual de precios de combustibles (gasolina, diésel, gas) en estaciones de servicio de todo el país. Permite análisis de tendencias y comparación regional.",
     fields: [
