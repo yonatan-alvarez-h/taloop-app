@@ -1,10 +1,65 @@
 .custom-burger-menu {
   min-width: 200px;
   border-radius: 8px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
   border: 1px solid #e0e0e0;
   padding: 1rem 0.5rem;
   animation: fadeInMenu 0.2s;
+  z-index: 1200;
+  position: absolute;
+  right: 1.5rem;
+  top: 60px;
+  background: #fff;
+  min-height: 120px;
+  display: none;
+}
+
+.custom-burger-menu.show {
+  display: block;
+}
+
+.navbar-toggler {
+  border: none;
+  background: transparent;
+  padding: 0.5rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  z-index: 1300;
+}
+
+.navbar-toggler:focus {
+  outline: 2px solid #1976d2;
+}
+
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 28px;
+  height: 3px;
+  background-color: #1976d2;
+  border-radius: 2px;
+  position: relative;
+  transition: background 0.2s;
+}
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 28px;
+  height: 3px;
+  background-color: #1976d2;
+  border-radius: 2px;
+  transition: transform 0.2s;
+}
+.navbar-toggler-icon::before {
+  top: -9px;
+}
+.navbar-toggler-icon::after {
+  top: 9px;
 }
 
 .custom-burger-menu .nav-link {
@@ -14,16 +69,23 @@
   transition: background 0.2s, color 0.2s;
 }
 
-.custom-burger-menu .nav-link:hover, .custom-burger-menu .nav-link:focus {
+.custom-burger-menu .nav-link:hover,
+.custom-burger-menu .nav-link:focus {
   background: #f0f0f0;
   color: #007bff;
 }
 
 @keyframes fadeInMenu {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .burger-shadow {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
 }
