@@ -189,9 +189,14 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
       <div className="dataset-fields" style={{ flex: 1 }}>
         <span className="fw-bold">Campos:</span>{" "}
         <DatasetFields
-          fields={dataset.fields}
+          fields={dataset.fields.slice(0, 6)}
           style={{ gap: 6, paddingTop: 2 }}
         />
+        {dataset.fields.length > 6 && (
+          <span style={{ color: "#888", fontSize: "0.95em", marginLeft: 6 }}>
+            +{dataset.fields.length - 6} más
+          </span>
+        )}
       </div>
       <button
         className="btn btn-outline-primary btn-sm"
