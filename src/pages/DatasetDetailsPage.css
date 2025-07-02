@@ -1,0 +1,26 @@
+.dataset-details-page {
+  padding: 32px 0;
+}
+
+.dataset-details-back-btn {
+  margin-bottom: 24px;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  box-shadow: 0 1px 4px #0001;
+  transition: background 0.15s;
+}
+.dataset-details-back-btn:hover {
+  background: #e5e7eb;
+}
+
+.dataset-details-notfound {
+  padding: 40px;
+  text-align: center;
+  color: #888;
+  font-size: 1.15em;
+}

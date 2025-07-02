@@ -3,6 +3,7 @@ import BurgerMenu from "../components/menu/BurgerMenu";
 import SearchBar from "../components/search/SearchBar";
 import DatasetList from "../components/dataset/DatasetList";
 import type { Dataset } from "../types/dataset";
+import "./HomePage.css";
 
 interface HomePageProps {
   datasets: Dataset[];
@@ -12,23 +13,16 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => (
   <div>
-    <nav className="navbar navbar-light bg-light px-3 d-flex align-items-center justify-content-between">
-      <div className="d-flex align-items-center">
+    <nav className="homepage-navbar">
+      <div style={{ display: "flex", alignItems: "center" }}>
         <BurgerMenu />
-        <span className="navbar-brand mb-0 h1 ms-2">taloop</span>
+        <span className="navbar-brand ms-2">taloop</span>
       </div>
-      <div style={{ width: "300px" }}>
+      <div className="homepage-searchbar">
         <SearchBar onSearch={onSearch} />
       </div>
     </nav>
-    <div
-      className="container mt-4"
-      style={{
-        height: "calc(100vh - 90px)",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <div className="homepage-container container">
       <div style={{ flex: "0 0 auto" }}></div>
       <DatasetList datasets={datasets} search={search} outerPagination />
     </div>

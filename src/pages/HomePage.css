@@ -1,0 +1,25 @@
+.homepage-navbar {
+  background: #f8fafc;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.homepage-navbar .navbar-brand {
+  font-size: 1.45em;
+  font-weight: 700;
+  color: #222;
+  letter-spacing: 0.01em;
+}
+.homepage-searchbar {
+  width: 300px;
+}
+.homepage-container {
+  margin-top: 1.5rem;
+  height: calc(100vh - 90px);
+  display: flex;
+  flex-direction: column;
+}
