@@ -1,0 +1,18 @@
+.dataset-owner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.04em;
+  font-weight: 500;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dataset-owner-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 6px;
+}

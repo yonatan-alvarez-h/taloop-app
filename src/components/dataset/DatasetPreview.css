@@ -26,17 +26,87 @@
   box-shadow: 0 1px 6px rgba(13, 138, 188, 0.06);
   margin-top: 0.7em;
 }
+/* BigQuery-like table header */
 .dataset-preview-table th {
-  background: #e3f2fd;
-  color: #1976d2;
+  background: #e8f0fe;
+  color: #1967d2;
   font-weight: 600;
-  font-size: 0.98em;
-  border-bottom: 2px solid #b3e5fc;
+  font-size: 0.95em;
+  border-bottom: 2px solid #b3d6fc;
+  border-right: 1px solid #e0e3e8;
+  padding: 6px 10px;
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  font-family: "Roboto Mono", "Menlo", "Monaco", "Consolas", monospace;
 }
+
+/* BigQuery-like table cell */
 .dataset-preview-table td {
-  font-size: 0.97em;
-  color: #444;
-  background: #fafdff;
+  font-size: 0.95em;
+  color: #222;
+  background: #fff;
+  padding: 6px 10px;
+  border-bottom: 1px solid #e0e3e8;
+  border-right: 1px solid #e0e3e8;
+  max-width: 320px;
+  min-width: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "Roboto Mono", "Menlo", "Monaco", "Consolas", monospace;
+  transition: background 0.15s;
+  cursor: pointer;
+}
+/* Zebra striping */
+.dataset-preview-table tr:nth-child(even) td {
+  background: #f7fafd;
+}
+
+/* Row hover effect */
+.dataset-preview-table tr:hover td {
+  background: #e3f2fd;
+}
+
+/* Tooltip for truncated cells */
+.dataset-preview-table td[title] {
+  position: relative;
+}
+.dataset-preview-table td[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background: #222;
+  color: #fff;
+  font-size: 0.95em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: pre-line;
+  z-index: 10;
+  min-width: 120px;
+  max-width: 320px;
+  margin-top: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.13);
+}
+/* Remove right border from last cell */
+.dataset-preview-table td:last-child,
+.dataset-preview-table th:last-child {
+  border-right: none;
+}
+
+.dataset-preview-table tr:last-child td {
+  border-bottom: none;
+}
+
+.dataset-preview-table table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  min-width: 320px;
+  table-layout: auto;
+  font-family: "Roboto Mono", "Menlo", "Monaco", "Consolas", monospace;
+  font-size: 0.95em;
 }
 .dataset-preview-btn {
   border-radius: 4px;

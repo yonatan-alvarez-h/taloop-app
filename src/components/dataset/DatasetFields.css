@@ -1,0 +1,14 @@
+.dataset-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.dataset-field-chip {
+  background: #e0e7ef;
+  color: #374151;
+  border-radius: 8px;
+  padding: 2px 10px;
+  font-size: 0.93em;
+  font-weight: 500;
+}

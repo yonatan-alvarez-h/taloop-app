@@ -1,24 +1,18 @@
 import React from "react";
 import type { Dataset } from "../../types/dataset";
+import "./DatasetOwner.css";
 
 interface DatasetOwnerProps {
   owner: Dataset["owner"];
 }
 
 const DatasetOwner: React.FC<DatasetOwnerProps> = ({ owner }) => (
-  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+  <div className="dataset-owner">
     {owner.logoUrl && (
       <img
         src={owner.logoUrl}
         alt={owner.name}
-        style={{
-          width: 32,
-          height: 32,
-          objectFit: "cover",
-          borderRadius: "50%",
-          border: "2px solid #fff",
-          boxShadow: "0 2px 8px rgba(13,138,188,0.10)",
-        }}
+        className="dataset-owner-logo"
       />
     )}
     <div style={{ lineHeight: 1.2 }}>
