@@ -2,6 +2,101 @@ import type { Dataset } from "../types/dataset";
 
 const datasetsData: Dataset[] = [
   {
+    id: "11",
+    title: "Producción Agrícola 2024",
+    category: "Agricultura",
+    tags: ["agricultura", "producción", "2024", "cultivos"],
+    description:
+      "Datos de producción agrícola por región y tipo de cultivo para el año 2024. Incluye toneladas producidas, superficie sembrada y rendimiento por hectárea. Útil para análisis de tendencias agrícolas y políticas alimentarias.",
+    fields: ["region", "cultivo", "toneladas", "superficie", "rendimiento_ha"],
+    owner: {
+      name: "AgroData",
+      type: "empresa",
+      logoUrl:
+        "https://ui-avatars.com/api/?name=AgroData&background=22c55e&color=fff",
+      description: "Datos agrícolas y alimentarios para el sector productivo.",
+      website: "https://agrodata.com",
+      email: "info@agrodata.com",
+    },
+    priceUsd: 42,
+  },
+  {
+    id: "12",
+    title: "Ranking de Universidades 2024",
+    category: "Educacion",
+    tags: ["universidades", "ranking", "educacion", "2024"],
+    description:
+      "Ranking nacional de universidades basado en indicadores de calidad académica, empleabilidad, investigación y satisfacción estudiantil. Incluye puntajes y posiciones por área de estudio.",
+    fields: ["universidad", "posicion", "puntaje", "area", "ciudad"],
+    owner: {
+      name: "EduRank",
+      type: "empresa",
+      logoUrl:
+        "https://ui-avatars.com/api/?name=EduRank&background=f59e42&color=fff",
+      description: "Especialistas en análisis y ranking educativo.",
+      website: "https://edurank.com",
+      email: "contacto@edurank.com",
+    },
+    priceUsd: 33,
+  },
+  {
+    id: "13",
+    title: "Consumo de Agua por Hogar",
+    category: "MedioAmbiente",
+    tags: ["agua", "consumo", "hogares", "medioambiente"],
+    description:
+      "Consumo mensual de agua potable por hogar en distintas ciudades, con detalle por tipo de vivienda y número de habitantes. Útil para estudios de sostenibilidad y gestión de recursos hídricos.",
+    fields: ["ciudad", "mes", "consumo_m3", "tipo_vivienda", "habitantes"],
+    owner: {
+      name: "AquaData",
+      type: "empresa",
+      logoUrl:
+        "https://ui-avatars.com/api/?name=AquaData&background=16a34a&color=fff",
+      description: "Datos de recursos hídricos y sostenibilidad ambiental.",
+      website: "https://aquadatacloud.com",
+      email: "info@aquadatacloud.com",
+    },
+    priceUsd: 37,
+  },
+  {
+    id: "14",
+    title: "Eventos Deportivos Nacionales",
+    category: "Deportes",
+    tags: ["deportes", "eventos", "nacional", "2024"],
+    description:
+      "Listado de eventos deportivos nacionales con fechas, sedes, disciplinas y participantes. Ideal para análisis de impacto deportivo y planificación de coberturas mediáticas.",
+    fields: ["evento", "fecha", "disciplina", "sede", "participantes"],
+    owner: {
+      name: "SportStats",
+      type: "empresa",
+      logoUrl:
+        "https://ui-avatars.com/api/?name=SportStats&background=a21caf&color=fff",
+      description: "Estadísticas y datos de eventos deportivos.",
+      website: "https://sportstats.com",
+      email: "info@sportstats.com",
+    },
+    priceUsd: 29,
+  },
+  {
+    id: "15",
+    title: "Índice de Criminalidad 2024",
+    category: "Seguridad",
+    tags: ["criminalidad", "seguridad", "2024", "regiones"],
+    description:
+      "Datos de criminalidad por región, tipo de delito y mes. Incluye tasas por cada 100,000 habitantes y evolución anual. Útil para estudios de seguridad ciudadana y políticas públicas.",
+    fields: ["region", "mes", "tipo_delito", "casos", "tasa"],
+    owner: {
+      name: "SafeData",
+      type: "empresa",
+      logoUrl:
+        "https://ui-avatars.com/api/?name=SafeData&background=ef4444&color=fff",
+      description: "Datos y análisis de seguridad ciudadana.",
+      website: "https://safedata.com",
+      email: "info@safedata.com",
+    },
+    priceUsd: 50,
+  },
+  {
     id: "1",
     title: "Ventas 2024",
     category: "Finanzas",
