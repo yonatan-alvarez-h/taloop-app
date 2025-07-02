@@ -77,24 +77,33 @@ const DatasetDetails: React.FC<DatasetDetailsProps> = ({ dataset }) => {
       >
         {dataset.description}
       </div>
+      <div
+        style={{
+          marginBottom: 18,
+          display: "flex",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: 8,
+          justifyContent: "space-between",
+        }}
+      >
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+          {dataset.tags.map((tag) => (
+            <span
+              key={tag}
+              className="dataset-tag"
+              style={{ fontSize: "0.98em" }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div style={{ marginLeft: 16 }}>
+          <DatasetOwner owner={dataset.owner} />
+        </div>
+      </div>
       <div style={{ marginBottom: 18 }}>
         <span className="fw-bold">Campos:</span> {dataset.fields.join(", ")}
-      </div>
-      <div
-        style={{ marginBottom: 18, display: "flex", flexWrap: "wrap", gap: 8 }}
-      >
-        {dataset.tags.map((tag) => (
-          <span
-            key={tag}
-            className="dataset-tag"
-            style={{ fontSize: "0.98em" }}
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-      <div style={{ marginBottom: 18 }}>
-        <DatasetOwner owner={dataset.owner} />
       </div>
       <div style={{ marginBottom: 18 }}>
         <h6 className="fw-bold mb-2" style={{ color: "#2d3748" }}>

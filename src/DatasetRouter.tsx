@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import DatasetDetails from "./components/dataset/DatasetDetails";
 import type { Dataset } from "./types/dataset";
 import datasetsData from "./data/datasetsData";
@@ -8,7 +8,6 @@ const DatasetRouter: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const navigate = useNavigate();
-  const location = useLocation();
   const dataset = datasetsData.find((d: Dataset) => d.id === id);
 
   if (!dataset) {
