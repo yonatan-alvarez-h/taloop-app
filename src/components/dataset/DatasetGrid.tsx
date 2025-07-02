@@ -1,5 +1,5 @@
 import React from "react";
-import type { Dataset } from "./DatasetList";
+import type { Dataset } from "../../types/dataset";
 import DatasetCard from "./DatasetCard";
 
 interface DatasetGridProps {
