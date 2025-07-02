@@ -3,6 +3,7 @@ import type { Dataset } from "../../types/dataset";
 import DatasetOwner from "./DatasetOwner";
 import DatasetFields from "./DatasetFields";
 import DatasetTags from "./DatasetTags";
+import categoryColors from "../../data/categoryColors";
 // import DatasetPreview from "./DatasetPreview";
 import "./DatasetCard.css";
 
@@ -118,23 +119,30 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
       </div>
     </div>
     {/* Categoría y tags */}
-    {dataset.category && (
-      <div
-        className="dataset-category"
-        style={{
-          width: "100%",
-          textAlign: "left",
-          fontSize: "0.98em",
-          color: "#4a5568",
-          marginBottom: 4,
-          fontWeight: 500,
-          letterSpacing: "0.01em",
-          textTransform: "capitalize",
-        }}
-      >
-        {dataset.category}
-      </div>
-    )}
+    {dataset.category && (() => {
+      const color = categoryColors[dataset.category.toLowerCase()] || '#6366f1';
+      return (
+        <div
+          className="dataset-category"
+          style={{
+            width: "fit-content",
+            textAlign: "left",
+            fontSize: "1em",
+            color: "#fff",
+            background: color,
+            padding: "2px 14px",
+            borderRadius: 16,
+            marginBottom: 6,
+            fontWeight: 600,
+            letterSpacing: "0.01em",
+            textTransform: "capitalize",
+            boxShadow: `0 1px 6px ${color}22`,
+          }}
+        >
+          {dataset.category}
+        </div>
+      );
+    })()}
     <div
       style={{ display: "flex", alignItems: "center", marginBottom: 8, gap: 8 }}
     >
@@ -143,17 +151,19 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
         <DatasetOwner owner={dataset.owner} />
       </div>
     </div>
-    <div className="dataset-fields">
-      <span className="fw-bold">Campos:</span>{" "}
-      <DatasetFields fields={dataset.fields} style={{ gap: 6, paddingTop: 2 }} />
+    <div style={{ display: 'flex', alignItems: 'center', marginBottom: 0, gap: 8 }}>
+      <div className="dataset-fields" style={{ flex: 1 }}>
+        <span className="fw-bold">Campos:</span>{" "}
+        <DatasetFields fields={dataset.fields} style={{ gap: 6, paddingTop: 2 }} />
+      </div>
+      <button
+        className="btn btn-outline-primary btn-sm"
+        style={{ fontWeight: 500, letterSpacing: 0.2, borderRadius: 6, minWidth: 110, padding: '4px 18px' }}
+        onClick={() => window.open(`/datasets/${dataset.id}`, "_self")}
+      >
+        Ver detalles
+      </button>
     </div>
-    <button
-      className="btn btn-outline-primary btn-sm mt-2 w-100"
-      style={{ fontWeight: 500, letterSpacing: 0.2, borderRadius: 6 }}
-      onClick={() => window.open(`/datasets/${dataset.id}`, "_self")}
-    >
-      Ver detalles
-    </button>
   </li>
 );
 

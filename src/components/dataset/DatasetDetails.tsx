@@ -4,6 +4,7 @@ import DatasetOwner from "./DatasetOwner";
 import DatasetPreview from "./DatasetPreview";
 import DatasetFields from "./DatasetFields";
 import DatasetTags from "./DatasetTags";
+import categoryColors from "../../data/categoryColors";
 import "./DatasetCard.css";
 
 interface DatasetDetailsProps {
@@ -56,19 +57,30 @@ const DatasetDetails: React.FC<DatasetDetailsProps> = ({ dataset }) => {
           })}
         </span>
       </div>
-      {dataset.category && (
-        <div
-          style={{
-            color: "#4a5568",
-            fontWeight: 500,
-            fontSize: "1.05em",
-            marginBottom: 10,
-            textTransform: "capitalize",
-          }}
-        >
-          {dataset.category}
-        </div>
-      )}
+      {dataset.category && (() => {
+        const color = categoryColors[dataset.category.toLowerCase()] || '#6366f1';
+        return (
+          <div
+            className="dataset-category"
+            style={{
+              width: "fit-content",
+              textAlign: "left",
+              fontSize: "1.08em",
+              color: "#fff",
+              background: color,
+              padding: "3px 18px",
+              borderRadius: 18,
+              marginBottom: 14,
+              fontWeight: 600,
+              letterSpacing: "0.01em",
+              textTransform: "capitalize",
+              boxShadow: `0 1px 6px ${color}22`,
+            }}
+          >
+            {dataset.category}
+          </div>
+        );
+      })()}
       <div
         style={{
           marginBottom: 18,
