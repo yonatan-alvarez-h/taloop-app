@@ -8,7 +8,17 @@ const datasetsData: Dataset[] = [
     tags: ["agricultura", "producción", "2024", "cultivos"],
     description:
       "Datos de producción agrícola por región y tipo de cultivo para el año 2024. Incluye toneladas producidas, superficie sembrada y rendimiento por hectárea. Útil para análisis de tendencias agrícolas y políticas alimentarias.",
-    fields: ["region", "cultivo", "toneladas", "superficie", "rendimiento_ha"],
+    fields: [
+      "region",
+      "cultivo",
+      "toneladas",
+      "superficie",
+      "rendimiento_ha",
+      "tecnologia_aplicada",
+      "clima_predominante",
+      "fertilizante_usado",
+      "fecha_cosecha",
+    ],
     owner: {
       name: "AgroData",
       type: "empresa",
@@ -27,7 +37,17 @@ const datasetsData: Dataset[] = [
     tags: ["universidades", "ranking", "educacion", "2024"],
     description:
       "Ranking nacional de universidades basado en indicadores de calidad académica, empleabilidad, investigación y satisfacción estudiantil. Incluye puntajes y posiciones por área de estudio.",
-    fields: ["universidad", "posicion", "puntaje", "area", "ciudad"],
+    fields: [
+      "universidad",
+      "posicion",
+      "puntaje",
+      "area",
+      "ciudad",
+      "acreditacion",
+      "matricula_total",
+      "egresados_2023",
+      "tasa_empleabilidad",
+    ],
     owner: {
       name: "EduRank",
       type: "empresa",
@@ -46,7 +66,17 @@ const datasetsData: Dataset[] = [
     tags: ["agua", "consumo", "hogares", "medioambiente"],
     description:
       "Consumo mensual de agua potable por hogar en distintas ciudades, con detalle por tipo de vivienda y número de habitantes. Útil para estudios de sostenibilidad y gestión de recursos hídricos.",
-    fields: ["ciudad", "mes", "consumo_m3", "tipo_vivienda", "habitantes"],
+    fields: [
+      "ciudad",
+      "mes",
+      "consumo_m3",
+      "tipo_vivienda",
+      "habitantes",
+      "medidor_id",
+      "tarifa_aplicada",
+      "consumo_anterior",
+      "variacion_mensual",
+    ],
     owner: {
       name: "AquaData",
       type: "empresa",
@@ -65,7 +95,17 @@ const datasetsData: Dataset[] = [
     tags: ["deportes", "eventos", "nacional", "2024"],
     description:
       "Listado de eventos deportivos nacionales con fechas, sedes, disciplinas y participantes. Ideal para análisis de impacto deportivo y planificación de coberturas mediáticas.",
-    fields: ["evento", "fecha", "disciplina", "sede", "participantes"],
+    fields: [
+      "evento",
+      "fecha",
+      "disciplina",
+      "sede",
+      "participantes",
+      "organizador",
+      "premio",
+      "nivel",
+      "transmision_tv",
+    ],
     owner: {
       name: "SportStats",
       type: "empresa",
@@ -84,7 +124,17 @@ const datasetsData: Dataset[] = [
     tags: ["criminalidad", "seguridad", "2024", "regiones"],
     description:
       "Datos de criminalidad por región, tipo de delito y mes. Incluye tasas por cada 100,000 habitantes y evolución anual. Útil para estudios de seguridad ciudadana y políticas públicas.",
-    fields: ["region", "mes", "tipo_delito", "casos", "tasa"],
+    fields: [
+      "region",
+      "mes",
+      "tipo_delito",
+      "casos",
+      "tasa",
+      "edad_promedio_involucrados",
+      "hora_delito",
+      "zona",
+      "resolucion_caso",
+    ],
     owner: {
       name: "SafeData",
       type: "empresa",
@@ -103,7 +153,16 @@ const datasetsData: Dataset[] = [
     tags: ["ventas", "2024", "finanzas"],
     description:
       "Este dataset contiene el registro completo de todas las ventas realizadas durante el año 2024, incluyendo información detallada por producto, fecha, cantidad y monto total. Ideal para análisis de tendencias, proyecciones y reportes financieros avanzados.",
-    fields: ["fecha", "producto", "cantidad", "total"],
+    fields: [
+      "fecha",
+      "producto",
+      "cantidad",
+      "total",
+      "canal_venta",
+      "vendedor",
+      "cliente_id",
+      "descuento_aplicado",
+    ],
     owner: {
       name: "DataCorp",
       type: "empresa",
@@ -122,7 +181,16 @@ const datasetsData: Dataset[] = [
     tags: ["usuarios", "registro", "personas"],
     description:
       "Base de datos con todos los usuarios registrados en la plataforma, con campos como nombre, correo electrónico y fecha de registro. Útil para segmentación, campañas de marketing y análisis de crecimiento de usuarios.",
-    fields: ["id", "nombre", "email", "fecha_registro"],
+    fields: [
+      "id",
+      "nombre",
+      "email",
+      "fecha_registro",
+      "telefono",
+      "pais",
+      "estado_cuenta",
+      "referido_por",
+    ],
     owner: {
       name: "admin",
       type: "usuario",
@@ -138,7 +206,16 @@ const datasetsData: Dataset[] = [
     tags: ["stock", "productos", "almacen"],
     description:
       "Inventario actualizado de productos disponibles en almacén, con detalle de cantidades, ubicaciones y categorías. Permite optimizar la gestión de stock, prever faltantes y mejorar la logística interna.",
-    fields: ["producto", "cantidad", "ubicacion"],
+    fields: [
+      "producto",
+      "cantidad",
+      "ubicacion",
+      "categoria",
+      "proveedor",
+      "fecha_ingreso",
+      "costo_unitario",
+      "stock_minimo",
+    ],
     owner: {
       name: "Bodega Central",
       type: "empresa",
@@ -157,7 +234,16 @@ const datasetsData: Dataset[] = [
     tags: ["empleados", "rrhh", "personal"],
     description:
       "Información completa sobre los empleados activos de la empresa, incluyendo puesto, fecha de ingreso, historial laboral y datos de contacto. Esencial para recursos humanos y gestión de talento.",
-    fields: ["id", "nombre", "puesto", "fecha_ingreso"],
+    fields: [
+      "id",
+      "nombre",
+      "puesto",
+      "fecha_ingreso",
+      "departamento",
+      "salario",
+      "supervisor",
+      "antiguedad_anos",
+    ],
     owner: {
       name: "Recursos Humanos",
       type: "empresa",
@@ -175,7 +261,16 @@ const datasetsData: Dataset[] = [
     tags: ["ventas", "2023", "finanzas", "histórico"],
     description:
       "Histórico detallado de todas las ventas realizadas durante el año 2023, útil para comparar el desempeño anual, identificar patrones de consumo y realizar análisis retrospectivos de la actividad comercial.",
-    fields: ["fecha", "producto", "cantidad", "total"],
+    fields: [
+      "fecha",
+      "producto",
+      "cantidad",
+      "total",
+      "canal_venta",
+      "vendedor",
+      "cliente_id",
+      "descuento_aplicado",
+    ],
     owner: {
       name: "DataCorp",
       type: "empresa",
@@ -201,6 +296,10 @@ const datasetsData: Dataset[] = [
       "humedad",
       "precipitacion",
       "viento",
+      "presion_atmosferica",
+      "indice_uv",
+      "sensacion_termica",
+      "alerta_meteorologica",
     ],
     owner: {
       name: "MeteoData",
@@ -220,7 +319,16 @@ const datasetsData: Dataset[] = [
     tags: ["movilidad", "transporte", "urbano"],
     description:
       "Datos anonimizados de desplazamientos urbanos, incluyendo rutas, horarios y medios de transporte utilizados. Ideal para análisis de tráfico, planificación urbana y optimización de rutas.",
-    fields: ["fecha", "origen", "destino", "medio_transporte", "duracion"],
+    fields: [
+      "fecha",
+      "origen",
+      "destino",
+      "medio_transporte",
+      "duracion",
+      "distancia_km",
+      "hora_pico",
+      "motivo_viaje",
+    ],
     owner: {
       name: "UrbanFlow",
       type: "empresa",
@@ -239,7 +347,17 @@ const datasetsData: Dataset[] = [
     tags: ["energía", "consumo", "hogares"],
     description:
       "Consumo mensual de energía eléctrica en hogares de diferentes ciudades, con detalle por tipo de vivienda y tarifa aplicada. Útil para estudios de eficiencia energética y políticas públicas.",
-    fields: ["ciudad", "mes", "consumo_kwh", "tipo_vivienda", "tarifa"],
+    fields: [
+      "ciudad",
+      "mes",
+      "consumo_kwh",
+      "tipo_vivienda",
+      "tarifa",
+      "compania_suministro",
+      "potencia_contratada",
+      "consumo_anterior",
+      "variacion_mensual",
+    ],
     owner: {
       name: "EnerData",
       type: "empresa",
@@ -258,7 +376,16 @@ const datasetsData: Dataset[] = [
     tags: ["encuesta", "satisfacción", "clientes"],
     description:
       "Resultados de la encuesta anual de satisfacción de clientes, con respuestas a preguntas sobre calidad, atención y recomendación. Incluye segmentación por edad y región.",
-    fields: ["cliente_id", "edad", "region", "puntuacion", "comentario"],
+    fields: [
+      "cliente_id",
+      "edad",
+      "region",
+      "puntuacion",
+      "comentario",
+      "fecha_respuesta",
+      "producto_adquirido",
+      "canal_contacto",
+    ],
     owner: {
       name: "admin",
       type: "usuario",
@@ -274,7 +401,16 @@ const datasetsData: Dataset[] = [
     tags: ["combustibles", "precios", "histórico"],
     description:
       "Histórico mensual de precios de combustibles (gasolina, diésel, gas) en estaciones de servicio de todo el país. Permite análisis de tendencias y comparación regional.",
-    fields: ["mes", "anio", "tipo_combustible", "precio_promedio", "region"],
+    fields: [
+      "mes",
+      "anio",
+      "tipo_combustible",
+      "precio_promedio",
+      "region",
+      "estacion_servicio",
+      "variacion_mensual",
+      "impuesto_aplicado",
+    ],
     owner: {
       name: "DataCorp",
       type: "empresa",
