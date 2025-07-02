@@ -23,12 +23,6 @@
 .homepage-navbar .navbar-brand::first-letter {
   color: #174ea6;
 }
-.homepage-navbar .navbar-brand {
-  font-size: 1.45em;
-  font-weight: 700;
-  color: #222;
-  letter-spacing: 0.01em;
-}
 .homepage-searchbar {
   width: 300px;
 }
