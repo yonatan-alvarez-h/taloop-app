@@ -1,0 +1,73 @@
+.dataset-card {
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  background: #fff;
+  transition: box-shadow 0.2s, transform 0.2s;
+  min-height: 340px;
+  max-height: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.dataset-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+  transform: translateY(-2px) scale(1.01);
+}
+.dataset-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #222;
+}
+.dataset-price {
+  font-size: 1.02em;
+  font-weight: 500;
+  color: #1967d2;
+  background: #f6f9fe;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  padding: 0.18em 0.85em;
+  margin-left: 0.7em;
+  letter-spacing: 0.5px;
+  box-shadow: none;
+  display: inline-block;
+}
+.dataset-owner {
+  min-width: 160px;
+  background: #f7fafd;
+  border-radius: 8px;
+  padding: 0.5em 0.8em;
+  font-size: 0.95em;
+  box-shadow: 0 2px 8px rgba(13, 138, 188, 0.07);
+}
+.dataset-tags {
+  margin: 0.5em 0 0.7em 0;
+}
+.dataset-tag {
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 4px;
+  font-size: 0.85em;
+  margin-right: 0.4em;
+  padding: 0.2em 0.7em;
+}
+.dataset-fields {
+  font-size: 0.97em;
+  color: #444;
+  margin-top: 0.5em;
+}
+.dataset-description {
+  color: #666;
+  font-size: 0.98em;
+  margin-bottom: 0.5em;
+  max-height: 3.8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}

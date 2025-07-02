@@ -1,0 +1,196 @@
+import type { Dataset } from "../types/dataset";
+
+const datasetsData: Dataset[] = [
+  {
+    id: "1",
+    title: "Ventas 2024",
+    category: "Finanzas",
+    tags: ["ventas", "2024", "finanzas"],
+    description:
+      "Este dataset contiene el registro completo de todas las ventas realizadas durante el año 2024, incluyendo información detallada por producto, fecha, cantidad y monto total. Ideal para análisis de tendencias, proyecciones y reportes financieros avanzados.",
+    fields: ["fecha", "producto", "cantidad", "total"],
+    owner: {
+      name: "DataCorp",
+      type: "empresa",
+      logoUrl:
+        "https://ui-avatars.com/api/?name=DataCorp&background=0D8ABC&color=fff",
+      description: "Proveedor líder de datos financieros en LATAM.",
+      website: "https://datacorp.com",
+      email: "contacto@datacorp.com",
+    },
+    priceUsd: 49,
+  },
+  {
+    id: "2",
+    title: "Usuarios",
+    category: "Personas",
+    tags: ["usuarios", "registro", "personas"],
+    description:
+      "Base de datos con todos los usuarios registrados en la plataforma, con campos como nombre, correo electrónico y fecha de registro. Útil para segmentación, campañas de marketing y análisis de crecimiento de usuarios.",
+    fields: ["id", "nombre", "email", "fecha_registro"],
+    owner: {
+      name: "admin",
+      type: "usuario",
+      description: "Administrador interno de la plataforma.",
+      email: "admin@taloop.com",
+    },
+    priceUsd: 25,
+  },
+  {
+    id: "3",
+    title: "Inventario",
+    category: "Logística",
+    tags: ["stock", "productos", "almacen"],
+    description:
+      "Inventario actualizado de productos disponibles en almacén, con detalle de cantidades, ubicaciones y categorías. Permite optimizar la gestión de stock, prever faltantes y mejorar la logística interna.",
+    fields: ["producto", "cantidad", "ubicacion"],
+    owner: {
+      name: "Bodega Central",
+      type: "empresa",
+      logoUrl:
+        "https://ui-avatars.com/api/?name=Bodega+Central&background=FFB300&color=fff",
+      description: "Empresa de logística y almacenamiento.",
+      website: "https://bodegacentral.com",
+      email: "info@bodegacentral.com",
+    },
+    priceUsd: 30,
+  },
+  {
+    id: "4",
+    title: "Empleados",
+    category: "Recursos Humanos",
+    tags: ["empleados", "rrhh", "personal"],
+    description:
+      "Información completa sobre los empleados activos de la empresa, incluyendo puesto, fecha de ingreso, historial laboral y datos de contacto. Esencial para recursos humanos y gestión de talento.",
+    fields: ["id", "nombre", "puesto", "fecha_ingreso"],
+    owner: {
+      name: "Recursos Humanos",
+      type: "empresa",
+      logoUrl:
+        "https://ui-avatars.com/api/?name=Recursos+Humanos&background=43A047&color=fff",
+      description: "Departamento de RRHH de la empresa.",
+      email: "rrhh@taloop.com",
+    },
+    priceUsd: 40,
+  },
+  {
+    id: "5",
+    title: "Ventas 2023",
+    category: "Finanzas",
+    tags: ["ventas", "2023", "finanzas", "histórico"],
+    description:
+      "Histórico detallado de todas las ventas realizadas durante el año 2023, útil para comparar el desempeño anual, identificar patrones de consumo y realizar análisis retrospectivos de la actividad comercial.",
+    fields: ["fecha", "producto", "cantidad", "total"],
+    owner: {
+      name: "DataCorp",
+      type: "empresa",
+      logoUrl:
+        "https://ui-avatars.com/api/?name=DataCorp&background=0D8ABC&color=fff",
+      description: "Proveedor líder de datos financieros en LATAM.",
+      website: "https://datacorp.com",
+      email: "contacto@datacorp.com",
+    },
+    priceUsd: 35,
+  },
+  {
+    id: "6",
+    title: "Clima Histórico",
+    category: "Medio Ambiente",
+    tags: ["clima", "meteorología", "histórico"],
+    description:
+      "Registros diarios de temperatura, humedad, precipitaciones y viento de los últimos 10 años en distintas regiones del país. Útil para estudios ambientales, agricultura y predicción de tendencias climáticas.",
+    fields: [
+      "fecha",
+      "region",
+      "temperatura",
+      "humedad",
+      "precipitacion",
+      "viento",
+    ],
+    owner: {
+      name: "MeteoData",
+      type: "empresa",
+      logoUrl:
+        "https://ui-avatars.com/api/?name=MeteoData&background=1976D2&color=fff",
+      description: "Proveedor de datos meteorológicos y ambientales.",
+      website: "https://meteodata.com",
+      email: "info@meteodata.com",
+    },
+    priceUsd: 60,
+  },
+  {
+    id: "7",
+    title: "Movilidad Urbana",
+    category: "Transporte",
+    tags: ["movilidad", "transporte", "urbano"],
+    description:
+      "Datos anonimizados de desplazamientos urbanos, incluyendo rutas, horarios y medios de transporte utilizados. Ideal para análisis de tráfico, planificación urbana y optimización de rutas.",
+    fields: ["fecha", "origen", "destino", "medio_transporte", "duracion"],
+    owner: {
+      name: "UrbanFlow",
+      type: "empresa",
+      logoUrl:
+        "https://ui-avatars.com/api/?name=UrbanFlow&background=43A047&color=fff",
+      description: "Consultora en movilidad y transporte inteligente.",
+      website: "https://urbanflow.com",
+      email: "contacto@urbanflow.com",
+    },
+    priceUsd: 55,
+  },
+  {
+    id: "8",
+    title: "Consumo Energético Residencial",
+    category: "Energía",
+    tags: ["energía", "consumo", "hogares"],
+    description:
+      "Consumo mensual de energía eléctrica en hogares de diferentes ciudades, con detalle por tipo de vivienda y tarifa aplicada. Útil para estudios de eficiencia energética y políticas públicas.",
+    fields: ["ciudad", "mes", "consumo_kwh", "tipo_vivienda", "tarifa"],
+    owner: {
+      name: "EnerData",
+      type: "empresa",
+      logoUrl:
+        "https://ui-avatars.com/api/?name=EnerData&background=FF7043&color=fff",
+      description: "Especialistas en datos energéticos y sostenibilidad.",
+      website: "https://enerdata.com",
+      email: "info@enerdata.com",
+    },
+    priceUsd: 45,
+  },
+  {
+    id: "9",
+    title: "Encuesta de Satisfacción 2024",
+    category: "Clientes",
+    tags: ["encuesta", "satisfacción", "clientes"],
+    description:
+      "Resultados de la encuesta anual de satisfacción de clientes, con respuestas a preguntas sobre calidad, atención y recomendación. Incluye segmentación por edad y región.",
+    fields: ["cliente_id", "edad", "region", "puntuacion", "comentario"],
+    owner: {
+      name: "admin",
+      type: "usuario",
+      description: "Administrador interno de la plataforma.",
+      email: "admin@taloop.com",
+    },
+    priceUsd: 20,
+  },
+  {
+    id: "10",
+    title: "Precios de Combustibles",
+    category: "Energía",
+    tags: ["combustibles", "precios", "histórico"],
+    description:
+      "Histórico mensual de precios de combustibles (gasolina, diésel, gas) en estaciones de servicio de todo el país. Permite análisis de tendencias y comparación regional.",
+    fields: ["mes", "anio", "tipo_combustible", "precio_promedio", "region"],
+    owner: {
+      name: "DataCorp",
+      type: "empresa",
+      logoUrl:
+        "https://ui-avatars.com/api/?name=DataCorp&background=0D8ABC&color=fff",
+      description: "Proveedor líder de datos financieros en LATAM.",
+      website: "https://datacorp.com",
+      email: "contacto@datacorp.com",
+    },
+    priceUsd: 38,
+  },
+];
+
+export default datasetsData;
