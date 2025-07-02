@@ -81,36 +81,47 @@ const DatasetDetails: React.FC<DatasetDetailsProps> = ({ dataset }) => {
           </div>
         );
       })()}
-      <div
-        style={{
-          marginBottom: 18,
-          color: "#444",
-          fontSize: "1.08em",
-          lineHeight: 1.6,
-        }}
-      >
-        {dataset.description}
-      </div>
-      <div
-        style={{
-          marginBottom: 18,
-          display: "flex",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: 8,
-          justifyContent: "space-between",
-        }}
-      >
-        <DatasetTags tags={dataset.tags} />
-        <div style={{ marginLeft: 16 }}>
-          <DatasetOwner owner={dataset.owner} />
+
+      {/* Descripción + Tags */}
+      <div style={{
+        marginBottom: 18,
+        color: "#444",
+        fontSize: "1.08em",
+        lineHeight: 1.6,
+        borderBottom: "1.5px solid #e5e7eb",
+        paddingBottom: 12
+      }}>
+        <div>{dataset.description}</div>
+        <div style={{ marginTop: 10 }}>
+          <DatasetTags tags={dataset.tags} />
         </div>
       </div>
-      <div style={{ marginBottom: 18 }}>
+
+      {/* Owner */}
+      <div style={{
+        marginBottom: 18,
+        display: "flex",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: 8,
+        borderBottom: "1.5px solid #e5e7eb",
+        paddingBottom: 12
+      }}>
+        <DatasetOwner owner={dataset.owner} />
+      </div>
+
+      {/* Campos */}
+      <div style={{
+        marginBottom: 18,
+        borderBottom: "1.5px solid #e5e7eb",
+        paddingBottom: 12
+      }}>
         <span className="fw-bold">Campos:</span>{" "}
         <DatasetFields fields={dataset.fields} />
       </div>
-      <div style={{ marginBottom: 18 }}>
+
+      {/* Vista previa */}
+      <div style={{ marginBottom: 0 }}>
         <h6 className="fw-bold mb-2" style={{ color: "#2d3748" }}>
           Vista previa
         </h6>

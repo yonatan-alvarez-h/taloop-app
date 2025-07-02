@@ -6,17 +6,16 @@ interface DatasetPreviewProps {
   dataset: Dataset;
 }
 
-const mockPreviewData = [
-  { fecha: "2024-01-01", producto: "A", cantidad: 10, total: 100 },
-  { fecha: "2024-01-02", producto: "B", cantidad: 5, total: 50 },
-  { fecha: "2024-01-03", producto: "C", cantidad: 8, total: 80 },
-];
-
 const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
   const [show, setShow] = useState(false);
 
-  // Simulación: en un caso real, los datos vendrían de una API
-  const previewData = mockPreviewData;
+  // Usar los samples reales si existen, si no mostrar vacío
+  // Permitimos samples en datasets extendidos
+  const previewData: Record<string, unknown>[] =
+    typeof (dataset as any).samples !== "undefined" &&
+    Array.isArray((dataset as any).samples)
+      ? (dataset as any).samples.slice(0, 5)
+      : [];
 
   return (
     <div style={{ marginTop: "1em" }}>
@@ -57,26 +56,38 @@ const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
           <div>
             <strong>Datos de ejemplo:</strong>
             <div className="dataset-preview-table">
-              <table className="table table-sm table-bordered mt-2 mb-0">
-                <thead>
-                  <tr>
-                    {dataset.fields.map((field) => (
-                      <th key={field}>{field}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {previewData.map((row, i) => (
-                    <tr key={i}>
+              {previewData.length > 0 ? (
+                <table className="table table-sm table-bordered mt-2 mb-0">
+                  <thead>
+                    <tr>
                       {dataset.fields.map((field) => (
-                        <td key={field}>
-                          {(row as Record<string, any>)[field] ?? "-"}
-                        </td>
+                        <th key={field}>{field}</th>
                       ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {previewData.map(
+                      (row: Record<string, unknown>, i: number) => (
+                        <tr key={i}>
+                          {dataset.fields.map((field) => (
+                            <td key={field}>
+                              {row[field] !== undefined && row[field] !== null
+                                ? String(row[field])
+                                : "-"}
+                            </td>
+                          ))}
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </table>
+              ) : (
+                <div
+                  style={{ color: "#888", fontStyle: "italic", marginTop: 8 }}
+                >
+                  No hay datos de ejemplo disponibles para este dataset.
+                </div>
+              )}
             </div>
           </div>
         </div>
