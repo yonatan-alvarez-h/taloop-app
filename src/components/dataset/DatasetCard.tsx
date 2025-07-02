@@ -96,7 +96,7 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
         <span
           className="dataset-description"
           style={{
-            cursor: dataset.description.length > 100 ? "pointer" : undefined,
+            cursor: dataset.description.length > 150 ? "pointer" : undefined,
           }}
           onMouseEnter={(e) => {
             const tooltip = e.currentTarget.nextSibling as HTMLElement;
@@ -107,11 +107,11 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
             if (tooltip) Object.assign(tooltip.style, tooltipTextStyle);
           }}
         >
-          {dataset.description.length > 100
-            ? dataset.description.slice(0, 99) + "..."
+          {dataset.description.length > 150
+            ? dataset.description.slice(0, 149) + "..."
             : dataset.description}
         </span>
-        {dataset.description.length > 100 && (
+        {dataset.description.length > 150 && (
           <span style={tooltipTextStyle} className="dataset-tooltip-text">
             {dataset.description}
           </span>
