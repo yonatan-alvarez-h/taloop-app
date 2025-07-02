@@ -1,6 +1,7 @@
 /* Más ancho en vista detallada */
+/* Fondo blanco, sin degradado */
 .dataset-preview-card {
-  background: linear-gradient(120deg, #f8fafc 80%, #e3f2fd 100%);
+  background: #fff;
   border-radius: 14px;
   box-shadow: 0 2px 12px rgba(13, 138, 188, 0.08);
   padding: 1.2rem 2.2rem 1.2rem 2.2rem;
@@ -42,8 +43,9 @@
   border: 1px solid #b3e5fc;
 }
 /* Metadata section styling */
+/* Fondo blanco para metadata */
 .dataset-preview-meta {
-  background: #f5f7fa;
+  background: #fff;
   border-radius: 8px;
   border: 1px solid #e0e7ef;
   padding: 1em 1.2em 0.7em 1.2em;
