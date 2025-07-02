@@ -1,23 +1,114 @@
+/* Más ancho en vista detallada */
 .dataset-preview-card {
   background: linear-gradient(120deg, #f8fafc 80%, #e3f2fd 100%);
   border-radius: 14px;
   box-shadow: 0 2px 12px rgba(13, 138, 188, 0.08);
-  padding: 1.2rem 1.2rem 1rem 1.2rem;
+  padding: 1.2rem 2.2rem 1.2rem 2.2rem;
   margin-top: 1.2rem;
   border: 1px solid #e0e7ef;
   transition: box-shadow 0.2s;
+  max-width: 98vw;
+  width: 100%;
+  min-width: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
+/* Heredar estilos de chips en la vista previa */
 .dataset-preview-card strong {
   color: #1976d2;
 }
-.dataset-preview-meta {
-  font-size: 1em;
-  margin-bottom: 0.7em;
-  color: #333;
+.dataset-preview-card .dataset-tags-chip,
+.dataset-preview-card .dataset-fields-chip {
+  display: inline-block;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 12px;
+  font-size: 0.93em;
+  font-weight: 500;
+  padding: 2px 10px;
+  margin: 2px 4px 2px 0;
+  line-height: 1.6;
+  border: 1px solid #b3d6fc;
+  box-shadow: 0 1px 2px rgba(13, 138, 188, 0.04);
+  vertical-align: middle;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+.dataset-preview-card .dataset-fields-chip {
+  background: #f0f7fa;
+  color: #1976d2;
+  border: 1px solid #b3e5fc;
+}
+/* Metadata section styling */
+.dataset-preview-meta {
+  background: #f5f7fa;
+  border-radius: 8px;
+  border: 1px solid #e0e7ef;
+  padding: 1em 1.2em 0.7em 1.2em;
+  margin-bottom: 1em;
+  color: #234;
+  font-size: 1em;
+  box-shadow: 0 1px 4px rgba(13, 138, 188, 0.04);
+}
+.dataset-preview-meta strong {
+  color: #1976d2;
+  font-size: 1.08em;
+  display: block;
+  margin-bottom: 0.5em;
+}
+/* Metadata list */
 .dataset-preview-meta ul {
-  padding-left: 1.2em;
-  margin-bottom: 0.2em;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dataset-preview-meta li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+  margin-bottom: 0.3em;
+  font-size: 0.98em;
+  border-bottom: 1px dashed #e0e7ef;
+  padding-bottom: 0.2em;
+  flex-wrap: wrap;
+}
+.dataset-preview-meta li:last-child {
+  border-bottom: none;
+}
+.dataset-preview-meta b {
+  color: #1967d2;
+  min-width: 90px;
+  font-weight: 500;
+  font-size: 0.97em;
+  flex-shrink: 0;
+}
+
+/* Heredar estilos de tags y fields */
+.dataset-preview-meta .dataset-tags-chip,
+.dataset-preview-meta .dataset-fields-chip {
+  display: inline-block;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 12px;
+  font-size: 0.93em;
+  font-weight: 500;
+  padding: 2px 10px;
+  margin: 2px 4px 2px 0;
+  line-height: 1.6;
+  border: 1px solid #b3d6fc;
+  box-shadow: 0 1px 2px rgba(13, 138, 188, 0.04);
+  vertical-align: middle;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dataset-preview-meta .dataset-fields-chip {
+  background: #f0f7fa;
+  color: #57595b;
+  border: 1px solid #68696a;
 }
 .dataset-preview-table {
   background: #fff;

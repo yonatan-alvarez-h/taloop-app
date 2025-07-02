@@ -36,11 +36,21 @@ const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
               <li>
                 <b>Título:</b> {dataset.title}
               </li>
-              <li>
-                <b>Etiquetas:</b> {dataset.tags.join(", ")}
+              <li style={{alignItems: 'flex-start'}}>
+                <b>Etiquetas:</b>
+                <span>
+                  {dataset.tags.map((tag) => (
+                    <span className="dataset-tags-chip" key={tag}>{tag}</span>
+                  ))}
+                </span>
               </li>
-              <li>
-                <b>Campos:</b> {dataset.fields.join(", ")}
+              <li style={{alignItems: 'flex-start'}}>
+                <b>Campos:</b>
+                <span>
+                  {dataset.fields.map((field) => (
+                    <span className="dataset-fields-chip" key={field}>{field}</span>
+                  ))}
+                </span>
               </li>
               <li>
                 <b>Descripción:</b> {dataset.description}
