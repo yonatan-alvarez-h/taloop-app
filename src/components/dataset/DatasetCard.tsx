@@ -1,6 +1,8 @@
 import React from "react";
 import type { Dataset } from "../../types/dataset";
 import DatasetOwner from "./DatasetOwner";
+import DatasetFields from "./DatasetFields";
+import DatasetTags from "./DatasetTags";
 // import DatasetPreview from "./DatasetPreview";
 import "./DatasetCard.css";
 
@@ -136,22 +138,14 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
     <div
       style={{ display: "flex", alignItems: "center", marginBottom: 8, gap: 8 }}
     >
-      <div
-        className="dataset-tags"
-        style={{ flex: 1, display: "flex", flexWrap: "wrap", gap: 4 }}
-      >
-        {dataset.tags.map((tag) => (
-          <span key={tag} className="dataset-tag">
-            {tag}
-          </span>
-        ))}
-      </div>
+      <DatasetTags tags={dataset.tags} style={{ flex: 1, gap: 4 }} />
       <div className="dataset-owner ms-3" style={{ flexShrink: 0 }}>
         <DatasetOwner owner={dataset.owner} />
       </div>
     </div>
     <div className="dataset-fields">
-      <span className="fw-bold">Campos:</span> {dataset.fields.join(", ")}
+      <span className="fw-bold">Campos:</span>{" "}
+      <DatasetFields fields={dataset.fields} style={{ gap: 6, paddingTop: 2 }} />
     </div>
     <button
       className="btn btn-outline-primary btn-sm mt-2 w-100"

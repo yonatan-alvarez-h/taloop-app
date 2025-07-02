@@ -2,6 +2,8 @@ import React from "react";
 import type { Dataset } from "../../types/dataset";
 import DatasetOwner from "./DatasetOwner";
 import DatasetPreview from "./DatasetPreview";
+import DatasetFields from "./DatasetFields";
+import DatasetTags from "./DatasetTags";
 import "./DatasetCard.css";
 
 interface DatasetDetailsProps {
@@ -87,23 +89,14 @@ const DatasetDetails: React.FC<DatasetDetailsProps> = ({ dataset }) => {
           justifyContent: "space-between",
         }}
       >
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-          {dataset.tags.map((tag) => (
-            <span
-              key={tag}
-              className="dataset-tag"
-              style={{ fontSize: "0.98em" }}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+        <DatasetTags tags={dataset.tags} />
         <div style={{ marginLeft: 16 }}>
           <DatasetOwner owner={dataset.owner} />
         </div>
       </div>
       <div style={{ marginBottom: 18 }}>
-        <span className="fw-bold">Campos:</span> {dataset.fields.join(", ")}
+        <span className="fw-bold">Campos:</span>{" "}
+        <DatasetFields fields={dataset.fields} />
       </div>
       <div style={{ marginBottom: 18 }}>
         <h6 className="fw-bold mb-2" style={{ color: "#2d3748" }}>
