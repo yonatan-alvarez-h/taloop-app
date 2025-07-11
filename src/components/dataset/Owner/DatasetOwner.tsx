@@ -1,5 +1,5 @@
 import React from "react";
-import type { Dataset } from "../../types/dataset";
+import type { Dataset } from "../../../types/dataset";
 import "./DatasetOwner.css";
 
 interface DatasetOwnerProps {
