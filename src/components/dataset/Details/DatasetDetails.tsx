@@ -1,10 +1,11 @@
 import React from "react";
 import type { Dataset } from "../../../types/dataset";
+import categoryColors from "../../../data/categoryColors";
 import DatasetOwner from "../Owner/DatasetOwner";
-import DatasetPreview from "../DatasetPreview";
 import DatasetFields from "../Fields/DatasetFields";
 import DatasetTags from "../Tags/DatasetTags";
-import categoryColors from "../../../data/categoryColors";
+import DatasetPreview from "./Preview/DatasetPreview";
+
 import "./DatasetDetails.css";
 
 interface DatasetDetailsProps {
