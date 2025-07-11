@@ -39,7 +39,6 @@ const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
       </button>
       {show && (
         <div className="dataset-preview-card">
-          <DatasetMetadata dataset={dataset} />
           <div>
             <strong>Datos de ejemplo:</strong>
             <div className="dataset-preview-table">
