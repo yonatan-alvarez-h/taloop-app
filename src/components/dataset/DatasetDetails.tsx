@@ -2,7 +2,7 @@ import React from "react";
 import type { Dataset } from "../../types/dataset";
 import DatasetOwner from "./DatasetOwner";
 import DatasetPreview from "./DatasetPreview";
-import DatasetFields from "./DatasetFields";
+import DatasetFields from "./Details/Fields/DatasetFields";
 import DatasetTags from "./DatasetTags";
 import categoryColors from "../../data/categoryColors";
 import "./DatasetDetails.css";
