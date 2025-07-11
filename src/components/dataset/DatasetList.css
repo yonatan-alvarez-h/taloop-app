@@ -1,0 +1,26 @@
+/* Estilos para DatasetList: alineación y controles de paginación */
+.datasetlist-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.datasetlist-controls .page-size {
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+}
+.datasetlist-controls .total-results {
+  font-size: 0.98em;
+  min-width: 120px;
+  color: #6c757d;
+}
+.datasetlist-controls nav {
+  flex: 1;
+}
+.datasetlist-pagination {
+  justify-content: end;
+  margin-bottom: 0;
+}
