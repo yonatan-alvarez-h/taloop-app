@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import type { Dataset } from "../../../../types/dataset";
-import DatasetMetadata from "../Metadata/DatasetMetadata";
 import "./DatasetPreview.css";
 
 interface DatasetPreviewProps {
