@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 // import DatasetRouter from "../DatasetRouter";
-import DatasetDetailsPage from "../pages/DatasetDetailsPage";
-import HomePage from "../pages/HomePage";
+import DatasetDetailsPage from "../pages/DatasetDetails/DatasetDetailsPage";
+import HomePage from "../pages/Home/HomePage";
 import datasetsData from "../data/datasetsData";
 
 const AppRoutes: React.FC<{

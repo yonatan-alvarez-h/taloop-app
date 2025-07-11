@@ -1,8 +1,7 @@
 import React from "react";
-import BurgerMenu from "../components/menu/BurgerMenu";
-import SearchBar from "../components/search/SearchBar";
-import DatasetList from "../components/dataset/DatasetList";
-import type { Dataset } from "../types/dataset";
+import SearchBar from "../../components/search/SearchBar";
+import DatasetList from "../../components/dataset/DatasetList";
+import type { Dataset } from "../../types/dataset";
 import "./HomePage.css";
 
 interface HomePageProps {
