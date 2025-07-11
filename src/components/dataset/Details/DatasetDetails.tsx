@@ -1,9 +1,6 @@
 import React from "react";
 import type { Dataset } from "../../../types/dataset";
 import categoryColors from "../../../data/categoryColors";
-import DatasetOwner from "../Owner/DatasetOwner";
-import DatasetFields from "../Fields/DatasetFields";
-import DatasetTags from "../Tags/DatasetTags";
 import DatasetPreview from "./Preview/DatasetPreview";
 import DatasetMetadata from "./Metadata/DatasetMetadata";
 
@@ -39,14 +36,8 @@ const DatasetDetails: React.FC<DatasetDetailsProps> = ({ dataset }) => {
           );
         })()}
 
-      {/* Metadata separada */}
+      {/* Metadata */}
       <DatasetMetadata dataset={dataset} />
-
-      {/* Campos */}
-      <div className="dataset-details-section">
-        <span className="fw-bold">Campos:</span>{" "}
-        <DatasetFields fields={dataset.fields} />
-      </div>
 
       {/* Vista previa */}
       <div
