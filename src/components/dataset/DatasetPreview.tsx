@@ -17,6 +17,17 @@ const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
       ? (dataset as any).samples.slice(0, 5)
       : [];
 
+  // Helper para determinar si un valor es numérico
+  const isNumeric = (value: unknown) => {
+    return (
+      typeof value === "number" ||
+      (!isNaN(Number(value)) &&
+        value !== null &&
+        value !== "" &&
+        typeof value !== "boolean")
+    );
+  };
+
   return (
     <div style={{ marginTop: "1em" }}>
       <button
@@ -36,19 +47,23 @@ const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
               <li>
                 <b>Título:</b> {dataset.title}
               </li>
-              <li style={{alignItems: 'flex-start'}}>
+              <li style={{ alignItems: "flex-start" }}>
                 <b>Etiquetas:</b>
                 <span>
                   {dataset.tags.map((tag) => (
-                    <span className="dataset-tags-chip" key={tag}>{tag}</span>
+                    <span className="dataset-tags-chip" key={tag}>
+                      {tag}
+                    </span>
                   ))}
                 </span>
               </li>
-              <li style={{alignItems: 'flex-start'}}>
+              <li style={{ alignItems: "flex-start" }}>
                 <b>Campos:</b>
                 <span>
                   {dataset.fields.map((field) => (
-                    <span className="dataset-fields-chip" key={field}>{field}</span>
+                    <span className="dataset-fields-chip" key={field}>
+                      {field}
+                    </span>
                   ))}
                 </span>
               </li>
@@ -79,13 +94,19 @@ const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
                     {previewData.map(
                       (row: Record<string, unknown>, i: number) => (
                         <tr key={i}>
-                          {dataset.fields.map((field) => (
-                            <td key={field}>
-                              {row[field] !== undefined && row[field] !== null
-                                ? String(row[field])
-                                : "-"}
-                            </td>
-                          ))}
+                          {dataset.fields.map((field) => {
+                            const value = row[field];
+                            const alignClass = isNumeric(value)
+                              ? "align-right"
+                              : "align-left";
+                            return (
+                              <td key={field} className={alignClass}>
+                                {value !== undefined && value !== null
+                                  ? String(value)
+                                  : "-"}
+                              </td>
+                            );
+                          })}
                         </tr>
                       )
                     )}
