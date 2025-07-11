@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import DatasetDetails from "./components/dataset/DatasetDetails";
+import DatasetDetails from "./components/dataset/Details/DatasetDetails";
 import type { Dataset } from "./types/dataset";
 import datasetsData from "./data/datasetsData";
 

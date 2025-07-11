@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import datasetsData from "../../data/datasetsData";
-import DatasetDetails from "../../components/dataset/DatasetDetails";
+import DatasetDetails from "../../components/dataset/Details/DatasetDetails";
 import "./DatasetDetailsPage.css";
 
 const DatasetDetailsPage: React.FC = () => {
