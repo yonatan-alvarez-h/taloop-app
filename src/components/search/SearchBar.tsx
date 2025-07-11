@@ -18,7 +18,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       <input
         className="search-bar-input"
         type="search"
-        placeholder="Buscar..."
+        placeholder="Explora datos, escribe tu búsqueda..."
         aria-label="Buscar"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
