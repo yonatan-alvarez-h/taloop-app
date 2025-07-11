@@ -1,5 +1,7 @@
 import React from "react";
 import type { Dataset } from "../../../../types/dataset";
+import DatasetOwner from "../../Owner/DatasetOwner";
+import DatasetFields from "../../Fields/DatasetFields";
 
 interface DatasetMetadataProps {
   dataset: Dataset;
@@ -15,6 +17,9 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => (
       <li>
         <b>Título:</b> {dataset.title}
       </li>
+      <li>
+        <b>Propietario:</b> <DatasetOwner owner={dataset.owner} />
+      </li>
       <li style={{ alignItems: "flex-start" }}>
         <b>Etiquetas:</b>
         <span>
@@ -26,23 +31,10 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => (
         </span>
       </li>
       <li style={{ alignItems: "flex-start" }}>
-        <b>Campos:</b>
-        <span>
-          {dataset.fields.map((field: string) => (
-            <span className="dataset-fields-chip" key={field}>
-              {field}
-            </span>
-          ))}
-        </span>
+        <b>Campos:</b> <DatasetFields fields={dataset.fields} />
       </li>
       <li>
         <b>Descripción:</b> {dataset.description}
-      </li>
-      <li>
-        <b>Propietario:</b> {dataset.owner.name}
-      </li>
-      <li>
-        <b>Precio:</b> {dataset.priceUsd} USD
       </li>
     </ul>
   </div>
