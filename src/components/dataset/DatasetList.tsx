@@ -53,10 +53,13 @@ const DatasetList: React.FC<DatasetListProps> = ({
             setPage(1);
           }}
         >
-          <option value={4}>4</option>
-          <option value={10}>10</option>
-          <option value={20}>20</option>
+          <option value={6}>6</option>
+          <option value={12}>12</option>
+          <option value={24}>24</option>
         </select>
+        <span className="ms-3 text-muted" style={{ fontSize: "0.98em" }}>
+          {filtered.length} resultados
+        </span>
       </div>
       <div className="d-flex justify-content-center mt-4">
         <nav>

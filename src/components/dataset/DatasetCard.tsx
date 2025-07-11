@@ -11,26 +11,35 @@ import "./DatasetCard.css";
 const tooltipStyle = {
   position: "relative" as const,
   display: "inline-block" as const,
+  overflow: "visible" as const,
 };
 
 const tooltipTextStyle = {
   visibility: "hidden" as const,
-  width: "260px",
-  backgroundColor: "#222",
-  color: "#fff",
+  minWidth: "320px",
+  maxWidth: "620px",
+  backgroundColor: "#f8fafc",
+  color: "#666",
   textAlign: "left" as const,
-  borderRadius: "8px",
-  padding: "10px 14px",
+  borderRadius: "10px",
+  padding: "14px 18px",
   position: "absolute" as const,
-  zIndex: 10,
-  bottom: "120%",
+  zIndex: 100,
   left: "50%",
+  top: "100%",
   transform: "translateX(-50%)",
-  boxShadow: "0 2px 12px rgba(0,0,0,0.18)",
-  fontSize: "0.98em",
+  boxShadow: "0 4px 18px rgba(13,138,188,0.13)",
+  fontSize: "0.82em",
   opacity: 0,
   transition: "opacity 0.2s",
   pointerEvents: "none" as const,
+  border: "1px solid #e0e7ef",
+  whiteSpace: "pre-line" as const,
+  overflowWrap: "break-word" as const,
+  wordBreak: "break-word" as const,
+  maxHeight: "220px",
+  overflowY: "auto" as const,
+  boxSizing: "border-box" as const,
 };
 
 const tooltipTextVisible = {
@@ -92,7 +101,10 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
     </div>
     {/* Descripción */}
     <div style={{ marginBottom: 8 }}>
-      <div style={tooltipStyle} className="dataset-description-tooltip-wrapper">
+      <div
+        style={{ ...tooltipStyle, maxWidth: "100%" }}
+        className="dataset-description-tooltip-wrapper"
+      >
         <span
           className="dataset-description"
           style={{
@@ -112,7 +124,19 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
             : dataset.description}
         </span>
         {dataset.description.length > 150 && (
-          <span style={tooltipTextStyle} className="dataset-tooltip-text">
+          <span
+            style={{
+              ...tooltipTextStyle,
+              fontSize: "0.82em",
+              color: "#666",
+              left: "50%",
+              transform: "translateX(-50%)",
+              maxWidth: "98vw",
+              width: "100%",
+              boxSizing: "border-box",
+            }}
+            className="dataset-tooltip-text"
+          >
             {dataset.description}
           </span>
         )}
