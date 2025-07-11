@@ -1,6 +1,6 @@
 import React from "react";
 import SearchBar from "../../components/search/SearchBar";
-import DatasetList from "../../components/dataset/DatasetList";
+import DatasetList from "../../components/dataset/List/DatasetList";
 import type { Dataset } from "../../types/dataset";
 import "./HomePage.css";
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import DatasetGrid from "./DatasetGrid";
-import type { Dataset } from "../../types/dataset";
+import DatasetGrid from "../DatasetGrid";
+import type { Dataset } from "../../../types/dataset";
 import "./DatasetList.css";
 
 interface DatasetListProps {
