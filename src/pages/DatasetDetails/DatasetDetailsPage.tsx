@@ -2,7 +2,6 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import datasetsData from "../../data/datasetsData";
 import DatasetDetails from "../../components/dataset/DatasetDetails";
-import BurgerMenu from "../../components/menu/BurgerMenu";
 import "./DatasetDetailsPage.css";
 
 const DatasetDetailsPage: React.FC = () => {
@@ -20,7 +19,6 @@ const DatasetDetailsPage: React.FC = () => {
     <div className="dataset-details-page">
       <nav className="homepage-navbar">
         <div style={{ display: "flex", alignItems: "center" }}>
-          <BurgerMenu />
           <span className="navbar-brand ms-2">taloop</span>
         </div>
       </nav>
