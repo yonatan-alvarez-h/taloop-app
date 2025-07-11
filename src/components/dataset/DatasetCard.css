@@ -16,8 +16,8 @@
   border-radius: 14px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
   border: none;
-  margin-bottom: 1.5rem;
-  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  margin-bottom: 0.3rem;
+  padding: 1rem 1rem 1rem 1rem;
   background: #fff;
   transition: box-shadow 0.2s, transform 0.2s;
   min-height: 340px;
