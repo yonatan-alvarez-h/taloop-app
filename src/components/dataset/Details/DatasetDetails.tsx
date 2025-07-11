@@ -5,6 +5,7 @@ import DatasetOwner from "../Owner/DatasetOwner";
 import DatasetFields from "../Fields/DatasetFields";
 import DatasetTags from "../Tags/DatasetTags";
 import DatasetPreview from "./Preview/DatasetPreview";
+import DatasetMetadata from "./Metadata/DatasetMetadata";
 
 import "./DatasetDetails.css";
 
@@ -38,26 +39,8 @@ const DatasetDetails: React.FC<DatasetDetailsProps> = ({ dataset }) => {
           );
         })()}
 
-      {/* Descripción + Tags */}
-      <div className="dataset-details-section">
-        <div>{dataset.description}</div>
-        <div style={{ marginTop: 10 }}>
-          <DatasetTags tags={dataset.tags} />
-        </div>
-      </div>
-
-      {/* Owner */}
-      <div
-        className="dataset-details-section"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: 8,
-        }}
-      >
-        <DatasetOwner owner={dataset.owner} />
-      </div>
+      {/* Metadata separada */}
+      <DatasetMetadata dataset={dataset} />
 
       {/* Campos */}
       <div className="dataset-details-section">

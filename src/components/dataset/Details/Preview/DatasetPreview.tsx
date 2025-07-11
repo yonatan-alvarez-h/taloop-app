@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import type { Dataset } from "../../types/dataset";
+import type { Dataset } from "../../../../types/dataset";
+import DatasetMetadata from "../Metadata/DatasetMetadata";
 import "./DatasetPreview.css";
 
 interface DatasetPreviewProps {
@@ -38,46 +39,7 @@ const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
       </button>
       {show && (
         <div className="dataset-preview-card">
-          <div className="dataset-preview-meta">
-            <strong>Metadata:</strong>
-            <ul>
-              <li>
-                <b>ID:</b> {dataset.id}
-              </li>
-              <li>
-                <b>Título:</b> {dataset.title}
-              </li>
-              <li style={{ alignItems: "flex-start" }}>
-                <b>Etiquetas:</b>
-                <span>
-                  {dataset.tags.map((tag) => (
-                    <span className="dataset-tags-chip" key={tag}>
-                      {tag}
-                    </span>
-                  ))}
-                </span>
-              </li>
-              <li style={{ alignItems: "flex-start" }}>
-                <b>Campos:</b>
-                <span>
-                  {dataset.fields.map((field) => (
-                    <span className="dataset-fields-chip" key={field}>
-                      {field}
-                    </span>
-                  ))}
-                </span>
-              </li>
-              <li>
-                <b>Descripción:</b> {dataset.description}
-              </li>
-              <li>
-                <b>Propietario:</b> {dataset.owner.name}
-              </li>
-              <li>
-                <b>Precio:</b> {dataset.priceUsd} USD
-              </li>
-            </ul>
-          </div>
+          <DatasetMetadata dataset={dataset} />
           <div>
             <strong>Datos de ejemplo:</strong>
             <div className="dataset-preview-table">
