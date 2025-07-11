@@ -14,8 +14,7 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => (
   <div>
     <nav className="homepage-navbar">
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <BurgerMenu />
+      <div className="homepage-navbar-brand">
         <span className="navbar-brand ms-2">taloop</span>
       </div>
       <div className="homepage-searchbar">
