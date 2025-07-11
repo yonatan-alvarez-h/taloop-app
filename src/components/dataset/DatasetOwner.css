@@ -1,3 +1,10 @@
+.owner-description {
+  font-size: 1em;
+  color: rgb(80, 80, 81);
+  font-weight: 500;
+  margin-top: 2px;
+  display: block;
+}
 .dataset-owner {
   display: flex;
   align-items: center;

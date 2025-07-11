@@ -31,9 +31,7 @@ const DatasetOwner: React.FC<DatasetOwnerProps> = ({ owner }) => (
       </span>
       {/* No mostrar website ni email en la Card ni detalles */}
       {owner.description && (
-        <div style={{ color: "#666", fontSize: "0.9em" }}>
-          {owner.description}
-        </div>
+        <div className="owner-description">{owner.description}</div>
       )}
     </div>
   </div>
