@@ -68,7 +68,7 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
         className="dataset-title"
         style={{
           fontWeight: 700,
-          fontSize: "1.13em",
+          fontSize: "1.05em",
           color: "#222",
           wordBreak: "break-word",
           lineHeight: 1.22,
@@ -164,7 +164,7 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
                 flex: "0 1 35%",
                 maxWidth: "35%",
                 minWidth: 0,
-                textAlign: "left",
+                textAlign: "center",
                 fontSize: "1em",
                 color: "#fff",
                 background: color,
@@ -201,29 +201,62 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
         <DatasetOwner owner={dataset.owner} />
       </div>
     </div>
-    <div
-      style={{
-        width: "100%",
-        marginBottom: 8,
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      <DatasetTags
-        tags={dataset.tags.slice(0, 4)}
-        style={{ gap: 4, flexWrap: "wrap", minWidth: 0, overflow: "hidden" }}
-      />
-      {dataset.tags.length > 4 && (
-        <span style={{ color: "#888", fontSize: "0.95em", marginLeft: 6 }}>
-          +{dataset.tags.length - 4} más
-        </span>
-      )}
+    <div style={{ width: "100%", marginBottom: 8 }}>
+      <span
+        style={{
+          fontWeight: 600,
+          fontSize: "0.9em",
+          color: "#222",
+          display: "block",
+          marginBottom: 2,
+        }}
+      >
+        Tags:
+      </span>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 4,
+          minWidth: 0,
+          overflow: "hidden",
+          alignItems: "center",
+        }}
+      >
+        <DatasetTags
+          tags={dataset.tags.slice(0, 4)}
+          style={{ gap: 4, flexWrap: "wrap", minWidth: 0, overflow: "hidden" }}
+        />
+        {dataset.tags.length > 4 && (
+          <span style={{ color: "#888", fontSize: "0.95em", marginLeft: 6 }}>
+            +{dataset.tags.length - 4} más
+          </span>
+        )}
+      </div>
     </div>
-    <div
-      style={{ display: "flex", alignItems: "center", marginBottom: 0, gap: 8 }}
-    >
-      <div className="dataset-fields" style={{ flex: 1 }}>
-        <span className="fw-bold">Campos:</span>{" "}
+    <div style={{ width: "100%", marginBottom: 0 }}>
+      <span
+        style={{
+          fontWeight: 600,
+          fontSize: "0.9em",
+          color: "#222",
+          display: "block",
+          marginBottom: 2,
+        }}
+      >
+        Campos:
+      </span>
+      <div
+        className="dataset-fields"
+        style={{
+          flex: 1,
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 5,
+          alignItems: "center",
+          minWidth: 0,
+        }}
+      >
         <DatasetFields
           fields={dataset.fields.slice(0, 5)}
           style={{ gap: 5, paddingTop: 2 }}
@@ -234,6 +267,17 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
           </span>
         )}
       </div>
+    </div>
+
+    {/* Botón Ver detalles abajo alineado a la derecha */}
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "flex-end",
+        marginTop: 12,
+      }}
+    >
       <button
         className="btn btn-outline-primary btn-sm"
         style={{
