@@ -234,40 +234,6 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
         )}
       </div>
     </div>
-    <div style={{ width: "100%", marginBottom: 0 }}>
-      <span
-        style={{
-          fontWeight: 600,
-          fontSize: "0.9em",
-          color: "#222",
-          display: "block",
-          marginBottom: 2,
-        }}
-      >
-        Campos:
-      </span>
-      <div
-        className="dataset-fields"
-        style={{
-          flex: 1,
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 5,
-          alignItems: "center",
-          minWidth: 0,
-        }}
-      >
-        <DatasetFields
-          fields={dataset.fields.slice(0, 5)}
-          style={{ gap: 5, paddingTop: 2 }}
-        />
-        {dataset.fields.length > 6 && (
-          <span style={{ color: "#888", fontSize: "0.95em", marginLeft: 6 }}>
-            +{dataset.fields.length - 5} más
-          </span>
-        )}
-      </div>
-    </div>
 
     {/* Botón Ver detalles abajo alineado a la derecha */}
     <div
