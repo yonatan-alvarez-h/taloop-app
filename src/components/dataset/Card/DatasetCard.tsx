@@ -211,7 +211,7 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
           marginBottom: 2,
         }}
       >
-        Tags:
+        Etiquetas:
       </span>
       <div
         style={{
