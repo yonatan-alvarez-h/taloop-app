@@ -11,20 +11,16 @@
   top: 0;
   z-index: 1100;
 }
-
 .navbar-brand {
   display: flex;
   align-items: center;
   flex: 1;
 }
-.navbar-brand .navbar-brand {
-  font-size: 1.5em;
+.navbar .navbar-brand {
+  font-size: 1.2em;
   font-weight: 700;
   color: #1976d2;
   letter-spacing: 0.01em;
   margin-left: 0.5em;
   text-shadow: 0 1px 0 #fff, 0 2px 8px #b3d6fc33;
-}
-.navbar-brand::first-letter {
-  color: #0d2751;
 }
