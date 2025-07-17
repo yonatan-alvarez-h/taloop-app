@@ -11,14 +11,10 @@
   top: 0;
   z-index: 1100;
 }
-.homepage-back-btn-container {
-  flex: 1;
+.homepage-navbar-brand {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  width: 100%;
-  max-width: 520px;
-  margin: 0 0 8px 0;
+  flex: 1;
 }
 .homepage-navbar .navbar-brand {
   font-size: 1.5em;
@@ -31,15 +27,16 @@
 .homepage-navbar .navbar-brand::first-letter {
   color: #174ea6;
 }
-.dataset-details-page {
-  max-width: 99vw;
-  margin: 0 auto;
-  padding: 2.2rem 0.5vw 2.5rem 0.5vw;
-  background: #f8fafc;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
 
+.homepage-back-btn-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 0 8px 0;
+}
 .dataset-details-back-btn {
   margin-bottom: 24px;
   background: #f3f4f6;
@@ -56,9 +53,22 @@
   background: #e5e7eb;
 }
 
+.dataset-details-page {
+  max-width: 99vw;
+  margin: 0 auto;
+  padding: 2.2rem 0.5vw 2.5rem 0.5vw;
+  background: #f8fafc;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
 .dataset-details-notfound {
   padding: 40px;
   text-align: center;
   color: #888;
   font-size: 1.15em;
+}
+.dataset-details-container {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }

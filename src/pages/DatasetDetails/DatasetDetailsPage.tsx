@@ -16,12 +16,11 @@ const DatasetDetailsPage: React.FC = () => {
   }
 
   return (
-    <div className="dataset-details-page">
+    <div>
       <nav className="homepage-navbar">
         <div className="homepage-navbar-brand">
           <span className="navbar-brand ms-2">taloop</span>
         </div>
-
         <div className="homepage-back-btn-container">
           <button
             onClick={() => navigate(-1)}
@@ -31,8 +30,11 @@ const DatasetDetailsPage: React.FC = () => {
           </button>
         </div>
       </nav>
-
-      <DatasetDetails dataset={dataset} />
+      <div className="dataset-details-container container">
+        <div style={{ flex: "0 0 auto" }}>
+          <DatasetDetails dataset={dataset} />
+        </div>
+      </div>
     </div>
   );
 };

@@ -16,15 +16,6 @@
   align-items: center;
   flex: 1;
 }
-.homepage-searchbar {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 100%;
-  max-width: 520px;
-  margin: 0 0 8px 0;
-}
 .homepage-navbar .navbar-brand {
   font-size: 1.5em;
   font-weight: 700;
@@ -36,13 +27,15 @@
 .homepage-navbar .navbar-brand::first-letter {
   color: #174ea6;
 }
+
 .homepage-searchbar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   width: 100%;
   max-width: 520px;
   margin: 0 0 8px 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
 }
 .homepage-container {
   margin-top: 1.5rem;
