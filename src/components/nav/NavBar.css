@@ -1,3 +1,17 @@
+.navbar {
+  background: #f8fafc;
+  padding: 0 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60px;
+  border-bottom: 1.5px solid #e0e7ef;
+  box-shadow: 0 2px 8px rgba(13, 138, 188, 0.03);
+  position: sticky;
+  top: 0;
+  z-index: 1100;
+}
+
 .navbar-brand {
   display: flex;
   align-items: center;

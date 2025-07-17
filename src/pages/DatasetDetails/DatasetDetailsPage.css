@@ -1,34 +1,23 @@
-.homepage-navbar {
+.dataset-details-page {
+  max-width: 99vw;
+  margin: 0 auto;
+  padding: 2.2rem 0.5vw 2.5rem 0.5vw;
   background: #f8fafc;
-  padding: 0 2.2rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.dataset-details-page-notfound {
+  padding: 40px;
+  text-align: center;
+  color: #888;
+  font-size: 1.15em;
+}
+.dataset-details-page-container {
+  margin-top: 1.5rem;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 60px;
-  border-bottom: 1.5px solid #e0e7ef;
-  box-shadow: 0 2px 8px rgba(13, 138, 188, 0.03);
-  position: sticky;
-  top: 0;
-  z-index: 1100;
+  flex-direction: column;
 }
-.homepage-navbar-brand {
-  display: flex;
-  align-items: center;
-  flex: 1;
-}
-.homepage-navbar .navbar-brand {
-  font-size: 1.5em;
-  font-weight: 700;
-  color: #1976d2;
-  letter-spacing: 0.01em;
-  margin-left: 0.5em;
-  text-shadow: 0 1px 0 #fff, 0 2px 8px #b3d6fc33;
-}
-.homepage-navbar .navbar-brand::first-letter {
-  color: #174ea6;
-}
-
-.homepage-back-btn-container {
+.dataset-details-page-back-btn-container {
   flex: 1;
   display: flex;
   align-items: center;
@@ -37,7 +26,7 @@
   max-width: 520px;
   margin: 0 0 8px 0;
 }
-.dataset-details-back-btn {
+.dataset-details-page-back-btn {
   margin-bottom: 24px;
   background: #f3f4f6;
   border: none;
@@ -49,26 +38,6 @@
   box-shadow: 0 1px 4px #0001;
   transition: background 0.15s;
 }
-.dataset-details-back-btn:hover {
+.dataset-details-page-back-btn:hover {
   background: #e5e7eb;
-}
-
-.dataset-details-page {
-  max-width: 99vw;
-  margin: 0 auto;
-  padding: 2.2rem 0.5vw 2.5rem 0.5vw;
-  background: #f8fafc;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
-.dataset-details-notfound {
-  padding: 40px;
-  text-align: center;
-  color: #888;
-  font-size: 1.15em;
-}
-.dataset-details-container {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
 }

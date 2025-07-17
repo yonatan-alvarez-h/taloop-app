@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import NavBar from "../../components/nav/NavBar";
 import datasetsData from "../../data/datasetsData";
 import DatasetDetails from "../../components/dataset/Details/DatasetDetails";
 import "./DatasetDetailsPage.css";
@@ -11,26 +12,39 @@ const DatasetDetailsPage: React.FC = () => {
 
   if (!dataset) {
     return (
-      <div className="dataset-details-notfound">Dataset no encontrado.</div>
+      <div>
+        <nav className="navbar">
+          <NavBar />
+          <div className="dataset-details-page-back-btn-container">
+            <button
+              onClick={() => navigate(-1)}
+              className="dataset-details-page-back-btn"
+            >
+              ← Volver
+            </button>
+          </div>
+        </nav>
+        <div className="dataset-details-page-notfound">
+          Dataset no encontrado.
+        </div>
+      </div>
     );
   }
 
   return (
     <div>
-      <nav className="homepage-navbar">
-        <div className="homepage-navbar-brand">
-          <span className="navbar-brand ms-2">taloop</span>
-        </div>
-        <div className="homepage-back-btn-container">
+      <nav className="navbar">
+        <NavBar />
+        <div className="dataset-details-page-back-btn-container">
           <button
             onClick={() => navigate(-1)}
-            className="dataset-details-back-btn"
+            className="dataset-details-page-back-btn"
           >
             ← Volver
           </button>
         </div>
       </nav>
-      <div className="dataset-details-container container">
+      <div className="dataset-details-page-container container">
         <div style={{ flex: "0 0 auto" }}>
           <DatasetDetails dataset={dataset} />
         </div>

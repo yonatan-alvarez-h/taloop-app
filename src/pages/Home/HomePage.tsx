@@ -14,7 +14,7 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => (
   <div>
-    <nav className="homepage-navbar">
+    <nav className="navbar">
       <NavBar />
       <div className="homepage-searchbar">
         <SearchBar onSearch={onSearch} />
