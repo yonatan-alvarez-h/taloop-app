@@ -37,6 +37,7 @@ const DatasetDetailsPage: React.FC = () => {
         <NavBar />
         <div className="dataset-details-page-back-btn-container">
           <button
+            type="submit"
             onClick={() => navigate(-1)}
             className="dataset-details-page-back-btn"
           >
