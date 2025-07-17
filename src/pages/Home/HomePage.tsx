@@ -1,6 +1,8 @@
 import React from "react";
+import NavBar from "../../components/nav/NavBar";
 import SearchBar from "../../components/search/SearchBar";
 import DatasetList from "../../components/dataset/List/DatasetList";
+
 import type { Dataset } from "../../types/dataset";
 import "./HomePage.css";
 
@@ -13,9 +15,7 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => (
   <div>
     <nav className="homepage-navbar">
-      <div className="homepage-navbar-brand">
-        <span className="navbar-brand ms-2">taloop</span>
-      </div>
+      <NavBar />
       <div className="homepage-searchbar">
         <SearchBar onSearch={onSearch} />
       </div>
