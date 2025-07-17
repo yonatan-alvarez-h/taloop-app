@@ -9,6 +9,9 @@ interface DatasetMetadataProps {
 
 const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => (
   <div className="dataset-preview-meta">
+    <li>
+      <strong>Descripción:</strong> {dataset.description}
+    </li>
     <strong>Metadata:</strong>
     <ul>
       <li>
@@ -32,9 +35,6 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => (
       </li>
       <li style={{ alignItems: "flex-start" }}>
         <b>Campos:</b> <DatasetFields fields={dataset.fields} />
-      </li>
-      <li>
-        <b>Descripción:</b> {dataset.description}
       </li>
     </ul>
   </div>
