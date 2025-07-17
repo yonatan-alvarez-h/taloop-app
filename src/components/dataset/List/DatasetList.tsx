@@ -15,7 +15,7 @@ const DatasetList: React.FC<DatasetListProps> = ({
   outerPagination,
 }) => {
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(6);
   const filtered = datasets.filter(
     (ds) =>
       ds.title.toLowerCase().includes(search.toLowerCase()) ||
