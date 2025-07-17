@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import NavBar from "../../components/nav/NavBar";
+import NavBar from "../../components/menu/nav/NavBar";
 import datasetsData from "../../data/datasetsData";
 import DatasetDetails from "../../components/dataset/Details/DatasetDetails";
 import "./DatasetDetailsPage.css";

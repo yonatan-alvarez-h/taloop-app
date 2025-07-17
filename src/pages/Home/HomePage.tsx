@@ -1,6 +1,6 @@
 import React from "react";
-import NavBar from "../../components/nav/NavBar";
-import SearchBar from "../../components/search/SearchBar";
+import NavBar from "../../components/menu/nav/NavBar";
+import SearchBar from "../../components/menu/search/SearchBar";
 import DatasetList from "../../components/dataset/List/DatasetList";
 
 import type { Dataset } from "../../types/dataset";
