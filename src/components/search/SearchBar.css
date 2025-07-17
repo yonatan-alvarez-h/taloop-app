@@ -36,6 +36,7 @@
   color: #1967d2;
   transition: background 0.2s, color 0.2s;
   cursor: pointer;
+  margin: 10px 10px 10px 10px;
 }
 .search-bar-btn:hover {
   background: #1967d2;
