@@ -1,5 +1,5 @@
 import React from "react";
-import DatasetRating from "./DatasetRating";
+import DatasetRating from "../Rating/DatasetRating";
 import type { Dataset } from "../../../types/dataset";
 import DatasetOwner from "../Owner/DatasetOwner";
 import DatasetTags from "../Tags/DatasetTags";
