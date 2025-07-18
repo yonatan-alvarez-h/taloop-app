@@ -14,4 +14,6 @@ export interface Dataset {
     email?: string;
   };
   priceUsd: number;
+  rating?: number;
+  ratingCount?: number;
 }
