@@ -18,3 +18,9 @@
   color: #888;
   margin-left: 0.4em;
 }
+.dataset-rating-count {
+  font-size: 0.8em;
+  color: #666;
+  margin-left: 0.35em;
+  font-style: italic;
+}

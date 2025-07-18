@@ -100,7 +100,10 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
     </div>
     {/* Calificación promedio */}
     {typeof dataset.rating === "number" && (
-      <DatasetRating rating={dataset.rating} />
+      <DatasetRating
+        rating={dataset.rating}
+        ratingCount={dataset.ratingCount}
+      />
     )}
     {/* Descripción */}
     <div style={{ marginBottom: 8 }}>
