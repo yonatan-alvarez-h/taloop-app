@@ -1,10 +1,9 @@
 import React from "react";
+import DatasetRating from "./DatasetRating";
 import type { Dataset } from "../../../types/dataset";
 import DatasetOwner from "../Owner/DatasetOwner";
-import DatasetFields from "../Fields/DatasetFields";
 import DatasetTags from "../Tags/DatasetTags";
 import categoryColors from "../../../data/categoryColors";
-// import DatasetPreview from "./DatasetPreview";
 import "./DatasetCard.css";
 
 // Tooltip CSS (puedes moverlo a DatasetCard.css si prefieres)
@@ -50,7 +49,7 @@ const tooltipTextVisible = {
 };
 
 interface DatasetCardProps {
-  dataset: Dataset & { category?: string };
+  dataset: Dataset & { category?: string; rating?: number };
 }
 
 const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
@@ -99,6 +98,10 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
         })}
       </span>
     </div>
+    {/* Calificación promedio */}
+    {typeof dataset.rating === "number" && (
+      <DatasetRating rating={dataset.rating} />
+    )}
     {/* Descripción */}
     <div style={{ marginBottom: 8 }}>
       <div
