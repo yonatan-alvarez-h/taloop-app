@@ -1,10 +1,7 @@
-.owner-description {
-  font-size: 1em;
-  color: rgb(80, 80, 81);
-  font-weight: 500;
-  margin-top: 2px;
-  display: block;
-}
+/* =================================================================
+   DATASET OWNER COMPONENT STYLES
+   ================================================================= */
+
 .dataset-owner {
   display: flex;
   align-items: center;
@@ -16,10 +13,37 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .dataset-owner-logo {
   width: 28px;
   height: 28px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 6px;
+}
+
+.dataset-owner__info {
+  line-height: 1.2;
+}
+
+.dataset-owner__name {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.dataset-owner__type {
+  font-size: 0.7em;
+  margin-left: 6px;
+  padding: 2px 8px;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 4px;
+}
+
+.dataset-owner__description {
+  font-size: 0.65em;
+  color: rgb(80, 80, 81);
+  font-weight: 500;
+  margin-top: 2px;
+  display: block;
 }

@@ -1,80 +1,101 @@
-.dataset-category {
-  font-size: 0.75em !important;
-  padding: 2px 10px !important;
-  border-radius: 16px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  text-transform: capitalize;
-  max-width: 35%;
-  min-width: 0;
-  text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+/* =================================================================
+   DATASET CARD COMPONENT STYLES
+   ================================================================= */
+
+/* CSS Variables for consistency */
+:root {
+  --card-radius: 14px;
+  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  --card-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.16);
+  --card-padding: 1rem;
+  --card-height: 340px;
+  --card-transition: box-shadow 0.2s, transform 0.2s;
+
+  --color-text-primary: #222;
+  --color-text-secondary: #666;
+  --color-text-muted: #888;
+  --color-price: #2d3748;
+  --color-white: #fff;
+
+  --font-size-small: 0.82em;
+  --font-size-normal: 0.9em;
+  --font-size-large: 1.05em;
+  --font-size-price: 1.08em;
+
+  --spacing-xs: 2px;
+  --spacing-sm: 4px;
+  --spacing-md: 8px;
+  --spacing-lg: 12px;
+  --spacing-xl: 18px;
 }
+
+/* Main card container */
 .dataset-card {
-  border-radius: 14px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
   border: none;
   margin-bottom: 0.3rem;
-  padding: 1rem 1rem 1rem 1rem;
-  background: #fff;
-  transition: box-shadow 0.2s, transform 0.2s;
-  min-height: 340px;
-  max-height: 340px;
+  padding: var(--card-padding);
+  background: var(--color-white);
+  transition: var(--card-transition);
+  min-height: var(--card-height);
+  max-height: var(--card-height);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+
 .dataset-card:hover {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+  box-shadow: var(--card-shadow-hover);
   transform: translateY(-2px) scale(1.01);
 }
-.dataset-title {
-  font-size: 1.25rem;
+
+/* Header section with title and price */
+.dataset-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+}
+
+.dataset-card__title {
   font-weight: 700;
-  color: #222;
+  font-size: var(--font-size-large);
+  color: var(--color-text-primary);
+  word-break: break-word;
+  line-height: 1.22;
+  flex: 1;
+  text-align: left;
+  margin-right: var(--spacing-md);
 }
-.dataset-price {
-  font-size: 1.02em;
-  font-weight: 500;
-  color: #1967d2;
-  background: #f6f9fe;
-  border: 1px solid #dadce0;
-  border-radius: 4px;
-  padding: 0.18em 0.85em;
-  margin-left: 0.7em;
-  letter-spacing: 0.5px;
+
+.dataset-card__price {
+  font-weight: 600;
+  font-size: var(--font-size-price);
+  white-space: nowrap;
+  color: var(--color-price);
+  margin-left: var(--spacing-md);
+  background: none;
+  border: none;
   box-shadow: none;
+  padding: 0;
+}
+
+/* Description section */
+.dataset-card__description {
+  margin-bottom: var(--spacing-md);
+}
+
+.dataset-card__description-wrapper {
+  position: relative;
   display: inline-block;
+  overflow: visible;
+  max-width: 100%;
 }
-.dataset-owner {
-  min-width: 160px;
-  background: #f7fafd;
-  border-radius: 8px;
-  padding: 0.5em 0.8em;
-  font-size: 0.78em;
-  box-shadow: 0 2px 8px rgba(13, 138, 188, 0.07);
-}
-.dataset-tags {
-  margin: 0.5em 0 0.7em 0;
-}
-.dataset-tag {
-  background: #e3f2fd;
-  color: #1976d2;
-  border-radius: 4px;
-  font-size: 0.85em;
-  margin-right: 0.4em;
-  padding: 0.2em 0.7em;
-}
-.dataset-fields {
-  font-size: 0.97em;
-  color: #444;
-  margin-top: 0.5em;
-}
-.dataset-description {
-  color: #666;
-  font-size: 0.82em;
+
+.dataset-card__description-text {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-small);
   margin-bottom: 0.5em;
   max-height: 3.8em;
   overflow: hidden;
@@ -84,4 +105,132 @@
   line-clamp: 3;
   -webkit-box-orient: vertical;
   white-space: normal;
+}
+
+.dataset-card__description-text--clickable {
+  cursor: pointer;
+}
+
+/* Tooltip styles */
+.dataset-card__tooltip {
+  visibility: hidden;
+  min-width: 320px;
+  max-width: 620px;
+  background-color: #f8fafc;
+  color: var(--color-text-secondary);
+  text-align: left;
+  border-radius: 10px;
+  padding: 14px var(--spacing-xl);
+  position: absolute;
+  z-index: 100;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  box-shadow: 0 4px var(--spacing-xl) rgba(13, 138, 188, 0.13);
+  font-size: var(--font-size-small);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  border: 1px solid #e0e7ef;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-height: 220px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.dataset-card__tooltip--visible {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dataset-card__tooltip--responsive {
+  max-width: 98vw;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Category and owner section */
+.dataset-card__meta {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+  gap: var(--spacing-md);
+  min-width: 0;
+}
+
+.dataset-card__category {
+  flex: 0 1 35%;
+  max-width: 35%;
+  min-width: 0;
+  text-align: center;
+  font-size: 1em;
+  color: var(--color-white);
+  padding: var(--spacing-xs) 14px;
+  border-radius: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: capitalize;
+  margin-bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dataset-card__owner-wrapper {
+  flex: 0 1 80%;
+  max-width: 80%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.04em;
+  font-weight: 500;
+}
+
+/* Tags section */
+.dataset-card__tags {
+  width: 100%;
+  margin-bottom: var(--spacing-md);
+}
+
+.dataset-card__tags-label {
+  font-weight: 600;
+  font-size: var(--font-size-normal);
+  color: var(--color-text-primary);
+  display: block;
+  margin-bottom: var(--spacing-xs);
+}
+
+.dataset-card__tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  min-width: 0;
+  overflow: hidden;
+  align-items: center;
+}
+
+.dataset-card__tags-more {
+  color: var(--color-text-muted);
+  font-size: 0.95em;
+  margin-left: 6px;
+}
+
+/* Action section */
+.dataset-card__actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-lg);
+}
+
+.dataset-card__btn {
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  border-radius: 6px;
+  min-width: 110px;
+  padding: var(--spacing-sm) var(--spacing-xl);
 }

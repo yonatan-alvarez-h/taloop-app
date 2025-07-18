@@ -15,23 +15,14 @@ const DatasetOwner: React.FC<DatasetOwnerProps> = ({ owner }) => (
         className="dataset-owner-logo"
       />
     )}
-    <div style={{ lineHeight: 1.2 }}>
-      <span style={{ fontWeight: 600, fontSize: "1em" }}>{owner.name}</span>
-      <span
-        style={{
-          fontSize: "0.8em",
-          marginLeft: 6,
-          padding: "2px 8px",
-          background: "#e3f2fd",
-          color: "#1976d2",
-          borderRadius: 4,
-        }}
-      >
+    <div className="dataset-owner__info">
+      <span className="dataset-owner__name">{owner.name}</span>
+      <span className="dataset-owner__type">
         {owner.type === "empresa" ? "Empresa" : "Usuario"}
       </span>
       {/* No mostrar website ni email en la Card ni detalles */}
       {owner.description && (
-        <div className="owner-description">{owner.description}</div>
+        <div className="dataset-owner__description">{owner.description}</div>
       )}
     </div>
   </div>
