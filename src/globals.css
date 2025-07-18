@@ -25,11 +25,12 @@ body {
 /* Clase para eliminar scroll global (solo en HomePage) */
 .no-global-scroll {
   overflow: hidden !important;
+  padding-top: 0 !important; /* Eliminar padding-top del body en HomePage */
 }
 
 .no-global-scroll #root {
-  height: calc(100vh - 60px) !important;
-  max-height: calc(100vh - 60px) !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
   overflow: hidden !important;
 }
 
@@ -61,8 +62,12 @@ nav.navbar {
     min-height: calc(100vh - 56px);
   }
 
+  .no-global-scroll {
+    padding-top: 0 !important; /* Eliminar padding en mobile también */
+  }
+
   .no-global-scroll #root {
-    height: calc(100vh - 56px) !important;
-    max-height: calc(100vh - 56px) !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
   }
 }
