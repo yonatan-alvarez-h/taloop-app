@@ -1,3 +1,6 @@
+// Tipo genérico para samples de datos
+export type DataSample = Record<string, string | number | boolean | null>;
+
 export interface Dataset {
   uid: string;
   title: string;
@@ -16,4 +19,9 @@ export interface Dataset {
   priceUsd: number;
   rating?: number;
   ratingCount?: number;
+}
+
+// Dataset extendido con samples para el mock de datos
+export interface DatasetWithSamples extends Dataset {
+  samples?: DataSample[];
 }

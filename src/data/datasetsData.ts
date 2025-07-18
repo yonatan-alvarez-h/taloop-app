@@ -1,11 +1,4 @@
-import type { Dataset } from "../types/dataset";
-
-interface DatasetWithSamples extends Dataset {
-  uid: string;
-  samples?: any[];
-  rating?: number;
-  ratingCount?: number;
-}
+import type { DatasetWithSamples } from "../types/dataset";
 
 const datasetsData: DatasetWithSamples[] = [
   {

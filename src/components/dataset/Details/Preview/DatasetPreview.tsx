@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import type { Dataset } from "../../../../types/dataset";
+import type {
+  Dataset,
+  DatasetWithSamples,
+  DataSample,
+} from "../../../../types/dataset";
 import "./DatasetPreview.css";
 
 interface DatasetPreviewProps {
@@ -11,10 +15,10 @@ const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
 
   // Usar los samples reales si existen, si no mostrar vacío
   // Permitimos samples en datasets extendidos
-  const previewData: Record<string, unknown>[] =
-    typeof (dataset as any).samples !== "undefined" &&
-    Array.isArray((dataset as any).samples)
-      ? (dataset as any).samples.slice(0, 5)
+  const datasetWithSamples = dataset as DatasetWithSamples;
+  const previewData: DataSample[] =
+    datasetWithSamples.samples && Array.isArray(datasetWithSamples.samples)
+      ? datasetWithSamples.samples.slice(0, 5)
       : [];
 
   // Helper para determinar si un valor es numérico
