@@ -11,6 +11,8 @@
   overflow-y: auto;
   min-height: 0;
   padding-top: 80px; /* Espacio para los controles fijos */
+  padding-left: 1.5rem; /* Añadir padding izquierdo para separar del borde */
+  padding-right: 1.5rem; /* Padding derecho para balance */
 }
 
 .datasetlist-controls {
@@ -219,5 +221,29 @@
 
   .no-global-scroll .dataset-list-no-results {
     margin-top: 76px; /* Compensar navbar más pequeño */
+  }
+}
+
+/* Responsive adjustments para DatasetList content */
+@media (max-width: 768px) {
+  .dataset-list__content {
+    padding-left: 1rem; /* Menos padding en tablet */
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dataset-list__content {
+    padding-left: 0.5rem; /* Mínimo padding en mobile */
+    padding-right: 0.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .dataset-list__content {
+    padding-left: 2rem; /* Más padding en pantallas grandes */
+    padding-right: 2rem;
+    max-width: 1400px; /* Limitar ancho máximo */
+    margin: 0 auto; /* Centrar contenido */
   }
 }

@@ -1,7 +1,7 @@
 .dataset-grid-wrapper {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 1rem; /* Añadir padding lateral al wrapper */
 }
 
 .dataset-grid {
@@ -10,11 +10,39 @@
   gap: 20px;
   width: 100%;
   margin: 0 auto;
+  padding: 1rem 0; /* Padding superior e inferior */
 }
 
 @media (max-width: 600px) {
   .dataset-grid {
     grid-template-columns: 1fr;
     gap: 14px;
+    padding: 0.5rem 0; /* Menos padding en mobile */
+  }
+
+  .dataset-grid-wrapper {
+    padding: 0 0.5rem; /* Menos padding lateral en mobile */
+  }
+}
+
+/* Responsive adjustments para diferentes tamaños */
+@media (max-width: 768px) {
+  .dataset-grid-wrapper {
+    padding: 0 0.8rem; /* Padding intermedio en tablet */
+  }
+
+  .dataset-grid {
+    gap: 16px; /* Gap intermedio en tablet */
+  }
+}
+
+@media (min-width: 1200px) {
+  .dataset-grid {
+    max-width: 1200px; /* Limitar ancho máximo en pantallas grandes */
+    gap: 24px; /* Más gap en pantallas grandes */
+  }
+
+  .dataset-grid-wrapper {
+    padding: 0 2rem; /* Más padding en pantallas grandes */
   }
 }
