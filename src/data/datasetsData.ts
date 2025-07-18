@@ -3,6 +3,7 @@ import type { Dataset } from "../types/dataset";
 interface DatasetWithSamples extends Dataset {
   samples?: any[];
   rating?: number;
+  ratingCount?: number;
 }
 
 const datasetsData: DatasetWithSamples[] = [
@@ -11,6 +12,7 @@ const datasetsData: DatasetWithSamples[] = [
     title: "Producción Agrícola 2024",
     category: "Agricultura",
     rating: 4.6,
+    ratingCount: 37,
     tags: [
       "agricultura",
       "producción",
@@ -53,6 +55,7 @@ const datasetsData: DatasetWithSamples[] = [
     title: "Salud Pública 2024",
     category: "Salud",
     rating: 4.8,
+    ratingCount: 42,
     tags: ["salud", "hospitales", "2024", "pacientes", "tratamientos"],
     description:
       "Datos de salud pública nacional, con información sobre hospitales, pacientes, tratamientos y recursos médicos.",
@@ -74,6 +77,7 @@ const datasetsData: DatasetWithSamples[] = [
     title: "Ranking de Universidades 2024",
     category: "Educacion",
     rating: 4.2,
+    ratingCount: 19,
     tags: [
       "universidades",
       "ranking",
@@ -116,6 +120,7 @@ const datasetsData: DatasetWithSamples[] = [
     title: "Consumo de Agua por Hogar",
     category: "MedioAmbiente",
     rating: 3.8,
+    ratingCount: 8,
     tags: [
       "agua",
       "consumo",
@@ -145,6 +150,7 @@ const datasetsData: DatasetWithSamples[] = [
     title: "Movilidad Urbana 2024",
     category: "Transporte",
     rating: 4.0,
+    ratingCount: 15,
     tags: ["movilidad", "transporte", "ciudades", "2024", "vehículos"],
     description:
       "Datos sobre movilidad urbana, transporte público, vehículos y rutas en ciudades principales.",
@@ -166,6 +172,7 @@ const datasetsData: DatasetWithSamples[] = [
     title: "Índice de Criminalidad 2024",
     category: "Seguridad",
     rating: 3.9,
+    ratingCount: 23,
     tags: [
       "criminalidad",
       "seguridad",
@@ -204,6 +211,8 @@ const datasetsData: DatasetWithSamples[] = [
     id: "1",
     title: "Ventas 2024",
     category: "Finanzas",
+    rating: 4.5,
+    ratingCount: 31,
     tags: [
       "ventas",
       "2024",
@@ -343,6 +352,8 @@ const datasetsData: DatasetWithSamples[] = [
     id: "2",
     title: "Usuarios",
     category: "Personas",
+    rating: 4.1,
+    ratingCount: 18,
     tags: [
       "usuarios",
       "registro",
@@ -479,6 +490,8 @@ const datasetsData: DatasetWithSamples[] = [
     id: "3",
     title: "Inventario",
     category: "Logística",
+    rating: 4.3,
+    ratingCount: 15,
     tags: [
       "stock",
       "productos",
@@ -618,6 +631,8 @@ const datasetsData: DatasetWithSamples[] = [
     id: "4",
     title: "Empleados",
     category: "Recursos Humanos",
+    rating: 4.0,
+    ratingCount: 12,
     tags: [
       "empleados",
       "rrhh",
@@ -756,6 +771,8 @@ const datasetsData: DatasetWithSamples[] = [
     id: "5",
     title: "Ventas 2023",
     category: "Finanzas",
+    rating: 4.4,
+    ratingCount: 27,
     tags: [
       "ventas",
       "2023",
@@ -895,6 +912,8 @@ const datasetsData: DatasetWithSamples[] = [
     id: "6",
     title: "Clima Histórico",
     category: "Medio Ambiente",
+    rating: 4.2,
+    ratingCount: 21,
     tags: [
       "clima",
       "meteorología",
@@ -1056,6 +1075,8 @@ const datasetsData: DatasetWithSamples[] = [
     id: "7",
     title: "Movilidad Urbana",
     category: "Transporte",
+    rating: 4.1,
+    ratingCount: 14,
     tags: [
       "movilidad",
       "transporte",
@@ -1195,6 +1216,8 @@ const datasetsData: DatasetWithSamples[] = [
     id: "8",
     title: "Consumo Energético Residencial",
     category: "Energía",
+    rating: 4.3,
+    ratingCount: 16,
     tags: [
       "energía",
       "consumo",
@@ -1345,6 +1368,8 @@ const datasetsData: DatasetWithSamples[] = [
     id: "9",
     title: "Encuesta de Satisfacción 2024",
     category: "Clientes",
+    rating: 4.0,
+    ratingCount: 10,
     tags: [
       "encuesta",
       "satisfacción",
@@ -1481,6 +1506,8 @@ const datasetsData: DatasetWithSamples[] = [
     id: "10",
     title: "Precios de Combustibles",
     category: "Energía",
+    rating: 4.2,
+    ratingCount: 13,
     tags: [
       "combustibles",
       "precios",
