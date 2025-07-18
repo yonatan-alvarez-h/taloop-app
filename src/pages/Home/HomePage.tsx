@@ -21,8 +21,9 @@ const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => (
       </div>
     </nav>
     <div className="homepage-container container">
-      <div style={{ flex: "0 0 auto" }}></div>
-      <DatasetList datasets={datasets} search={search} outerPagination />
+      <div className="homepage-content">
+        <DatasetList datasets={datasets} search={search} outerPagination />
+      </div>
     </div>
   </div>
 );

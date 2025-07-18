@@ -31,3 +31,6 @@
   background: #1967d2;
   color: #fff;
 }
+.dataset-details-page-content {
+  flex: 0 0 auto;
+}

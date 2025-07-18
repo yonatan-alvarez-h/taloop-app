@@ -45,6 +45,10 @@
 .dataset-details-section:last-child {
   border-bottom: none;
 }
+.dataset-details-section--last {
+  border-bottom: none;
+  margin-bottom: 0;
+}
 .dataset-details-section-title {
   color: #2d3748;
   font-weight: 600;

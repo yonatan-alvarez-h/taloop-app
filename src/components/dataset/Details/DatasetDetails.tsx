@@ -34,10 +34,7 @@ const DatasetDetails: React.FC<DatasetDetailsProps> = ({ dataset }) => {
       <DatasetMetadata dataset={dataset} />
 
       {/* Vista previa */}
-      <div
-        className="dataset-details-section"
-        style={{ borderBottom: "none", marginBottom: 0 }}
-      >
+      <div className="dataset-details-section dataset-details-section--last">
         <h6 className="dataset-details-section-title mb-2">Vista previa</h6>
         <DatasetPreview dataset={dataset} />
       </div>
