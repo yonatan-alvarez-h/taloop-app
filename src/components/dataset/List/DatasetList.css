@@ -3,21 +3,64 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .dataset-list__content {
   flex: 1;
   overflow-y: auto;
   min-height: 0;
+  padding-top: 80px; /* Espacio para los controles fijos */
 }
 
 .datasetlist-controls {
+  position: sticky;
+  top: 60px; /* Justo debajo del navbar */
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  padding: 1rem;
+  margin-bottom: 0;
+}
+
+.datasetlist-controls--outer {
+  position: sticky;
+  top: 60px; /* Debajo del navbar */
+}
+
+.datasetlist-controls--inner {
+  position: sticky;
+  top: 0; /* Al inicio del contenedor scrolleable */
+}
+
+/* Ajuste del contenido según tipo de controles */
+.dataset-list:has(.datasetlist-controls--outer) .dataset-list__content {
+  padding-top: 80px; /* Espacio para controles fijos outer */
+}
+
+.dataset-list:has(.datasetlist-controls--inner) .dataset-list__content {
+  padding-top: 0; /* No padding cuando los controles están dentro */
+}
+
+/* Fallback para navegadores que no soportan :has() */
+.dataset-list__content {
+  position: relative;
+}
+
+.datasetlist-controls--outer ~ .dataset-list__content {
+  padding-top: 80px;
+}
+
+.datasetlist-controls--inner + * {
+  margin-top: 1rem; /* Espacio después de los controles internos */
 }
 
 .datasetlist-controls .page-size {
@@ -30,6 +73,7 @@
   font-size: 0.98em;
   min-width: 120px;
   color: #6c757d;
+  font-weight: 500;
 }
 
 .datasetlist-controls nav {
@@ -39,4 +83,43 @@
 .datasetlist-pagination {
   justify-content: end;
   margin-bottom: 0;
+}
+
+/* Efectos hover para los controles fijos */
+.datasetlist-controls:hover {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .datasetlist-controls {
+    top: 56px; /* Altura menor del navbar en mobile */
+    padding: 0.75rem;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .datasetlist-controls .page-size {
+    min-width: auto;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .datasetlist-controls nav {
+    width: 100%;
+  }
+
+  .datasetlist-pagination {
+    justify-content: center;
+  }
+
+  /* Más espacio en mobile para controles apilados */
+  .dataset-list:has(.datasetlist-controls--outer) .dataset-list__content {
+    padding-top: 130px;
+  }
+
+  .datasetlist-controls--outer ~ .dataset-list__content {
+    padding-top: 130px;
+  }
 }
