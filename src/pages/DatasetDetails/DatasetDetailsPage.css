@@ -11,11 +11,16 @@
   flex-direction: column;
 }
 .dataset-details-page-back-btn-container {
-  flex: 1;
+  flex: 0 0 auto; /* No permitir que flex crezca o se encoja */
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin: 10px 10px 10px 10px;
+  margin: 0; /* Eliminar margen que puede causar problemas */
+  padding: 0 10px; /* Usar padding en su lugar */
+  z-index: 10000; /* Z-index mayor que el navbar */
+  position: relative; /* Asegurar que z-index funcione */
+  min-width: 0; /* Permitir que se encoja si es necesario */
+  max-width: 50%; /* Limitar ancho máximo para no invadir el navbar */
 }
 .dataset-details-page-back-btn {
   font-weight: 500;
@@ -38,4 +43,92 @@
 
 .dataset-details-page-notfound--with-navbar {
   padding-top: 40px; /* Solo padding adicional para el caso not found */
+}
+
+/* Asegurar que el navbar en DatasetDetailsPage tenga la estructura correcta */
+.dataset-details-page-container .navbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: 60px !important;
+  max-height: 60px !important;
+  overflow: hidden !important;
+  padding: 0 1rem !important; /* Padding consistente */
+}
+
+/* Asegurar que NavBar no ocupe todo el espacio */
+.dataset-details-page-container .navbar .navbar-brand {
+  flex: 0 1 auto !important; /* No permitir que crezca indefinidamente */
+  max-width: 50% !important; /* Limitar ancho máximo */
+  overflow: hidden !important;
+}
+
+/* Responsive adjustments para el botón volver */
+@media (max-width: 768px) {
+  .dataset-details-page-back-btn-container {
+    padding: 0 5px; /* Menos padding en tablet */
+    max-width: 45%; /* Reducir ancho máximo en tablet */
+  }
+
+  .dataset-details-page-back-btn {
+    min-width: 80px;
+    padding: 0.3em 0.8em;
+    font-size: 0.9em;
+  }
+
+  .dataset-details-page-container .navbar {
+    height: 56px !important;
+    max-height: 56px !important;
+    padding: 0 0.5rem !important; /* Menos padding en tablet */
+  }
+
+  .dataset-details-page-container .navbar .navbar-brand {
+    max-width: 55% !important; /* Más espacio para brand en tablet */
+  }
+}
+
+@media (max-width: 480px) {
+  .dataset-details-page-back-btn-container {
+    padding: 0 3px; /* Padding mínimo en mobile */
+    max-width: 40%; /* Ancho máximo reducido para mobile */
+  }
+
+  .dataset-details-page-back-btn {
+    min-width: 60px; /* Ancho mínimo reducido */
+    padding: 0.25em 0.5em; /* Padding reducido */
+    font-size: 0.8em; /* Texto más pequeño */
+  }
+
+  .dataset-details-page-container .navbar {
+    padding: 0 0.25rem !important; /* Padding mínimo en mobile */
+  }
+
+  .dataset-details-page-container .navbar .navbar-brand {
+    max-width: 60% !important; /* Equilibrio para mobile */
+    font-size: 1em !important; /* Texto más pequeño en mobile */
+  }
+}
+
+@media (max-width: 360px) {
+  /* Para pantallas muy angostas */
+  .dataset-details-page-back-btn-container {
+    padding: 0 2px;
+    max-width: 35%;
+  }
+
+  .dataset-details-page-back-btn {
+    min-width: 50px;
+    padding: 0.2em 0.4em;
+    font-size: 0.75em;
+    /* Usar solo icono en pantallas muy pequeñas */
+  }
+
+  .dataset-details-page-container .navbar {
+    padding: 0 0.125rem !important; /* Padding ultra mínimo */
+  }
+
+  .dataset-details-page-container .navbar .navbar-brand {
+    max-width: 65% !important; /* Más espacio para brand en pantallas muy pequeñas */
+    font-size: 0.9em !important;
+  }
 }
