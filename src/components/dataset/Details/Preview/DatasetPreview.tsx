@@ -29,7 +29,7 @@ const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
   };
 
   return (
-    <div style={{ marginTop: "1em" }}>
+    <div className="dataset-preview">
       <button
         className="dataset-preview-btn"
         onClick={() => setShow((v) => !v)}
@@ -73,9 +73,7 @@ const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
                   </tbody>
                 </table>
               ) : (
-                <div
-                  style={{ color: "#888", fontStyle: "italic", marginTop: 8 }}
-                >
+                <div className="dataset-preview-empty">
                   No hay datos de ejemplo disponibles para este dataset.
                 </div>
               )}

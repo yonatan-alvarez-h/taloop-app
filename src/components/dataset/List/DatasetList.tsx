@@ -96,9 +96,9 @@ const DatasetList: React.FC<DatasetListProps> = ({
   );
 
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+    <div className="dataset-list">
       {outerPagination && controls}
-      <div style={{ flex: 1, overflowY: "auto", minHeight: 0 }}>
+      <div className="dataset-list__content">
         {!outerPagination && controls}
         <DatasetGrid datasets={paginated} />
       </div>

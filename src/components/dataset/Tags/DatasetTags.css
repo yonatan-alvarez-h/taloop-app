@@ -1,3 +1,9 @@
+.dataset-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
 .dataset-tag {
   font-size: 0.75em;
   padding: 2px 7px;

@@ -46,7 +46,7 @@ const DatasetDetailsPage: React.FC = () => {
         </div>
       </nav>
       <div className="dataset-details-page-container container">
-        <div style={{ flex: "0 0 auto" }}>
+        <div className="dataset-details-page-content">
           <DatasetDetails dataset={dataset} />
         </div>
       </div>

@@ -3,6 +3,7 @@ import type { Dataset } from "../../../../types/dataset";
 import DatasetOwner from "../../Owner/DatasetOwner";
 import DatasetFields from "../../Fields/DatasetFields";
 import categoryColors from "../../../../data/categoryColors";
+import "./DatasetMetadata.css";
 
 interface DatasetMetadataProps {
   dataset: Dataset;
@@ -38,7 +39,7 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => (
       <li>
         <b>Propietario:</b> <DatasetOwner owner={dataset.owner} />
       </li>
-      <li style={{ alignItems: "flex-start" }}>
+      <li className="align-start">
         <b>Etiquetas:</b>
         <span>
           {dataset.tags.map((tag: string) => (
@@ -48,7 +49,7 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => (
           ))}
         </span>
       </li>
-      <li style={{ alignItems: "flex-start" }}>
+      <li className="align-start">
         <b>Campos:</b> <DatasetFields fields={dataset.fields} />
       </li>
     </ul>

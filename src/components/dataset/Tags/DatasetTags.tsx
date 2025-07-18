@@ -12,10 +12,7 @@ const DatasetTags: React.FC<DatasetTagsProps> = ({
   className,
   style,
 }) => (
-  <div
-    className={className}
-    style={{ display: "flex", flexWrap: "wrap", gap: 6, ...style }}
-  >
+  <div className={`dataset-tags ${className || ""}`} style={style}>
     {tags.map((tag) => (
       <span key={tag} className="dataset-tag">
         {tag}
