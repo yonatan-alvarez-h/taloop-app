@@ -119,7 +119,7 @@ const datasetsData: DatasetWithSamples[] = [
     id: "13",
     title: "Consumo de Agua por Hogar",
     category: "MedioAmbiente",
-    rating: 3.8,
+    rating: 2.7,
     ratingCount: 8,
     tags: [
       "agua",
@@ -631,7 +631,7 @@ const datasetsData: DatasetWithSamples[] = [
     id: "4",
     title: "Empleados",
     category: "Recursos Humanos",
-    rating: 4.0,
+    rating: 3.2,
     ratingCount: 12,
     tags: [
       "empleados",
@@ -1075,7 +1075,7 @@ const datasetsData: DatasetWithSamples[] = [
     id: "7",
     title: "Movilidad Urbana",
     category: "Transporte",
-    rating: 4.1,
+    rating: 3.7,
     ratingCount: 14,
     tags: [
       "movilidad",
@@ -1368,7 +1368,7 @@ const datasetsData: DatasetWithSamples[] = [
     id: "9",
     title: "Encuesta de Satisfacción 2024",
     category: "Clientes",
-    rating: 4.0,
+    rating: 2.9,
     ratingCount: 10,
     tags: [
       "encuesta",
