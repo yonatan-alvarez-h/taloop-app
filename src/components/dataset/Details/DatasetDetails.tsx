@@ -1,6 +1,6 @@
 import React from "react";
 import type { Dataset } from "../../../types/dataset";
-import categoryColors from "../../../data/categoryColors";
+import DatasetRating from "../Rating/DatasetRating";
 import DatasetPreview from "./Preview/DatasetPreview";
 import DatasetMetadata from "./Metadata/DatasetMetadata";
 
@@ -22,19 +22,13 @@ const DatasetDetails: React.FC<DatasetDetailsProps> = ({ dataset }) => {
           })}
         </span>
       </div>
-      {dataset.category &&
-        (() => {
-          const color =
-            categoryColors[dataset.category.toLowerCase()] || "#6366f1";
-          return (
-            <div
-              className="dataset-details-category"
-              style={{ background: color, boxShadow: `0 1px 6px ${color}22` }}
-            >
-              {dataset.category}
-            </div>
-          );
-        })()}
+
+      {typeof dataset.rating === "number" && (
+        <DatasetRating
+          rating={dataset.rating}
+          ratingCount={dataset.ratingCount}
+        />
+      )}
 
       {/* Metadata */}
       <DatasetMetadata dataset={dataset} />
