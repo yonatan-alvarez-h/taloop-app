@@ -11,7 +11,7 @@
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 2px 12px rgba(13, 138, 188, 0.08);
-  padding: 1.2rem 2.2rem 1.2rem 2.2rem;
+  padding: 2rem 2.5rem 2rem 2.5rem; /* Padding simétrico mejorado */
   margin-top: 1.2rem;
   border: 1px solid #e0e7ef;
   transition: box-shadow 0.2s;
@@ -55,8 +55,8 @@
   background: #fff;
   border-radius: 8px;
   border: 1px solid #e0e7ef;
-  padding: 1em 1.2em 0.7em 1.2em;
-  margin-bottom: 1em;
+  padding: 1.5rem 2rem 1.25rem 2rem; /* Padding simétrico mejorado */
+  margin-bottom: 1.5rem; /* Más separación */
   color: #234;
   font-size: 1em;
   box-shadow: 0 1px 4px rgba(13, 138, 188, 0.04);
@@ -76,11 +76,11 @@
 .dataset-preview-meta li {
   display: flex;
   align-items: flex-start;
-  gap: 0.5em;
-  margin-bottom: 0.3em;
+  gap: 0.75em; /* Gap más generoso */
+  margin-bottom: 0.6em; /* Más espaciado vertical */
   font-size: 0.98em;
   border-bottom: 1px dashed #e0e7ef;
-  padding-bottom: 0.2em;
+  padding-bottom: 0.5em; /* Más padding inferior */
   flex-wrap: wrap;
 }
 .dataset-preview-meta li:last-child {
@@ -135,7 +135,7 @@
   text-transform: uppercase;
   border-bottom: 0px solid #b3d6fc;
   border-right: 0px solid #e0e3e8;
-  padding: 10px 22px;
+  padding: 12px 24px; /* Padding más generoso */
   text-align: center;
   white-space: nowrap;
   letter-spacing: 0.02em;
@@ -147,7 +147,7 @@
   font-size: 0.8em;
   color: #222;
   background: #fff;
-  padding: 10px 22px;
+  padding: 12px 24px; /* Padding más generoso */
   border-bottom: 1px solid #e0e3e8;
   border-right: 1px solid #e0e3e8;
   max-width: 320px;
@@ -233,10 +233,123 @@
 /* Container principal */
 .dataset-preview {
   margin-top: 1em;
+  padding: 1.5rem 2rem 1.5rem 2rem; /* Padding simétrico mejorado */
+  background: #fafbfc; /* Fondo sutil */
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
 }
 
 .dataset-preview-empty {
   color: #888;
   font-style: italic;
   margin-top: 8px;
+}
+
+/* =================================================================
+   RESPONSIVE DESIGN FOR DATASET PREVIEW
+   ================================================================= */
+
+/* Tablet adjustments */
+@media (max-width: 768px) {
+  .dataset-preview {
+    padding: 1.25rem 1.5rem 1.25rem 1.5rem; /* Menos padding en tablet */
+  }
+
+  .dataset-preview-card {
+    padding: 1.5rem 2rem 1.5rem 2rem; /* Menos padding en tablet */
+    margin-top: 1rem;
+  }
+
+  .dataset-preview-meta {
+    padding: 1.25rem 1.5rem 1rem 1.5rem; /* Menos padding en tablet */
+    margin-bottom: 1.25rem;
+  }
+
+  .dataset-preview-meta li {
+    gap: 0.5em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.375em;
+  }
+
+  .dataset-preview-table th,
+  .dataset-preview-table td {
+    padding: 10px 20px; /* Menos padding en tablet */
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .dataset-preview {
+    padding: 1rem 1.25rem 1rem 1.25rem; /* Padding reducido para mobile */
+    border-radius: 6px;
+  }
+
+  .dataset-preview-card {
+    padding: 1.25rem 1.5rem 1.25rem 1.5rem; /* Padding reducido para mobile */
+    margin-top: 0.75rem;
+    border-radius: 10px;
+  }
+
+  .dataset-preview-meta {
+    padding: 1rem 1.25rem 0.875rem 1.25rem; /* Padding reducido para mobile */
+    margin-bottom: 1rem;
+    border-radius: 6px;
+  }
+
+  .dataset-preview-meta li {
+    gap: 0.375em;
+    margin-bottom: 0.375em;
+    padding-bottom: 0.25em;
+    font-size: 0.9em;
+  }
+
+  .dataset-preview-meta b {
+    min-width: 70px;
+    font-size: 0.9em;
+  }
+
+  .dataset-preview-table th,
+  .dataset-preview-table td {
+    padding: 8px 16px; /* Padding reducido para mobile */
+    font-size: 0.75em;
+  }
+
+  .dataset-preview-table th {
+    font-size: 0.8em;
+  }
+
+  /* Reducir tamaño de chips en mobile */
+  .dataset-preview-card .dataset-tags-chip,
+  .dataset-preview-card .dataset-fields-chip,
+  .dataset-preview-meta .dataset-tags-chip,
+  .dataset-preview-meta .dataset-fields-chip {
+    font-size: 0.8em;
+    padding: 1px 8px;
+    margin: 1px 3px 1px 0;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+  .dataset-preview {
+    padding: 0.75rem 1rem 0.75rem 1rem; /* Padding mínimo */
+  }
+
+  .dataset-preview-card {
+    padding: 1rem 1.25rem 1rem 1.25rem; /* Padding mínimo */
+  }
+
+  .dataset-preview-meta {
+    padding: 0.875rem 1rem 0.75rem 1rem; /* Padding mínimo */
+  }
+
+  .dataset-preview-table th,
+  .dataset-preview-table td {
+    padding: 6px 12px; /* Padding mínimo */
+    font-size: 0.7em;
+  }
+
+  .dataset-preview-meta li {
+    font-size: 0.85em;
+  }
 }
