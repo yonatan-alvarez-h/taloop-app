@@ -4,7 +4,7 @@
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
-  padding: 32px;
+  padding: 2.5rem 3rem 2.5rem 3rem; /* Padding simétrico mejorado: top right bottom left */
 }
 .dataset-details-title-row {
   display: flex;
@@ -53,4 +53,67 @@
   color: #2d3748;
   font-weight: 600;
   margin-bottom: 8px;
+}
+
+/* =================================================================
+   RESPONSIVE DESIGN FOR DATASET DETAILS
+   ================================================================= */
+
+/* Tablet adjustments */
+@media (max-width: 768px) {
+  .dataset-details-container {
+    max-width: 100%;
+    margin: 0 1rem; /* Margen lateral en tablet */
+    padding: 2rem 2.5rem 2rem 2.5rem; /* Menos padding en tablet */
+  }
+
+  .dataset-details-title {
+    font-size: 1.3em; /* Título más pequeño en tablet */
+  }
+
+  .dataset-details-price {
+    font-size: 1.05em; /* Precio más pequeño en tablet */
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .dataset-details-container {
+    margin: 0 0.5rem; /* Menos margen en mobile */
+    padding: 1.5rem 2rem 1.5rem 2rem; /* Padding reducido para mobile */
+    border-radius: 8px; /* Border radius más pequeño */
+  }
+
+  .dataset-details-title-row {
+    flex-direction: column; /* Stack verticalmente en mobile */
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .dataset-details-title {
+    font-size: 1.2em; /* Título más pequeño en mobile */
+    margin-bottom: 0.5rem;
+  }
+
+  .dataset-details-price {
+    font-size: 1em; /* Precio más pequeño en mobile */
+    margin-left: 0; /* Sin margen izquierdo cuando está apilado */
+  }
+
+  .dataset-details-category {
+    font-size: 1em; /* Categoría más pequeña en mobile */
+    padding: 2px 12px; /* Menos padding */
+  }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+  .dataset-details-container {
+    margin: 0 0.25rem; /* Margen mínimo */
+    padding: 1rem 1.5rem 1rem 1.5rem; /* Padding mínimo */
+  }
+
+  .dataset-details-title {
+    font-size: 1.1em; /* Título aún más pequeño */
+  }
 }
