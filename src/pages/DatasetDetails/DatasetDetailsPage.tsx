@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import NavBar from "../../components/menu/nav/NavBar";
+import NavBar from "../../components/Menu/Nav/NavBar";
 import datasetsData from "../../data/datasetsData";
-import DatasetDetails from "../../components/dataset/Details/DatasetDetails";
+import DatasetDetails from "../../components/Dataset/Details/DatasetDetails";
 import "./DatasetDetailsPage.css";
 
 const DatasetDetailsPage: React.FC = () => {

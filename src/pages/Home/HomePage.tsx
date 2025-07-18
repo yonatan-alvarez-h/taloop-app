@@ -1,7 +1,7 @@
 import React from "react";
-import NavBar from "../../components/menu/nav/NavBar";
-import SearchBar from "../../components/menu/search/SearchBar";
-import DatasetList from "../../components/dataset/List/DatasetList";
+import NavBar from "../../components/Menu/Nav/NavBar";
+import SearchBar from "../../components/Menu/Search/SearchBar";
+import DatasetList from "../../components/Dataset/List/DatasetList";
 
 import type { Dataset } from "../../types/dataset";
 import "./HomePage.css";
