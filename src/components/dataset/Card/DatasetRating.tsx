@@ -1,4 +1,5 @@
 import React from "react";
+import "./DatasetRating.css";
 
 interface DatasetRatingProps {
   rating: number; // promedio entre 1 y 5
