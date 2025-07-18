@@ -8,6 +8,7 @@
   --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
   --card-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.16);
   --card-padding: 1rem;
+  --card-padding-left: 1.5rem; /* Padding izquierdo aumentado para mejor estética */
   --card-height: 340px;
   --card-transition: box-shadow 0.2s, transform 0.2s;
 
@@ -35,7 +36,8 @@
   box-shadow: var(--card-shadow);
   border: none;
   margin-bottom: 0.3rem;
-  padding: var(--card-padding);
+  padding: var(--card-padding) var(--card-padding) var(--card-padding)
+    var(--card-padding-left);
   background: var(--color-white);
   transition: var(--card-transition);
   min-height: var(--card-height);
@@ -233,4 +235,42 @@
   border-radius: 6px;
   min-width: 110px;
   padding: var(--spacing-sm) var(--spacing-xl);
+}
+
+/* =================================================================
+   RESPONSIVE DESIGN
+   ================================================================= */
+
+/* Tablet adjustments */
+@media (max-width: 768px) {
+  :root {
+    --card-padding-left: 1.2rem; /* Reducir padding izquierdo en tablet */
+  }
+
+  .dataset-card {
+    padding: var(--card-padding) var(--card-padding) var(--card-padding)
+      var(--card-padding-left);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  :root {
+    --card-padding: 0.8rem; /* Reducir padding general en mobile */
+    --card-padding-left: 1rem; /* Padding izquierdo más pequeño en mobile */
+  }
+
+  .dataset-card {
+    padding: var(--card-padding) var(--card-padding) var(--card-padding)
+      var(--card-padding-left);
+    margin-bottom: 0.5rem; /* Más separación entre cards en mobile */
+  }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+  :root {
+    --card-padding: 0.6rem;
+    --card-padding-left: 0.8rem; /* Padding mínimo en pantallas muy pequeñas */
+  }
 }
