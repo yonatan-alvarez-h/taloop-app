@@ -24,7 +24,7 @@ const DatasetDetailsPage: React.FC = () => {
             </button>
           </div>
         </nav>
-        <div className="dataset-details-page-notfound">
+        <div className="dataset-details-page-notfound dataset-details-page-notfound--with-navbar">
           Dataset no encontrado.
         </div>
       </div>

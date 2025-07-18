@@ -7,12 +7,22 @@
   max-width: 520px;
   margin: 0 0 8px 0;
 }
+
 .homepage-container {
-  margin-top: 1.5rem;
-  height: calc(100vh - 90px);
+  padding-top: 1.5rem; /* Solo padding, no margin porque body ya tiene padding-top */
+  height: calc(100vh - 120px); /* Ajustado para compensar navbar + padding */
   display: flex;
   flex-direction: column;
 }
+
 .homepage-content {
-  flex: 0 0 auto;
+  flex: 1; /* Cambiar a flex: 1 para que ocupe todo el espacio disponible */
+  overflow-y: auto; /* Permitir scroll en el contenido */
+}
+
+/* Responsive adjustments para mobile */
+@media (max-width: 768px) {
+  .homepage-container {
+    height: calc(100vh - 116px); /* Ajustado para navbar más pequeño */
+  }
 }

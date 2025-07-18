@@ -4,8 +4,9 @@
   color: #888;
   font-size: 1.15em;
 }
+
 .dataset-details-page-container {
-  margin-top: 1rem;
+  padding-top: 1rem; /* Solo padding, no margin porque body ya tiene padding-top */
   display: flex;
   flex-direction: column;
 }
@@ -33,4 +34,8 @@
 }
 .dataset-details-page-content {
   flex: 0 0 auto;
+}
+
+.dataset-details-page-notfound--with-navbar {
+  padding-top: 40px; /* Solo padding adicional para el caso not found */
 }

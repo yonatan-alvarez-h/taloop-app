@@ -1,0 +1,47 @@
+/* Reset y estilos globales para navbar fijo */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  position: relative;
+  padding-top: 60px; /* Espacio para el navbar fijo */
+}
+
+/* Asegurar que el contenido principal tenga scroll correcto */
+#root {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Forzar navbar fijo en toda la aplicación */
+nav.navbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+  width: 100% !important;
+}
+
+/* Override de Bootstrap navbar si existe */
+.navbar-fixed-top {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 56px; /* Altura menor en mobile */
+  }
+}
