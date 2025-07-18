@@ -48,6 +48,26 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => {
         />
       )}
 
+      {/* Tags */}
+      <div className="dataset-card__tags">
+        <div className="dataset-card__tags-container">
+          <DatasetTags
+            tags={dataset.tags.slice(0, 5)}
+            style={{
+              gap: 4,
+              flexWrap: "wrap",
+              minWidth: 0,
+              overflow: "hidden",
+            }}
+          />
+          {dataset.tags.length > 5 && (
+            <span className="dataset-card__tags-more">
+              +{dataset.tags.length - 5} más
+            </span>
+          )}
+        </div>
+      </div>
+
       {/* Description with Tooltip */}
       <div className="dataset-card__description">
         <div className="dataset-card__description-wrapper">
@@ -96,27 +116,6 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => {
         {/* Owner */}
         <div className="dataset-card__owner-wrapper ms-3">
           <DatasetOwner owner={dataset.owner} />
-        </div>
-      </div>
-
-      {/* Tags */}
-      <div className="dataset-card__tags">
-        <span className="dataset-card__tags-label">Etiquetas:</span>
-        <div className="dataset-card__tags-container">
-          <DatasetTags
-            tags={dataset.tags.slice(0, 4)}
-            style={{
-              gap: 4,
-              flexWrap: "wrap",
-              minWidth: 0,
-              overflow: "hidden",
-            }}
-          />
-          {dataset.tags.length > 4 && (
-            <span className="dataset-card__tags-more">
-              +{dataset.tags.length - 4} más
-            </span>
-          )}
         </div>
       </div>
 
