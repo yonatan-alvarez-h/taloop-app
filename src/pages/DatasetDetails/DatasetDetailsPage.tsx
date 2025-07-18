@@ -6,9 +6,9 @@ import DatasetDetails from "../../components/Dataset/Details/DatasetDetails";
 import "./DatasetDetailsPage.css";
 
 const DatasetDetailsPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { uid } = useParams<{ uid: string }>();
   const navigate = useNavigate();
-  const dataset = datasetsData.find((d) => d.id === id);
+  const dataset = datasetsData.find((d) => d.uid === uid);
 
   if (!dataset) {
     return (

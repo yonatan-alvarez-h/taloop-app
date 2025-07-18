@@ -1,6 +1,7 @@
 import type { Dataset } from "../types/dataset";
 
 interface DatasetWithSamples extends Dataset {
+  uid: string;
   samples?: any[];
   rating?: number;
   ratingCount?: number;
@@ -8,7 +9,7 @@ interface DatasetWithSamples extends Dataset {
 
 const datasetsData: DatasetWithSamples[] = [
   {
-    id: "e7a1b2c0-1f2a-4b3c-9d1e-11a2b3c4d5e6",
+    uid: "e7a1b2c0-1f2a-4b3c-9d1e-11a2b3c4d5e6",
     title: "Producción Agrícola 2024",
     category: "Agricultura",
     rating: 4.6,
@@ -160,7 +161,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "f2c3d4e5-6a7b-8c9d-0e1f-14b2c3d4e5f6",
+    uid: "f2c3d4e5-6a7b-8c9d-0e1f-14b2c3d4e5f6",
     title: "Salud Pública 2024",
     category: "Salud",
     rating: 4.8,
@@ -253,7 +254,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "a3b4c5d6-7e8f-9a0b-1c2d-12a3b4c5d6e7",
+    uid: "a3b4c5d6-7e8f-9a0b-1c2d-12a3b4c5d6e7",
     title: "Ranking de Universidades 2024",
     category: "Educacion",
     rating: 4.2,
@@ -296,7 +297,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "b4c5d6e7-8f9a-0b1c-2d3e-13b4c5d6e7f8",
+    uid: "b4c5d6e7-8f9a-0b1c-2d3e-13b4c5d6e7f8",
     title: "Consumo de Agua por Hogar",
     category: "MedioAmbiente",
     rating: 2.7,
@@ -397,7 +398,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "c5d6e7f8-9a0b-1c2d-3e4f-16c5d6e7f8a9",
+    uid: "c5d6e7f8-9a0b-1c2d-3e4f-16c5d6e7f8a9",
     title: "Movilidad Urbana 2024",
     category: "Transporte",
     rating: 4.0,
@@ -490,7 +491,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "d6e7f8a9-0b1c-2d3e-4f5a-15d6e7f8a9b0",
+    uid: "d6e7f8a9-0b1c-2d3e-4f5a-15d6e7f8a9b0",
     title: "Índice de Criminalidad 2024",
     category: "Seguridad",
     rating: 3.9,
@@ -631,7 +632,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "e8f9a0b1-2c3d-4e5f-6a7b-01e8f9a0b1c2",
+    uid: "e8f9a0b1-2c3d-4e5f-6a7b-01e8f9a0b1c2",
     title: "Ventas 2024",
     category: "Finanzas",
     rating: 4.5,
@@ -772,7 +773,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "f9a0b1c2-3d4e-5f6a-7b8c-02f9a0b1c2d3",
+    uid: "f9a0b1c2-3d4e-5f6a-7b8c-02f9a0b1c2d3",
     title: "Usuarios",
     category: "Personas",
     rating: 4.1,
@@ -910,7 +911,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "a0b1c2d3-4e5f-6a7b-8c9d-03a0b1c2d3e4",
+    uid: "a0b1c2d3-4e5f-6a7b-8c9d-03a0b1c2d3e4",
     title: "Inventario",
     category: "Logística",
     rating: 4.3,
@@ -1051,7 +1052,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "b1c2d3e4-5f6a-7b8c-9d0e-04b1c2d3e4f5",
+    uid: "b1c2d3e4-5f6a-7b8c-9d0e-04b1c2d3e4f5",
     title: "Empleados",
     category: "Recursos Humanos",
     rating: 3.2,
@@ -1191,7 +1192,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "c2d3e4f5-6a7b-8c9d-0e1f-05c2d3e4f5a6",
+    uid: "c2d3e4f5-6a7b-8c9d-0e1f-05c2d3e4f5a6",
     title: "Ventas 2023",
     category: "Finanzas",
     rating: 4.4,
@@ -1332,7 +1333,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "d3e4f5a6-7b8c-9d0e-1f2a-06d3e4f5a6b7",
+    uid: "d3e4f5a6-7b8c-9d0e-1f2a-06d3e4f5a6b7",
     title: "Clima Histórico",
     category: "Medio Ambiente",
     rating: 4.2,
@@ -1495,7 +1496,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "e4f5a6b7-8c9d-0e1f-2a3b-07e4f5a6b7c8",
+    uid: "e4f5a6b7-8c9d-0e1f-2a3b-07e4f5a6b7c8",
     title: "Movilidad Urbana",
     category: "Transporte",
     rating: 3.7,
@@ -1636,7 +1637,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "f5a6b7c8-9d0e-1f2a-3b4c-08f5a6b7c8d9",
+    uid: "f5a6b7c8-9d0e-1f2a-3b4c-08f5a6b7c8d9",
     title: "Consumo Energético Residencial",
     category: "Energía",
     rating: 4.3,
@@ -1788,7 +1789,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "a6b7c8d9-0e1f-2a3b-4c5d-09a6b7c8d9e0",
+    uid: "a6b7c8d9-0e1f-2a3b-4c5d-09a6b7c8d9e0",
     title: "Encuesta de Satisfacción 2024",
     category: "Clientes",
     rating: 2.9,
@@ -1926,7 +1927,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
   },
   {
-    id: "b7c8d9e0-1f2a-3b4c-5d6e-10b7c8d9e0f1",
+    uid: "b7c8d9e0-1f2a-3b4c-5d6e-10b7c8d9e0f1",
     title: "Precios de Combustibles",
     category: "Energía",
     rating: 4.2,

@@ -1,5 +1,5 @@
 export interface Dataset {
-  id: string;
+  uid: string;
   title: string;
   category?: string;
   tags: string[];

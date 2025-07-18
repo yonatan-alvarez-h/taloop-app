@@ -16,7 +16,7 @@ const AppRoutes: React.FC<{
         <HomePage datasets={datasetsData} search={search} onSearch={onSearch} />
       }
     />
-    <Route path="/datasets/:id" element={<DatasetDetailsPage />} />
+    <Route path="/datasets/:uid" element={<DatasetDetailsPage />} />
   </Routes>
 );
 

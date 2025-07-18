@@ -5,10 +5,10 @@ import type { Dataset } from "./types/dataset";
 import datasetsData from "./data/datasetsData";
 
 const DatasetRouter: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { uid } = useParams<{ uid: string }>();
 
   const navigate = useNavigate();
-  const dataset = datasetsData.find((d: Dataset) => d.id === id);
+  const dataset = datasetsData.find((d: Dataset) => d.uid === uid);
 
   if (!dataset) {
     return (

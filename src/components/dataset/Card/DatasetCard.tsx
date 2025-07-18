@@ -259,7 +259,7 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => (
           minWidth: 110,
           padding: "4px 18px",
         }}
-        onClick={() => window.open(`/datasets/${dataset.id}`, "_self")}
+        onClick={() => window.open(`/datasets/${dataset.uid}`, "_self")}
       >
         Ver detalles
       </button>

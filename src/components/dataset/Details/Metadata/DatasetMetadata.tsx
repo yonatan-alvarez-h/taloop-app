@@ -30,7 +30,7 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => (
     <strong>Metadata:</strong>
     <ul>
       <li>
-        <b>ID:</b> {dataset.id}
+        <b>UID:</b> {dataset.uid}
       </li>
       <li>
         <b>Título:</b> {dataset.title}
