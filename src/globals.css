@@ -5,20 +5,24 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
+  overflow: hidden; /* Eliminar scroll global en html */
 }
 
 body {
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  height: 100vh; /* Altura exacta del viewport */
   position: relative;
   padding-top: 60px; /* Espacio para el navbar fijo */
+  overflow: hidden; /* Eliminar scroll global en body */
 }
 
-/* Asegurar que el contenido principal tenga scroll correcto */
+/* Asegurar que el contenido principal ocupe toda la altura */
 #root {
-  min-height: 100vh;
+  height: calc(100vh - 60px); /* Altura exacta menos navbar */
   position: relative;
+  overflow: hidden; /* El scroll lo manejan los componentes internos */
 }
 
 /* Forzar navbar fijo en toda la aplicación */
@@ -43,5 +47,9 @@ nav.navbar {
 @media (max-width: 768px) {
   body {
     padding-top: 56px; /* Altura menor en mobile */
+  }
+
+  #root {
+    height: calc(100vh - 56px); /* Altura exacta menos navbar en mobile */
   }
 }

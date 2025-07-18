@@ -9,20 +9,34 @@
 }
 
 .homepage-container {
-  padding-top: 1.5rem; /* Solo padding, no margin porque body ya tiene padding-top */
-  height: calc(100vh - 120px); /* Ajustado para compensar navbar + padding */
+  padding-top: 0; /* Sin espacio - pegado al navbar */
+  height: calc(100vh - 60px); /* Altura exacta sin overflow */
+  max-height: calc(100vh - 60px); /* Máxima altura para evitar overflow */
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* Eliminar scroll global */
 }
 
 .homepage-content {
-  flex: 1; /* Cambiar a flex: 1 para que ocupe todo el espacio disponible */
-  overflow-y: auto; /* Permitir scroll en el contenido */
+  flex: 1; /* Ocupa todo el espacio disponible */
+  overflow: hidden; /* El scroll lo maneja DatasetList internamente */
+  min-height: 0; /* Permite que flex shrink funcione correctamente */
+}
+
+/* Estilos para la estructura principal de HomePage */
+.homepage-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Sin scroll global */
 }
 
 /* Responsive adjustments para mobile */
 @media (max-width: 768px) {
   .homepage-container {
-    height: calc(100vh - 116px); /* Ajustado para navbar más pequeño */
+    height: calc(100vh - 56px); /* Ajustado para navbar en mobile sin padding */
+    max-height: calc(
+      100vh - 56px
+    ); /* Máxima altura para evitar overflow en mobile */
   }
 }
