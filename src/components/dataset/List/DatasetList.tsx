@@ -30,7 +30,7 @@ const DatasetList: React.FC<DatasetListProps> = ({
   if (!search) return null;
   if (filtered.length === 0) {
     return (
-      <div className="alert alert-warning mt-3">
+      <div className="dataset-list-no-results alert alert-warning">
         No se encontraron datasets.
       </div>
     );

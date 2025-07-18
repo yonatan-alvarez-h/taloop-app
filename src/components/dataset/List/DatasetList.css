@@ -91,6 +91,23 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Mensaje de no resultados */
+.dataset-list-no-results {
+  margin-top: 120px; /* Espacio para navbar fijo + controles */
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
+  text-align: center;
+  font-size: 1.1em;
+  padding: 1.5rem;
+}
+
+/* En HomePage (sin scroll global) */
+.no-global-scroll .dataset-list-no-results {
+  margin-top: 80px; /* Menos espacio porque el contenedor ya tiene padding */
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .datasetlist-controls {
@@ -121,5 +138,16 @@
 
   .datasetlist-controls--outer ~ .dataset-list__content {
     padding-top: 130px;
+  }
+
+  /* Ajustar mensaje de no resultados en mobile */
+  .dataset-list-no-results {
+    margin-top: 100px; /* Menos espacio en mobile */
+    padding: 1rem;
+    font-size: 1em;
+  }
+
+  .no-global-scroll .dataset-list-no-results {
+    margin-top: 76px; /* Compensar navbar más pequeño */
   }
 }
