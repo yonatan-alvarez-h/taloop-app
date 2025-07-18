@@ -99,8 +99,68 @@
   margin-right: auto;
   max-width: 600px;
   text-align: center;
-  font-size: 1.1em;
-  padding: 1.5rem;
+  padding: 2rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+  border: 1px solid #e1e8ff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.no-results-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.no-results-title {
+  color: #2d3748;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.no-results-description {
+  color: #4a5568;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.no-results-suggestions {
+  text-align: left;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-top: 1rem;
+}
+
+.no-results-suggestions p {
+  color: #2d3748;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.suggestions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestions-list li {
+  color: #4a5568;
+  font-size: 0.95rem;
+  padding: 0.4rem 0;
+  padding-left: 1.25rem;
+  position: relative;
+  line-height: 1.4;
+}
+
+.suggestions-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #6366f1;
+  font-weight: bold;
 }
 
 /* En HomePage (sin scroll global) */
@@ -138,13 +198,23 @@
 
   .datasetlist-controls--outer ~ .dataset-list__content {
     padding-top: 130px;
-  }
-
-  /* Ajustar mensaje de no resultados en mobile */
+  } /* Ajustar mensaje de no resultados en mobile */
   .dataset-list-no-results {
     margin-top: 100px; /* Menos espacio en mobile */
-    padding: 1rem;
-    font-size: 1em;
+    padding: 1.5rem 1rem;
+    max-width: 90%;
+  }
+
+  .no-results-icon {
+    font-size: 2.5rem;
+  }
+
+  .no-results-title {
+    font-size: 1.3rem;
+  }
+
+  .no-results-description {
+    font-size: 1rem;
   }
 
   .no-global-scroll .dataset-list-no-results {

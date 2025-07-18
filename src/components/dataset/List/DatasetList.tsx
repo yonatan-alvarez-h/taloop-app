@@ -30,8 +30,23 @@ const DatasetList: React.FC<DatasetListProps> = ({
   if (!search) return null;
   if (filtered.length === 0) {
     return (
-      <div className="dataset-list-no-results alert alert-warning">
-        No se encontraron datasets.
+      <div className="dataset-list-no-results alert alert-info">
+        <div className="no-results-icon">🔍</div>
+        <h5 className="no-results-title">¡Ups! No encontramos datasets</h5>
+        <p className="no-results-description">
+          No hay datasets que coincidan con "<strong>{search}</strong>".
+        </p>
+        <div className="no-results-suggestions">
+          <p className="mb-2">
+            💡 <strong>Prueba con:</strong>
+          </p>
+          <ul className="suggestions-list">
+            <li>Términos más generales</li>
+            <li>Verificar la ortografía</li>
+            <li>Buscar por categoría o campo específico</li>
+            <li>Usar sinónimos o palabras relacionadas</li>
+          </ul>
+        </div>
       </div>
     );
   }
