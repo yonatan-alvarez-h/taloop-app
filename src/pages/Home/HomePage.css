@@ -4,6 +4,9 @@
   display: flex;
   flex-direction: column;
   overflow: hidden; /* Sin scroll global solo en HomePage */
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; /* Eliminar específicamente scroll horizontal */
 }
 
 .homepage-searchbar {
@@ -24,28 +27,49 @@
   display: flex;
   flex-direction: column;
   overflow: hidden; /* Eliminar scroll global */
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; /* Específicamente eliminar scroll horizontal */
 }
 
 .homepage-content {
   flex: 1; /* Ocupa todo el espacio disponible */
   overflow: hidden; /* El scroll lo maneja DatasetList internamente */
+  overflow-x: hidden; /* Eliminar scroll horizontal específicamente */
   min-height: 0; /* Permite que flex shrink funcione correctamente */
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Override específico para container en HomePage */
 .homepage-container.container {
   padding-top: 0 !important;
   margin-top: 0 !important;
+  padding-left: 15px !important; /* Reducir padding lateral de Bootstrap */
+  padding-right: 15px !important; /* Reducir padding lateral de Bootstrap */
+  max-width: 100% !important; /* Asegurar que no exceda el viewport */
 }
 
 /* En caso de que Bootstrap tenga otros margins/paddings */
 .homepage-wrapper .container {
   margin-top: 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 .homepage-wrapper .container::before,
 .homepage-wrapper .container::after {
   display: none; /* Eliminar posibles pseudo-elementos de Bootstrap */
+}
+
+/* Eliminar overflow horizontal en todos los elementos hijo */
+.homepage-wrapper *,
+.homepage-container *,
+.homepage-content * {
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Responsive adjustments para mobile */
@@ -57,5 +81,11 @@
       100vh - 56px
     ); /* Máxima altura para evitar overflow en mobile */
     margin-top: 0 !important; /* Eliminar margin en mobile también */
+    padding-left: 10px !important; /* Reducir padding en mobile */
+    padding-right: 10px !important; /* Reducir padding en mobile */
+  }
+
+  .homepage-wrapper {
+    overflow-x: hidden !important; /* Forzar eliminación de scroll horizontal en mobile */
   }
 }

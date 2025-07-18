@@ -6,6 +6,9 @@
 html {
   scroll-behavior: smooth;
   height: 100%;
+  overflow-x: hidden; /* Eliminar scroll horizontal global */
+  width: 100%;
+  max-width: 100%;
 }
 
 body {
@@ -14,24 +17,36 @@ body {
   min-height: 100vh;
   position: relative;
   padding-top: 60px; /* Espacio para el navbar fijo */
+  overflow-x: hidden; /* Eliminar scroll horizontal del body */
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Control condicional de scroll - por defecto permite scroll */
 #root {
   min-height: calc(100vh - 60px);
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; /* Eliminar scroll horizontal en root */
 }
 
 /* Clase para eliminar scroll global (solo en HomePage) */
 .no-global-scroll {
   overflow: hidden !important;
+  overflow-x: hidden !important; /* Específicamente eliminar scroll horizontal */
   padding-top: 0 !important; /* Eliminar padding-top del body en HomePage */
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 .no-global-scroll #root {
   height: 100vh !important;
   max-height: 100vh !important;
   overflow: hidden !important;
+  overflow-x: hidden !important; /* Eliminar scroll horizontal en root cuando no-global-scroll */
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 /* Forzar navbar fijo en toda la aplicación */
@@ -42,6 +57,8 @@ nav.navbar {
   right: 0 !important;
   z-index: 9999 !important;
   width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden; /* Eliminar scroll horizontal en navbar */
 }
 
 /* Override de Bootstrap navbar si existe */
@@ -51,23 +68,46 @@ nav.navbar {
   left: 0 !important;
   right: 0 !important;
   z-index: 9999 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Override de Bootstrap container para evitar overflow */
+.container {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
 }
 
 @media (max-width: 768px) {
   body {
     padding-top: 56px; /* Altura menor en mobile */
+    overflow-x: hidden !important; /* Forzar en mobile */
   }
 
   #root {
     min-height: calc(100vh - 56px);
+    overflow-x: hidden !important; /* Forzar en mobile */
   }
 
   .no-global-scroll {
     padding-top: 0 !important; /* Eliminar padding en mobile también */
+    overflow-x: hidden !important; /* Forzar en mobile */
   }
 
   .no-global-scroll #root {
     height: 100vh !important;
     max-height: 100vh !important;
+    overflow-x: hidden !important; /* Forzar en mobile */
+  }
+
+  /* Reducir padding en mobile para evitar overflow */
+  .container {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
   }
 }
