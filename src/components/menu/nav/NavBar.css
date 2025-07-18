@@ -10,6 +10,7 @@ nav.navbar,
   justify-content: space-between !important;
   min-height: 60px !important;
   height: 60px !important;
+  max-height: 60px !important; /* Fijar altura máxima */
   border-bottom: 1.5px solid #e0e7ef !important;
   box-shadow: 0 2px 12px rgba(13, 138, 188, 0.08) !important;
   position: fixed !important;
@@ -21,7 +22,7 @@ nav.navbar,
   z-index: 9999 !important;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
   margin-bottom: 0 !important;
-  overflow-x: hidden !important; /* Eliminar scroll horizontal en navbar */
+  overflow: hidden !important; /* Eliminar cualquier scroll en navbar */
   box-sizing: border-box !important;
 }
 
@@ -58,6 +59,7 @@ nav.navbar,
     padding: 0 1rem !important;
     min-height: 56px !important;
     height: 56px !important;
+    max-height: 56px !important; /* Fijar altura máxima en mobile */
   }
 
   .navbar-brand {
@@ -74,6 +76,7 @@ nav.navbar,
   nav.navbar,
   .navbar {
     padding: 0 0.5rem !important; /* Aún menos padding en pantallas muy pequeñas */
+    max-height: 56px !important; /* Mantener altura fija */
   }
 
   .navbar-brand {
