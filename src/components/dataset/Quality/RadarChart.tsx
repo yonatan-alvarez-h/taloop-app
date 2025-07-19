@@ -77,13 +77,14 @@ const RadarChart: React.FC<RadarChartProps> = ({ metrics }) => {
         data: metrics.map((metric) => metric.value),
         backgroundColor: colors.bg,
         borderColor: colors.border,
-        borderWidth: 2,
+        borderWidth: 2.5,
         pointBackgroundColor: colors.point,
         pointBorderColor: "#fff",
         pointBorderWidth: 2,
-        pointRadius: 6,
+        pointRadius: 5,
         pointHoverRadius: 8,
-        tension: 0.1,
+        tension: 0.15,
+        fill: true,
       },
     ],
   };
@@ -91,6 +92,15 @@ const RadarChart: React.FC<RadarChartProps> = ({ metrics }) => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    elements: {
+      line: {
+        borderWidth: 2.5,
+      },
+      point: {
+        radius: 5,
+        hoverRadius: 8,
+      },
+    },
     plugins: {
       legend: {
         display: false,
@@ -115,6 +125,9 @@ const RadarChart: React.FC<RadarChartProps> = ({ metrics }) => {
     },
     scales: {
       r: {
+        beginAtZero: true,
+        min: 0,
+        max: 100,
         angleLines: {
           display: true,
           color: "rgba(0, 0, 0, 0.1)",
@@ -123,6 +136,7 @@ const RadarChart: React.FC<RadarChartProps> = ({ metrics }) => {
         grid: {
           color: "rgba(0, 0, 0, 0.1)",
           lineWidth: 1,
+          circular: true,
         },
         pointLabels: {
           font: {
@@ -141,7 +155,13 @@ const RadarChart: React.FC<RadarChartProps> = ({ metrics }) => {
           font: {
             size: 10,
           },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          callback: function (value: any) {
+            return typeof value === "number" ? value + "%" : value;
+          },
         },
+        suggestedMin: 0,
+        suggestedMax: 100,
       },
     },
     interaction: {
