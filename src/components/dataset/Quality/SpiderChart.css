@@ -1,0 +1,170 @@
+.spider-chart-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #fafbfc;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.spider-chart-svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.spider-chart-axis {
+  stroke: #d1d5db;
+  stroke-width: 1;
+  stroke-dasharray: 2, 2;
+}
+
+.spider-chart-level {
+  fill: none;
+  stroke: #e5e7eb;
+  stroke-width: 1;
+}
+
+.spider-chart-level-label {
+  font-size: 10px;
+  fill: #6b7280;
+  font-weight: 500;
+}
+
+.spider-chart-area {
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.spider-chart-point {
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+.spider-chart-point:hover {
+  r: 6;
+  cursor: pointer;
+}
+
+.spider-chart-labels {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.spider-chart-label {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #374151;
+  text-align: center;
+  min-width: 60px;
+  pointer-events: all;
+  cursor: help;
+}
+
+.spider-chart-label-text {
+  margin-bottom: 0.125rem;
+  line-height: 1.1;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.spider-chart-label-value {
+  background: #1f2937;
+  color: white;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.spider-chart-label:hover {
+  z-index: 10;
+}
+
+.spider-chart-label:hover .spider-chart-label-text {
+  color: #1f2937;
+  font-weight: 700;
+}
+
+.spider-chart-label:hover .spider-chart-label-value {
+  background: #3b82f6;
+  transform: scale(1.1);
+  transition: all 0.2s ease;
+}
+
+/* =================================================================
+   RESPONSIVE DESIGN FOR SPIDER CHART
+   ================================================================= */
+
+/* Tablet adjustments */
+@media (max-width: 768px) {
+  .spider-chart-container {
+    margin: 1rem 0;
+    padding: 0.75rem;
+  }
+
+  .spider-chart-label {
+    font-size: 0.7rem;
+    min-width: 50px;
+  }
+
+  .spider-chart-label-text {
+    font-size: 0.65rem;
+  }
+
+  .spider-chart-label-value {
+    font-size: 0.575rem;
+    padding: 0.1rem 0.3rem;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .spider-chart-container {
+    margin: 0.75rem 0;
+    padding: 0.5rem;
+  }
+
+  .spider-chart-label {
+    font-size: 0.65rem;
+    min-width: 45px;
+  }
+
+  .spider-chart-label-text {
+    font-size: 0.6rem;
+  }
+
+  .spider-chart-label-value {
+    font-size: 0.55rem;
+    padding: 0.075rem 0.25rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+  .spider-chart-label {
+    font-size: 0.6rem;
+    min-width: 40px;
+  }
+
+  .spider-chart-label-text {
+    font-size: 0.55rem;
+  }
+
+  .spider-chart-label-value {
+    font-size: 0.5rem;
+    padding: 0.05rem 0.2rem;
+  }
+}
