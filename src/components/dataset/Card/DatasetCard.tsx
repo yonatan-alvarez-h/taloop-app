@@ -1,5 +1,6 @@
 import React from "react";
 import DatasetRating from "../Rating/DatasetRating";
+import DataQualityBadge from "../Quality/DataQualityBadge";
 import type { Dataset } from "../../../types/dataset";
 import DatasetOwner from "../Owner/DatasetOwner";
 import DatasetTags from "../Tags/DatasetTags";
@@ -46,6 +47,13 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => {
           rating={dataset.rating}
           ratingCount={dataset.ratingCount}
         />
+      )}
+
+      {/* Data Quality */}
+      {dataset.dataQuality && (
+        <div className="dataset-card__quality">
+          <DataQualityBadge score={dataset.dataQuality.overallScore} compact />
+        </div>
       )}
 
       {/* Tags */}

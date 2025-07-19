@@ -40,6 +40,32 @@ const datasetsData: DatasetWithSamples[] = [
       email: "info@agrodata.com",
     },
     priceUsd: 42,
+    dataQuality: {
+      overallScore: 8.7,
+      completeness: 96.5,
+      accuracy: 92.3,
+      consistency: 89.1,
+      validity: 94.2,
+      timeliness: 98.0,
+      uniqueness: 100.0,
+      totalRecords: 125000,
+      lastValidated: "2024-10-15T10:30:00Z",
+      validationMethod: "automated",
+      knownIssues: [
+        "Algunos registros de rendimiento por hectárea pueden tener variaciones estacionales no documentadas",
+        "Datos de fertilizantes orgánicos clasificados de forma inconsistente en regiones rurales",
+      ],
+      recommendedFor: [
+        "Análisis de productividad agrícola",
+        "Planificación de políticas alimentarias",
+        "Estudios de sostenibilidad",
+        "Forecasting de cosechas",
+      ],
+      notRecommendedFor: [
+        "Análisis de precios en tiempo real",
+        "Estudios de impacto climático detallado",
+      ],
+    },
     samples: [
       {
         region: "Andalucía",
@@ -250,6 +276,32 @@ const datasetsData: DatasetWithSamples[] = [
       email: "info@healthdata.com",
     },
     priceUsd: 55,
+    dataQuality: {
+      overallScore: 9.1,
+      completeness: 98.7,
+      accuracy: 95.2,
+      consistency: 91.8,
+      validity: 97.1,
+      timeliness: 94.5,
+      uniqueness: 99.3,
+      totalRecords: 45000,
+      lastValidated: "2024-11-01T14:20:00Z",
+      validationMethod: "hybrid",
+      knownIssues: [
+        "Algunos hospitales rurales reportan datos con retraso de 1-2 días",
+        "Clasificación de recursos médicos puede variar entre centros",
+      ],
+      recommendedFor: [
+        "Análisis de capacidad hospitalaria",
+        "Planificación de recursos sanitarios",
+        "Estudios epidemiológicos",
+        "Optimización de servicios de salud",
+      ],
+      notRecommendedFor: [
+        "Análisis de datos de pacientes individuales",
+        "Estudios de tiempo real de emergencias",
+      ],
+    },
     samples: [
       {
         hospital: "Hospital Central",
@@ -418,6 +470,32 @@ const datasetsData: DatasetWithSamples[] = [
       email: "contacto@edurank.com",
     },
     priceUsd: 33,
+    dataQuality: {
+      overallScore: 8.9,
+      completeness: 100.0,
+      accuracy: 88.4,
+      consistency: 92.7,
+      validity: 89.6,
+      timeliness: 85.2,
+      uniqueness: 100.0,
+      totalRecords: 247,
+      lastValidated: "2024-09-30T09:15:00Z",
+      validationMethod: "manual",
+      knownIssues: [
+        "Datos de empleabilidad pueden tener hasta 6 meses de retraso",
+        "Algunos criterios de ranking pueden variar entre áreas de estudio",
+      ],
+      recommendedFor: [
+        "Selección de universidad para estudiantes",
+        "Análisis comparativo de instituciones educativas",
+        "Estudios de calidad educativa",
+        "Planificación académica",
+      ],
+      notRecommendedFor: [
+        "Decisiones de inversión en tiempo real",
+        "Análisis de costos detallados por carrera",
+      ],
+    },
     samples: [
       {
         universidad: "Universidad Complutense de Madrid",
@@ -581,6 +659,34 @@ const datasetsData: DatasetWithSamples[] = [
       email: "info@waterstats.com",
     },
     priceUsd: 25,
+    dataQuality: {
+      overallScore: 6.2,
+      completeness: 78.3,
+      accuracy: 72.1,
+      consistency: 68.9,
+      validity: 81.5,
+      timeliness: 69.0,
+      uniqueness: 95.8,
+      totalRecords: 28000,
+      lastValidated: "2024-08-20T16:45:00Z",
+      validationMethod: "automated",
+      knownIssues: [
+        "Datos faltantes para hogares en zonas rurales remotas",
+        "Inconsistencias en las unidades de medición entre proveedores",
+        "Algunos registros de tarifa desactualizados (anteriores a enero 2024)",
+        "Lecturas estimadas en aproximadamente 15% de los hogares",
+      ],
+      recommendedFor: [
+        "Análisis de tendencias generales de consumo",
+        "Estudios de comparación entre ciudades principales",
+      ],
+      notRecommendedFor: [
+        "Análisis detallado por hogar individual",
+        "Estudios de facturación precisa",
+        "Investigación en zonas rurales específicas",
+        "Análisis de tiempo real",
+      ],
+    },
     samples: [
       {
         ciudad: "Madrid",
@@ -911,6 +1017,34 @@ const datasetsData: DatasetWithSamples[] = [
       email: "info@safestats.com",
     },
     priceUsd: 39,
+    dataQuality: {
+      overallScore: 5.8,
+      completeness: 73.2,
+      accuracy: 68.9,
+      consistency: 65.4,
+      validity: 79.1,
+      timeliness: 62.3,
+      uniqueness: 88.7,
+      totalRecords: 35600,
+      lastValidated: "2024-07-10T12:00:00Z",
+      validationMethod: "manual",
+      knownIssues: [
+        "Datos de algunas regiones con retraso de hasta 2 semanas",
+        "Inconsistencias en la clasificación de tipos de delito entre comisarías",
+        "Registros de hora de delito incompletos en aproximadamente 25% de los casos",
+        "Datos de edad promedio estimados en base a muestras parciales",
+      ],
+      recommendedFor: [
+        "Análisis de tendencias generales de criminalidad",
+        "Comparaciones entre regiones principales",
+      ],
+      notRecommendedFor: [
+        "Análisis de seguridad en tiempo real",
+        "Estudios detallados por zona específica",
+        "Planificación operativa policial",
+        "Análisis de horarios precisos de delitos",
+      ],
+    },
     samples: [
       {
         region: "Madrid",
@@ -1122,6 +1256,28 @@ const datasetsData: DatasetWithSamples[] = [
       email: "contacto@datacorp.com",
     },
     priceUsd: 49,
+    dataQuality: {
+      overallScore: 9.4,
+      completeness: 99.1,
+      accuracy: 97.8,
+      consistency: 94.2,
+      validity: 96.7,
+      timeliness: 99.5,
+      uniqueness: 99.9,
+      totalRecords: 186420,
+      lastValidated: "2024-11-15T08:30:00Z",
+      validationMethod: "automated",
+      knownIssues: [
+        "Algunos descuentos aplicados registrados como 0 cuando debería ser null",
+      ],
+      recommendedFor: [
+        "Análisis de tendencias de ventas",
+        "Segmentación de clientes",
+        "Forecasting de ingresos",
+        "Análisis de rendimiento de vendedores",
+        "Optimización de canales de venta",
+      ],
+    },
     samples: [
       {
         fecha: "2024-01-10",
@@ -1561,6 +1717,28 @@ const datasetsData: DatasetWithSamples[] = [
       email: "info@bodegacentral.com",
     },
     priceUsd: 30,
+    dataQuality: {
+      overallScore: 8.5,
+      completeness: 97.8,
+      accuracy: 91.2,
+      consistency: 89.6,
+      validity: 93.4,
+      timeliness: 87.1,
+      uniqueness: 99.7,
+      totalRecords: 12400,
+      lastValidated: "2024-11-10T11:45:00Z",
+      validationMethod: "hybrid",
+      knownIssues: [
+        "Algunos costos unitarios pueden no reflejar fluctuaciones recientes del mercado",
+      ],
+      recommendedFor: [
+        "Gestión de inventario",
+        "Optimización de almacenes",
+        "Análisis de costos",
+        "Planificación de reposición",
+        "Estudios de logística",
+      ],
+    },
     samples: [
       {
         producto: "Silla",
@@ -2762,6 +2940,33 @@ const datasetsData: DatasetWithSamples[] = [
       email: "admin@taloop.com",
     },
     priceUsd: 20,
+    dataQuality: {
+      overallScore: 4.2,
+      completeness: 52.8,
+      accuracy: 61.3,
+      consistency: 48.9,
+      validity: 71.2,
+      timeliness: 39.6,
+      uniqueness: 76.4,
+      totalRecords: 2847,
+      lastValidated: "2024-06-15T09:20:00Z",
+      validationMethod: "manual",
+      knownIssues: [
+        "Muchos campos de comentarios vacíos o incompletos",
+        "Fechas de respuesta inconsistentes o faltantes",
+        "Clasificación de regiones no estandarizada",
+        "Puntuaciones fuera del rango esperado en algunos registros",
+        "Información de canal de contacto frecuentemente omitida",
+      ],
+      recommendedFor: ["Análisis exploratorio inicial de satisfacción"],
+      notRecommendedFor: [
+        "Análisis estadístico riguroso",
+        "Segmentación detallada por región",
+        "Estudios de correlación temporal",
+        "Análisis de canales de contacto",
+        "Decisiones estratégicas basadas en datos",
+      ],
+    },
     samples: [
       {
         cliente_id: "C001",

@@ -1,0 +1,248 @@
+.data-quality-container {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.data-quality-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.data-quality-header h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.overall-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.overall-score-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.overall-score-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.125rem;
+  min-width: 80px;
+}
+
+.overall-score-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  opacity: 0.9;
+  margin-top: 0.25rem;
+}
+
+.quality-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.quality-metric {
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.quality-metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.quality-metric-label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.quality-metric-score {
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.quality-metric-bar {
+  width: 100%;
+  height: 6px;
+  background-color: #e5e7eb;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.quality-metric-fill {
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
+.quality-metric-description {
+  font-size: 0.75rem;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.quality-metadata {
+  border-top: 1px solid #f3f4f6;
+  padding-top: 1.5rem;
+}
+
+.quality-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.quality-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.quality-info-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.quality-info-value {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.quality-method {
+  color: #3b82f6;
+}
+
+.quality-issues {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.quality-issues h4 {
+  margin: 0 0 0.75rem 0;
+  color: #92400e;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.quality-issues ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.quality-issues li {
+  color: #92400e;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.quality-recommendations {
+  display: grid;
+  gap: 1rem;
+}
+
+.quality-rec-section h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.quality-rec-section ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.quality-rec-section li {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.quality-rec-section li.recommended {
+  color: #166534;
+}
+
+.quality-rec-section li.not-recommended {
+  color: #b91c1c;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .data-quality-container {
+    padding: 1rem;
+  }
+
+  .data-quality-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .overall-score {
+    align-self: stretch;
+    align-items: center;
+  }
+
+  .quality-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .quality-info-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .quality-recommendations {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .data-quality-container {
+    padding: 0.75rem;
+  }
+
+  .data-quality-header h3 {
+    font-size: 1.125rem;
+  }
+
+  .overall-score-badge {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+  }
+
+  .quality-metric {
+    padding: 0.75rem;
+  }
+}

@@ -192,6 +192,14 @@
   font-weight: 500;
 }
 
+/* Data Quality Badge section */
+.dataset-card__quality {
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 /* Tags section */
 .dataset-card__tags {
   width: 100%;
