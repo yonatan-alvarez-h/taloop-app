@@ -8,22 +8,6 @@ interface DataQualityProps {
 }
 
 const DataQuality: React.FC<DataQualityProps> = ({ dataQuality }) => {
-  const getOverallScoreColor = (score: number) => {
-    if (score >= 8.5) return "#22c55e"; // Verde - Excelente
-    if (score >= 7.0) return "#84cc16"; // Verde claro - Muy bueno
-    if (score >= 6.0) return "#eab308"; // Amarillo - Bueno
-    if (score >= 4.0) return "#f97316"; // Naranja - Regular
-    return "#ef4444"; // Rojo - Bajo
-  };
-
-  const getOverallScoreLabel = (score: number) => {
-    if (score >= 8.5) return "Excelente";
-    if (score >= 7.0) return "Muy bueno";
-    if (score >= 6.0) return "Bueno";
-    if (score >= 4.0) return "Regular";
-    return "Bajo";
-  };
-
   const formatNumber = (num: number) => {
     return num.toLocaleString("es-ES");
   };
@@ -73,25 +57,6 @@ const DataQuality: React.FC<DataQualityProps> = ({ dataQuality }) => {
 
   return (
     <div className="data-quality-container">
-      <div className="data-quality-header">
-        <h3>📊 Calidad de Datos</h3>
-        <div className="overall-score">
-          <span className="overall-score-label">Puntuación General</span>
-          <div
-            className="overall-score-badge"
-            style={{
-              backgroundColor: getOverallScoreColor(dataQuality.overallScore),
-              color: "white",
-            }}
-          >
-            {dataQuality.overallScore}/10
-            <span className="overall-score-text">
-              {getOverallScoreLabel(dataQuality.overallScore)}
-            </span>
-          </div>
-        </div>
-      </div>
-
       {/* Gráfico Radar para visualización de métricas */}
       <div className="quality-visual-section">
         <RadarChart metrics={qualityMetrics} />
