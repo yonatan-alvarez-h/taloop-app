@@ -26,14 +26,6 @@ const DataQualityBadge: React.FC<DataQualityBadgeProps> = ({
     return "Bajo";
   };
 
-  const getScoreIcon = (score: number) => {
-    if (score >= 8.5) return "⭐";
-    if (score >= 7.0) return "✅";
-    if (score >= 6.0) return "👍";
-    if (score >= 4.0) return "⚠️";
-    return "❌";
-  };
-
   if (compact) {
     return (
       <div
@@ -44,7 +36,6 @@ const DataQualityBadge: React.FC<DataQualityBadgeProps> = ({
         }}
         title={`Calidad de datos: ${score}/10 (${getScoreLabel(score)})`}
       >
-        <span className="badge-icon">{getScoreIcon(score)}</span>
         <span className="badge-score">{score}</span>
       </div>
     );
@@ -58,7 +49,6 @@ const DataQualityBadge: React.FC<DataQualityBadgeProps> = ({
         color: "white",
       }}
     >
-      <span className="badge-icon">{getScoreIcon(score)}</span>
       <div className="badge-content">
         <span className="badge-score">{score}/10</span>
         <span className="badge-label">{getScoreLabel(score)}</span>
