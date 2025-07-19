@@ -10,12 +10,12 @@
 
 /* Quality visual section */
 .quality-visual-section {
-  margin: 1.5rem 0;
-  padding: 1rem 0;
+  margin: 0 0 1rem 0;
+  padding: 0;
 }
 
 .quality-metadata {
-  padding-top: 1.5rem;
+  padding-top: 1rem;
 }
 
 .quality-info-grid {

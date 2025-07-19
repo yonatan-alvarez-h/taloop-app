@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.5rem;
+  padding: 1rem;
   background: #fafbfc;
   border-radius: 12px;
   border: 1px solid #e5e7eb;
-  margin: 1.5rem 0;
+  margin: 0;
 }
 
 .radar-chart-wrapper {
