@@ -88,17 +88,6 @@ const DataQuality: React.FC<DataQualityProps> = ({ dataQuality }) => {
           </div>
         </div>
 
-        {dataQuality.knownIssues && dataQuality.knownIssues.length > 0 && (
-          <div className="quality-issues">
-            <h4>⚠️ Problemas conocidos:</h4>
-            <ul>
-              {dataQuality.knownIssues.map((issue, index) => (
-                <li key={index}>{issue}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
         {dataQuality.recommendedFor &&
           dataQuality.recommendedFor.length > 0 && (
             <div className="quality-recommendations">
@@ -128,6 +117,17 @@ const DataQuality: React.FC<DataQualityProps> = ({ dataQuality }) => {
                 )}
             </div>
           )}
+
+        {dataQuality.knownIssues && dataQuality.knownIssues.length > 0 && (
+          <div className="quality-issues">
+            <h4>⚠️ Problemas conocidos:</h4>
+            <ul>
+              {dataQuality.knownIssues.map((issue, index) => (
+                <li key={index}>{issue}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
