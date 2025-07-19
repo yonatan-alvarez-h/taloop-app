@@ -41,20 +41,24 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => {
         </span>
       </div>
 
-      {/* Rating */}
-      {typeof dataset.rating === "number" && (
-        <DatasetRating
-          rating={dataset.rating}
-          ratingCount={dataset.ratingCount}
-        />
-      )}
+      {/* Rating and Data Quality */}
+      <div className="dataset-card__rating-quality">
+        {typeof dataset.rating === "number" && (
+          <DatasetRating
+            rating={dataset.rating}
+            ratingCount={dataset.ratingCount}
+          />
+        )}
 
-      {/* Data Quality */}
-      {dataset.dataQuality && (
-        <div className="dataset-card__quality">
-          <DataQualityBadge score={dataset.dataQuality.overallScore} compact />
-        </div>
-      )}
+        {dataset.dataQuality && (
+          <div className="dataset-card__quality">
+            <DataQualityBadge
+              score={dataset.dataQuality.overallScore}
+              compact
+            />
+          </div>
+        )}
+      </div>
 
       {/* Tags */}
       <div className="dataset-card__tags">

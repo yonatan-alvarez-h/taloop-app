@@ -192,12 +192,21 @@
   font-weight: 500;
 }
 
+/* Rating and Data Quality section */
+.dataset-card__rating-quality {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  gap: var(--spacing-md);
+}
+
 /* Data Quality Badge section */
 .dataset-card__quality {
-  margin-bottom: var(--spacing-md);
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: center;
+  flex-shrink: 0;
 }
 
 /* Tags section */
@@ -272,6 +281,18 @@
     padding: var(--card-padding) var(--card-padding) var(--card-padding)
       var(--card-padding-left);
     margin-bottom: 0.5rem; /* Más separación entre cards en mobile */
+  }
+
+  /* En móviles, mantener el layout horizontal pero con menos gap */
+  .dataset-card__rating-quality {
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+  }
+
+  /* Ajustar el badge de calidad en móviles */
+  .dataset-card__quality {
+    flex-shrink: 0;
+    min-width: fit-content;
   }
 }
 
