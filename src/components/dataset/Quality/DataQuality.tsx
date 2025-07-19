@@ -1,6 +1,6 @@
 import React from "react";
 import type { DataQuality as DataQualityType } from "../../../types/dataset";
-import SpiderChart from "./SpiderChart";
+import RadarChart from "./RadarChart";
 import "./DataQuality.css";
 
 interface DataQualityProps {
@@ -92,9 +92,9 @@ const DataQuality: React.FC<DataQualityProps> = ({ dataQuality }) => {
         </div>
       </div>
 
-      {/* Gráfico Spider para visualización de métricas */}
+      {/* Gráfico Radar para visualización de métricas */}
       <div className="quality-visual-section">
-        <SpiderChart metrics={qualityMetrics} size={260} />
+        <RadarChart metrics={qualityMetrics} />
       </div>
 
       <div className="quality-metadata">
