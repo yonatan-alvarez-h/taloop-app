@@ -2,7 +2,6 @@ import React from "react";
 import type { Dataset } from "../../../../types/dataset";
 import DatasetOwner from "../../Owner/DatasetOwner";
 import DatasetFields from "../../Fields/DatasetFields";
-import DataQuality from "../../Quality/DataQuality";
 import categoryColors from "../../../../data/categoryColors";
 import "./DatasetMetadata.css";
 
@@ -54,8 +53,6 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => (
         <b>Campos:</b> <DatasetFields fields={dataset.fields} />
       </li>
     </ul>
-
-    {dataset.dataQuality && <DataQuality dataQuality={dataset.dataQuality} />}
   </div>
 );
 

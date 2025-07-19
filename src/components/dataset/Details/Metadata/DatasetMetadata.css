@@ -5,6 +5,7 @@
   background: #fafbfc; /* Fondo sutil para diferenciarlo */
   border-radius: 8px;
   border: 1px solid #e5e7eb;
+  height: fit-content; /* Para que se ajuste al contenido en el grid */
 }
 
 .dataset-preview-meta > li {
