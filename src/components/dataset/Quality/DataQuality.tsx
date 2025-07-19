@@ -91,30 +91,32 @@ const DataQuality: React.FC<DataQualityProps> = ({ dataQuality }) => {
         {dataQuality.recommendedFor &&
           dataQuality.recommendedFor.length > 0 && (
             <div className="quality-recommendations">
-              <div className="quality-rec-section">
-                <h4>✅ Recomendado para:</h4>
-                <ul>
-                  {dataQuality.recommendedFor.map((use, index) => (
-                    <li key={index} className="recommended">
-                      {use}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <div className="quality-recommendations-grid">
+                <div className="quality-rec-section quality-rec-section--recommended">
+                  <h4>✅ Recomendado para:</h4>
+                  <ul>
+                    {dataQuality.recommendedFor.map((use, index) => (
+                      <li key={index} className="recommended">
+                        {use}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-              {dataQuality.notRecommendedFor &&
-                dataQuality.notRecommendedFor.length > 0 && (
-                  <div className="quality-rec-section">
-                    <h4>❌ No recomendado para:</h4>
-                    <ul>
-                      {dataQuality.notRecommendedFor.map((use, index) => (
-                        <li key={index} className="not-recommended">
-                          {use}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                {dataQuality.notRecommendedFor &&
+                  dataQuality.notRecommendedFor.length > 0 && (
+                    <div className="quality-rec-section quality-rec-section--not-recommended">
+                      <h4>❌ No recomendado para:</h4>
+                      <ul>
+                        {dataQuality.notRecommendedFor.map((use, index) => (
+                          <li key={index} className="not-recommended">
+                            {use}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+              </div>
             </div>
           )}
 
