@@ -51,7 +51,7 @@
   border: 1px solid #f59e0b;
   border-radius: 8px;
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0 1rem 0; /* Más margen superior para separación */
 }
 
 .quality-issues h4 {
