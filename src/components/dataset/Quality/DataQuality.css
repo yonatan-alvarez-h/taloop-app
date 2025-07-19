@@ -62,58 +62,6 @@
   border-bottom: 1px solid #f3f4f6;
 }
 
-.quality-metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.quality-metric {
-  background: #f8fafc;
-  padding: 1rem;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-}
-
-.quality-metric-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.quality-metric-label {
-  font-weight: 600;
-  color: #374151;
-  font-size: 0.875rem;
-}
-
-.quality-metric-score {
-  font-weight: 700;
-  font-size: 0.875rem;
-}
-
-.quality-metric-bar {
-  width: 100%;
-  height: 6px;
-  background-color: #e5e7eb;
-  border-radius: 3px;
-  overflow: hidden;
-  margin-bottom: 0.5rem;
-}
-
-.quality-metric-fill {
-  height: 100%;
-  transition: width 0.3s ease-in-out;
-}
-
-.quality-metric-description {
-  font-size: 0.75rem;
-  color: #6b7280;
-  line-height: 1.4;
-}
-
 .quality-metadata {
   border-top: 1px solid #f3f4f6;
   padding-top: 1.5rem;
@@ -221,11 +169,6 @@
     align-items: center;
   }
 
-  .quality-metrics-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
   .quality-info-grid {
     grid-template-columns: 1fr;
     gap: 0.75rem;
@@ -248,9 +191,5 @@
   .overall-score-badge {
     padding: 0.5rem 0.75rem;
     font-size: 1rem;
-  }
-
-  .quality-metric {
-    padding: 0.75rem;
   }
 }

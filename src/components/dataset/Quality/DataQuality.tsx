@@ -8,14 +8,6 @@ interface DataQualityProps {
 }
 
 const DataQuality: React.FC<DataQualityProps> = ({ dataQuality }) => {
-  const getScoreColor = (score: number) => {
-    if (score >= 90) return "#22c55e"; // Verde - Excelente
-    if (score >= 80) return "#84cc16"; // Verde claro - Muy bueno
-    if (score >= 70) return "#eab308"; // Amarillo - Bueno
-    if (score >= 60) return "#f97316"; // Naranja - Regular
-    return "#ef4444"; // Rojo - Bajo
-  };
-
   const getOverallScoreColor = (score: number) => {
     if (score >= 8.5) return "#22c55e"; // Verde - Excelente
     if (score >= 7.0) return "#84cc16"; // Verde claro - Muy bueno
@@ -103,34 +95,6 @@ const DataQuality: React.FC<DataQualityProps> = ({ dataQuality }) => {
       {/* Gráfico Spider para visualización de métricas */}
       <div className="quality-visual-section">
         <SpiderChart metrics={qualityMetrics} size={260} />
-      </div>
-
-      <div className="quality-metrics-grid">
-        {qualityMetrics.map((metric) => (
-          <div key={metric.key} className="quality-metric">
-            <div className="quality-metric-header">
-              <span className="quality-metric-label">{metric.label}</span>
-              <span
-                className="quality-metric-score"
-                style={{ color: getScoreColor(metric.value) }}
-              >
-                {metric.value}%
-              </span>
-            </div>
-            <div className="quality-metric-bar">
-              <div
-                className="quality-metric-fill"
-                style={{
-                  width: `${metric.value}%`,
-                  backgroundColor: getScoreColor(metric.value),
-                }}
-              />
-            </div>
-            <span className="quality-metric-description">
-              {metric.description}
-            </span>
-          </div>
-        ))}
       </div>
 
       <div className="quality-metadata">
