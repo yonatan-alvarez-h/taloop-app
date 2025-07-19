@@ -151,13 +151,10 @@ const RadarChart: React.FC<RadarChartProps> = ({ metrics }) => {
           max: 100,
           stepSize: 20,
           showLabelBackdrop: false,
+          display: false, // Ocultar los labels de porcentajes
           color: "#6b7280",
           font: {
             size: 10,
-          },
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          callback: function (value: any) {
-            return typeof value === "number" ? value + "%" : value;
           },
         },
         suggestedMin: 0,
