@@ -1,6 +1,6 @@
 import React from "react";
 import DatasetRating from "../Rating/DatasetRating";
-import DataQualityBadge from "../Quality/DataQualityBadge";
+import DataQualityBadge from "../Quality/DataQualityBadge/DataQualityBadge";
 import type { Dataset } from "../../../types/dataset";
 import DatasetOwner from "../Owner/DatasetOwner";
 import DatasetTags from "../Tags/DatasetTags";
