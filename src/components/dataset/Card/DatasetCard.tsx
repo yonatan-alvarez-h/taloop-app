@@ -12,6 +12,23 @@ interface DatasetCardProps {
 }
 
 const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => {
+  // Calcular el promedio de las métricas de calidad de datos
+  const calculateQualityAverage = (
+    dataQuality: NonNullable<Dataset["dataQuality"]>
+  ) => {
+    const metrics = [
+      dataQuality.completeness,
+      dataQuality.accuracy,
+      dataQuality.consistency,
+      dataQuality.validity,
+      dataQuality.timeliness,
+      dataQuality.uniqueness,
+    ];
+    const average =
+      metrics.reduce((sum, value) => sum + value, 0) / metrics.length;
+    return Math.round(average); // Mantener en escala 0-100 (porcentaje)
+  };
+
   const handleTooltipShow = (e: React.MouseEvent) => {
     const tooltip = e.currentTarget.nextSibling as HTMLElement;
     if (tooltip) {
@@ -53,7 +70,7 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => {
         {dataset.dataQuality && (
           <div className="dataset-card__quality">
             <DataQualityBadge
-              score={dataset.dataQuality.overallScore}
+              score={calculateQualityAverage(dataset.dataQuality)}
               compact
             />
           </div>
