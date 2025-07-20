@@ -18,8 +18,9 @@ interface DatasetMetadataProps {
 const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
   return (
     <div className="dataset-preview-meta">
+      <strong>Descripción:</strong>
       <li>
-        <strong>Descripción:</strong> {dataset.description}
+        {dataset.description}
         {dataset.category && <DatasetCategory category={dataset.category} />}
       </li>
 
