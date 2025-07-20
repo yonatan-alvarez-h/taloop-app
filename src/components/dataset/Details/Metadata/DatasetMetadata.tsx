@@ -23,19 +23,19 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
         {dataset.category && <DatasetCategory category={dataset.category} />}
       </li>
 
-      <strong>Metadata:</strong>
+      <strong>Metadatos:</strong>
       <ul>
         <li className="uid-row">
-          <b>UID:</b> <DatasetUID uid={dataset.uid} />
+          <strong>UID:</strong> <DatasetUID uid={dataset.uid} />
         </li>
         <li className="metadata-section">
-          <b>Título:</b> {dataset.title}
+          <strong>Título:</strong> {dataset.title}
         </li>
         <li className="metadata-section">
-          <b>Propietario:</b> <DatasetOwner owner={dataset.owner} />
+          <strong>Propietario:</strong> <DatasetOwner owner={dataset.owner} />
         </li>
         <li className="align-start metadata-section">
-          <b>Etiquetas:</b>
+          <strong>Etiquetas:</strong>
           <span>
             {dataset.tags.map((tag: string) => (
               <span className="dataset-tags-chip" key={tag}>
@@ -45,13 +45,13 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
           </span>
         </li>
         <li className="align-start metadata-section">
-          <b>Campos:</b> <DatasetFields fields={dataset.fields} />
+          <strong>Campos:</strong> <DatasetFields fields={dataset.fields} />
         </li>
 
         {/* Nuevas características de metadata */}
         {dataset.timestamps && (
           <li className="metadata-section">
-            <b>Fechas:</b>
+            <strong>Fechas:</strong>
             <DatasetTimestamps
               createdAt={dataset.timestamps.createdAt}
               updatedAt={dataset.timestamps.updatedAt}
@@ -61,7 +61,7 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
 
         {dataset.size && (
           <li className="metadata-section">
-            <b>Tamaño:</b>
+            <strong>Tamaño:</strong>
             <DatasetSize
               fileSize={dataset.size.fileSize}
               recordCount={dataset.size.recordCount}
@@ -72,7 +72,7 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
 
         {dataset.format && (
           <li className="metadata-section">
-            <b>Formato:</b>
+            <strong>Formato:</strong>
             <DatasetFormat
               type={dataset.format.type}
               encoding={dataset.format.encoding}
@@ -84,7 +84,7 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
 
         {dataset.usage && (
           <li className="metadata-section">
-            <b>Estadísticas de uso:</b>
+            <strong>Uso:</strong>
             <DatasetUsage
               downloads={dataset.usage.downloads}
               views={dataset.usage.views}
@@ -96,7 +96,7 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
 
         {dataset.domain && (
           <li className="metadata-section">
-            <b>Industria y dominio:</b>
+            <strong>Dominio:</strong>
             <DatasetDomain
               industry={dataset.domain.industry}
               subDomain={dataset.domain.subDomain}
