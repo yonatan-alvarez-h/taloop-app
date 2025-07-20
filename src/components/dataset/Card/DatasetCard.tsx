@@ -129,7 +129,7 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => {
       <div className="dataset-card__meta">
         {/* Category */}
         {dataset.category && (
-          <DatasetCategory category={dataset.category} variant="card" />
+          <DatasetCategory category={dataset.category} />
         )}
         {/* Owner */}
         <div className="dataset-card__owner-wrapper ms-3">

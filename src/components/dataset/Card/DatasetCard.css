@@ -163,6 +163,34 @@
   min-width: 0;
 }
 
+/* Adjust DatasetCategory component when used in card context */
+.dataset-card__meta .dataset-category {
+  flex: 0 1 35%;
+  max-width: 35%;
+  min-width: 0;
+  margin-left: 0;
+  border-radius: 16px;
+  letter-spacing: 0.01em;
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments for DatasetCategory in card context */
+@media (max-width: 768px) {
+  .dataset-card__meta .dataset-category {
+    flex: 0 1 45%;
+    max-width: 45%;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dataset-card__meta .dataset-category {
+    flex: 0 1 100%;
+    max-width: 100%;
+    border-radius: 8px;
+  }
+}
+
 /* Legacy category styles - migrated to DatasetCategory component */
 .dataset-card__category {
   flex: 0 1 35%;
