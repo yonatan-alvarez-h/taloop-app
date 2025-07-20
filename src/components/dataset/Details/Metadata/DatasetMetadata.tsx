@@ -1,8 +1,8 @@
 import React from "react";
 import type { Dataset } from "../../../../types/dataset";
+import DatasetCategory from "../../Category/DatasetCategory";
 import DatasetOwner from "../../Owner/DatasetOwner";
 import DatasetFields from "../../Fields/DatasetFields";
-import categoryColors from "../../../../data/categoryColors";
 import "./DatasetMetadata.css";
 
 interface DatasetMetadataProps {
@@ -13,19 +13,9 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => (
   <div className="dataset-preview-meta">
     <li>
       <strong>Descripción:</strong> {dataset.description}
-      {dataset.category &&
-        (() => {
-          const color =
-            categoryColors[dataset.category.toLowerCase()] || "#6366f1";
-          return (
-            <div
-              className="dataset-details-category"
-              style={{ background: color, boxShadow: `0 1px 6px ${color}22` }}
-            >
-              {dataset.category}
-            </div>
-          );
-        })()}
+      {dataset.category && (
+        <DatasetCategory category={dataset.category} variant="details" />
+      )}
     </li>
 
     <strong>Metadata:</strong>

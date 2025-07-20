@@ -37,6 +37,7 @@
   align-items: flex-start;
 }
 
+/* Legacy category styles - migrated to DatasetCategory component */
 .dataset-details-category {
   color: white;
   font-size: 0.8rem; /* Ligeramente más grande */

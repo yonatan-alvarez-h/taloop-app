@@ -2,9 +2,9 @@ import React from "react";
 import DatasetRating from "../Rating/DatasetRating";
 import DataQualityBadge from "../Quality/DataQualityBadge";
 import type { Dataset } from "../../../types/dataset";
+import DatasetCategory from "../Category/DatasetCategory";
 import DatasetOwner from "../Owner/DatasetOwner";
 import DatasetTags from "../Tags/DatasetTags";
-import categoryColors from "../../../data/categoryColors";
 import "./DatasetCard.css";
 
 interface DatasetCardProps {
@@ -129,18 +129,7 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => {
       <div className="dataset-card__meta">
         {/* Category */}
         {dataset.category && (
-          <div
-            className="dataset-card__category"
-            style={{
-              background:
-                categoryColors[dataset.category.toLowerCase()] || "#6366f1",
-              boxShadow: `0 1px 6px ${
-                categoryColors[dataset.category.toLowerCase()] || "#6366f1"
-              }22`,
-            }}
-          >
-            {dataset.category}
-          </div>
+          <DatasetCategory category={dataset.category} variant="card" />
         )}
         {/* Owner */}
         <div className="dataset-card__owner-wrapper ms-3">
