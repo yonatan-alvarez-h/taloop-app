@@ -19,9 +19,9 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
   return (
     <div className="dataset-preview-meta">
       <strong>Descripción:</strong>
+      <li>{dataset.description}</li>
+      <strong>Categoría:</strong>
       <li>
-        {dataset.description}
-        <strong>Categoría:</strong>
         {dataset.category && <DatasetCategory category={dataset.category} />}
       </li>
 
