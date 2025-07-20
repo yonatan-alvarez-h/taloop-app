@@ -18,7 +18,7 @@
   border-radius: 8px;
   color: white;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.7rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: fit-content;
   min-width: 75px;
@@ -59,7 +59,7 @@
 }
 
 .format-detail-label {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   color: #6c757d;
   font-weight: 600;
   text-transform: uppercase;
@@ -68,7 +68,7 @@
 }
 
 .format-detail-value {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #495057;
   font-weight: 600;
   line-height: 1;
@@ -86,7 +86,7 @@
 
   .format-type-badge {
     padding: 0.4rem 0.6rem;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     min-width: 70px;
   }
 
@@ -122,13 +122,13 @@
 
   .format-type-badge {
     padding: 0.4rem 0.6rem;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     min-width: 65px;
   }
 
   .format-icon svg {
-    width: 16px;
-    height: 16px;
+    width: 10px;
+    height: 10px;
   }
 
   .format-details {
@@ -150,6 +150,6 @@
   }
 
   .format-detail-value {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
 }
