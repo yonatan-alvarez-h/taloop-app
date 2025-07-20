@@ -77,7 +77,6 @@ export interface Dataset {
   domain?: {
     industry: string; // "Healthcare"
     subDomain?: string; // "Medical Records"
-    applications: string[]; // ["ML Training", "Analytics", "Research"]
   };
 }
 

@@ -4,13 +4,11 @@ import "./DatasetDomain.css";
 interface DatasetDomainProps {
   industry: string;
   subDomain?: string;
-  applications: string[];
 }
 
 const DatasetDomain: React.FC<DatasetDomainProps> = ({
   industry,
   subDomain,
-  applications,
 }) => {
   const getIndustryIcon = (industry: string) => {
     switch (industry.toLowerCase()) {
@@ -95,32 +93,6 @@ const DatasetDomain: React.FC<DatasetDomainProps> = ({
             <span className="sub-domain-value">{subDomain}</span>
           </div>
         )}
-      </div>
-
-      <div className="applications-section">
-        <div className="applications-label">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M9,12L11,14L15,10"></path>
-            <path d="M21,12C21,16.97,16.97,21,12,21C7.03,21,3,16.97,3,12C3,7.03,7.03,3,12,3C16.97,3,21,7.03,21,12Z"></path>
-          </svg>
-          Aplicaciones recomendadas:
-        </div>
-        <div className="applications-list">
-          {applications.map((app, index) => (
-            <span key={index} className="application-tag">
-              {app}
-            </span>
-          ))}
-        </div>
       </div>
     </div>
   );

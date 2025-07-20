@@ -100,7 +100,6 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
             <DatasetDomain
               industry={dataset.domain.industry}
               subDomain={dataset.domain.subDomain}
-              applications={dataset.domain.applications}
             />
           </li>
         )}

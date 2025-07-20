@@ -64,12 +64,6 @@ const datasetsData: DatasetWithSamples[] = [
     domain: {
       industry: "Agricultura",
       subDomain: "Producción de Cultivos",
-      applications: [
-        "Análisis de Productividad",
-        "Predicción de Cosechas",
-        "Planificación Estratégica",
-        "ML Training",
-      ],
     },
     dataQuality: {
       overallScore: 8.7,
@@ -329,11 +323,6 @@ const datasetsData: DatasetWithSamples[] = [
     domain: {
       industry: "Salud",
       subDomain: "Hospitales y Centros Médicos",
-      applications: [
-        "Análisis de Capacidad Hospitalaria",
-        "Optimización de Recursos",
-        "Research Médico",
-      ],
     },
     dataQuality: {
       overallScore: 9.1,
@@ -551,12 +540,6 @@ const datasetsData: DatasetWithSamples[] = [
     domain: {
       industry: "Educación",
       subDomain: "Educación Superior",
-      applications: [
-        "Selección Universitaria",
-        "Análisis Comparativo",
-        "Investigación Educativa",
-        "Rankings",
-      ],
     },
     dataQuality: {
       overallScore: 8.9,
