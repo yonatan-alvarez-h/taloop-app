@@ -21,8 +21,7 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
       <strong>Metadata:</strong>
       <ul>
         <li className="uid-row">
-          <b>UID:</b>
-          <DatasetUID uid={dataset.uid} />
+          <b>UID:</b> <DatasetUID uid={dataset.uid} />
         </li>
         <li>
           <b>Título:</b> {dataset.title}
