@@ -48,6 +48,38 @@ export interface Dataset {
 
   // Nueva propiedad de calidad de datos
   dataQuality?: DataQuality;
+
+  // Nuevas características de metadata
+  timestamps?: {
+    createdAt: string; // ISO string
+    updatedAt: string; // ISO string
+  };
+
+  size?: {
+    fileSize: string; // "2.3 GB"
+    recordCount: number; // 150000
+    columnCount: number; // 25
+  };
+
+  format?: {
+    type: "CSV" | "JSON" | "XML" | "Excel" | "Parquet" | "SQL" | "API";
+    encoding?: "UTF-8" | "UTF-16" | "ASCII" | "ISO-8859-1";
+    delimiter?: "," | ";" | "|" | "\t";
+    compression?: "none" | "gzip" | "zip" | "bzip2";
+  };
+
+  usage?: {
+    downloads: number; // 1250
+    views: number; // 5680
+    apiCalls: number; // 23400
+    lastAccessed: string; // "2 horas ago"
+  };
+
+  domain?: {
+    industry: string; // "Healthcare"
+    subDomain?: string; // "Medical Records"
+    applications: string[]; // ["ML Training", "Analytics", "Research"]
+  };
 }
 
 // Dataset extendido con samples para el mock de datos

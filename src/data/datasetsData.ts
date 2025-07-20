@@ -40,6 +40,37 @@ const datasetsData: DatasetWithSamples[] = [
       email: "info@agrodata.com",
     },
     priceUsd: 42,
+    timestamps: {
+      createdAt: "2024-01-15T10:30:00Z",
+      updatedAt: "2024-07-10T14:20:00Z",
+    },
+    size: {
+      fileSize: "3.2 GB",
+      recordCount: 275000,
+      columnCount: 15,
+    },
+    format: {
+      type: "CSV",
+      encoding: "UTF-8",
+      delimiter: ",",
+      compression: "gzip",
+    },
+    usage: {
+      downloads: 2847,
+      views: 12450,
+      apiCalls: 89200,
+      lastAccessed: "3 horas ago",
+    },
+    domain: {
+      industry: "Agricultura",
+      subDomain: "Producción de Cultivos",
+      applications: [
+        "Análisis de Productividad",
+        "Predicción de Cosechas",
+        "Planificación Estratégica",
+        "ML Training",
+      ],
+    },
     dataQuality: {
       overallScore: 8.7,
       completeness: 96.5,
@@ -276,6 +307,35 @@ const datasetsData: DatasetWithSamples[] = [
       email: "info@healthdata.com",
     },
     priceUsd: 55,
+    timestamps: {
+      createdAt: "2024-02-20T08:15:00Z",
+      updatedAt: "2024-07-15T16:45:00Z",
+    },
+    size: {
+      fileSize: "1.8 GB",
+      recordCount: 45000,
+      columnCount: 28,
+    },
+    format: {
+      type: "JSON",
+      encoding: "UTF-8",
+      compression: "none",
+    },
+    usage: {
+      downloads: 1203,
+      views: 8750,
+      apiCalls: 45600,
+      lastAccessed: "1 hora ago",
+    },
+    domain: {
+      industry: "Salud",
+      subDomain: "Hospitales y Centros Médicos",
+      applications: [
+        "Análisis de Capacidad Hospitalaria",
+        "Optimización de Recursos",
+        "Research Médico",
+      ],
+    },
     dataQuality: {
       overallScore: 9.1,
       completeness: 98.7,
@@ -470,6 +530,36 @@ const datasetsData: DatasetWithSamples[] = [
       email: "contacto@edurank.com",
     },
     priceUsd: 33,
+    timestamps: {
+      createdAt: "2024-03-01T12:00:00Z",
+      updatedAt: "2024-06-30T10:30:00Z",
+    },
+    size: {
+      fileSize: "850 KB",
+      recordCount: 247,
+      columnCount: 18,
+    },
+    format: {
+      type: "Excel",
+      encoding: "UTF-8",
+      compression: "none",
+    },
+    usage: {
+      downloads: 5670,
+      views: 23400,
+      apiCalls: 12300,
+      lastAccessed: "15 minutos ago",
+    },
+    domain: {
+      industry: "Educación",
+      subDomain: "Educación Superior",
+      applications: [
+        "Selección Universitaria",
+        "Análisis Comparativo",
+        "Investigación Educativa",
+        "Rankings",
+      ],
+    },
     dataQuality: {
       overallScore: 8.9,
       completeness: 100.0,

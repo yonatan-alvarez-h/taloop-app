@@ -1,0 +1,111 @@
+.dataset-size {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.size-metric {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.size-metric:hover {
+  background: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.size-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  background: #6366f1;
+  color: white;
+  border-radius: 6px;
+}
+
+.size-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.size-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #495057;
+}
+
+.size-label {
+  font-size: 0.75rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dataset-size {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .size-metric {
+    padding: 0.6rem;
+    gap: 0.6rem;
+  }
+
+  .size-icon {
+    min-width: 36px;
+    height: 36px;
+  }
+
+  .size-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .size-value {
+    font-size: 0.9rem;
+  }
+
+  .size-label {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dataset-size {
+    gap: 0.5rem;
+  }
+
+  .size-metric {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .size-icon {
+    min-width: 32px;
+    height: 32px;
+  }
+
+  .size-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .size-value {
+    font-size: 0.85rem;
+  }
+
+  .size-label {
+    font-size: 0.65rem;
+  }
+}
