@@ -15,7 +15,6 @@ export interface DataQuality {
   uniqueness: number; // % de registros únicos sin duplicados
 
   // Metadatos adicionales
-  totalRecords: number; // Número total de registros
   lastValidated: string; // Fecha de última validación (ISO string)
   validationMethod: "automated" | "manual" | "hybrid"; // Método de validación
 

@@ -79,7 +79,6 @@ const datasetsData: DatasetWithSamples[] = [
       validity: 94.2,
       timeliness: 98.0,
       uniqueness: 100.0,
-      totalRecords: 125000,
       lastValidated: "2024-10-15T10:30:00Z",
       validationMethod: "automated",
       knownIssues: [
@@ -344,7 +343,6 @@ const datasetsData: DatasetWithSamples[] = [
       validity: 97.1,
       timeliness: 94.5,
       uniqueness: 99.3,
-      totalRecords: 45000,
       lastValidated: "2024-11-01T14:20:00Z",
       validationMethod: "hybrid",
       knownIssues: [
@@ -568,7 +566,6 @@ const datasetsData: DatasetWithSamples[] = [
       validity: 89.6,
       timeliness: 85.2,
       uniqueness: 100.0,
-      totalRecords: 247,
       lastValidated: "2024-09-30T09:15:00Z",
       validationMethod: "manual",
       knownIssues: [
@@ -757,7 +754,6 @@ const datasetsData: DatasetWithSamples[] = [
       validity: 81.5,
       timeliness: 69.0,
       uniqueness: 95.8,
-      totalRecords: 28000,
       lastValidated: "2024-08-20T16:45:00Z",
       validationMethod: "automated",
       knownIssues: [
@@ -1115,7 +1111,6 @@ const datasetsData: DatasetWithSamples[] = [
       validity: 79.1,
       timeliness: 62.3,
       uniqueness: 88.7,
-      totalRecords: 35600,
       lastValidated: "2024-07-10T12:00:00Z",
       validationMethod: "manual",
       knownIssues: [
@@ -1354,7 +1349,6 @@ const datasetsData: DatasetWithSamples[] = [
       validity: 96.7,
       timeliness: 99.5,
       uniqueness: 99.9,
-      totalRecords: 186420,
       lastValidated: "2024-11-15T08:30:00Z",
       validationMethod: "automated",
       knownIssues: [
@@ -1815,7 +1809,6 @@ const datasetsData: DatasetWithSamples[] = [
       validity: 93.4,
       timeliness: 87.1,
       uniqueness: 99.7,
-      totalRecords: 12400,
       lastValidated: "2024-11-10T11:45:00Z",
       validationMethod: "hybrid",
       knownIssues: [
@@ -3038,7 +3031,6 @@ const datasetsData: DatasetWithSamples[] = [
       validity: 71.2,
       timeliness: 39.6,
       uniqueness: 76.4,
-      totalRecords: 2847,
       lastValidated: "2024-06-15T09:20:00Z",
       validationMethod: "manual",
       knownIssues: [

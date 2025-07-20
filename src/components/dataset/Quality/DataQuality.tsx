@@ -8,10 +8,6 @@ interface DataQualityProps {
 }
 
 const DataQuality: React.FC<DataQualityProps> = ({ dataQuality }) => {
-  const formatNumber = (num: number) => {
-    return num.toLocaleString("es-ES");
-  };
-
   const formatDate = (isoString: string) => {
     return new Date(isoString).toLocaleDateString("es-ES");
   };
@@ -64,12 +60,6 @@ const DataQuality: React.FC<DataQualityProps> = ({ dataQuality }) => {
 
       <div className="quality-metadata">
         <div className="quality-info-grid">
-          <div className="quality-info-item">
-            <span className="quality-info-label">Registros totales:</span>
-            <span className="quality-info-value">
-              {formatNumber(dataQuality.totalRecords)}
-            </span>
-          </div>
           <div className="quality-info-item">
             <span className="quality-info-label">Última validación:</span>
             <span className="quality-info-value">
