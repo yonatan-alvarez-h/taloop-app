@@ -1,6 +1,6 @@
 import React from "react";
 import DatasetRating from "../Rating/DatasetRating";
-import DataQualityBadge from "../Quality/DataQualityBadge";
+import DataQualityBadge from "../Quality/Badge";
 import type { Dataset } from "../../../types/dataset";
 import DatasetCategory from "../Category/DatasetCategory";
 import DatasetOwner from "../Owner/DatasetOwner";
@@ -128,9 +128,7 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => {
       {/* Category and Owner */}
       <div className="dataset-card__meta">
         {/* Category */}
-        {dataset.category && (
-          <DatasetCategory category={dataset.category} />
-        )}
+        {dataset.category && <DatasetCategory category={dataset.category} />}
         {/* Owner */}
         <div className="dataset-card__owner-wrapper ms-3">
           <DatasetOwner owner={dataset.owner} />

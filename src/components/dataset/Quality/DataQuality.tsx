@@ -1,6 +1,6 @@
 import React from "react";
 import type { DataQuality as DataQualityType } from "../../../types/dataset";
-import RadarChart from "./RadarChart";
+import RadarChart from "./Chart";
 import "./DataQuality.css";
 
 interface DataQualityProps {
