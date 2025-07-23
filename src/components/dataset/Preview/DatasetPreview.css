@@ -1,0 +1,65 @@
+/* Estilos principales del componente DatasetPreview */
+
+/* Container principal */
+.dataset-preview {
+  margin-top: 1em;
+  padding: 1.5rem 2rem 1.5rem 2rem; /* Padding simétrico mejorado */
+  background: #fafbfc; /* Fondo sutil */
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Fondo blanco para el contenido de la vista previa */
+.dataset-preview-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(13, 138, 188, 0.08);
+  padding: 2rem 2.5rem 2rem 2.5rem; /* Padding simétrico mejorado */
+  margin: 0; /* Removido margin-top para dashboard layout */
+  border: 1px solid #e0e7ef;
+  transition: box-shadow 0.2s;
+  max-width: 98vw;
+  width: 100%;
+  min-width: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dataset-preview-card strong {
+  color: #1976d2;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dataset-preview {
+    padding: 1.25rem 1.5rem 1.25rem 1.5rem; /* Menos padding en tablet */
+  }
+
+  .dataset-preview-card {
+    padding: 1.5rem 2rem 1.5rem 2rem; /* Menos padding en tablet */
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dataset-preview {
+    padding: 1rem 1.25rem 1rem 1.25rem; /* Padding reducido para mobile */
+    border-radius: 6px;
+  }
+
+  .dataset-preview-card {
+    padding: 1.25rem 1.5rem 1.25rem 1.5rem; /* Padding reducido para mobile */
+    margin-top: 0.75rem;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 320px) {
+  .dataset-preview {
+    padding: 0.75rem 1rem 0.75rem 1rem; /* Padding mínimo */
+  }
+
+  .dataset-preview-card {
+    padding: 0.875rem 1rem 0.75rem 1rem; /* Padding mínimo */
+  }
+}

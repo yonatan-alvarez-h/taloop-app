@@ -1,0 +1,22 @@
+/* Estilos para controles de vista previa */
+.dataset-preview-btn {
+  border-radius: 4px;
+  font-weight: 500;
+  padding: 0.38em 1.2em;
+  font-size: 1em;
+  margin-bottom: 0.5em;
+  background: #fff;
+  color: #1967d2;
+  border: 1px solid #dadce0;
+  box-shadow: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  outline: none;
+  cursor: pointer;
+}
+
+.dataset-preview-btn:hover,
+.dataset-preview-btn:focus {
+  background: #1967d2;
+  color: #fff;
+  box-shadow: 0 1px 4px rgba(60, 64, 67, 0.08);
+}

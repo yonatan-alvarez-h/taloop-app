@@ -1,0 +1,131 @@
+/* Estilos para tabla de vista previa */
+
+/* Alineación condicional para celdas numéricas y texto */
+.dataset-preview-table td.align-right {
+  text-align: right;
+}
+.dataset-preview-table td.align-left {
+  text-align: left;
+}
+
+.dataset-preview-table {
+  background: #fff;
+  border-radius: 4px;
+  overflow-x: auto;
+  box-shadow: 0 1px 6px rgba(13, 138, 188, 0.06);
+  margin-top: 0.7em;
+}
+
+.dataset-preview-table th {
+  background: #e8f0fe;
+  color: #1967d2;
+  font-weight: 700;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  border-bottom: none; /* Sin borde inferior */
+  border-right: none; /* Sin borde derecho */
+  padding: 16px 32px; /* Padding vertical aumentado para más espacio interno */
+  text-align: center;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  font-family: "Inter", "Roboto Mono", "Menlo", "Monaco", "Consolas", monospace;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.dataset-preview-table td {
+  font-size: 0.8em;
+  color: #222;
+  background: #fff;
+  padding: 16px 32px; /* Padding vertical aumentado para más espacio interno */
+  border-bottom: none; /* Sin borde inferior */
+  border-right: none; /* Sin borde derecho */
+  max-width: 320px;
+  min-width: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "Inter", "Roboto Mono", "Menlo", "Monaco", "Consolas", monospace;
+  transition: background 0.15s;
+  cursor: pointer;
+  line-height: 1.7;
+}
+
+/* Zebra striping */
+.dataset-preview-table tr:nth-child(even) td {
+  background: #f7fafd;
+}
+
+/* Row hover effect */
+.dataset-preview-table tr:hover td {
+  background: #e3f2fd;
+}
+
+/* Tooltip for truncated cells */
+.dataset-preview-table td[title] {
+  position: relative;
+}
+.dataset-preview-table td[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background: #222;
+  color: #fff;
+  font-size: 0.95em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: pre-line;
+  z-index: 10;
+  min-width: 120px;
+  max-width: 320px;
+  margin-top: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.13);
+}
+
+.dataset-preview-table table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  min-width: 320px;
+  table-layout: auto;
+  font-family: "Roboto Mono", "Menlo", "Monaco", "Consolas", monospace;
+  font-size: 0.9em;
+}
+
+.dataset-preview-empty {
+  color: #888;
+  font-style: italic;
+  margin-top: 8px;
+  padding: 1rem;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 1px dashed #dee2e6;
+}
+
+/* Responsive adjustments for table */
+@media (max-width: 768px) {
+  .dataset-preview-table th,
+  .dataset-preview-table td {
+    padding: 14px 28px; /* Padding proporcionalmente aumentado en tablet */
+  }
+}
+
+@media (max-width: 480px) {
+  .dataset-preview-table td {
+    padding: 12px 20px; /* Padding aumentado para mobile */
+    font-size: 0.75em;
+  }
+
+  .dataset-preview-table th {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 320px) {
+  .dataset-preview-table th,
+  .dataset-preview-table td {
+    padding: 10px 16px; /* Padding mínimo pero espacioso */
+    font-size: 0.7em;
+  }
+}
