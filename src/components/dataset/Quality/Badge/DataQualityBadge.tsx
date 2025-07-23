@@ -69,8 +69,10 @@ const DataQualityBadge: React.FC<DataQualityBadgeProps> = ({
         background: getScoreColor(score),
         color: "white",
       }}
+      title={`Calidad de datos: ${score}% (${getScoreLabel(score)})`}
     >
       <div className="badge-content">
+        <span className="badge-context">Calidad:</span>
         <span className="badge-score">{score}%</span>
         <span className="badge-label">{getScoreLabel(score)}</span>
       </div>
