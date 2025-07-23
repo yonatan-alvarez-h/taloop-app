@@ -1,5 +1,5 @@
 import React from "react";
-import categoryColors from "../../../data/categoryColors";
+import categoryColors from "../../../../../data/categoryColors";
 import "./DatasetCategory.css";
 
 interface DatasetCategoryProps {

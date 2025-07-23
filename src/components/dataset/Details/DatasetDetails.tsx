@@ -1,8 +1,8 @@
 import React from "react";
 import type { Dataset } from "../../../types/dataset";
-import DatasetRating from "../Rating/DatasetRating";
+import DatasetRating from "../Rating";
 import DatasetPreview from "../Preview";
-import DatasetMetadata from "./Metadata/DatasetMetadata";
+import DatasetMetadata from "../Metadata";
 import DataQuality from "../Quality/DataQuality";
 
 import "./DatasetDetails.css";

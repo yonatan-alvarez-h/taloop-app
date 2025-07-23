@@ -1,14 +1,13 @@
 import React from "react";
-import type { Dataset } from "../../../../types/dataset";
-import DatasetCategory from "../../Category/DatasetCategory";
-import DatasetOwner from "../../Owner/DatasetOwner";
-import DatasetFields from "../../Fields/DatasetFields";
-import DatasetUID from "../../UID/DatasetUID";
-import DatasetTimestamps from "../../Timestamps/DatasetTimestamps";
-import DatasetSize from "../../Size/DatasetSize";
-import DatasetFormat from "../../Format/DatasetFormat";
-import DatasetUsage from "../../Usage/DatasetUsage";
-import DatasetDomain from "../../Domain/DatasetDomain";
+import type { Dataset } from "../../../types/dataset";
+import {
+  DatasetCategory,
+  DatasetOwner,
+  DatasetUID,
+  DatasetDomain,
+} from "./Basic";
+import { DatasetFields, DatasetFormat, DatasetSize } from "./Technical";
+import { DatasetTimestamps, DatasetUsage } from "./Temporal";
 import "./DatasetMetadata.css";
 
 interface DatasetMetadataProps {

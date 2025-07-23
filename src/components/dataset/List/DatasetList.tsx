@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DatasetGrid from "../Grid/DatasetGrid";
+import DatasetGrid from "../Grid";
 import type { Dataset } from "../../../types/dataset";
 import "./DatasetList.css";
 

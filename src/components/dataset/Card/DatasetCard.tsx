@@ -1,10 +1,9 @@
 import React from "react";
-import DatasetRating from "../Rating/DatasetRating";
+import DatasetRating from "../Rating";
 import DataQualityBadge from "../Quality/Badge";
 import type { Dataset } from "../../../types/dataset";
-import DatasetCategory from "../Category/DatasetCategory";
-import DatasetOwner from "../Owner/DatasetOwner";
-import DatasetTags from "../Tags/DatasetTags";
+import { DatasetCategory, DatasetOwner } from "../Metadata/Basic";
+import DatasetTags from "../Tags";
 import "./DatasetCard.css";
 
 interface DatasetCardProps {
