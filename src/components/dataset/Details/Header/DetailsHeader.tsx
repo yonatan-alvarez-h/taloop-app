@@ -1,6 +1,7 @@
 import React from "react";
 import type { Dataset } from "../../../../types/dataset";
 import DatasetRating from "../../Rating";
+import DatasetPrice from "../../Price";
 import "./DetailsHeader.css";
 
 interface DetailsHeaderProps {
@@ -12,12 +13,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset }) => {
     <div className="details-header">
       <div className="details-header-title-row">
         <div className="details-header-title">{dataset.title}</div>
-        <span className="details-header-price">
-          {dataset.priceUsd.toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD",
-          })}
-        </span>
+        <DatasetPrice price={dataset.priceUsd} currency="USD" />
       </div>
 
       {typeof dataset.rating === "number" && (

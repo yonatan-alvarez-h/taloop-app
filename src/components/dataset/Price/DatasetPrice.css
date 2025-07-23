@@ -1,0 +1,14 @@
+/* Simple dataset price component */
+.dataset-price {
+  font-weight: 600;
+  font-size: 1.1em;
+  color: #2d3748;
+  white-space: nowrap;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .dataset-price {
+    font-size: 1em;
+  }
+}

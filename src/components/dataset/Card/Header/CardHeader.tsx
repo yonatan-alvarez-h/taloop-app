@@ -1,4 +1,5 @@
 import React from "react";
+import DatasetPrice from "../../Price";
 import "./CardHeader.css";
 
 interface CardHeaderProps {
@@ -16,13 +17,6 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   variant = "default",
   onClick,
 }) => {
-  const formatPrice = (amount: number, curr: string) => {
-    return amount.toLocaleString("en-US", {
-      style: "currency",
-      currency: curr,
-    });
-  };
-
   return (
     <div
       className={`card-header card-header--${variant} ${
@@ -37,9 +31,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
       </div>
 
       <div className="card-header__price-container">
-        <span className="card-header__price">
-          {formatPrice(price, currency)}
-        </span>
+        <DatasetPrice price={price} currency={currency} />
       </div>
     </div>
   );

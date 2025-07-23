@@ -73,22 +73,3 @@
   flex-shrink: 0;
   position: relative;
 }
-
-.card-header__price {
-  font-size: 18px;
-  font-weight: 800;
-  color: #28a745;
-  white-space: nowrap;
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  text-shadow: 0 1px 3px rgba(40, 167, 69, 0.2);
-}
-
-.card-header--compact .card-header__price {
-  font-size: 16px;
-}
-
-.card-header--detailed .card-header__price {
-  font-size: 20px;
-}
