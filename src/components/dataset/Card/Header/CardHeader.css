@@ -4,22 +4,8 @@
   align-items: flex-start;
   gap: 12px;
   padding-bottom: 16px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   margin-bottom: 16px;
   position: relative;
-}
-
-.card-header::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, #007bff, #0056b3);
-  border-radius: 1px;
-  opacity: 0;
-  transition: all 0.3s ease;
 }
 
 .card-header--compact {
@@ -28,20 +14,10 @@
   gap: 8px;
 }
 
-.card-header--compact::after {
-  width: 40px;
-  height: 1px;
-}
-
 .card-header--detailed {
   padding-bottom: 20px;
   margin-bottom: 20px;
   gap: 16px;
-}
-
-.card-header--detailed::after {
-  width: 80px;
-  height: 3px;
 }
 
 .card-header--clickable {
@@ -107,24 +83,6 @@
   background-clip: text;
   -webkit-background-clip: text;
   text-shadow: 0 1px 3px rgba(40, 167, 69, 0.2);
-  position: relative;
-}
-
-.card-header__price::before {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #28a745, #20c997);
-  border-radius: 1px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.card-header--clickable:hover .card-header__price::before {
-  opacity: 0.5;
 }
 
 .card-header--compact .card-header__price {

@@ -1,37 +1,19 @@
 .card-actions {
   display: flex;
   gap: 12px;
-  padding-top: 20px;
-  margin-top: 20px;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-top: 16px;
+  margin-top: auto;
   position: relative;
-}
-
-.card-actions::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: 20%;
-  right: 20%;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(0, 123, 255, 0.3),
-    transparent
-  );
 }
 
 .card-actions--compact {
   gap: 8px;
-  padding-top: 16px;
-  margin-top: 16px;
+  padding-top: 12px;
 }
 
 .card-actions--detailed {
   gap: 16px;
-  padding-top: 24px;
-  margin-top: 24px;
+  padding-top: 20px;
 }
 
 /* Layout variants */
