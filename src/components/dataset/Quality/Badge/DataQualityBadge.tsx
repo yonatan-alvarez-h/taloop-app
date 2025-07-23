@@ -2,20 +2,40 @@ import React from "react";
 import "./DataQualityBadge.css";
 
 interface DataQualityBadgeProps {
+  /** Quality score percentage (0-100) */
   score: number;
+  /** Whether to show compact version */
   compact?: boolean;
 }
 
+/**
+ * DataQualityBadge component displays a quality score with visual styling
+ * based on the score value. Uses gradient backgrounds and modern styling.
+ *
+ * Score ranges:
+ * - 90-100: Excellent (green)
+ * - 80-89: Very good (lime)
+ * - 70-79: Good (amber)
+ * - 60-69: Regular (orange)
+ * - 0-59: Low (red)
+ *
+ * @example
+ * // Full badge
+ * <DataQualityBadge score={85} />
+ *
+ * // Compact version
+ * <DataQualityBadge score={85} compact />
+ */
 const DataQualityBadge: React.FC<DataQualityBadgeProps> = ({
   score,
   compact = false,
 }) => {
   const getScoreColor = (score: number) => {
-    if (score >= 90) return "#22c55e"; // Verde - Excelente
-    if (score >= 80) return "#84cc16"; // Verde claro - Muy bueno
-    if (score >= 70) return "#eab308"; // Amarillo - Bueno
-    if (score >= 60) return "#f97316"; // Naranja - Regular
-    return "#ef4444"; // Rojo - Bajo
+    if (score >= 90) return "linear-gradient(135deg, #10b981 0%, #059669 100%)"; // Verde esmeralda - Excelente
+    if (score >= 80) return "linear-gradient(135deg, #84cc16 0%, #65a30d 100%)"; // Verde lima - Muy bueno
+    if (score >= 70) return "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)"; // Ámbar - Bueno
+    if (score >= 60) return "linear-gradient(135deg, #f97316 0%, #ea580c 100%)"; // Naranja - Regular
+    return "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)"; // Rojo - Bajo
   };
 
   const getScoreLabel = (score: number) => {
@@ -31,7 +51,7 @@ const DataQualityBadge: React.FC<DataQualityBadgeProps> = ({
       <div
         className="data-quality-badge-compact"
         style={{
-          backgroundColor: getScoreColor(score),
+          background: getScoreColor(score),
           color: "white",
         }}
         title={`Calidad de datos: ${score}% (${getScoreLabel(score)})`}
@@ -46,7 +66,7 @@ const DataQualityBadge: React.FC<DataQualityBadgeProps> = ({
     <div
       className="data-quality-badge"
       style={{
-        backgroundColor: getScoreColor(score),
+        background: getScoreColor(score),
         color: "white",
       }}
     >
