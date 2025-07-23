@@ -1,334 +1,126 @@
-/* =================================================================
-   DATASET CARD COMPONENT STYLES
-   ================================================================= */
-
-/* CSS Variables for consistency */
-:root {
-  --card-radius: 14px;
-  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-  --card-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.16);
-  --card-padding: 1rem;
-  --card-padding-left: 1.5rem; /* Padding izquierdo aumentado para mejor estética */
-  --card-height: 340px;
-  --card-transition: box-shadow 0.2s, transform 0.2s;
-
-  --color-text-primary: #222;
-  --color-text-secondary: #666;
-  --color-text-muted: #888;
-  --color-price: #2d3748;
-  --color-white: #fff;
-
-  --font-size-small: 0.82em;
-  --font-size-normal: 0.9em;
-  --font-size-large: 1.05em;
-  --font-size-price: 1.08em;
-
-  --spacing-xs: 2px;
-  --spacing-sm: 4px;
-  --spacing-md: 8px;
-  --spacing-lg: 12px;
-  --spacing-xl: 18px;
-}
-
-/* Main card container */
 .dataset-card {
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
-  border: none;
-  margin-bottom: 0.3rem;
-  padding: var(--card-padding) var(--card-padding) var(--card-padding)
-    var(--card-padding-left);
-  background: var(--color-white);
-  transition: var(--card-transition);
-  min-height: var(--card-height);
-  max-height: var(--card-height);
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 1px solid #e3e6ea;
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  list-style: none;
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  height: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.dataset-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #007bff, #0056b3, #28a745, #20c997);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .dataset-card:hover {
-  box-shadow: var(--card-shadow-hover);
-  transform: translateY(-2px) scale(1.01);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-color: #007bff;
 }
 
-/* Header section with title and price */
-.dataset-card__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: var(--spacing-md);
+.dataset-card:hover::before {
+  opacity: 1;
 }
 
-.dataset-card__title {
-  font-weight: 700;
-  font-size: var(--font-size-large);
-  color: var(--color-text-primary);
-  word-break: break-word;
-  line-height: 1.22;
-  flex: 1;
-  text-align: left;
-  margin-right: var(--spacing-md);
+.dataset-card--compact {
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
-.dataset-card__price {
-  font-weight: 600;
-  font-size: var(--font-size-price);
-  white-space: nowrap;
-  color: var(--color-price);
-  margin-left: var(--spacing-md);
-  background: none;
-  border: none;
-  box-shadow: none;
-  padding: 0;
+.dataset-card--compact::before {
+  height: 2px;
 }
 
-/* Description section */
-.dataset-card__description {
-  margin-bottom: var(--spacing-md);
+.dataset-card--detailed {
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.dataset-card__description-wrapper {
-  position: relative;
-  display: inline-block;
-  overflow: visible;
-  max-width: 100%;
+.dataset-card--detailed::before {
+  height: 4px;
 }
 
-.dataset-card__description-text {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-small);
-  margin-bottom: 0.5em;
-  max-height: 3.8em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  white-space: normal;
-}
-
-.dataset-card__description-text--clickable {
+.dataset-card--clickable {
   cursor: pointer;
 }
 
-/* Tooltip styles */
-.dataset-card__tooltip {
-  visibility: hidden;
-  min-width: 320px;
-  max-width: 620px;
-  background-color: #f8fafc;
-  color: var(--color-text-secondary);
-  text-align: left;
-  border-radius: 10px;
-  padding: 14px var(--spacing-xl);
+.dataset-card--clickable:hover {
+  border-color: #007bff;
+  box-shadow: 0 12px 40px rgba(0, 123, 255, 0.15),
+    0 6px 20px rgba(0, 123, 255, 0.1);
+  background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+}
+
+/* Efecto de brillo sutil */
+.dataset-card::after {
+  content: "";
   position: absolute;
-  z-index: 100;
-  left: 50%;
-  top: 100%;
-  transform: translateX(-50%);
-  box-shadow: 0 4px var(--spacing-xl) rgba(13, 138, 188, 0.13);
-  font-size: var(--font-size-small);
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
   opacity: 0;
-  transition: opacity 0.2s;
   pointer-events: none;
-  border: 1px solid #e0e7ef;
-  white-space: pre-line;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  max-height: 220px;
-  overflow-y: auto;
-  box-sizing: border-box;
 }
 
-.dataset-card__tooltip--visible {
-  visibility: visible;
+.dataset-card:hover::after {
+  animation: shimmer 1.5s ease-in-out;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* Estados especiales */
+.dataset-card--featured {
+  background: linear-gradient(135deg, #fff5e6 0%, #ffffff 100%);
+  border-color: #ffc107;
+}
+
+.dataset-card--featured::before {
+  background: linear-gradient(90deg, #ffc107, #ff9800, #f57c00);
   opacity: 1;
-  pointer-events: auto;
 }
 
-.dataset-card__tooltip--responsive {
-  max-width: 98vw;
-  width: 100%;
-  box-sizing: border-box;
+.dataset-card--premium {
+  background: linear-gradient(135deg, #f3e5f5 0%, #ffffff 100%);
+  border-color: #9c27b0;
 }
 
-/* Category and owner section */
-.dataset-card__meta {
-  display: flex;
-  align-items: center;
-  margin-bottom: var(--spacing-xs);
-  gap: var(--spacing-md);
-  min-width: 0;
-}
-
-/* Adjust DatasetCategory component when used in card context */
-.dataset-card__meta .dataset-category {
-  flex: 0 1 35%;
-  max-width: 35%;
-  min-width: 0;
-  margin-left: 0;
-  border-radius: 16px;
-  letter-spacing: 0.01em;
-  margin-bottom: 0;
-}
-
-/* Responsive adjustments for DatasetCategory in card context */
-@media (max-width: 768px) {
-  .dataset-card__meta .dataset-category {
-    flex: 0 1 45%;
-    max-width: 45%;
-    border-radius: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .dataset-card__meta .dataset-category {
-    flex: 0 1 100%;
-    max-width: 100%;
-    border-radius: 8px;
-  }
-}
-
-/* Legacy category styles - migrated to DatasetCategory component */
-.dataset-card__category {
-  flex: 0 1 35%;
-  max-width: 35%;
-  min-width: 0;
-  text-align: center;
-  font-size: 0.8em;
-  color: var(--color-white);
-  padding: var(--spacing-xs) 14px;
-  border-radius: 16px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  text-transform: capitalize;
-  margin-bottom: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.dataset-card__owner-wrapper {
-  flex: 0 1 80%;
-  max-width: 80%;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 1.04em;
-  font-weight: 500;
-}
-
-/* Rating and Data Quality section */
-.dataset-card__rating-quality {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--spacing-md);
-  gap: var(--spacing-md);
-}
-
-/* Data Quality Badge section */
-.dataset-card__quality {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-/* Tags section */
-.dataset-card__tags {
-  width: 100%;
-  margin-bottom: var(--spacing-md);
-}
-
-.dataset-card__tags-label {
-  font-weight: 600;
-  font-size: var(--font-size-normal);
-  color: var(--color-text-primary);
-  display: block;
-  margin-bottom: var(--spacing-xs);
-}
-
-.dataset-card__tags-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-sm);
-  min-width: 0;
-  overflow: hidden;
-  align-items: center;
-}
-
-.dataset-card__tags-more {
-  color: var(--color-text-muted);
-  font-size: 0.95em;
-  margin-left: 6px;
-}
-
-/* Action section */
-.dataset-card__actions {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: var(--spacing-lg);
-}
-
-.dataset-card__btn {
-  font-weight: 500;
-  letter-spacing: 0.2px;
-  border-radius: 6px;
-  min-width: 110px;
-  padding: var(--spacing-sm) var(--spacing-xl);
-}
-
-/* =================================================================
-   RESPONSIVE DESIGN
-   ================================================================= */
-
-/* Tablet adjustments */
-@media (max-width: 768px) {
-  :root {
-    --card-padding-left: 1.2rem; /* Reducir padding izquierdo en tablet */
-  }
-
-  .dataset-card {
-    padding: var(--card-padding) var(--card-padding) var(--card-padding)
-      var(--card-padding-left);
-  }
-}
-
-/* Mobile adjustments */
-@media (max-width: 480px) {
-  :root {
-    --card-padding: 0.8rem; /* Reducir padding general en mobile */
-    --card-padding-left: 1rem; /* Padding izquierdo más pequeño en mobile */
-  }
-
-  .dataset-card {
-    padding: var(--card-padding) var(--card-padding) var(--card-padding)
-      var(--card-padding-left);
-    margin-bottom: 0.5rem; /* Más separación entre cards en mobile */
-  }
-
-  /* En móviles, mantener el layout horizontal pero con menos gap */
-  .dataset-card__rating-quality {
-    gap: var(--spacing-sm);
-    flex-wrap: wrap;
-  }
-
-  /* Ajustar el badge de calidad en móviles */
-  .dataset-card__quality {
-    flex-shrink: 0;
-    min-width: fit-content;
-  }
-}
-
-/* Very small screens */
-@media (max-width: 320px) {
-  :root {
-    --card-padding: 0.6rem;
-    --card-padding-left: 0.8rem; /* Padding mínimo en pantallas muy pequeñas */
-  }
+.dataset-card--premium::before {
+  background: linear-gradient(90deg, #9c27b0, #673ab7, #3f51b5);
+  opacity: 1;
 }

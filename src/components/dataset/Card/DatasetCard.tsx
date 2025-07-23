@@ -1,142 +1,88 @@
 import React from "react";
-import DatasetRating from "../Rating";
-import DataQualityBadge from "../Quality/Badge";
+import CardHeader from "./Header";
+import CardContent from "./Content";
+import CardMeta from "./Meta";
+import CardActions from "./Actions";
 import type { Dataset } from "../../../types/dataset";
-import { DatasetCategory, DatasetOwner } from "../Metadata/Basic";
-import DatasetTags from "../Tags";
 import "./DatasetCard.css";
 
 interface DatasetCardProps {
   dataset: Dataset & { category?: string; rating?: number };
+  variant?: "default" | "compact" | "detailed";
+  showRating?: boolean;
+  showQuality?: boolean;
+  showTags?: boolean;
+  showDescription?: boolean;
+  showCategory?: boolean;
+  showOwner?: boolean;
+  clickable?: boolean;
+  onCardClick?: () => void;
+  onDetailsClick?: () => void;
 }
 
-const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => {
-  // Calcular el promedio de las métricas de calidad de datos
-  const calculateQualityAverage = (
-    dataQuality: NonNullable<Dataset["dataQuality"]>
-  ) => {
-    const metrics = [
-      dataQuality.completeness,
-      dataQuality.accuracy,
-      dataQuality.consistency,
-      dataQuality.validity,
-      dataQuality.timeliness,
-      dataQuality.uniqueness,
-    ];
-    const average =
-      metrics.reduce((sum, value) => sum + value, 0) / metrics.length;
-    return Math.round(average); // Mantener en escala 0-100 (porcentaje)
-  };
-
-  const handleTooltipShow = (e: React.MouseEvent) => {
-    const tooltip = e.currentTarget.nextSibling as HTMLElement;
-    if (tooltip) {
-      tooltip.className =
-        "dataset-card__tooltip dataset-card__tooltip--visible dataset-card__tooltip--responsive";
+const DatasetCard: React.FC<DatasetCardProps> = ({
+  dataset,
+  variant = "default",
+  showRating = true,
+  showQuality = true,
+  showTags = true,
+  showDescription = true,
+  showCategory = true,
+  showOwner = true,
+  clickable = false,
+  onCardClick,
+  onDetailsClick,
+}) => {
+  const handleDetailsClick = () => {
+    if (onDetailsClick) {
+      onDetailsClick();
+    } else {
+      window.open(`/datasets/${dataset.uid}`, "_self");
     }
   };
 
-  const handleTooltipHide = (e: React.MouseEvent) => {
-    const tooltip = e.currentTarget.nextSibling as HTMLElement;
-    if (tooltip) {
-      tooltip.className =
-        "dataset-card__tooltip dataset-card__tooltip--responsive";
-    }
-  };
+  const actions = [
+    {
+      label: "Ver detalles",
+      onClick: handleDetailsClick,
+      variant: "outline" as const,
+    },
+  ];
 
   return (
-    <li className="dataset-card">
-      {/* Header: Title and Price */}
-      <div className="dataset-card__header">
-        <div className="dataset-card__title">{dataset.title}</div>
-        <span className="dataset-card__price">
-          {dataset.priceUsd.toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD",
-          })}
-        </span>
-      </div>
+    <li
+      className={`dataset-card dataset-card--${variant} ${
+        clickable ? "dataset-card--clickable" : ""
+      }`}
+    >
+      <CardHeader
+        title={dataset.title}
+        price={dataset.priceUsd}
+        variant={variant}
+        onClick={clickable ? onCardClick : undefined}
+      />
 
-      {/* Rating and Data Quality */}
-      <div className="dataset-card__rating-quality">
-        {typeof dataset.rating === "number" && (
-          <DatasetRating
-            rating={dataset.rating}
-            ratingCount={dataset.ratingCount}
-          />
-        )}
+      <CardContent
+        dataset={dataset}
+        showRating={showRating}
+        showQuality={showQuality}
+        showTags={showTags}
+        showDescription={showDescription}
+        variant={variant}
+      />
 
-        {dataset.dataQuality && (
-          <div className="dataset-card__quality">
-            <DataQualityBadge
-              score={calculateQualityAverage(dataset.dataQuality)}
-              compact
-            />
-          </div>
-        )}
-      </div>
+      <CardMeta
+        dataset={dataset}
+        showCategory={showCategory}
+        showOwner={showOwner}
+        variant={variant}
+      />
 
-      {/* Tags */}
-      <div className="dataset-card__tags">
-        <div className="dataset-card__tags-container">
-          <DatasetTags
-            tags={dataset.tags}
-            maxVisible={5}
-            size="small"
-            variant="default"
-            gap={4}
-            expandable={false}
-          />
-        </div>
-      </div>
-
-      {/* Description with Tooltip */}
-      <div className="dataset-card__description">
-        <div className="dataset-card__description-wrapper">
-          <span
-            className={`dataset-card__description-text ${
-              dataset.description.length > 150
-                ? "dataset-card__description-text--clickable"
-                : ""
-            }`}
-            onMouseEnter={
-              dataset.description.length > 150 ? handleTooltipShow : undefined
-            }
-            onMouseLeave={
-              dataset.description.length > 150 ? handleTooltipHide : undefined
-            }
-          >
-            {dataset.description.length > 150
-              ? dataset.description.slice(0, 149) + "..."
-              : dataset.description}
-          </span>
-          {dataset.description.length > 150 && (
-            <span className="dataset-card__tooltip dataset-card__tooltip--responsive">
-              {dataset.description}
-            </span>
-          )}
-        </div>
-      </div>
-
-      {/* Category and Owner */}
-      <div className="dataset-card__meta">
-        {/* Category */}
-        {dataset.category && <DatasetCategory category={dataset.category} />}
-        {/* Owner */}
-        <div className="dataset-card__owner-wrapper ms-3">
-          <DatasetOwner owner={dataset.owner} />
-        </div>
-      </div>
-
-      {/* Actions */}
-      <div className="dataset-card__actions">
-        <button
-          className="btn btn-outline-primary btn-sm dataset-card__btn"
-          onClick={() => window.open(`/datasets/${dataset.uid}`, "_self")}
-        >
-          Ver detalles
-        </button>
-      </div>
+      <CardActions
+        actions={actions}
+        variant={variant}
+        size={variant === "compact" ? "small" : "medium"}
+      />
     </li>
   );
 };

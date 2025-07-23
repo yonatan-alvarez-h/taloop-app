@@ -1,0 +1,128 @@
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.card-content--compact {
+  gap: 12px;
+}
+
+.card-content--detailed {
+  gap: 20px;
+}
+
+/* Metrics Section */
+.card-content__metrics {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 249, 250, 0.8) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(10px);
+}
+
+.card-content__rating {
+  flex: 1;
+}
+
+.card-content__quality {
+  flex-shrink: 0;
+}
+
+/* Tags Section */
+.card-content__tags {
+  min-height: 20px;
+  position: relative;
+}
+
+/* Description Section */
+.card-content__description {
+  position: relative;
+  padding: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(248, 249, 250, 0.6) 100%
+  );
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  backdrop-filter: blur(5px);
+}
+
+.card-content__description-wrapper {
+  position: relative;
+}
+
+.card-content__description-text {
+  font-size: 14px;
+  color: #6c757d;
+  line-height: 1.5;
+  display: block;
+  margin: 0;
+}
+
+.card-content--compact .card-content__description-text {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.card-content--detailed .card-content__description-text {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.card-content__description-text--clickable {
+  cursor: help;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.card-content__description-text--clickable:hover {
+  color: #495057;
+  transform: translateY(-1px);
+}
+
+/* Tooltip */
+.card-content__tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #212529 0%, #343a40 100%);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.card-content__tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 20px;
+  border: 6px solid transparent;
+  border-top-color: #212529;
+}
+
+.card-content__tooltip--visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}

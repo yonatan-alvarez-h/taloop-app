@@ -1,0 +1,191 @@
+.card-actions {
+  display: flex;
+  gap: 12px;
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  position: relative;
+}
+
+.card-actions::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 123, 255, 0.3),
+    transparent
+  );
+}
+
+.card-actions--compact {
+  gap: 8px;
+  padding-top: 16px;
+  margin-top: 16px;
+}
+
+.card-actions--detailed {
+  gap: 16px;
+  padding-top: 24px;
+  margin-top: 24px;
+}
+
+/* Layout variants */
+.card-actions--horizontal {
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.card-actions--vertical {
+  flex-direction: column;
+}
+
+.card-actions--stacked {
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Button styles */
+.card-actions__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-actions__button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.card-actions__button:hover::before {
+  left: 100%;
+}
+
+/* Button sizes */
+.card-actions__button--small {
+  padding: 8px 16px;
+  font-size: 12px;
+  gap: 6px;
+  border-radius: 8px;
+}
+
+.card-actions__button--medium {
+  padding: 12px 20px;
+  font-size: 14px;
+  gap: 8px;
+  border-radius: 10px;
+}
+
+.card-actions__button--large {
+  padding: 16px 28px;
+  font-size: 16px;
+  gap: 10px;
+  border-radius: 12px;
+}
+
+/* Button variants */
+.card-actions__button--primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  border-color: #007bff;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.card-actions__button--primary:hover:not(.card-actions__button--disabled) {
+  background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+  border-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 123, 255, 0.4);
+}
+
+.card-actions__button--secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  color: white;
+  border-color: #6c757d;
+  box-shadow: 0 2px 8px rgba(108, 117, 125, 0.3);
+}
+
+.card-actions__button--secondary:hover:not(.card-actions__button--disabled) {
+  background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+  border-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+.card-actions__button--outline {
+  background: rgba(255, 255, 255, 0.9);
+  color: #007bff;
+  border: 2px solid #007bff;
+  backdrop-filter: blur(10px);
+}
+
+.card-actions__button--outline:hover:not(.card-actions__button--disabled) {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 123, 255, 0.3);
+}
+
+.card-actions__button--link {
+  background: transparent;
+  color: #007bff;
+  border: none;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.card-actions__button--link:hover:not(.card-actions__button--disabled) {
+  color: #0056b3;
+  text-decoration-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.card-actions__button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  background: #e9ecef !important;
+  color: #6c757d !important;
+}
+
+.card-actions__button-icon {
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.card-actions__button:hover .card-actions__button-icon {
+  transform: translateX(2px);
+}
+
+.card-actions__button-text {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
