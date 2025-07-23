@@ -19,21 +19,21 @@
   margin-top: 20px;
 }
 
-/* Layout variants */
-.card-meta--horizontal {
-  flex-direction: row;
+/* Row for category and owner */
+.card-meta__row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
   justify-content: space-between;
 }
 
-.card-meta--vertical {
-  flex-direction: column;
-  align-items: flex-start;
+.card-meta--compact .card-meta__row {
+  gap: 12px;
 }
 
-.card-meta--stacked {
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+.card-meta--detailed .card-meta__row {
+  gap: 20px;
 }
 
 .card-meta__category {
@@ -45,10 +45,4 @@
   flex: 1;
   min-width: 0;
   position: relative;
-}
-
-.card-meta--vertical .card-meta__owner,
-.card-meta--stacked .card-meta__owner {
-  flex: none;
-  width: 100%;
 }

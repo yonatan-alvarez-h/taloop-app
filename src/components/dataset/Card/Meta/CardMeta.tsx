@@ -27,17 +27,19 @@ const CardMeta: React.FC<CardMetaProps> = ({
 
   return (
     <div className={`card-meta card-meta--${layout} card-meta--${variant}`}>
-      {showCategory && dataset.category && (
-        <div className="card-meta__category">
-          <DatasetCategory category={dataset.category} />
-        </div>
-      )}
+      <div className="card-meta__row">
+        {showCategory && dataset.category && (
+          <div className="card-meta__category">
+            <DatasetCategory category={dataset.category} />
+          </div>
+        )}
 
-      {showOwner && dataset.owner && (
-        <div className="card-meta__owner">
-          <DatasetOwner owner={dataset.owner} />
-        </div>
-      )}
+        {showOwner && dataset.owner && (
+          <div className="card-meta__owner">
+            <DatasetOwner owner={dataset.owner} />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

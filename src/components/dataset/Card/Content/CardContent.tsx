@@ -42,7 +42,6 @@ const CardContent: React.FC<CardContentProps> = ({
       metrics.reduce((sum, value) => sum + value, 0) / metrics.length;
     return Math.round(average);
   };
-
   const handleTooltipShow = (e: React.MouseEvent) => {
     const tooltip = e.currentTarget.nextSibling as HTMLElement;
     if (tooltip) {
@@ -65,9 +64,18 @@ const CardContent: React.FC<CardContentProps> = ({
 
   return (
     <div className={`card-content card-content--${variant}`}>
-      {/* Rating and Quality Section */}
-      {(showRating || showQuality) && (
+      {/* Quality and Rating Section */}
+      {(showQuality || showRating) && (
         <div className="card-content__metrics">
+          {showQuality && dataset.dataQuality && (
+            <div className="card-content__quality">
+              <DataQualityBadge
+                score={calculateQualityAverage(dataset.dataQuality)}
+                compact={variant === "compact"}
+              />
+            </div>
+          )}
+
           {showRating && typeof dataset.rating === "number" && (
             <div className="card-content__rating">
               <DatasetRating
@@ -75,15 +83,6 @@ const CardContent: React.FC<CardContentProps> = ({
                 ratingCount={dataset.ratingCount}
                 size={variant === "compact" ? "small" : "medium"}
                 variant={variant}
-              />
-            </div>
-          )}
-
-          {showQuality && dataset.dataQuality && (
-            <div className="card-content__quality">
-              <DataQualityBadge
-                score={calculateQualityAverage(dataset.dataQuality)}
-                compact={variant === "compact"}
               />
             </div>
           )}
