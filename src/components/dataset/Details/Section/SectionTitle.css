@@ -1,0 +1,24 @@
+.details-section-title {
+  margin-bottom: 1.25rem;
+}
+
+.details-section-title h3 {
+  margin: 0;
+  color: #1a202c;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+  position: relative;
+}
+
+.details-section-title h3::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, #4299e1 0%, #63b3ed 100%);
+  border-radius: 1px;
+}

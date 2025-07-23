@@ -1,85 +1,12 @@
 .dataset-details-container {
-  max-width: 1200px; /* Ampliado para dashboard */
+  max-width: 1200px;
   margin: 0 auto;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
-  padding: 2.5rem 3rem 2.5rem 3rem;
-}
-
-/* Header section */
-.dataset-details-header {
-  margin-bottom: 2rem;
-  border-bottom: 1.5px solid #e5e7eb;
-  padding-bottom: 1.5rem;
-}
-
-.dataset-details-title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 18px;
-}
-
-.dataset-details-title {
-  font-weight: 700;
-  font-size: 1.5em;
-  color: #222;
-  flex: 1;
-  word-break: break-word;
-}
-
-.dataset-details-price {
-  font-weight: 600;
-  font-size: 1.15em;
-  color: #2d3748;
-  margin-left: 16px;
-}
-
-/* Dashboard grid layout */
-.dataset-details-dashboard {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Two equal columns */
-  gap: 2rem;
-  margin-bottom: 2rem;
-  align-items: start; /* Align items to the top */
-}
-
-.dataset-details-dashboard-left {
-  min-height: 0; /* Prevents grid overflow issues */
-}
-
-.dataset-details-dashboard-right {
-  min-height: 0; /* Prevents grid overflow issues */
-}
-
-.dataset-details-dashboard-section-title {
-  margin-bottom: 1rem;
-}
-
-.dataset-details-dashboard-section-title h3 {
-  margin: 0;
-  color: #1f2937;
-  font-size: 1.1rem;
-  font-weight: 600;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid #e5e7eb;
-}
-
-.dataset-details-no-data-quality {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 2rem;
-  text-align: center;
-  color: #6b7280;
-  font-style: italic;
-}
-
-/* Preview section */
-.dataset-details-preview-section {
-  border-top: 1.5px solid #e5e7eb;
-  padding-top: 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 2.5rem 3rem;
+  transition: box-shadow 0.3s ease;
 }
 
 /* Legacy section styles for backwards compatibility */
@@ -118,7 +45,7 @@
 }
 
 /* =================================================================
-   RESPONSIVE DESIGN FOR DATASET DETAILS DASHBOARD
+   RESPONSIVE DESIGN FOR DATASET DETAILS CONTAINER
    ================================================================= */
 
 /* Large tablet adjustments */
@@ -127,39 +54,14 @@
     max-width: 100%;
     margin: 0 1.5rem;
   }
-
-  .dataset-details-dashboard {
-    gap: 1.5rem;
-  }
 }
 
-/* Medium tablet adjustments */
-@media (max-width: 900px) {
-  .dataset-details-dashboard {
-    grid-template-columns: 1fr; /* Single column on medium tablet */
-    gap: 1.5rem;
-  }
-}
-
-/* Tablet adjustments - switch to single column */
+/* Tablet adjustments */
 @media (max-width: 768px) {
   .dataset-details-container {
     max-width: 100%;
     margin: 0 1rem;
     padding: 2rem 2.5rem 2rem 2.5rem;
-  }
-
-  .dataset-details-dashboard {
-    grid-template-columns: 1fr; /* Single column on tablet */
-    gap: 1.5rem;
-  }
-
-  .dataset-details-title {
-    font-size: 1.3em;
-  }
-
-  .dataset-details-price {
-    font-size: 1.05em;
   }
 }
 
@@ -167,37 +69,8 @@
 @media (max-width: 480px) {
   .dataset-details-container {
     margin: 0 0.5rem;
-    padding: 1.5rem 2rem 1.5rem 2rem;
-    border-radius: 8px;
-  }
-
-  .dataset-details-dashboard {
-    gap: 1rem;
-  }
-
-  .dataset-details-header {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-  }
-
-  .dataset-details-preview-section {
-    padding-top: 1.5rem;
-  }
-
-  .dataset-details-title-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .dataset-details-title {
-    font-size: 1.2em;
-    margin-bottom: 0.5rem;
-  }
-
-  .dataset-details-price {
-    font-size: 1em;
-    margin-left: 0;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
   }
 
   .dataset-details-category {
@@ -210,14 +83,7 @@
 @media (max-width: 320px) {
   .dataset-details-container {
     margin: 0 0.25rem;
-    padding: 1rem 1.5rem 1rem 1.5rem;
-  }
-
-  .dataset-details-title {
-    font-size: 1.1em;
-  }
-
-  .dataset-details-dashboard {
-    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
   }
 }

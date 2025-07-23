@@ -1,0 +1,28 @@
+.details-preview-section {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 2rem;
+  position: relative;
+}
+
+.details-preview-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #4299e1 50%,
+    transparent 100%
+  );
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .details-preview-section {
+    padding-top: 1.5rem;
+  }
+}
