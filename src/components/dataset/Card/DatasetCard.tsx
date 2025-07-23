@@ -80,19 +80,13 @@ const DatasetCard: React.FC<DatasetCardProps> = ({ dataset }) => {
       <div className="dataset-card__tags">
         <div className="dataset-card__tags-container">
           <DatasetTags
-            tags={dataset.tags.slice(0, 5)}
-            style={{
-              gap: 4,
-              flexWrap: "wrap",
-              minWidth: 0,
-              overflow: "hidden",
-            }}
+            tags={dataset.tags}
+            maxVisible={5}
+            size="small"
+            variant="default"
+            gap={4}
+            expandable={false}
           />
-          {dataset.tags.length > 5 && (
-            <span className="dataset-card__tags-more">
-              +{dataset.tags.length - 5} más
-            </span>
-          )}
         </div>
       </div>
 

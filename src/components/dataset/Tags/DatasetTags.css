@@ -1,14 +1,6 @@
 .dataset-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-}
-
-.dataset-tag {
-  font-size: 0.75em;
-  padding: 2px 7px;
-  border-radius: 8px;
-  background: #3b3b3b;
-  color: #ffffff;
-  margin-bottom: 2px;
+  gap: 8px;
+  align-items: center;
 }

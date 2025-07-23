@@ -1,0 +1,36 @@
+.tag-overflow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: inherit;
+}
+
+.tag-overflow__more,
+.tag-overflow__less {
+  color: #6c757d;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.tag-overflow__more:hover,
+.tag-overflow__less:hover {
+  color: #495057;
+}
+
+.tag-overflow__more--small,
+.tag-overflow__less--small {
+  font-size: 11px;
+}
+
+.tag-overflow__more--medium,
+.tag-overflow__less--medium {
+  font-size: 12px;
+}
+
+.tag-overflow__more--large,
+.tag-overflow__less--large {
+  font-size: 14px;
+}

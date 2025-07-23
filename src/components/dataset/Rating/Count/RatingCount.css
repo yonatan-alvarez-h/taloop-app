@@ -1,0 +1,27 @@
+.rating-count {
+  color: #6c757d;
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+.rating-count--small {
+  font-size: 11px;
+}
+
+.rating-count--medium {
+  font-size: 13px;
+}
+
+.rating-count--large {
+  font-size: 15px;
+}
+
+.rating-count--compact {
+  color: #8590a6;
+  margin-left: 4px;
+}
+
+.rating-count--detailed {
+  color: #495057;
+  font-weight: 500;
+}

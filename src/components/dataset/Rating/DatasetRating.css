@@ -1,26 +1,25 @@
 .dataset-rating {
   display: flex;
   align-items: center;
-  gap: 0.3em;
-  margin-bottom: 0.5em;
+  gap: 8px;
 }
-.star {
-  font-size: 1.15em;
-  color: #e0e0e0;
-  transition: color 0.18s;
+
+.dataset-rating--small {
+  gap: 4px;
 }
-.star.filled {
-  color: #ffd600;
-  text-shadow: 0 1px 4px #ffd60044;
+
+.dataset-rating--medium {
+  gap: 6px;
 }
-.dataset-rating-value {
-  font-size: 0.98em;
-  color: #888;
-  margin-left: 0.4em;
+
+.dataset-rating--large {
+  gap: 10px;
 }
-.dataset-rating-count {
-  font-size: 0.8em;
-  color: #666;
-  margin-left: 0.35em;
-  font-style: italic;
+
+.dataset-rating--compact {
+  gap: 4px;
+}
+
+.dataset-rating--detailed {
+  gap: 12px;
 }

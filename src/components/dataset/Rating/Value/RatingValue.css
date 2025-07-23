@@ -1,0 +1,34 @@
+.rating-value {
+  font-weight: 600;
+  color: #495057;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.rating-value--small {
+  font-size: 12px;
+}
+
+.rating-value--medium {
+  font-size: 14px;
+}
+
+.rating-value--large {
+  font-size: 16px;
+}
+
+.rating-value--compact {
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.rating-value--detailed {
+  font-weight: 700;
+  color: #212529;
+}
+
+.rating-value__scale {
+  font-size: 0.8em;
+  color: #6c757d;
+  margin-left: 1px;
+}

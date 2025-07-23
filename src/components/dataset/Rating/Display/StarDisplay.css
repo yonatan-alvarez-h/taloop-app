@@ -1,0 +1,35 @@
+.star-display {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.star-display--small .star {
+  font-size: 12px;
+}
+
+.star-display--medium .star {
+  font-size: 16px;
+}
+
+.star-display--large .star {
+  font-size: 20px;
+}
+
+.star {
+  color: #e0e0e0;
+  transition: color 0.2s ease;
+  user-select: none;
+}
+
+.star.filled {
+  color: #ffc107;
+}
+
+.star.half-filled {
+  background: linear-gradient(90deg, #ffc107 50%, #e0e0e0 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #ffc107;
+}
