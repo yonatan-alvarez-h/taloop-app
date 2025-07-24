@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import type { DatasetField } from "../../../../../types/dataset";
 import { TYPE_ICONS } from "../../../../../utils/dataTypes";
 import "./DatasetFields.css";
@@ -8,6 +8,7 @@ interface DatasetFieldsProps {
   className?: string;
   style?: React.CSSProperties;
   showDetails?: boolean; // Para mostrar tipo y descripción
+  itemsPerPage?: number; // Número de elementos por página
 }
 
 const DatasetFields: React.FC<DatasetFieldsProps> = ({
@@ -15,7 +16,35 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
   className,
   style,
   showDetails = false,
+  itemsPerPage = 5,
 }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Filtrar campos por búsqueda
+  const filteredFields = useMemo(() => {
+    if (!searchTerm) return fields;
+    return fields.filter(
+      (field) =>
+        field.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        field.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        field.type.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [fields, searchTerm]);
+
+  // Calcular paginación
+  const totalPages = Math.ceil(filteredFields.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedFields = filteredFields.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  // Reiniciar página cuando cambie la búsqueda
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
+
   // Vista simple con chips
   if (!showDetails) {
     return (
@@ -32,7 +61,7 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
     );
   }
 
-  // Vista detallada con tabla
+  // Vista detallada con tabla paginada
   return (
     <div
       className={
@@ -40,6 +69,33 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
       }
       style={style}
     >
+      {/* Controles superiores */}
+      <div className="fields-controls">
+        <div className="fields-search">
+          <input
+            type="text"
+            placeholder="Buscar columnas..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="fields-search-input"
+          />
+          <span className="fields-search-icon">🔍</span>
+        </div>
+        <div className="fields-summary">
+          {filteredFields.length !== fields.length && (
+            <span className="fields-filtered">
+              {filteredFields.length} de {fields.length} columnas
+            </span>
+          )}
+          {filteredFields.length === fields.length && (
+            <span className="fields-total">
+              {fields.length} columna{fields.length !== 1 ? "s" : ""}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Tabla */}
       <table className="fields-table">
         <thead>
           <tr>
@@ -51,7 +107,7 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
           </tr>
         </thead>
         <tbody>
-          {fields.map((field) => (
+          {paginatedFields.map((field) => (
             <tr key={field.name}>
               <td className="field-index">{field.index}</td>
               <td className="field-name">
@@ -89,6 +145,40 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
           ))}
         </tbody>
       </table>
+
+      {/* Controles de paginación */}
+      {totalPages > 1 && (
+        <div className="fields-pagination">
+          <button
+            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+            disabled={currentPage === 1}
+            className="pagination-btn pagination-prev"
+          >
+            ← Anterior
+          </button>
+
+          <div className="pagination-info">
+            Página {currentPage} de {totalPages}
+          </div>
+
+          <button
+            onClick={() =>
+              setCurrentPage(Math.min(totalPages, currentPage + 1))
+            }
+            disabled={currentPage === totalPages}
+            className="pagination-btn pagination-next"
+          >
+            Siguiente →
+          </button>
+        </div>
+      )}
+
+      {/* Mensaje si no hay resultados */}
+      {filteredFields.length === 0 && searchTerm && (
+        <div className="fields-no-results">
+          No se encontraron columnas que coincidan con "{searchTerm}"
+        </div>
+      )}
     </div>
   );
 };
