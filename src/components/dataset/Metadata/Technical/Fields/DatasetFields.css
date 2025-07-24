@@ -2,18 +2,27 @@
 .dataset-fields {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
 }
 
 .dataset-field-chip {
-  background: #e0e7ef;
-  color: #374151;
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 0.75em;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  color: #475569;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.8em;
   font-weight: 600;
   white-space: nowrap;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.dataset-field-chip:hover {
+  background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Vista detallada con tabla */
@@ -26,46 +35,57 @@
   width: 100%;
   border-collapse: collapse;
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
   font-size: 0.875rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 .fields-table th {
-  background: #f9fafb;
-  color: #374151;
-  font-weight: 500;
-  padding: 10px 14px;
+  background: linear-gradient(to bottom, #f0f9ff, #e0f2fe);
+  color: #475569;
+  font-weight: 600;
+  padding: 16px 18px;
   text-align: left;
-  border-bottom: 1px solid #d1d5db;
   font-size: 0.8rem;
   text-transform: none;
-  letter-spacing: 0;
+  letter-spacing: 0.025em;
 }
 
 .fields-table td {
-  padding: 10px 14px;
-  border-bottom: 1px solid #f3f4f6;
+  padding: 14px 18px;
   vertical-align: top;
+  transition: background-color 0.15s ease;
+}
+
+.fields-table tbody tr:nth-child(even) {
+  background: #ffffff;
+}
+
+.fields-table tbody tr:nth-child(odd) {
+  background: #f8fafc;
 }
 
 .fields-table tr:hover {
-  background: #fafafa;
+  background: #f1f5f9 !important;
 }
 
 .field-name {
-  font-family: "Monaco", "Menlo", "Consolas", monospace;
-  font-weight: 500;
-  color: #374151;
+  font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Fira Code",
+    monospace;
+  font-weight: 600;
+  color: #334155;
   min-width: 120px;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
 }
 
 .primary-key-icon {
-  margin-right: 6px;
-  font-size: 0.85em;
-  color: #6b7280;
+  margin-right: 8px;
+  font-size: 0.9em;
+  color: #f59e0b;
+  filter: drop-shadow(0 1px 1px rgba(245, 158, 11, 0.3));
 }
 
 .field-type {
@@ -75,35 +95,40 @@
 .type-container {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .type-icon-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-  font-size: 0.7rem;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  font-size: 0.75rem;
   font-weight: 600;
-  background: #f3f4f6;
-  color: #4b5563;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .type-text {
-  font-size: 0.7rem;
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
-  color: #6b7280;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 .field-description {
-  color: #6b7280;
-  line-height: 1.4;
+  color: #64748b;
+  line-height: 1.5;
   max-width: 300px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
 
 .field-nullable {
@@ -112,25 +137,32 @@
 }
 
 .nullable-check {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  min-width: 24px;
 }
 
 .nullable-check.nullable {
-  color: #10b981;
+  color: #059669;
+  background: #ecfdf5;
+  border: 1px solid #d1fae5;
 }
 
 .nullable-check.not-nullable {
-  color: #ef4444;
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
 }
 
 .field-index {
   text-align: center;
-  font-weight: 600;
-  color: #9ca3af;
+  font-weight: 700;
+  color: #64748b;
   font-size: 0.8rem;
-  width: 40px;
-  background: #f9fafb;
+  width: 50px;
 }
 
 /* Controles de la tabla de campos */
@@ -161,7 +193,7 @@
 
 .fields-search-input:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #818183;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -181,7 +213,7 @@
 }
 
 .fields-filtered {
-  color: #3b82f6;
+  color: #6b7280;
 }
 
 .fields-total {
@@ -231,12 +263,15 @@
 /* Mensaje de no resultados */
 .fields-no-results {
   text-align: center;
-  padding: 2rem;
-  color: #6b7280;
+  padding: 3rem 2rem;
+  color: #64748b;
   font-style: italic;
-  background: #f9fafb;
-  border-radius: 6px;
-  margin-top: 1rem;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  border-radius: 12px;
+  margin-top: 1.5rem;
+  border: 2px dashed #cbd5e1;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
 /* Responsive */
