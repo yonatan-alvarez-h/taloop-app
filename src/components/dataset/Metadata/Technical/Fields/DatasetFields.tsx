@@ -42,7 +42,7 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
       <table className="fields-table">
         <thead>
           <tr>
-            <th>Campo</th>
+            <th>Columna</th>
             <th>Tipo</th>
             <th>Descripción</th>
             <th>Acepta Nulos</th>
@@ -53,7 +53,7 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
             <tr key={field.name}>
               <td className="field-name">
                 {field.unique && (
-                  <span className="primary-key-icon" title="Campo único">
+                  <span className="primary-key-icon" title="Columna única">
                     🔑
                   </span>
                 )}

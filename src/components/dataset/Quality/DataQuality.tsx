@@ -17,7 +17,7 @@ const DataQuality: React.FC<DataQualityProps> = ({ dataQuality }) => {
       key: "completeness",
       label: "Completitud",
       value: dataQuality.completeness,
-      description: "Porcentaje de campos sin valores nulos",
+      description: "Porcentaje de columnas sin valores nulos",
     },
     {
       key: "accuracy",

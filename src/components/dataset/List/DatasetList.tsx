@@ -43,7 +43,7 @@ const DatasetList: React.FC<DatasetListProps> = ({
           <ul className="suggestions-list">
             <li>Términos más generales</li>
             <li>Verificar la ortografía</li>
-            <li>Buscar por categoría o campo específico</li>
+            <li>Buscar por categoría o columna específica</li>
             <li>Usar sinónimos o palabras relacionadas</li>
           </ul>
         </div>
