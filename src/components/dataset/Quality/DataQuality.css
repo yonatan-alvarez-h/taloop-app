@@ -1,4 +1,7 @@
 .data-quality-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
   background: #ffffff;
   border-radius: 12px;
   padding: 1.5rem;
@@ -6,14 +9,17 @@
   height: fit-content;
 }
 
-/* Quality visual section */
+/* Quality visual section - columna izquierda */
 .quality-visual-section {
-  margin: 0 0 1rem 0;
+  margin: 0;
   padding: 0;
 }
 
 .quality-metadata {
-  padding-top: 1rem;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .quality-info-grid {
@@ -137,6 +143,8 @@
 @media (max-width: 768px) {
   .data-quality-container {
     padding: 1rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .quality-info-grid {
