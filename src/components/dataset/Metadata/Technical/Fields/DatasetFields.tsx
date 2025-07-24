@@ -42,6 +42,7 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
       <table className="fields-table">
         <thead>
           <tr>
+            <th title="Índice de la columna en el dataset">#</th>
             <th>Columna</th>
             <th>Tipo</th>
             <th>Descripción</th>
@@ -51,6 +52,7 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
         <tbody>
           {fields.map((field) => (
             <tr key={field.name}>
+              <td className="field-index">{field.index}</td>
               <td className="field-name">
                 {field.unique && (
                   <span className="primary-key-icon" title="Columna única">

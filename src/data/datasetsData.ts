@@ -2,8 +2,9 @@ import type { DatasetWithSamples, DatasetField } from "../types/dataset";
 
 // Helper function para convertir strings a DatasetField (temporal para migración)
 const createSimpleFields = (fieldNames: string[]): DatasetField[] => {
-  return fieldNames.map((name) => ({
+  return fieldNames.map((name, index) => ({
     name,
+    index,
     type: "string" as const,
     description: `Campo ${name}`,
     nullable: false,
@@ -33,6 +34,7 @@ const datasetsData: DatasetWithSamples[] = [
     fields: [
       {
         name: "region",
+        index: 0,
         type: "string",
         description: "Región geográfica donde se cultivó el producto",
         nullable: false,
@@ -40,6 +42,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "cultivo",
+        index: 1,
         type: "string",
         description: "Tipo de cultivo sembrado",
         nullable: false,
@@ -47,6 +50,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "toneladas",
+        index: 2,
         type: "number",
         description: "Cantidad cosechada en toneladas métricas",
         nullable: true,
@@ -54,6 +58,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "superficie",
+        index: 3,
         type: "number",
         description: "Superficie sembrada en hectáreas",
         nullable: false,
@@ -61,6 +66,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "rendimiento_ha",
+        index: 4,
         type: "number",
         description: "Rendimiento por hectárea en toneladas",
         nullable: false,
@@ -68,6 +74,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "tecnologia_aplicada",
+        index: 5,
         type: "enum",
         description: "Nivel de tecnología utilizada en el cultivo",
         nullable: false,
@@ -75,6 +82,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "clima_predominante",
+        index: 6,
         type: "enum",
         description: "Condición climática predominante durante el cultivo",
         nullable: false,
@@ -82,6 +90,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "fertilizante_usado",
+        index: 7,
         type: "boolean",
         description: "Indica si se utilizó fertilizante en el cultivo",
         nullable: false,
@@ -89,6 +98,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "fecha_cosecha",
+        index: 8,
         type: "date",
         description: "Fecha de cosecha del cultivo",
         nullable: false,
@@ -357,6 +367,7 @@ const datasetsData: DatasetWithSamples[] = [
     fields: [
       {
         name: "hospital",
+        index: 0,
         type: "string",
         description: "Nombre del hospital o centro de salud",
         nullable: false,
@@ -364,6 +375,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "pacientes",
+        index: 1,
         type: "number",
         description: "Número total de pacientes atendidos",
         nullable: false,
@@ -371,6 +383,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "tratamientos",
+        index: 2,
         type: "enum",
         description: "Tipo de tratamiento más común",
         nullable: false,
@@ -378,6 +391,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "recursos",
+        index: 3,
         type: "json",
         description:
           "Recursos disponibles en el centro (camas, equipos, personal)",
@@ -386,6 +400,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "ciudad",
+        index: 4,
         type: "string",
         description: "Ciudad donde se ubica el centro de salud",
         nullable: false,
@@ -393,6 +408,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "codigo_hospital",
+        index: 5,
         type: "string",
         description: "Código único identificador del hospital",
         nullable: false,
@@ -608,6 +624,7 @@ const datasetsData: DatasetWithSamples[] = [
     fields: [
       {
         name: "universidad",
+        index: 0,
         type: "string",
         description: "Nombre de la institución universitaria",
         nullable: false,
@@ -615,6 +632,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "posicion",
+        index: 1,
         type: "number",
         description: "Posición en el ranking nacional",
         nullable: false,
@@ -622,6 +640,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "puntaje",
+        index: 2,
         type: "number",
         description: "Puntaje total obtenido en la evaluación",
         nullable: false,
@@ -629,6 +648,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "area",
+        index: 3,
         type: "enum",
         description: "Área de especialización principal",
         nullable: false,
@@ -636,6 +656,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "ciudad",
+        index: 4,
         type: "string",
         description: "Ciudad donde se encuentra la universidad",
         nullable: false,
@@ -643,6 +664,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "acreditacion",
+        index: 5,
         type: "boolean",
         description: "Si la universidad tiene acreditación nacional",
         nullable: false,
@@ -650,6 +672,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "matricula_total",
+        index: 6,
         type: "number",
         description: "Número total de estudiantes matriculados",
         nullable: false,
@@ -657,6 +680,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "egresados_2023",
+        index: 7,
         type: "number",
         description: "Cantidad de estudiantes que se graduaron en 2023",
         nullable: false,
@@ -664,6 +688,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "tasa_empleabilidad",
+        index: 8,
         type: "number",
         description: "Porcentaje de empleabilidad de egresados (0-100)",
         nullable: false,
@@ -671,6 +696,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "fecha_fundacion",
+        index: 9,
         type: "date",
         description: "Fecha de fundación de la universidad",
         nullable: false,
@@ -678,6 +704,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "contacto",
+        index: 10,
         type: "email",
         description: "Email de contacto institucional",
         nullable: false,
@@ -685,6 +712,7 @@ const datasetsData: DatasetWithSamples[] = [
       },
       {
         name: "sitio_web",
+        index: 11,
         type: "url",
         description: "Sitio web oficial de la institución",
         nullable: false,

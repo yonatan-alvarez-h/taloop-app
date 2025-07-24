@@ -149,6 +149,15 @@
   color: #ef4444;
 }
 
+.field-index {
+  text-align: center;
+  font-weight: 600;
+  color: #9ca3af;
+  font-size: 0.8rem;
+  width: 40px;
+  background: #f9fafb;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .fields-table {
