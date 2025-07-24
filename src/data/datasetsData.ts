@@ -110,7 +110,7 @@ const datasetsData: DatasetWithSamples[] = [
     size: {
       fileSize: "3.2 GB",
       recordCount: 275000,
-      columnCount: 15,
+      columnCount: 9,
     },
     format: {
       type: "CSV" as const,
@@ -288,7 +288,7 @@ const datasetsData: DatasetWithSamples[] = [
     size: {
       fileSize: "1.8 GB",
       recordCount: 45000,
-      columnCount: 28,
+      columnCount: 6,
     },
     format: {
       type: "JSON" as const,
@@ -506,7 +506,7 @@ const datasetsData: DatasetWithSamples[] = [
     size: {
       fileSize: "850 KB",
       recordCount: 247,
-      columnCount: 18,
+      columnCount: 12,
     },
     format: {
       type: "Excel" as const,
