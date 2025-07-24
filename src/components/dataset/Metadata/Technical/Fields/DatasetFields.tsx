@@ -45,7 +45,7 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
             <th>Campo</th>
             <th>Tipo</th>
             <th>Descripción</th>
-            <th title="Permite valores nulos">Acepta Nulos</th>
+            <th>Acepta Nulos</th>
           </tr>
         </thead>
         <tbody>
