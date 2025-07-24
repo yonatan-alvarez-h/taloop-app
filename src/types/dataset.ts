@@ -4,7 +4,7 @@ export type DataSample = Record<string, string | number | boolean | null>;
 // Definición de campo de dataset con metadata extendida
 export interface DatasetField {
   name: string; // Nombre del campo
-  index: number; // Índice/orden de la columna en el dataset (empezando en 0)
+  index: number; // Índice/orden de la columna en el dataset (empezando en 1)
   type:
     | "string"
     | "number"
