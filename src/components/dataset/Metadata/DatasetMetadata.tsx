@@ -46,7 +46,7 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
           </span>
         </li>
         <li className="align-start metadata-section">
-          <strong>Columnas:</strong>{" "}
+          <strong>Columnas ({dataset.fields.length}):</strong>{" "}
           <DatasetFields fields={dataset.fields} showDetails={true} />
         </li>
 
