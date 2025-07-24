@@ -42,11 +42,11 @@
 }
 
 .fields-table th {
-  background: linear-gradient(to bottom, #f0f9ff, #e0f2fe);
-  color: #475569;
+  background: #366ea6;
+  color: #e1e2e3;
   font-weight: 600;
   padding: 16px 18px;
-  text-align: left;
+  text-align: center;
   font-size: 0.8rem;
   text-transform: none;
   letter-spacing: 0.025em;
@@ -59,11 +59,11 @@
 }
 
 .fields-table tbody tr:nth-child(even) {
-  background: #ffffff;
+  background: #f8fafc;
 }
 
 .fields-table tbody tr:nth-child(odd) {
-  background: #f8fafc;
+  background: #ffffff;
 }
 
 .fields-table tr:hover {
