@@ -1,20 +1,7 @@
 import React from "react";
 import type { DatasetField } from "../../../../../types/dataset";
+import { TYPE_ICONS } from "../../../../../utils/dataTypes";
 import "./DatasetFields.css";
-
-// Mapeo de iconos para tipos de datos
-const TYPE_ICONS = {
-  string: "T",
-  number: "#",
-  boolean: "•",
-  date: "📅",
-  datetime: "⏰",
-  email: "@",
-  url: "↗",
-  enum: "≡",
-  json: "{}",
-  binary: "⬢",
-} as const;
 
 interface DatasetFieldsProps {
   fields: DatasetField[];

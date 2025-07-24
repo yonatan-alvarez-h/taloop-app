@@ -116,22 +116,72 @@
   text-transform: lowercase;
 }
 
+/* Estilos para los iconos de tipos de datos en el encabezado */
+.preview-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.preview-field-name {
+  font-weight: 700;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.preview-type-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.8);
+  color: #1967d2;
+  border: 1px solid rgba(25, 103, 210, 0.2);
+  flex-shrink: 0;
+}
+
 /* Responsive adjustments for table */
 @media (max-width: 768px) {
   .dataset-preview-table th,
   .dataset-preview-table td {
-    padding: 14px 28px; /* Padding proporcionalmente aumentado en tablet */
+    padding: 14px 28px;
+  }
+
+  .preview-header-content {
+    gap: 4px;
+  }
+
+  .preview-field-name {
+    font-size: 0.8em;
+  }
+
+  .preview-type-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 0.6rem;
   }
 }
 
 @media (max-width: 480px) {
   .dataset-preview-table td {
-    padding: 12px 20px; /* Padding aumentado para mobile */
+    padding: 12px 20px;
     font-size: 0.75em;
   }
 
   .dataset-preview-table th {
     font-size: 0.8em;
+  }
+
+  .preview-type-icon {
+    width: 14px;
+    height: 14px;
+    font-size: 0.55rem;
   }
 }
 

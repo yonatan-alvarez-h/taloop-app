@@ -1,5 +1,6 @@
 import React from "react";
 import type { DataSample, DatasetField } from "../../../../types/dataset";
+import { TYPE_ICONS } from "../../../../utils/dataTypes";
 import "./PreviewTable.css";
 
 interface PreviewTableProps {
@@ -34,8 +35,12 @@ const PreviewTable: React.FC<PreviewTableProps> = ({ fields, data }) => {
           <tr>
             {fields.map((field) => (
               <th key={field.name} title={field.description}>
-                {field.name}
-                <span className="field-type-badge">({field.type})</span>
+                <div className="preview-header-content">
+                  <span className={`preview-type-icon type-${field.type}`}>
+                    {TYPE_ICONS[field.type]}
+                  </span>
+                  <span className="preview-field-name">{field.name}</span>
+                </div>
               </th>
             ))}
           </tr>

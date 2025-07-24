@@ -1,21 +1,14 @@
 // Tipo genérico para samples de datos
 export type DataSample = Record<string, string | number | boolean | null>;
 
+// Importar el tipo de datos desde utilidades
+import type { DataType } from "../utils/dataTypes";
+
 // Definición de campo de dataset con metadata extendida
 export interface DatasetField {
   name: string; // Nombre del campo
   index: number; // Índice/orden de la columna en el dataset (empezando en 1)
-  type:
-    | "string"
-    | "number"
-    | "boolean"
-    | "date"
-    | "datetime"
-    | "email"
-    | "url"
-    | "enum"
-    | "json"
-    | "binary"; // Tipo de datos
+  type: DataType; // Tipo de datos (ahora tipado fuertemente)
   description: string; // Descripción del campo
   nullable: boolean; // Si permite valores nulos
   unique: boolean; // Si los valores deben ser únicos
