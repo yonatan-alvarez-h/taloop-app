@@ -1,9 +1,9 @@
 import React from "react";
-import type { DataSample } from "../../../../types/dataset";
+import type { DataSample, DatasetField } from "../../../../types/dataset";
 import "./PreviewTable.css";
 
 interface PreviewTableProps {
-  fields: string[];
+  fields: DatasetField[];
   data: DataSample[];
 }
 
@@ -33,7 +33,10 @@ const PreviewTable: React.FC<PreviewTableProps> = ({ fields, data }) => {
         <thead>
           <tr>
             {fields.map((field) => (
-              <th key={field}>{field}</th>
+              <th key={field.name} title={field.description}>
+                {field.name}
+                <span className="field-type-badge">({field.type})</span>
+              </th>
             ))}
           </tr>
         </thead>
@@ -41,12 +44,12 @@ const PreviewTable: React.FC<PreviewTableProps> = ({ fields, data }) => {
           {data.map((row: Record<string, unknown>, i: number) => (
             <tr key={i}>
               {fields.map((field) => {
-                const value = row[field];
+                const value = row[field.name];
                 const alignClass = isNumeric(value)
                   ? "align-right"
                   : "align-left";
                 return (
-                  <td key={field} className={alignClass}>
+                  <td key={field.name} className={alignClass}>
                     {value !== undefined && value !== null
                       ? String(value)
                       : "-"}

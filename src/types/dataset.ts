@@ -1,6 +1,25 @@
 // Tipo genérico para samples de datos
 export type DataSample = Record<string, string | number | boolean | null>;
 
+// Definición de campo de dataset con metadata extendida
+export interface DatasetField {
+  name: string; // Nombre del campo
+  type:
+    | "string"
+    | "number"
+    | "boolean"
+    | "date"
+    | "datetime"
+    | "email"
+    | "url"
+    | "enum"
+    | "json"
+    | "binary"; // Tipo de datos
+  description: string; // Descripción del campo
+  nullable: boolean; // Si permite valores nulos
+  unique: boolean; // Si los valores deben ser únicos
+}
+
 // Métricas de calidad de datos
 export interface DataQuality {
   // Puntuación general de calidad (0-10)
@@ -32,7 +51,7 @@ export interface Dataset {
   category?: string;
   tags: string[];
   description: string;
-  fields: string[];
+  fields: DatasetField[]; // Cambiado de string[] a DatasetField[]
   owner: {
     name: string;
     type: "empresa" | "usuario";

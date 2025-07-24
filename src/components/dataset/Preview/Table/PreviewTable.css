@@ -103,6 +103,19 @@
   border: 1px dashed #dee2e6;
 }
 
+/* Estilos para el badge de tipo de campo en los headers de la tabla */
+.field-type-badge {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 1px 4px;
+  background: rgba(25, 103, 210, 0.1);
+  color: #1967d2;
+  border-radius: 3px;
+  font-size: 0.7em;
+  font-weight: 400;
+  text-transform: lowercase;
+}
+
 /* Responsive adjustments for table */
 @media (max-width: 768px) {
   .dataset-preview-table th,

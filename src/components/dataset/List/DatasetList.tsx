@@ -22,7 +22,7 @@ const DatasetList: React.FC<DatasetListProps> = ({
       ds.description.toLowerCase().includes(search.toLowerCase()) ||
       ds.tags.some((tag) => tag.toLowerCase().includes(search.toLowerCase())) ||
       ds.fields.some((field) =>
-        field.toLowerCase().includes(search.toLowerCase())
+        field.name.toLowerCase().includes(search.toLowerCase())
       ) ||
       ds.owner.name.toLowerCase().includes(search.toLowerCase())
   );

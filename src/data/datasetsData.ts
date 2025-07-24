@@ -1,4 +1,15 @@
-import type { DatasetWithSamples } from "../types/dataset";
+import type { DatasetWithSamples, DatasetField } from "../types/dataset";
+
+// Helper function para convertir strings a DatasetField (temporal para migración)
+const createSimpleFields = (fieldNames: string[]): DatasetField[] => {
+  return fieldNames.map((name) => ({
+    name,
+    type: "string" as const,
+    description: `Campo ${name}`,
+    nullable: false,
+    unique: false,
+  }));
+};
 
 const datasetsData: DatasetWithSamples[] = [
   {
@@ -20,15 +31,69 @@ const datasetsData: DatasetWithSamples[] = [
     description:
       "Dataset exhaustivo sobre la producción agrícola nacional en 2024, con desglose por región, tipo de cultivo, superficie sembrada y toneladas cosechadas. Incluye variables de rendimiento, tecnología aplicada y condiciones climáticas, ideal para estudios de productividad, planificación estratégica y desarrollo de políticas alimentarias.",
     fields: [
-      "region",
-      "cultivo",
-      "toneladas",
-      "superficie",
-      "rendimiento_ha",
-      "tecnologia_aplicada",
-      "clima_predominante",
-      "fertilizante_usado",
-      "fecha_cosecha",
+      {
+        name: "region",
+        type: "string",
+        description: "Región geográfica donde se cultivó el producto",
+        nullable: false,
+        unique: true,
+      },
+      {
+        name: "cultivo",
+        type: "string",
+        description: "Tipo de cultivo sembrado",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "toneladas",
+        type: "number",
+        description: "Cantidad cosechada en toneladas métricas",
+        nullable: true,
+        unique: false,
+      },
+      {
+        name: "superficie",
+        type: "number",
+        description: "Superficie sembrada en hectáreas",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "rendimiento_ha",
+        type: "number",
+        description: "Rendimiento por hectárea en toneladas",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "tecnologia_aplicada",
+        type: "enum",
+        description: "Nivel de tecnología utilizada en el cultivo",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "clima_predominante",
+        type: "enum",
+        description: "Condición climática predominante durante el cultivo",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "fertilizante_usado",
+        type: "boolean",
+        description: "Indica si se utilizó fertilizante en el cultivo",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "fecha_cosecha",
+        type: "date",
+        description: "Fecha de cosecha del cultivo",
+        nullable: false,
+        unique: false,
+      },
     ],
     owner: {
       name: "AgroData",
@@ -289,7 +354,51 @@ const datasetsData: DatasetWithSamples[] = [
     tags: ["salud", "hospitales", "2024", "pacientes", "tratamientos"],
     description:
       "Datos de salud pública nacional, con información sobre hospitales, pacientes, tratamientos y recursos médicos.",
-    fields: ["hospital", "pacientes", "tratamientos", "recursos", "ciudad"],
+    fields: [
+      {
+        name: "hospital",
+        type: "string",
+        description: "Nombre del hospital o centro de salud",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "pacientes",
+        type: "number",
+        description: "Número total de pacientes atendidos",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "tratamientos",
+        type: "enum",
+        description: "Tipo de tratamiento más común",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "recursos",
+        type: "json",
+        description:
+          "Recursos disponibles en el centro (camas, equipos, personal)",
+        nullable: true,
+        unique: false,
+      },
+      {
+        name: "ciudad",
+        type: "string",
+        description: "Ciudad donde se ubica el centro de salud",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "codigo_hospital",
+        type: "string",
+        description: "Código único identificador del hospital",
+        nullable: false,
+        unique: true,
+      },
+    ],
     owner: {
       name: "HealthData",
       type: "empresa",
@@ -497,15 +606,90 @@ const datasetsData: DatasetWithSamples[] = [
     description:
       "Ranking nacional de universidades 2024, elaborado a partir de indicadores de calidad académica, empleabilidad, investigación, matrícula y satisfacción estudiantil. Permite comparar instituciones por área de estudio y ciudad, facilitando la toma de decisiones para estudiantes y gestores educativos.",
     fields: [
-      "universidad",
-      "posicion",
-      "puntaje",
-      "area",
-      "ciudad",
-      "acreditacion",
-      "matricula_total",
-      "egresados_2023",
-      "tasa_empleabilidad",
+      {
+        name: "universidad",
+        type: "string",
+        description: "Nombre de la institución universitaria",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "posicion",
+        type: "number",
+        description: "Posición en el ranking nacional",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "puntaje",
+        type: "number",
+        description: "Puntaje total obtenido en la evaluación",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "area",
+        type: "enum",
+        description: "Área de especialización principal",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "ciudad",
+        type: "string",
+        description: "Ciudad donde se encuentra la universidad",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "acreditacion",
+        type: "boolean",
+        description: "Si la universidad tiene acreditación nacional",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "matricula_total",
+        type: "number",
+        description: "Número total de estudiantes matriculados",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "egresados_2023",
+        type: "number",
+        description: "Cantidad de estudiantes que se graduaron en 2023",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "tasa_empleabilidad",
+        type: "number",
+        description: "Porcentaje de empleabilidad de egresados (0-100)",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "fecha_fundacion",
+        type: "date",
+        description: "Fecha de fundación de la universidad",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "contacto",
+        type: "email",
+        description: "Email de contacto institucional",
+        nullable: false,
+        unique: false,
+      },
+      {
+        name: "sitio_web",
+        type: "url",
+        description: "Sitio web oficial de la institución",
+        nullable: false,
+        unique: false,
+      },
     ],
     owner: {
       name: "EduRank",
@@ -718,7 +902,13 @@ const datasetsData: DatasetWithSamples[] = [
     ],
     description:
       "Consumo de agua por hogar en distintas ciudades y regiones, con información sobre tarifas y sostenibilidad.",
-    fields: ["ciudad", "hogar", "consumo_m3", "tarifa", "año"],
+    fields: createSimpleFields([
+      "ciudad",
+      "hogar",
+      "consumo_m3",
+      "tarifa",
+      "año",
+    ]),
     owner: {
       name: "WaterStats",
       type: "empresa",
@@ -908,7 +1098,13 @@ const datasetsData: DatasetWithSamples[] = [
     tags: ["movilidad", "transporte", "ciudades", "2024", "vehículos"],
     description:
       "Datos sobre movilidad urbana, transporte público, vehículos y rutas en ciudades principales.",
-    fields: ["ciudad", "vehículos", "transporte_publico", "rutas", "año"],
+    fields: createSimpleFields([
+      "ciudad",
+      "vehículos",
+      "transporte_publico",
+      "rutas",
+      "año",
+    ]),
     owner: {
       name: "UrbanMove",
       type: "empresa",
@@ -1066,7 +1262,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
     description:
       "Estadísticas de criminalidad 2024 por región, tipo de delito y mes, con tasas por cada 100,000 habitantes y evolución anual. Incluye edad promedio de involucrados, resolución de casos y zonas afectadas, útil para estudios de seguridad ciudadana, prevención y formulación de políticas públicas.",
-    fields: [
+    fields: createSimpleFields([
       "region",
       "mes",
       "tipo_delito",
@@ -1075,7 +1271,7 @@ const datasetsData: DatasetWithSamples[] = [
       "edad_promedio_involucrados",
       "hora_delito",
       "zona",
-    ],
+    ]),
     owner: {
       name: "SafeStats",
       type: "empresa",
@@ -1304,7 +1500,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
     description:
       "Registro completo de ventas realizadas en 2024, con detalle por producto, fecha, cantidad, monto total, canal de venta y vendedor. Permite análisis de tendencias, proyecciones, segmentación de clientes y elaboración de reportes financieros avanzados para la toma de decisiones empresariales.",
-    fields: [
+    fields: createSimpleFields([
       "fecha",
       "producto",
       "cantidad",
@@ -1313,7 +1509,7 @@ const datasetsData: DatasetWithSamples[] = [
       "vendedor",
       "cliente_id",
       "descuento_aplicado",
-    ],
+    ]),
     owner: {
       name: "DataCorp",
       type: "empresa",
@@ -1546,7 +1742,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
     description:
       "Base de datos de usuarios registrados en la plataforma, con información sobre nombre, correo, fecha de registro, país y estado de cuenta. Ideal para segmentación, campañas de marketing, análisis de crecimiento y gestión de usuarios activos y referidos.",
-    fields: [
+    fields: createSimpleFields([
       "id",
       "nombre",
       "email",
@@ -1555,7 +1751,7 @@ const datasetsData: DatasetWithSamples[] = [
       "pais",
       "estado_cuenta",
       "referido_por",
-    ],
+    ]),
     owner: {
       name: "admin",
       type: "usuario",
@@ -1764,7 +1960,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
     description:
       "Inventario actualizado de productos en almacenes, con detalle de cantidades, ubicaciones, categorías y proveedores. Incluye fechas de ingreso, costos unitarios y stock mínimo, facilitando la optimización de la gestión de inventario, previsión de faltantes y mejora de la logística interna.",
-    fields: [
+    fields: createSimpleFields([
       "producto",
       "cantidad",
       "ubicacion",
@@ -1773,7 +1969,7 @@ const datasetsData: DatasetWithSamples[] = [
       "fecha_ingreso",
       "costo_unitario",
       "stock_minimo",
-    ],
+    ]),
     owner: {
       name: "Bodega Central",
       type: "empresa",
@@ -1996,7 +2192,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
     description:
       "Información integral sobre empleados activos, con datos de puesto, fecha de ingreso, departamento, salario, supervisor y antigüedad. Permite gestionar el talento, analizar historial laboral y optimizar procesos de recursos humanos.",
-    fields: [
+    fields: createSimpleFields([
       "id",
       "nombre",
       "puesto",
@@ -2005,7 +2201,7 @@ const datasetsData: DatasetWithSamples[] = [
       "salario",
       "supervisor",
       "antiguedad_anos",
-    ],
+    ]),
     owner: {
       name: "Recursos Humanos",
       type: "empresa",
@@ -2216,7 +2412,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
     description:
       "Histórico detallado de ventas realizadas en 2023, con información por producto, fecha, cantidad, monto, canal de venta y vendedor. Útil para comparar desempeño anual, identificar patrones de consumo y realizar análisis retrospectivos de la actividad comercial y financiera.",
-    fields: [
+    fields: createSimpleFields([
       "fecha",
       "producto",
       "cantidad",
@@ -2225,7 +2421,7 @@ const datasetsData: DatasetWithSamples[] = [
       "vendedor",
       "cliente_id",
       "descuento_aplicado",
-    ],
+    ]),
     owner: {
       name: "DataCorp",
       type: "empresa",
@@ -2407,7 +2603,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
     description:
       "Registros diarios de temperatura, humedad, precipitaciones y viento de los últimos 10 años en distintas regiones del país. Útil para estudios ambientales, agricultura y predicción de tendencias climáticas.",
-    fields: [
+    fields: createSimpleFields([
       "fecha",
       "region",
       "temperatura",
@@ -2418,7 +2614,7 @@ const datasetsData: DatasetWithSamples[] = [
       "indice_uv",
       "sensacion_termica",
       "alerta_meteorologica",
-    ],
+    ]),
     owner: {
       name: "MeteoData",
       type: "empresa",
@@ -2630,7 +2826,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
     description:
       "Datos anonimizados de desplazamientos urbanos, incluyendo rutas, horarios y medios de transporte utilizados. Ideal para análisis de tráfico, planificación urbana y optimización de rutas.",
-    fields: [
+    fields: createSimpleFields([
       "fecha",
       "origen",
       "destino",
@@ -2639,7 +2835,7 @@ const datasetsData: DatasetWithSamples[] = [
       "distancia_km",
       "hora_pico",
       "motivo_viaje",
-    ],
+    ]),
     owner: {
       name: "UrbanFlow",
       type: "empresa",
@@ -2771,7 +2967,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
     description:
       "Consumo mensual de energía eléctrica en hogares de diferentes ciudades, con detalle por tipo de vivienda y tarifa aplicada. Útil para estudios de eficiencia energética y políticas públicas.",
-    fields: [
+    fields: createSimpleFields([
       "ciudad",
       "mes",
       "consumo_kwh",
@@ -2781,7 +2977,7 @@ const datasetsData: DatasetWithSamples[] = [
       "potencia_contratada",
       "consumo_anterior",
       "variacion_mensual",
-    ],
+    ]),
     owner: {
       name: "EnerData",
       type: "empresa",
@@ -2989,7 +3185,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
     description:
       "Resultados de la encuesta anual de satisfacción de clientes, con respuestas a preguntas sobre calidad, atención y recomendación. Incluye segmentación por edad y región.",
-    fields: [
+    fields: createSimpleFields([
       "cliente_id",
       "edad",
       "region",
@@ -2998,7 +3194,7 @@ const datasetsData: DatasetWithSamples[] = [
       "fecha_respuesta",
       "producto_adquirido",
       "canal_contacto",
-    ],
+    ]),
     owner: {
       name: "admin",
       type: "usuario",
@@ -3223,7 +3419,7 @@ const datasetsData: DatasetWithSamples[] = [
     ],
     description:
       "Histórico mensual de precios de combustibles (gasolina, diésel, gas) en estaciones de servicio de todo el país. Permite análisis de tendencias y comparación regional.",
-    fields: [
+    fields: createSimpleFields([
       "mes",
       "anio",
       "tipo_combustible",
@@ -3232,7 +3428,7 @@ const datasetsData: DatasetWithSamples[] = [
       "estacion_servicio",
       "variacion_mensual",
       "impuesto_aplicado",
-    ],
+    ]),
     owner: {
       name: "DataCorp",
       type: "empresa",
