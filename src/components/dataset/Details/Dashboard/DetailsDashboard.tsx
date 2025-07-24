@@ -1,8 +1,7 @@
 import React from "react";
 import type { Dataset } from "../../../../types/dataset";
-import DatasetMetadata from "../../Metadata";
-import DataQuality from "../../Quality/DataQuality";
-import SectionTitle from "../Section/SectionTitle";
+import { useTabs } from "./hooks/useTabs";
+import { TabNavigation, TabContent } from "./components";
 import "./DetailsDashboard.css";
 
 interface DetailsDashboardProps {
@@ -10,25 +9,16 @@ interface DetailsDashboardProps {
 }
 
 const DetailsDashboard: React.FC<DetailsDashboardProps> = ({ dataset }) => {
+  const { activeTab, tabs, switchTab } = useTabs("information");
+
   return (
     <div className="details-dashboard">
-      <div className="details-dashboard-left">
-        <SectionTitle>Información del Dataset</SectionTitle>
-        <DatasetMetadata dataset={dataset} />
-      </div>
-
-      <div className="details-dashboard-right">
-        <SectionTitle>Calidad de Datos</SectionTitle>
-        {dataset.dataQuality ? (
-          <DataQuality dataQuality={dataset.dataQuality} />
-        ) : (
-          <div className="details-dashboard-no-data-quality">
-            <p>
-              Información de calidad de datos no disponible para este dataset.
-            </p>
-          </div>
-        )}
-      </div>
+      <TabNavigation
+        tabs={tabs}
+        activeTab={activeTab}
+        onTabChange={switchTab}
+      />
+      <TabContent dataset={dataset} activeTab={activeTab} />
     </div>
   );
 };
