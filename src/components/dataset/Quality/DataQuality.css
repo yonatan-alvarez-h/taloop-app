@@ -1,11 +1,9 @@
 .data-quality-container {
   background: #ffffff;
-  border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 1.5rem;
-  margin: 0; /* Removido margin-top para dashboard layout */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  height: fit-content; /* Para que se ajuste ao conteúdo no grid */
+  margin: 0;
+  height: fit-content;
 }
 
 /* Quality visual section */

@@ -3,21 +3,17 @@
 /* Container principal */
 .dataset-preview {
   margin-top: 1em;
-  padding: 1.5rem 2rem 1.5rem 2rem; /* Padding simétrico mejorado */
-  background: #fafbfc; /* Fondo sutil */
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
+  padding: 1.5rem 2rem 1.5rem 2rem;
+  background: #ffffff;
+  border-radius: 12px;
 }
 
 /* Fondo blanco para el contenido de la vista previa */
 .dataset-preview-card {
   background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 2px 12px rgba(13, 138, 188, 0.08);
-  padding: 2rem 2.5rem 2rem 2.5rem; /* Padding simétrico mejorado */
-  margin: 0; /* Removido margin-top para dashboard layout */
-  border: 1px solid #e0e7ef;
-  transition: box-shadow 0.2s;
+  border-radius: 12px;
+  padding: 2rem 2.5rem 2rem 2.5rem;
+  margin: 0;
   max-width: 98vw;
   width: 100%;
   min-width: 0;

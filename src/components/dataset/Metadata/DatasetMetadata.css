@@ -4,10 +4,8 @@
   list-style: none;
   background: #ffffff;
   border-radius: 12px;
-  border: 1px solid #f1f3f4;
   height: fit-content;
   font-size: 0.85rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .dataset-preview-meta > li {
