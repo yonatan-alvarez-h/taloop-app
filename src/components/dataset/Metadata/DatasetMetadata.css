@@ -19,9 +19,9 @@
 }
 
 .dataset-preview-meta > li strong {
-  font-size: 0.9rem;
-  color: #374151;
-  font-weight: 600;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
 }
 
 .dataset-preview-meta > li.align-start {
@@ -42,9 +42,9 @@
 }
 
 .dataset-preview-meta ul > li strong {
-  font-size: 0.8rem;
-  color: #374151;
-  font-weight: 600;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
 }
 
 .dataset-preview-meta ul > li.align-start {
@@ -84,9 +84,9 @@
 }
 
 .metadata-section strong {
-  color: #374151;
-  font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
 }
 
 /* =================================================================
@@ -106,7 +106,9 @@
   }
 
   .dataset-preview-meta > li strong {
-    font-size: 0.75rem; /* Labels más pequeños */
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
   }
 
   .dataset-preview-meta ul {
@@ -119,7 +121,9 @@
   }
 
   .dataset-preview-meta ul > li strong {
-    font-size: 0.7rem; /* Labels de metadata más pequeños */
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
   }
 
   .dataset-details-category {
@@ -141,7 +145,9 @@
   }
 
   .metadata-section strong {
-    font-size: 0.7rem; /* Más pequeño en tablet */
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
   }
 
   /* Responsive adjustments for UID container */
@@ -177,7 +183,9 @@
   }
 
   .dataset-preview-meta > li strong {
-    font-size: 0.7rem; /* Labels más pequeños */
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
   }
 
   .dataset-preview-meta ul {
@@ -192,7 +200,9 @@
   }
 
   .dataset-preview-meta ul > li strong {
-    font-size: 0.65rem; /* Labels de metadata más pequeños */
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
   }
 
   .dataset-details-category {
@@ -215,7 +225,9 @@
   }
 
   .metadata-section strong {
-    font-size: 0.65rem; /* Más pequeño en móvil */
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
   }
 
   .uid-row {
