@@ -30,7 +30,7 @@ const PreviewTable: React.FC<PreviewTableProps> = ({ fields, data }) => {
 
   return (
     <div className="dataset-preview-table">
-      <table className="table table-sm table-bordered mt-2 mb-0">
+      <table className="preview-table">
         <thead>
           <tr>
             {fields.map((field) => (
