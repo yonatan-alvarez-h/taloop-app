@@ -2,6 +2,20 @@ import React from "react";
 import type { DatasetField } from "../../../../../types/dataset";
 import "./DatasetFields.css";
 
+// Mapeo de iconos para tipos de datos
+const TYPE_ICONS = {
+  string: "T",
+  number: "#",
+  boolean: "•",
+  date: "📅",
+  datetime: "⏰",
+  email: "@",
+  url: "↗",
+  enum: "≡",
+  json: "{}",
+  binary: "⬢",
+} as const;
+
 interface DatasetFieldsProps {
   fields: DatasetField[];
   className?: string;
@@ -62,9 +76,12 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
                 {field.name}
               </td>
               <td className="field-type">
-                <span className={`type-badge type-${field.type}`}>
-                  {field.type}
-                </span>
+                <div className="type-container">
+                  <span className={`type-icon-badge type-${field.type}`}>
+                    {TYPE_ICONS[field.type]}
+                  </span>
+                  <span className="type-text">{field.type}</span>
+                </div>
               </td>
               <td className="field-description">{field.description}</td>
               <td className="field-nullable">

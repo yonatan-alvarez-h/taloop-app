@@ -72,56 +72,31 @@
   min-width: 80px;
 }
 
-.type-badge {
-  display: inline-block;
-  padding: 2px 6px;
-  border-radius: 3px;
+.type-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.type-icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.type-text {
   font-size: 0.7rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.3px;
-}
-
-/* Colores por tipo de dato - más sobrios */
-.type-string {
-  background: #f3f4f6;
-  color: #4b5563;
-}
-.type-number {
-  background: #f3f4f6;
-  color: #4b5563;
-}
-.type-boolean {
-  background: #f3f4f6;
-  color: #4b5563;
-}
-.type-date {
-  background: #f3f4f6;
-  color: #4b5563;
-}
-.type-datetime {
-  background: #f3f4f6;
-  color: #4b5563;
-}
-.type-email {
-  background: #f3f4f6;
-  color: #4b5563;
-}
-.type-url {
-  background: #f3f4f6;
-  color: #4b5563;
-}
-.type-enum {
-  background: #f3f4f6;
-  color: #4b5563;
-}
-.type-json {
-  background: #f3f4f6;
-  color: #4b5563;
-}
-.type-binary {
-  background: #f3f4f6;
-  color: #4b5563;
+  color: #6b7280;
 }
 
 .field-description {
