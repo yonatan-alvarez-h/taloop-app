@@ -36,10 +36,10 @@ const PreviewTable: React.FC<PreviewTableProps> = ({ fields, data }) => {
             {fields.map((field) => (
               <th key={field.name} title={field.description}>
                 <div className="preview-header-content">
+                  <span className="preview-field-name">{field.name}</span>
                   <span className={`preview-type-icon type-${field.type}`}>
                     {TYPE_ICONS[field.type]}
                   </span>
-                  <span className="preview-field-name">{field.name}</span>
                 </div>
               </th>
             ))}
