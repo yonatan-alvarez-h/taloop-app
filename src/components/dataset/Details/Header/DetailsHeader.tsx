@@ -16,6 +16,10 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset }) => {
         <DatasetPrice price={dataset.priceUsd} currency="USD" />
       </div>
 
+      <div className="details-header-description">
+        <p>{dataset.description}</p>
+      </div>
+
       {typeof dataset.rating === "number" && (
         <DatasetRating
           rating={dataset.rating}

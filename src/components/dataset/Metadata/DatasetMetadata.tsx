@@ -20,7 +20,7 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
       {/* Header con UID, Título y Descripción */}
       <li className="metadata-header">
         <div className="header-info">
-          <div className="uid-title-group">
+          <div className="uid-title-group header-left-expanded">
             <div className="title-line">
               <strong>Título:</strong>
               <span>{dataset.title}</span>
@@ -29,30 +29,34 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
               <strong>UID:</strong>
               <DatasetUID uid={dataset.uid} />
             </div>
+            <div className="description-section">
+              <strong>Descripción:</strong>
+              <p>{dataset.description}</p>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      {/* Propietario y Etiquetas en línea */}
+      <li className="metadata-section">
+        <div className="header-info">
+          <div className="uid-title-group">
+            <div className="metadata-item--inline">
+              <strong>Propietario:</strong>
+              <DatasetOwner owner={dataset.owner} />
+            </div>
           </div>
           <div className="description-group">
-            <strong>Descripción:</strong>
-            <p>{dataset.description}</p>
+            <strong>Etiquetas:</strong>
+            <div className="tags-container">
+              {dataset.tags.map((tag: string) => (
+                <span className="dataset-tags-chip" key={tag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-      </li>
-
-      {/* Etiquetas */}
-      <li className="align-start metadata-section">
-        <strong>Etiquetas:</strong>
-        <div className="tags-container">
-          {dataset.tags.map((tag: string) => (
-            <span className="dataset-tags-chip" key={tag}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      </li>
-
-      {/* Propietario */}
-      <li className="metadata-section">
-        <strong>Propietario:</strong>
-        <DatasetOwner owner={dataset.owner} />
       </li>
 
       {/* Columnas */}

@@ -307,6 +307,11 @@
   align-items: flex-start;
 }
 
+/* Para el header principal que solo usa una columna */
+.metadata-header .header-info {
+  display: block;
+}
+
 .uid-title-group {
   display: flex;
   flex-direction: column;
@@ -343,6 +348,33 @@
 }
 
 .description-group p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+/* Expanded header styles */
+.header-left-expanded {
+  flex: 1;
+  max-width: 100%;
+  gap: 0.75rem;
+}
+
+.header-left-expanded .description-section {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.header-left-expanded .description-section strong {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.header-left-expanded .description-section p {
   margin: 0;
   font-size: 0.875rem;
   color: #374151;
