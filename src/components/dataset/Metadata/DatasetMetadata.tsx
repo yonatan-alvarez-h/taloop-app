@@ -55,6 +55,12 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
         <DatasetOwner owner={dataset.owner} />
       </li>
 
+      {/* Columnas */}
+      <li className="align-start metadata-section">
+        <strong>Columnas ({dataset.fields.length}):</strong>
+        <DatasetFields fields={dataset.fields} showDetails={true} />
+      </li>
+
       {/* Categoría */}
       {dataset.category && (
         <li className="metadata-section">
@@ -73,12 +79,6 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
           />
         </li>
       )}
-
-      {/* Columnas */}
-      <li className="align-start metadata-section">
-        <strong>Columnas ({dataset.fields.length}):</strong>
-        <DatasetFields fields={dataset.fields} showDetails={true} />
-      </li>
 
       {/* Tamaño */}
       {dataset.size && (
