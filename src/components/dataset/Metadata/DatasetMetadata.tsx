@@ -17,36 +17,22 @@ interface DatasetMetadataProps {
 const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
   return (
     <ul className="dataset-preview-meta">
-      {/* Header con UID, Título y Descripción */}
-      <li className="metadata-header">
+      {/* UID, Propietario y Etiquetas en línea */}
+      <li className="metadata-section">
         <div className="header-info">
-          <div className="uid-title-group header-left-expanded">
-            <div className="title-line">
-              <strong>Título:</strong>
-              <span>{dataset.title}</span>
-            </div>
-            <div className="uid-line">
+          <div className="metadata-inline-item">
+            <div className="metadata-item--inline">
               <strong>UID:</strong>
               <DatasetUID uid={dataset.uid} />
             </div>
-            <div className="description-section">
-              <strong>Descripción:</strong>
-              <p>{dataset.description}</p>
-            </div>
           </div>
-        </div>
-      </li>
-
-      {/* Propietario y Etiquetas en línea */}
-      <li className="metadata-section">
-        <div className="header-info">
-          <div className="uid-title-group">
+          <div className="metadata-inline-item">
             <div className="metadata-item--inline">
               <strong>Propietario:</strong>
               <DatasetOwner owner={dataset.owner} />
             </div>
           </div>
-          <div className="description-group">
+          <div className="metadata-inline-item">
             <strong>Etiquetas:</strong>
             <div className="tags-container">
               {dataset.tags.map((tag: string) => (
