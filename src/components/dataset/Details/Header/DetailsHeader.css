@@ -13,12 +13,13 @@
 }
 
 .details-header-title {
-  font-weight: 700;
-  font-size: 1.6em;
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-2xl);
   color: #1a202c;
   flex: 1;
   word-break: break-word;
-  line-height: 1.25;
+  line-height: var(--line-height-tight);
 }
 
 /* New styles for description */
@@ -28,9 +29,10 @@
 
 .details-header-description p {
   margin: 0;
-  font-size: 0.9rem;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
   color: #4a5568;
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
 }
 
 /* Mobile adjustments */

@@ -47,9 +47,10 @@
   font-weight: 600;
   padding: 14px 16px;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: var(--font-size-sm);
   text-transform: none;
   letter-spacing: 0.025em;
+  font-family: var(--font-family-base);
 }
 
 .fields-table td {
@@ -71,12 +72,11 @@
 }
 
 .field-name {
-  font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Fira Code",
-    monospace;
+  font-family: var(--font-family-mono);
   font-weight: 600;
   color: #334155;
   min-width: 120px;
-  font-size: 0.8rem;
+  font-size: var(--font-size-sm);
   display: flex;
   align-items: center;
 }

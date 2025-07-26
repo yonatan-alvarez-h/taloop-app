@@ -32,14 +32,14 @@
   font-weight: 600;
   padding: 14px 16px;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: var(--font-size-sm);
   text-transform: none;
   letter-spacing: 0.025em;
-  font-family: "Inter", "Segoe UI", sans-serif;
+  font-family: var(--font-family-base);
 }
 
 .preview-table td {
-  font-size: 0.8rem;
+  font-size: var(--font-size-sm);
   color: #334155;
   padding: 12px 16px;
   max-width: 320px;
@@ -47,7 +47,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: "Inter", "Segoe UI", sans-serif;
+  font-family: var(--font-family-base);
   transition: background-color 0.15s ease;
   vertical-align: top;
 }

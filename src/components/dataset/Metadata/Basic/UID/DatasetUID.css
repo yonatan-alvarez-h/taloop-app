@@ -6,7 +6,7 @@
   background: #f8f9fa;
   border-radius: 6px;
   padding: 0.5rem 0.75rem;
-  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+  font-family: var(--font-family-mono);
   transition: all 0.2s ease;
   width: fit-content;
   position: relative;
