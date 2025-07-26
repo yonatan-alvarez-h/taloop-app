@@ -9,7 +9,7 @@
   display: flex;
   border-bottom: 2px solid #e5e7eb;
   background: #ffffff;
-  border-radius: 8px 8px 0 0;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
@@ -84,18 +84,6 @@
   .tab-navigation {
     margin-bottom: 1.5rem;
   }
-}
-
-/* Efecto de activación suave */
-.tab-button.active::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: #366ea6;
-  opacity: 0.3;
 }
 
 /* Animación para cambio de pestañas */
