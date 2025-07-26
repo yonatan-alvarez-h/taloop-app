@@ -15,15 +15,15 @@
 /* Header fijo */
 .dataset-details-fixed-header {
   flex-shrink: 0;
-  padding: 1.5rem 3rem 0rem 3rem;
-  /* Reducido padding-top aún más para mayor compactación */
+  padding: 1.25rem 2.5rem 0rem 2.5rem;
+  /* Reducido padding lateral para aprovechar mejor el ancho */
 }
 
 /* Contenido con scroll */
 .dataset-details-scrollable-content {
   flex: 1;
   overflow-y: auto;
-  padding: 0 3rem 2.5rem 3rem;
+  padding: 0 2.5rem 2.5rem 2.5rem;
 }
 
 /* Responsive adjustments */
@@ -34,7 +34,7 @@
   }
 
   .dataset-details-fixed-header {
-    padding: 1.5rem 2rem 0rem 2rem;
+    padding: 1.25rem 2rem 0rem 2rem;
   }
 
   .dataset-details-scrollable-content {
@@ -53,11 +53,11 @@
   }
 
   .dataset-details-fixed-header {
-    padding: 1rem 1.5rem 0rem 1.5rem;
+    padding: 1rem 1.25rem 0rem 1.25rem;
   }
 
   .dataset-details-scrollable-content {
-    padding: 0 1.5rem 1rem 1.5rem;
+    padding: 0 1.25rem 1rem 1.25rem;
   }
 
   .details-dashboard-scrollable-content {

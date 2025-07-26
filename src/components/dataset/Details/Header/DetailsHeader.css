@@ -1,29 +1,29 @@
 .details-header {
-  margin-bottom: 0.25rem;
-  /* Eliminado border-bottom para layout más limpio y reducido margin */
-  padding-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
+  /* Eliminado border-bottom para layout más limpio y reducido margin aún más */
+  padding-bottom: 0.2rem;
 }
 
 .details-header-title-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   gap: 12px;
 }
 
 .details-header-title {
   font-weight: 700;
-  font-size: 1.5em;
+  font-size: 1.6em;
   color: #1a202c;
   flex: 1;
   word-break: break-word;
-  line-height: 1.3;
+  line-height: 1.25;
 }
 
 /* New styles for description */
 .details-header-description {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .details-header-description p {
