@@ -1,15 +1,15 @@
 .details-header {
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #e2e8f0;
-  padding-bottom: 1.5rem;
+  margin-bottom: 0.25rem;
+  /* Eliminado border-bottom para layout más limpio y reducido margin */
+  padding-bottom: 0.25rem;
 }
 
 .details-header-title-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 18px;
-  gap: 16px;
+  margin-bottom: 8px;
+  gap: 12px;
 }
 
 .details-header-title {
@@ -23,7 +23,7 @@
 
 /* New styles for description */
 .details-header-description {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .details-header-description p {

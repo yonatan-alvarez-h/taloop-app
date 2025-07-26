@@ -10,8 +10,8 @@
 /* Tabs fijos */
 .details-dashboard-fixed-tabs {
   flex-shrink: 0;
-  padding: 0rem 0 0.25rem 0;
-  /* Reducido padding-bottom también */
+  padding: 0rem 0 0.15rem 0;
+  /* Reducido padding-bottom aún más */
   background: transparent;
   position: sticky;
   top: 0;
