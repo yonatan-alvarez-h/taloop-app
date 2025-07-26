@@ -1,11 +1,6 @@
 import React from "react";
 import type { Dataset } from "../../../types/dataset";
-import {
-  DatasetCategory,
-  DatasetOwner,
-  DatasetUID,
-  DatasetDomain,
-} from "./Basic";
+import { DatasetCategory, DatasetOwner, DatasetUID } from "./Basic";
 import { DatasetFields, DatasetFormat, DatasetSize } from "./Technical";
 import { DatasetTimestamps, DatasetUsage } from "./Temporal";
 import "./DatasetMetadata.css";
@@ -51,22 +46,31 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
         <DatasetFields fields={dataset.fields} showDetails={true} />
       </li>
 
-      {/* Categoría */}
-      {dataset.category && (
+      {/* Categoría y Dominio */}
+      {(dataset.category || dataset.domain) && (
         <li className="metadata-section">
-          <strong>Categoría:</strong>
-          <DatasetCategory category={dataset.category} />
-        </li>
-      )}
-
-      {/* Dominio */}
-      {dataset.domain && (
-        <li className="metadata-section">
-          <strong>Dominio:</strong>
-          <DatasetDomain
-            industry={dataset.domain.industry}
-            subDomain={dataset.domain.subDomain}
-          />
+          <div className="header-info">
+            {dataset.category && (
+              <div className="metadata-inline-item">
+                <div className="metadata-item--inline">
+                  <strong>Categoría:</strong>
+                  <DatasetCategory category={dataset.category} />
+                </div>
+              </div>
+            )}
+            {dataset.domain && (
+              <div className="metadata-inline-item">
+                <div className="metadata-item--inline">
+                  <strong>Dominio:</strong>
+                  <span>
+                    {dataset.domain.subDomain &&
+                      `${dataset.domain.subDomain} - `}
+                    {dataset.domain.industry}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
         </li>
       )}
 
