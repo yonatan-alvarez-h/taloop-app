@@ -12,7 +12,7 @@ export const useTabs = (defaultTab: TabId = "information") => {
   const [activeTab, setActiveTab] = useState<TabId>(defaultTab);
 
   const tabs: Tab[] = [
-    { id: "information", label: "Información" },
+    { id: "information", label: "Información del conjunto de datos" },
     { id: "quality", label: "Calidad de Datos" },
     { id: "preview", label: "Vista Previa" },
   ];
