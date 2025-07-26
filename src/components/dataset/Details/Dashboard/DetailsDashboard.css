@@ -10,8 +10,8 @@
 /* Tabs fijos */
 .details-dashboard-fixed-tabs {
   flex-shrink: 0;
-  padding: 0.5rem 0 1rem 0;
-  /* Removido border-bottom para un look más limpio */
+  padding: 0rem 0 0.25rem 0;
+  /* Reducido padding-bottom también */
   background: transparent;
   position: sticky;
   top: 0;
@@ -22,7 +22,7 @@
 .details-dashboard-scrollable-content {
   flex: 1;
   overflow-y: auto;
-  padding-top: 0.5rem;
+  padding-top: 0.1rem;
 }
 
 /* Estilos personalizados para el scrollbar */
@@ -64,15 +64,29 @@
   background: #cbd5e1;
 }
 
-/* Responsive design */
+/* Responsive adjustments para tabs */
 @media (max-width: 768px) {
+  .tab-button {
+    padding: 0.6rem 1rem;
+    min-height: 44px;
+    font-size: 0.8rem;
+  }
+
   .details-dashboard {
     margin-bottom: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
+  .tab-button {
+    padding: 0.5rem 0.75rem;
+    min-height: 40px;
+    font-size: 0.75rem;
+  }
+
   .details-dashboard {
     margin-bottom: 1rem;
   }
 }
+
+/* Responsive design */
