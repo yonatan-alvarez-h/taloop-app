@@ -1,6 +1,6 @@
 .dataset-preview-meta {
   margin: 0;
-  padding: 2rem;
+  padding: 1.5rem;
   list-style: none;
   background: #ffffff;
   border-radius: 12px;
@@ -9,7 +9,7 @@
 }
 
 .dataset-preview-meta > li {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 0.8rem;
@@ -27,12 +27,12 @@
 }
 
 .dataset-preview-meta ul {
-  margin: 0.6rem 0; /* Margen reducido */
-  padding-left: 1.25rem; /* Indentación reducida */
+  margin: 0.5rem 0; /* Margen reducido aún más */
+  padding-left: 1rem; /* Indentación reducida */
 }
 
 .dataset-preview-meta ul > li {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.7rem;
   display: flex;
   align-items: center;
   gap: 0.8rem;
@@ -115,12 +115,12 @@
 /* Tablet adjustments */
 @media (max-width: 768px) {
   .dataset-preview-meta {
-    padding: 1rem 1.25rem; /* Padding aún más reducido */
+    padding: 1rem; /* Padding aún más reducido */
     font-size: 0.8rem; /* Font base más pequeño en tablet */
   }
 
   .dataset-preview-meta > li {
-    margin-bottom: 0.8rem; /* Espaciado reducido */
+    margin-bottom: 0.7rem; /* Espaciado reducido */
     gap: 0.5rem;
   }
 
@@ -135,7 +135,7 @@
   }
 
   .dataset-preview-meta ul > li {
-    margin-bottom: 0.5rem; /* Espaciado reducido */
+    margin-bottom: 0.4rem; /* Espaciado reducido */
     gap: 0.5rem;
   }
 
