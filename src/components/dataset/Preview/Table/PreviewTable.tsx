@@ -1,6 +1,7 @@
 import React from "react";
 import type { DataSample, DatasetField } from "../../../../types/dataset";
 import { TYPE_ICONS } from "../../../../utils/dataTypes";
+import { isNumeric, formatTableValue } from "../../../../utils/numberFormat";
 import "./PreviewTable.css";
 
 interface PreviewTableProps {
@@ -9,17 +10,6 @@ interface PreviewTableProps {
 }
 
 const PreviewTable: React.FC<PreviewTableProps> = ({ fields, data }) => {
-  // Helper para determinar si un valor es numérico
-  const isNumeric = (value: unknown) => {
-    return (
-      typeof value === "number" ||
-      (!isNaN(Number(value)) &&
-        value !== null &&
-        value !== "" &&
-        typeof value !== "boolean")
-    );
-  };
-
   if (data.length === 0) {
     return (
       <div className="dataset-preview-empty">
@@ -50,14 +40,15 @@ const PreviewTable: React.FC<PreviewTableProps> = ({ fields, data }) => {
             <tr key={i}>
               {fields.map((field) => {
                 const value = row[field.name];
-                const alignClass = isNumeric(value)
+                const isValueNumeric = isNumeric(value);
+                const alignClass = isValueNumeric
                   ? "align-right"
                   : "align-left";
+                const formattedValue = formatTableValue(value, isValueNumeric);
+
                 return (
                   <td key={field.name} className={alignClass}>
-                    {value !== undefined && value !== null
-                      ? String(value)
-                      : "-"}
+                    {formattedValue}
                   </td>
                 );
               })}

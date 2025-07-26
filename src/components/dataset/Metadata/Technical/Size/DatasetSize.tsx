@@ -1,4 +1,5 @@
 import React from "react";
+import { formatNumber } from "../../../../../utils/numberFormat";
 import "./DatasetSize.css";
 
 interface DatasetSizeProps {
@@ -12,16 +13,6 @@ const DatasetSize: React.FC<DatasetSizeProps> = ({
   recordCount,
   columnCount,
 }) => {
-  const formatNumber = (num: number) => {
-    if (num >= 1000000) {
-      return `${(num / 1000000).toFixed(1)}M`;
-    }
-    if (num >= 1000) {
-      return `${(num / 1000).toFixed(1)}K`;
-    }
-    return num.toString();
-  };
-
   return (
     <div className="dataset-size">
       <div className="size-metric">
