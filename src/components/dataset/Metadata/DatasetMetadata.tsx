@@ -37,6 +37,24 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
         </div>
       </li>
 
+      {/* Etiquetas */}
+      <li className="align-start metadata-section">
+        <strong>Etiquetas:</strong>
+        <div className="tags-container">
+          {dataset.tags.map((tag: string) => (
+            <span className="dataset-tags-chip" key={tag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      </li>
+
+      {/* Propietario */}
+      <li className="metadata-section">
+        <strong>Propietario:</strong>
+        <DatasetOwner owner={dataset.owner} />
+      </li>
+
       {/* Categoría */}
       {dataset.category && (
         <li className="metadata-section">
@@ -55,24 +73,6 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
           />
         </li>
       )}
-
-      {/* Propietario */}
-      <li className="metadata-section">
-        <strong>Propietario:</strong>
-        <DatasetOwner owner={dataset.owner} />
-      </li>
-
-      {/* Etiquetas */}
-      <li className="align-start metadata-section">
-        <strong>Etiquetas:</strong>
-        <div className="tags-container">
-          {dataset.tags.map((tag: string) => (
-            <span className="dataset-tags-chip" key={tag}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      </li>
 
       {/* Columnas */}
       <li className="align-start metadata-section">
