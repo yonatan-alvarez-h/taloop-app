@@ -7,6 +7,9 @@ import type {
 import PreviewTable from "./Table/PreviewTable";
 import "./DatasetPreview.css";
 
+// Constante configurable para el número de registros a mostrar en la vista previa
+const PREVIEW_RECORDS_LIMIT = 10;
+
 interface DatasetPreviewProps {
   dataset: Dataset;
 }
@@ -17,7 +20,7 @@ const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
   const datasetWithSamples = dataset as DatasetWithSamples;
   const previewData: DataSample[] =
     datasetWithSamples.samples && Array.isArray(datasetWithSamples.samples)
-      ? datasetWithSamples.samples.slice(0, 5)
+      ? datasetWithSamples.samples.slice(0, PREVIEW_RECORDS_LIMIT)
       : [];
 
   return (
