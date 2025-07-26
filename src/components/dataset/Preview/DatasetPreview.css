@@ -2,22 +2,20 @@
 
 /* Container principal */
 .dataset-preview {
-  padding: 1.5rem 2rem 1.5rem 2rem;
+  padding: 0;
   background: #ffffff;
   border-radius: 12px;
+  width: 100%;
 }
 
 /* Fondo blanco para el contenido de la vista previa */
 .dataset-preview-card {
   background: #fff;
   border-radius: 12px;
-  padding: 2rem 2.5rem 2rem 2.5rem;
+  padding: 1.5rem;
   margin: 0;
-  max-width: 98vw;
   width: 100%;
   min-width: 0;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .dataset-preview-card strong {
@@ -26,35 +24,24 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .dataset-preview {
-    padding: 1.25rem 1.5rem 1.25rem 1.5rem; /* Menos padding en tablet */
-  }
-
   .dataset-preview-card {
-    padding: 1.5rem 2rem 1.5rem 2rem; /* Menos padding en tablet */
-    margin-top: 1rem;
+    padding: 1.25rem;
   }
 }
 
 @media (max-width: 480px) {
   .dataset-preview {
-    padding: 1rem 1.25rem 1rem 1.25rem; /* Padding reducido para mobile */
-    border-radius: 6px;
+    border-radius: 8px;
   }
 
   .dataset-preview-card {
-    padding: 1.25rem 1.5rem 1.25rem 1.5rem; /* Padding reducido para mobile */
-    margin-top: 0.75rem;
-    border-radius: 10px;
+    padding: 1rem;
+    border-radius: 8px;
   }
 }
 
 @media (max-width: 320px) {
-  .dataset-preview {
-    padding: 0.75rem 1rem 0.75rem 1rem; /* Padding mínimo */
-  }
-
   .dataset-preview-card {
-    padding: 0.875rem 1rem 0.75rem 1rem; /* Padding mínimo */
+    padding: 0.75rem;
   }
 }
