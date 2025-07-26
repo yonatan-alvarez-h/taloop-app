@@ -17,22 +17,22 @@ interface DatasetMetadataProps {
 const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
   return (
     <ul className="dataset-preview-meta">
-      {/* UID, Título y Descripción en layout especial */}
-      <li className="metadata-section header-layout">
-        <div className="header-left">
-          <div className="uid-row metadata-item--inline">
-            <strong>UID:</strong>
-            <DatasetUID uid={dataset.uid} />
+      {/* Header con UID, Título y Descripción */}
+      <li className="metadata-header">
+        <div className="header-info">
+          <div className="uid-title-group">
+            <div className="title-line">
+              <strong>Título:</strong>
+              <span>{dataset.title}</span>
+            </div>
+            <div className="uid-line">
+              <strong>UID:</strong>
+              <DatasetUID uid={dataset.uid} />
+            </div>
           </div>
-          <div className="metadata-item--inline">
-            <strong>Título:</strong>
-            <span className="metadata-value">{dataset.title}</span>
-          </div>
-        </div>
-        <div className="header-right">
-          <div className="description-section">
+          <div className="description-group">
             <strong>Descripción:</strong>
-            <p className="metadata-description">{dataset.description}</p>
+            <p>{dataset.description}</p>
           </div>
         </div>
       </li>
