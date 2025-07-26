@@ -1,11 +1,67 @@
 /* Estilos principales para el dashboard con pestañas */
-
 .details-dashboard {
   width: 100%;
   max-width: 100%;
-  margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
+  height: 100%;
+}
+
+/* Tabs fijos */
+.details-dashboard-fixed-tabs {
+  flex-shrink: 0;
+  padding: 0.5rem 0 1rem 0;
+  /* Removido border-bottom para un look más limpio */
+  background: transparent;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Contenido con scroll */
+.details-dashboard-scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 0.5rem;
+}
+
+/* Estilos personalizados para el scrollbar */
+.dataset-details-scrollable-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dataset-details-scrollable-content::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.dataset-details-scrollable-content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.dataset-details-scrollable-content::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.details-dashboard-scrollable-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.details-dashboard-scrollable-content::-webkit-scrollbar-track {
+  background: #f8fafc;
+  border-radius: 3px;
+}
+
+.details-dashboard-scrollable-content::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.details-dashboard-scrollable-content::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
 }
 
 /* Responsive design */

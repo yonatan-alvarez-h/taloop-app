@@ -13,12 +13,16 @@ const DetailsDashboard: React.FC<DetailsDashboardProps> = ({ dataset }) => {
 
   return (
     <div className="details-dashboard">
-      <TabNavigation
-        tabs={tabs}
-        activeTab={activeTab}
-        onTabChange={switchTab}
-      />
-      <TabContent dataset={dataset} activeTab={activeTab} />
+      <div className="details-dashboard-fixed-tabs">
+        <TabNavigation
+          tabs={tabs}
+          activeTab={activeTab}
+          onTabChange={switchTab}
+        />
+      </div>
+      <div className="details-dashboard-scrollable-content">
+        <TabContent dataset={dataset} activeTab={activeTab} />
+      </div>
     </div>
   );
 };
