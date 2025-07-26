@@ -6,7 +6,7 @@
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.3s ease;
-  height: calc(100vh - 120px); /* Altura fija menos navbar y márgenes */
+  height: calc(100vh - 60px); /* Altura máxima ampliada */
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -29,7 +29,7 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .dataset-details-container {
-    height: calc(100vh - 100px);
+    height: calc(100vh - 50px);
     margin: 0.5rem;
   }
 
@@ -48,7 +48,7 @@
 
 @media (max-width: 480px) {
   .dataset-details-container {
-    height: calc(100vh - 80px);
+    height: calc(100vh - 40px);
     margin: 0.25rem;
   }
 

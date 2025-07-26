@@ -6,7 +6,7 @@
 }
 
 .dataset-details-page-container {
-  padding-top: 1rem; /* Solo padding, no margin porque body ya tiene padding-top */
+  padding-top: 0.5rem; /* Mínimo padding para ganar más altura */
   display: flex;
   flex-direction: column;
 }
