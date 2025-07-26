@@ -124,10 +124,6 @@ const datasetsData: DatasetWithSamples[] = [
       apiCalls: 89200,
       lastAccessed: "3 horas ago",
     },
-    domain: {
-      industry: "Agricultura",
-      subDomain: "Producción de Cultivos",
-    },
     dataQuality: {
       overallScore: 8.7,
       completeness: 96.5,
@@ -300,10 +296,6 @@ const datasetsData: DatasetWithSamples[] = [
       views: 8750,
       apiCalls: 45600,
       lastAccessed: "1 hora ago",
-    },
-    domain: {
-      industry: "Salud",
-      subDomain: "Hospitales y Centros Médicos",
     },
     dataQuality: {
       overallScore: 9.1,
@@ -518,10 +510,6 @@ const datasetsData: DatasetWithSamples[] = [
       views: 23400,
       apiCalls: 12300,
       lastAccessed: "15 minutos ago",
-    },
-    domain: {
-      industry: "Educación",
-      subDomain: "Educación Superior",
     },
     dataQuality: {
       overallScore: 8.9,

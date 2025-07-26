@@ -86,11 +86,6 @@ export interface Dataset {
     apiCalls: number; // 23400
     lastAccessed: string; // "2 horas ago"
   };
-
-  domain?: {
-    industry: string; // "Healthcare"
-    subDomain?: string; // "Medical Records"
-  };
 }
 
 // Dataset extendido con samples para el mock de datos

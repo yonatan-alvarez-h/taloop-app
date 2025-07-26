@@ -46,31 +46,11 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
         <DatasetFields fields={dataset.fields} showDetails={true} />
       </li>
 
-      {/* Categoría y Dominio */}
-      {(dataset.category || dataset.domain) && (
+      {/* Categoría */}
+      {dataset.category && (
         <li className="metadata-section">
-          <div className="header-info">
-            {dataset.category && (
-              <div className="metadata-inline-item">
-                <div className="metadata-item--inline">
-                  <strong>Categoría:</strong>
-                  <DatasetCategory category={dataset.category} />
-                </div>
-              </div>
-            )}
-            {dataset.domain && (
-              <div className="metadata-inline-item">
-                <div className="metadata-item--inline">
-                  <strong>Dominio:</strong>
-                  <span>
-                    {dataset.domain.subDomain &&
-                      `${dataset.domain.subDomain} - `}
-                    {dataset.domain.industry}
-                  </span>
-                </div>
-              </div>
-            )}
-          </div>
+          <strong>Categoría:</strong>
+          <DatasetCategory category={dataset.category} />
         </li>
       )}
 
