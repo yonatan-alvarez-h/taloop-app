@@ -60,9 +60,9 @@ const WelcomeSectionAlt: React.FC<WelcomeSectionAltProps> = ({
               <div className="logo-pulse"></div>
             </div>
             <div className="brand-text">
-              <h1 className="brand-title">Taloop Data</h1>
+              <h1 className="brand-title">Impulsa tus decisiones</h1>
               <p className="brand-subtitle">
-                Tu plataforma de datasets empresariales
+                Con datos inteligentes que transforman tu negocio
               </p>
             </div>
           </div>

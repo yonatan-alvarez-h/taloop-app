@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import DatasetGrid from "../Grid";
-// import WelcomeSection from "../../Home/Welcome/WelcomeSection";
-import WelcomeSectionAlt from "../../Home/Welcome/WelcomeSectionAlt";
+import WelcomeSection from "../../Home/Welcome/WelcomeSection";
 import type { Dataset } from "../../../types/dataset";
 import "./DatasetList.css";
 
@@ -30,13 +29,12 @@ const DatasetList: React.FC<DatasetListProps> = ({
       ) ||
       ds.owner.name.toLowerCase().includes(search.toLowerCase())
   );
-
   if (!search) {
-    // Opción 1: Diseño colorido y dinámico
-    // return <WelcomeSection datasets={datasets} onSearch={onSearch} />;
+    // Opción 1: Diseño colorido y dinámico (ACTIVO)
+    return <WelcomeSection datasets={datasets} onSearch={onSearch} />;
 
     // Opción 2: Diseño corporativo y profesional
-    return <WelcomeSectionAlt datasets={datasets} onSearch={onSearch} />;
+    // return <WelcomeSectionAlt datasets={datasets} onSearch={onSearch} />;
   }
   if (filtered.length === 0) {
     return (
