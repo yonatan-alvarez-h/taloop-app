@@ -38,10 +38,6 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({ datasets }) => {
           </p>
 
           <div className="quick-stats">
-            <div className="stat-item stat-datasets">
-              <span className="stat-number">{formatNumber(totalDatasets)}</span>
-              <span className="stat-label">Datasets</span>
-            </div>
             <div className="stat-item stat-categories">
               <span className="stat-number">{totalCategories}</span>
               <span className="stat-label">Categorías</span>
@@ -49,6 +45,10 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({ datasets }) => {
             <div className="stat-item stat-records">
               <span className="stat-number">{totalProviders}</span>
               <span className="stat-label">Proveedores</span>
+            </div>
+            <div className="stat-item stat-datasets">
+              <span className="stat-number">{formatNumber(totalDatasets)}</span>
+              <span className="stat-label">Datasets</span>
             </div>
           </div>
         </div>
