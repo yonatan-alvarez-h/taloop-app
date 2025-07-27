@@ -16,26 +16,7 @@ const DatasetTimestamps: React.FC<DatasetTimestampsProps> = ({
       year: "numeric",
       month: "long",
       day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
     });
-  };
-
-  const getTimeAgo = (isoString: string) => {
-    const now = new Date();
-    const date = new Date(isoString);
-    const diffMs = now.getTime() - date.getTime();
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-    if (diffDays === 0) return "Hoy";
-    if (diffDays === 1) return "Hace 1 día";
-    if (diffDays < 30) return `Hace ${diffDays} días`;
-    if (diffDays < 365) {
-      const diffMonths = Math.floor(diffDays / 30);
-      return diffMonths === 1 ? "Hace 1 mes" : `Hace ${diffMonths} meses`;
-    }
-    const diffYears = Math.floor(diffDays / 365);
-    return diffYears === 1 ? "Hace 1 año" : `Hace ${diffYears} años`;
   };
 
   return (
@@ -59,7 +40,6 @@ const DatasetTimestamps: React.FC<DatasetTimestampsProps> = ({
         </div>
         <div className="timestamp-value">
           <span className="timestamp-date">{formatDate(createdAt)}</span>
-          <span className="timestamp-ago">({getTimeAgo(createdAt)})</span>
         </div>
       </div>
 
@@ -83,7 +63,6 @@ const DatasetTimestamps: React.FC<DatasetTimestampsProps> = ({
         </div>
         <div className="timestamp-value">
           <span className="timestamp-date">{formatDate(updatedAt)}</span>
-          <span className="timestamp-ago">({getTimeAgo(updatedAt)})</span>
         </div>
       </div>
     </div>

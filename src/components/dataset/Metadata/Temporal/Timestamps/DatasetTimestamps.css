@@ -44,9 +44,9 @@
   color: #495057;
   font-size: 0.8rem;
   font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1.2;
 }
 
 .timestamp-ago {
