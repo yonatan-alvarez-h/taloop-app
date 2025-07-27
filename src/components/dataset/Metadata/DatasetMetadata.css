@@ -540,3 +540,21 @@
   flex-shrink: 0;
   white-space: nowrap;
 }
+
+/* Línea divisora sutil */
+.metadata-divider {
+  margin: 1.2rem 0 !important;
+  padding: 0 !important;
+}
+
+.metadata-divider hr {
+  border: none;
+  height: 1px;
+  background: #e5e7eb;
+  margin: 0;
+}
+
+/* Línea divisora en móvil */
+.metadata-divider {
+  margin: 0.8rem 0 !important;
+}
