@@ -264,6 +264,11 @@
   color: #1e40af;
 }
 
+.action-icon.providers {
+  background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+  color: #7c3aed;
+}
+
 .action-icon.recent {
   background: linear-gradient(135deg, #d1fae5, #a7f3d0);
   color: #065f46;
@@ -346,6 +351,78 @@
   border-radius: 12px;
   font-size: 0.8rem;
   font-weight: 600;
+}
+
+/* Providers Showcase */
+.providers-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.provider-preview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+.provider-preview:hover {
+  background: #e2e8f0;
+  transform: translateX(4px);
+}
+
+.provider-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.provider-name {
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+.provider-type {
+  font-size: 0.8rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.provider-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.125rem;
+}
+
+.provider-count {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #7c3aed;
+}
+
+.provider-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.empty-providers {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #94a3b8;
+  font-style: italic;
 }
 
 /* Recent Showcase */

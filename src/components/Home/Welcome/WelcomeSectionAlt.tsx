@@ -11,23 +11,30 @@ const WelcomeSectionAlt: React.FC<WelcomeSectionAltProps> = ({
   datasets,
   onSearch,
 }) => {
-  // Obtener algunas estadísticas rápidas
+  // Obtener las métricas principales
   const totalDatasets = datasets.length;
-  const totalRecords = datasets.reduce(
-    (sum, ds) => sum + (ds.size?.recordCount || 0),
-    0
-  );
+  const totalCategories = [
+    ...new Set(datasets.map((ds) => ds.category).filter(Boolean)),
+  ].length;
+  const totalProviders = [
+    ...new Set(datasets.map((ds) => ds.owner.name).filter(Boolean)),
+  ].length;
+
   const categories = [
     ...new Set(datasets.map((ds) => ds.category).filter(Boolean)),
   ];
-  const recentDatasets = datasets
-    .filter((ds) => ds.timestamps?.updatedAt)
-    .sort(
-      (a, b) =>
-        new Date(b.timestamps!.updatedAt).getTime() -
-        new Date(a.timestamps!.updatedAt).getTime()
-    )
-    .slice(0, 3);
+
+  // Obtener los principales proveedores
+  const topProviders = Object.entries(
+    datasets.reduce((acc, ds) => {
+      const providerName = ds.owner.name;
+      acc[providerName] = (acc[providerName] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>)
+  )
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 3)
+    .map(([name, count]) => ({ name, count }));
 
   const popularSearches = [
     "agricultura",
@@ -63,24 +70,24 @@ const WelcomeSectionAlt: React.FC<WelcomeSectionAltProps> = ({
           <div className="stats-overview">
             <div className="overview-grid">
               <div className="overview-card datasets-card">
-                <div className="card-icon">🗄️</div>
+                <div className="card-icon">�</div>
                 <div className="card-content">
                   <h3>{formatNumber(totalDatasets)}</h3>
-                  <p>Datasets Disponibles</p>
+                  <p>Datasets</p>
                 </div>
               </div>
               <div className="overview-card categories-card">
-                <div className="card-icon">🏷️</div>
+                <div className="card-icon">🗂️</div>
                 <div className="card-content">
-                  <h3>{categories.length}</h3>
-                  <p>Categorías Activas</p>
+                  <h3>{totalCategories}</h3>
+                  <p>Categorías</p>
                 </div>
               </div>
-              <div className="overview-card records-card">
-                <div className="card-icon">📈</div>
+              <div className="overview-card providers-card">
+                <div className="card-icon">🏢</div>
                 <div className="card-content">
-                  <h3>{formatNumber(totalRecords)}</h3>
-                  <p>Registros Totales</p>
+                  <h3>{totalProviders}</h3>
+                  <p>Proveedores de Datos</p>
                 </div>
               </div>
             </div>
@@ -152,38 +159,45 @@ const WelcomeSectionAlt: React.FC<WelcomeSectionAltProps> = ({
               </div>
             </div>
 
-            <div className="action-card recent-card">
+            <div className="action-card providers-card-main">
               <div className="action-header">
-                <div className="action-icon recent">⚡</div>
-                <h3>Actualizados</h3>
+                <div className="action-icon providers">🏢</div>
+                <h3>Principales Proveedores</h3>
               </div>
               <div className="action-content">
                 <p className="action-description">
-                  Últimos datasets disponibles
+                  Organizaciones que más datasets aportan
                 </p>
-                <div className="recent-showcase">
-                  {recentDatasets.length > 0 ? (
-                    recentDatasets.slice(0, 2).map((dataset, index) => (
+                <div className="providers-showcase">
+                  {topProviders.length > 0 ? (
+                    topProviders.map((provider, index) => (
                       <div
-                        key={dataset.uid}
-                        className="recent-preview"
-                        onClick={() => onSearch(dataset.title)}
+                        key={provider.name}
+                        className="provider-preview"
+                        onClick={() => onSearch(provider.name)}
                         style={{ animationDelay: `${index * 0.1}s` }}
                       >
-                        <div className="preview-title">{dataset.title}</div>
-                        <div className="preview-meta">
-                          <span className="preview-category">
-                            {dataset.category}
+                        <div className="provider-info">
+                          <div className="provider-name">{provider.name}</div>
+                          <div className="provider-type">
+                            {datasets.find(
+                              (ds) => ds.owner.name === provider.name
+                            )?.owner.type === "empresa"
+                              ? "🏢 Empresa"
+                              : "👤 Usuario"}
+                          </div>
+                        </div>
+                        <div className="provider-stats">
+                          <span className="provider-count">
+                            {provider.count}
                           </span>
-                          <span className="preview-records">
-                            {formatNumber(dataset.size?.recordCount || 0)} reg.
-                          </span>
+                          <span className="provider-label">datasets</span>
                         </div>
                       </div>
                     ))
                   ) : (
-                    <div className="empty-recent">
-                      <span>No hay datasets recientes</span>
+                    <div className="empty-providers">
+                      <span>No hay proveedores disponibles</span>
                     </div>
                   )}
                 </div>
