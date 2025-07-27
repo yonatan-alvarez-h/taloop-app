@@ -89,7 +89,6 @@
   font-weight: 500;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .usage-header {
     flex-direction: column;
@@ -129,7 +128,8 @@
   }
 
   .stat-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2px;
   }
 }
 
@@ -171,9 +171,5 @@
 
   .stat-value {
     font-size: 0.9rem;
-  }
-
-  .stat-label {
-    font-size: 0.65rem;
   }
 }
