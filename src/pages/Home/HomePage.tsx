@@ -33,7 +33,12 @@ const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => {
       </nav>
       <div className="homepage-container container">
         <div className="homepage-content">
-          <DatasetList datasets={datasets} search={search} outerPagination />
+          <DatasetList
+            datasets={datasets}
+            search={search}
+            onSearch={onSearch}
+            outerPagination
+          />
         </div>
       </div>
     </div>
