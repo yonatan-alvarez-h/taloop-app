@@ -28,23 +28,27 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
             </div>
           </div>
           <div className="metadata-inline-item">
-            <strong>Categoría:</strong>
-            {dataset.category && (
-              <DatasetCategory category={dataset.category} />
-            )}
+            <div className="metadata-item--inline">
+              <strong>Categoría:</strong>
+              {dataset.category && (
+                <DatasetCategory category={dataset.category} />
+              )}
+            </div>
           </div>
         </div>
       </li>
 
       {/* Etiquetas */}
       <li className="metadata-section">
-        <strong>Etiquetas:</strong>
-        <div className="tags-container">
-          {dataset.tags.map((tag: string) => (
-            <span className="dataset-tags-chip" key={tag}>
-              {tag}
-            </span>
-          ))}
+        <div className="metadata-item--inline">
+          <strong>Etiquetas:</strong>
+          <div className="tags-container">
+            {dataset.tags.map((tag: string) => (
+              <span className="dataset-tags-chip" key={tag}>
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       </li>
 
