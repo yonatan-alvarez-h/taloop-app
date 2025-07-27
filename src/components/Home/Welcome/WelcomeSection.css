@@ -1,11 +1,5 @@
 /* WelcomeSection.css */
 .welcome-section {
-  background: linear-gradient(
-    135deg,
-    rgba(13, 110, 253, 0.05) 0%,
-    rgba(220, 53, 69, 0.05) 50%,
-    rgba(25, 135, 84, 0.05) 100%
-  );
   margin-bottom: 2rem;
   overflow: hidden;
   position: relative;
@@ -15,6 +9,7 @@
   justify-content: center;
 }
 
+/*
 .welcome-section::before {
   content: "";
   position: absolute;
@@ -27,6 +22,7 @@
   opacity: 0.3;
   pointer-events: none;
 }
+*/
 
 .welcome-hero {
   text-align: center;
