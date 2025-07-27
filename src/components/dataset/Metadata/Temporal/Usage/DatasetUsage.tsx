@@ -22,38 +22,8 @@ const DatasetUsage: React.FC<DatasetUsageProps> = ({
     return num.toLocaleString();
   };
 
-  const getPopularityLevel = (downloads: number) => {
-    if (downloads >= 10000) return { level: "Muy Popular", color: "#22c55e" };
-    if (downloads >= 5000) return { level: "Popular", color: "#3b82f6" };
-    if (downloads >= 1000) return { level: "Moderado", color: "#f59e0b" };
-    return { level: "Nuevo", color: "#6c757d" };
-  };
-
-  const popularity = getPopularityLevel(downloads);
-
   return (
     <div className="dataset-usage">
-      <div className="usage-header">
-        <div
-          className="popularity-badge"
-          style={{ backgroundColor: popularity.color }}
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"></polygon>
-          </svg>
-          {popularity.level}
-        </div>
-      </div>
-
       <div className="usage-stats">
         <div className="usage-stat">
           <div className="stat-icon downloads">

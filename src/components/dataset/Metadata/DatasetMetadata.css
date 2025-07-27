@@ -414,6 +414,18 @@
     flex: 1 1 100%;
     max-width: 100%;
   }
+
+  /* En móvil, Estadísticas de Uso y Tamaño en columna */
+  .usage-size-info {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .usage-size-info .metadata-inline-item:nth-child(1),
+  .usage-size-info .metadata-inline-item:nth-child(2) {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 }
 
 /* Tablet adjustments - mantener distribución pero con menor gap */
@@ -447,9 +459,24 @@
     max-width: 60%;
   }
 
-  .size-format-info .metadata-inline-item:nth-child(2) {
+  .size-format_info .metadata-inline-item:nth-child(2) {
     flex: 0 0 40%;
     max-width: 40%;
+  }
+
+  /* Estadísticas de Uso y Tamaño en tablet mantienen distribución 50-50 */
+  .usage-size-info {
+    gap: 0.75rem;
+  }
+
+  .usage-size-info .metadata-inline-item:nth-child(1) {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .usage-size-info .metadata-inline-item:nth-child(2) {
+    flex: 0 0 50%;
+    max-width: 50%;
   }
 }
 
@@ -472,6 +499,30 @@
 .size-format-info .metadata-inline-item:nth-child(2) {
   flex: 0 0 40%;
   max-width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Distribución para Estadísticas de Uso y Tamaño en línea (50% cada uno) */
+.usage-size-info {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.usage-size-info .metadata-inline-item:nth-child(1) {
+  flex: 0 0 50%;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.usage-size-info .metadata-inline-item:nth-child(2) {
+  flex: 0 0 50%;
+  max-width: 50%;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

@@ -68,10 +68,20 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
         </li>
       )}
 
-      {/* Tamaño y Formato en línea */}
-      {(dataset.size || dataset.format) && (
+      {/* Estadísticas de Uso y Tamaño en línea (50%-50%) */}
+      {(dataset.usage || dataset.size) && (
         <li className="metadata-section">
-          <div className="size-format-info">
+          <div className="usage-size-info">
+            {dataset.usage && (
+              <div className="metadata-inline-item">
+                <strong>Estadísticas de Uso:</strong>
+                <DatasetUsage
+                  downloads={dataset.usage.downloads}
+                  views={dataset.usage.views}
+                  apiCalls={dataset.usage.apiCalls}
+                />
+              </div>
+            )}
             {dataset.size && (
               <div className="metadata-inline-item">
                 <strong>Tamaño:</strong>
@@ -82,29 +92,19 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
                 />
               </div>
             )}
-            {dataset.format && (
-              <div className="metadata-inline-item">
-                <strong>Formato:</strong>
-                <DatasetFormat
-                  type={dataset.format.type}
-                  encoding={dataset.format.encoding}
-                  delimiter={dataset.format.delimiter}
-                  compression={dataset.format.compression}
-                />
-              </div>
-            )}
           </div>
         </li>
       )}
 
-      {/* Estadísticas de Uso */}
-      {dataset.usage && (
+      {/* Formato */}
+      {dataset.format && (
         <li className="metadata-section">
-          <strong>Estadísticas de Uso:</strong>
-          <DatasetUsage
-            downloads={dataset.usage.downloads}
-            views={dataset.usage.views}
-            apiCalls={dataset.usage.apiCalls}
+          <strong>Formato:</strong>
+          <DatasetFormat
+            type={dataset.format.type}
+            encoding={dataset.format.encoding}
+            delimiter={dataset.format.delimiter}
+            compression={dataset.format.compression}
           />
         </li>
       )}
