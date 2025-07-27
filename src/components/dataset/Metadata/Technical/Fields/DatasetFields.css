@@ -136,25 +136,28 @@
   width: 140px;
 }
 
-.nullable-check {
-  font-size: 1.1rem;
-  font-weight: 600;
-  padding: 4px 8px;
-  border-radius: 6px;
-  display: inline-block;
-  min-width: 24px;
+.nullable-checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-.nullable-check.nullable {
-  color: #059669;
-  background: #ecfdf5;
-  border: 1px solid #d1fae5;
+.nullable-checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: default;
+  accent-color: #3b82f6;
 }
 
-.nullable-check.not-nullable {
-  color: #dc2626;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+.nullable-checkbox:disabled {
+  opacity: 0.8;
+}
+
+.nullable-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
 }
 
 .field-index {

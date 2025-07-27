@@ -28,18 +28,21 @@ const FieldsRow: React.FC<FieldsRowProps> = ({ field }) => {
       </td>
       <td className="field-description">{field.description}</td>
       <td className="field-nullable">
-        <span
-          className={`nullable-check ${
-            field.nullable ? "nullable" : "not-nullable"
-          }`}
-          title={
-            field.nullable
-              ? "Permite valores nulos"
-              : "No permite valores nulos"
-          }
-        >
-          {field.nullable ? "✓" : "✗"}
-        </span>
+        <div className="nullable-checkbox-container">
+          <input
+            type="checkbox"
+            checked={field.nullable}
+            readOnly
+            disabled
+            className="nullable-checkbox"
+            title={
+              field.nullable
+                ? "Permite valores nulos"
+                : "No permite valores nulos"
+            }
+          />
+          <span className="nullable-label">{field.nullable ? "Sí" : "No"}</span>
+        </div>
       </td>
     </tr>
   );
