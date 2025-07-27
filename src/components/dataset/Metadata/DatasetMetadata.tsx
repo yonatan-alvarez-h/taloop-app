@@ -12,7 +12,7 @@ interface DatasetMetadataProps {
 const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
   return (
     <ul className="dataset-preview-meta">
-      {/* UID, Propietario y Etiquetas en línea */}
+      {/* UID, Propietario y Categoría en línea */}
       <li className="metadata-section">
         <div className="header-info">
           <div className="metadata-inline-item">
@@ -28,25 +28,25 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
             </div>
           </div>
           <div className="metadata-inline-item">
-            <strong>Etiquetas:</strong>
-            <div className="tags-container">
-              {dataset.tags.map((tag: string) => (
-                <span className="dataset-tags-chip" key={tag}>
-                  {tag}
-                </span>
-              ))}
-            </div>
+            <strong>Categoría:</strong>
+            {dataset.category && (
+              <DatasetCategory category={dataset.category} />
+            )}
           </div>
         </div>
       </li>
 
-      {/* Categoría */}
-      {dataset.category && (
-        <li className="metadata-section">
-          <strong>Categoría:</strong>
-          <DatasetCategory category={dataset.category} />
-        </li>
-      )}
+      {/* Etiquetas */}
+      <li className="metadata-section">
+        <strong>Etiquetas:</strong>
+        <div className="tags-container">
+          {dataset.tags.map((tag: string) => (
+            <span className="dataset-tags-chip" key={tag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      </li>
 
       {/* Columnas */}
       <li className="align-start metadata-section">
