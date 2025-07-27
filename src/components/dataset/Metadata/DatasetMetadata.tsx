@@ -40,12 +40,6 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
         </div>
       </li>
 
-      {/* Columnas */}
-      <li className="align-start metadata-section">
-        <strong>Columnas ({dataset.fields.length}):</strong>
-        <DatasetFields fields={dataset.fields} showDetails={true} />
-      </li>
-
       {/* Categoría */}
       {dataset.category && (
         <li className="metadata-section">
@@ -53,6 +47,12 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
           <DatasetCategory category={dataset.category} />
         </li>
       )}
+
+      {/* Columnas */}
+      <li className="align-start metadata-section">
+        <strong>Columnas ({dataset.fields.length}):</strong>
+        <DatasetFields fields={dataset.fields} showDetails={true} />
+      </li>
 
       {/* Tamaño y Formato en línea */}
       {(dataset.size || dataset.format) && (
