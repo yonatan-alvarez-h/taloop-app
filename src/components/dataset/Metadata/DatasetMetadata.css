@@ -319,7 +319,7 @@
   gap: 0.5rem;
 }
 
-/* Distribución específica: UID (25%), Propietario (25%), Etiquetas (50%) */
+/* Distribución específica: UID (25%), Propietario (25%), Etiquetas (49%) */
 .metadata-inline-item:nth-child(1),
 .metadata-inline-item:nth-child(2) {
   flex: 0 0 25%;
@@ -327,8 +327,8 @@
 }
 
 .metadata-inline-item:nth-child(3) {
-  flex: 0 0 50%;
-  max-width: 50%;
+  flex: 0 0 49%;
+  max-width: 49%;
 }
 
 /* Manejo de overflow para contenido largo */
@@ -412,7 +412,7 @@
   }
 
   .metadata-inline-item:nth-child(3) {
-    flex: 0 0 48%;
-    max-width: 48%;
+    flex: 0 0 47%;
+    max-width: 47%;
   }
 }
