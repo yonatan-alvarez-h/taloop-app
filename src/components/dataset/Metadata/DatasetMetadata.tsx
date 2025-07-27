@@ -105,7 +105,6 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
             downloads={dataset.usage.downloads}
             views={dataset.usage.views}
             apiCalls={dataset.usage.apiCalls}
-            lastAccessed={dataset.usage.lastAccessed}
           />
         </li>
       )}
