@@ -15,7 +15,7 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
       {/* UID, Propietario y Categoría en línea */}
       <li className="metadata-section">
         <div className="header-info">
-          <div className="metadata-inline-item">
+          <div className="metadata-inline-item uid-container-wrapper">
             <div className="metadata-item--inline">
               <strong>UID:</strong>
               <DatasetUID uid={dataset.uid} />

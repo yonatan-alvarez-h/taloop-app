@@ -340,6 +340,13 @@
 .metadata-inline-item {
   overflow: hidden;
   word-wrap: break-word;
+  position: relative;
+}
+
+/* Excepción para el contenedor del UID para permitir popup */
+.metadata-inline-item.uid-container-wrapper {
+  overflow: visible;
+  z-index: 1001;
 }
 
 .metadata-inline-item .tags-container {
