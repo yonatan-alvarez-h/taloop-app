@@ -26,10 +26,10 @@ const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
   return (
     <div className="dataset-preview">
       <div className="dataset-preview-card">
-        <div>
-          <strong>Datos de ejemplo:</strong>
-          <PreviewTable fields={dataset.fields} data={previewData} />
+        <div className="preview-header">
+          <h3 className="preview-title">Datos de ejemplo</h3>
         </div>
+        <PreviewTable fields={dataset.fields} data={previewData} />
       </div>
     </div>
   );
