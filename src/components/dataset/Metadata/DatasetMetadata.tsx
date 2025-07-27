@@ -52,10 +52,20 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
         </div>
       </li>
 
+      {/* Línea divisora */}
+      <li className="metadata-divider">
+        <hr />
+      </li>
+
       {/* Columnas */}
       <li className="align-start metadata-section">
         <strong>Columnas ({dataset.fields.length}):</strong>
         <DatasetFields fields={dataset.fields} showDetails={true} />
+      </li>
+
+      {/* Línea divisora */}
+      <li className="metadata-divider">
+        <hr />
       </li>
 
       {/* Fechas */}
