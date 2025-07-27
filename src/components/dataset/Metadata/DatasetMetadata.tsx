@@ -58,6 +58,16 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
         <DatasetFields fields={dataset.fields} showDetails={true} />
       </li>
 
+      {/* Fechas */}
+      {dataset.timestamps && (
+        <li className="metadata-section">
+          <DatasetTimestamps
+            createdAt={dataset.timestamps.createdAt}
+            updatedAt={dataset.timestamps.updatedAt}
+          />
+        </li>
+      )}
+
       {/* Tamaño y Formato en línea */}
       {(dataset.size || dataset.format) && (
         <li className="metadata-section">
@@ -84,17 +94,6 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
               </div>
             )}
           </div>
-        </li>
-      )}
-
-      {/* Fechas */}
-      {dataset.timestamps && (
-        <li className="metadata-section">
-          <strong>Fechas:</strong>
-          <DatasetTimestamps
-            createdAt={dataset.timestamps.createdAt}
-            updatedAt={dataset.timestamps.updatedAt}
-          />
         </li>
       )}
 

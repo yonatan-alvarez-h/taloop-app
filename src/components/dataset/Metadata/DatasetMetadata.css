@@ -443,17 +443,17 @@
   }
 
   .size-format-info .metadata-inline-item:nth-child(1) {
-    flex: 0 0 68%;
-    max-width: 68%;
+    flex: 0 0 60%;
+    max-width: 60%;
   }
 
   .size-format-info .metadata-inline-item:nth-child(2) {
-    flex: 0 0 31%;
-    max-width: 31%;
+    flex: 0 0 40%;
+    max-width: 40%;
   }
 }
 
-/* Distribución para Tamaño y Formato en línea (70% Tamaño, 30% Formato) */
+/* Distribución para Tamaño y Formato en línea (60% Tamaño, 40% Formato) */
 .size-format-info {
   display: flex;
   gap: 1rem;
@@ -462,16 +462,16 @@
 }
 
 .size-format-info .metadata-inline-item:nth-child(1) {
-  flex: 0 0 70%;
-  max-width: 70%;
+  flex: 0 0 60%;
+  max-width: 60%;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
 .size-format-info .metadata-inline-item:nth-child(2) {
-  flex: 0 0 30%;
-  max-width: 30%;
+  flex: 0 0 40%;
+  max-width: 40%;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
