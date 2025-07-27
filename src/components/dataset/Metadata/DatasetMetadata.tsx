@@ -54,28 +54,32 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
         </li>
       )}
 
-      {/* Tamaño */}
-      {dataset.size && (
+      {/* Tamaño y Formato en línea */}
+      {(dataset.size || dataset.format) && (
         <li className="metadata-section">
-          <strong>Tamaño:</strong>
-          <DatasetSize
-            fileSize={dataset.size.fileSize}
-            recordCount={dataset.size.recordCount}
-            columnCount={dataset.size.columnCount}
-          />
-        </li>
-      )}
-
-      {/* Formato */}
-      {dataset.format && (
-        <li className="metadata-section">
-          <strong>Formato:</strong>
-          <DatasetFormat
-            type={dataset.format.type}
-            encoding={dataset.format.encoding}
-            delimiter={dataset.format.delimiter}
-            compression={dataset.format.compression}
-          />
+          <div className="size-format-info">
+            {dataset.size && (
+              <div className="metadata-inline-item">
+                <strong>Tamaño:</strong>
+                <DatasetSize
+                  fileSize={dataset.size.fileSize}
+                  recordCount={dataset.size.recordCount}
+                  columnCount={dataset.size.columnCount}
+                />
+              </div>
+            )}
+            {dataset.format && (
+              <div className="metadata-inline-item">
+                <strong>Formato:</strong>
+                <DatasetFormat
+                  type={dataset.format.type}
+                  encoding={dataset.format.encoding}
+                  delimiter={dataset.format.delimiter}
+                  compression={dataset.format.compression}
+                />
+              </div>
+            )}
+          </div>
         </li>
       )}
 
