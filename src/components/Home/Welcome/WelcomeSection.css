@@ -9,21 +9,6 @@
   justify-content: center;
 }
 
-/*
-.welcome-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23f8f9fa" fill-opacity="0.4"><circle cx="3" cy="3" r="3"/></g></g></svg>')
-    repeat;
-  opacity: 0.3;
-  pointer-events: none;
-}
-*/
-
 .welcome-hero {
   text-align: center;
   padding: 2rem;
