@@ -12,6 +12,16 @@ interface DatasetMetadataProps {
 const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
   return (
     <ul className="dataset-preview-meta">
+      {/* Fechas */}
+      {dataset.timestamps && (
+        <li className="metadata-section">
+          <DatasetTimestamps
+            createdAt={dataset.timestamps.createdAt}
+            updatedAt={dataset.timestamps.updatedAt}
+          />
+        </li>
+      )}
+
       {/* UID, Propietario y Categoría en línea */}
       <li className="metadata-section">
         <div className="header-info">
@@ -67,16 +77,6 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
       <li className="metadata-divider">
         <hr />
       </li>
-
-      {/* Fechas */}
-      {dataset.timestamps && (
-        <li className="metadata-section">
-          <DatasetTimestamps
-            createdAt={dataset.timestamps.createdAt}
-            updatedAt={dataset.timestamps.updatedAt}
-          />
-        </li>
-      )}
 
       {/* Estadísticas de Uso y Tamaño en línea (50%-50%) */}
       {(dataset.usage || dataset.size) && (
