@@ -1,16 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import NavBar from "../../components/Menu/Nav/NavBar";
-import datasetsData from "../../data/datasetsData";
+import { fetchDatasetById } from "../../services/datasetsService";
 import DatasetDetails from "../../components/Dataset/Details/DatasetDetails";
+import type { DatasetWithSamples } from "../../types/dataset";
 import "./DatasetDetailsPage.css";
 
 const DatasetDetailsPage: React.FC = () => {
-  const { uid } = useParams<{ uid: string }>();
+  const { _id } = useParams<{ _id: string }>();
   const navigate = useNavigate();
-  const dataset = datasetsData.find((d) => d.uid === uid);
+  const [dataset, setDataset] = useState<DatasetWithSamples | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  if (!dataset) {
+  useEffect(() => {
+    if (!_id) return;
+    setLoading(true);
+    fetchDatasetById(_id)
+      .then(setDataset)
+      .catch(() => setError("No se pudo cargar el dataset"))
+      .finally(() => setLoading(false));
+  }, [_id]);
+
+  if (loading) {
+    return (
+      <div>
+        <nav className="navbar">
+          <NavBar />
+        </nav>
+        <div className="dataset-details-page-notfound dataset-details-page-notfound--with-navbar">
+          Cargando dataset...
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !dataset) {
     return (
       <div>
         <nav className="navbar">

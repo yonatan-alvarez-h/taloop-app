@@ -12,7 +12,7 @@
 
 - **Variable CSS:** `var(--font-family-mono)`
 - **Fuente:** JetBrains Mono + fallbacks
-- **Uso:** UIDs, nombres de campos, código, datos técnicos
+- **Uso:** IDs, nombres de campos, código, datos técnicos
 
 ## 📏 Tamaños de Fuente
 
@@ -73,8 +73,8 @@
   line-height: var(--line-height-tight);
 }
 
-/* UID técnico */
-.uid-display {
+/* ID técnico */
+.id-display {
   font-family: var(--font-family-mono);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);

@@ -40,7 +40,7 @@ export interface DataQuality {
 }
 
 export interface Dataset {
-  uid: string;
+  _id: string;
   title: string;
   category?: string;
   tags: string[];

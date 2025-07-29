@@ -1,6 +1,6 @@
 import React from "react";
 import type { Dataset } from "../../../types/dataset";
-import { DatasetCategory, DatasetOwner, DatasetUID } from "./Basic";
+import { DatasetCategory, DatasetOwner, DatasetID } from "./Basic";
 import { DatasetFields, DatasetFormat, DatasetSize } from "./Technical";
 import { DatasetTimestamps, DatasetUsage } from "./Temporal";
 import "./DatasetMetadata.css";
@@ -22,13 +22,13 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
         </li>
       )}
 
-      {/* UID, Propietario y Categoría en línea */}
+      {/* id, Propietario y Categoría en línea */}
       <li className="metadata-section">
         <div className="header-info">
-          <div className="metadata-inline-item uid-container-wrapper">
+          <div className="metadata-inline-item id-container-wrapper">
             <div className="metadata-item--inline">
-              <strong>UID:</strong>
-              <DatasetUID uid={dataset.uid} />
+              <strong>ID:</strong>
+              <DatasetID _id={dataset._id} />
             </div>
           </div>
           <div className="metadata-inline-item">

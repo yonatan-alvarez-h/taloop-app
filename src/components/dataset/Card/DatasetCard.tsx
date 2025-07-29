@@ -37,7 +37,7 @@ const DatasetCard: React.FC<DatasetCardProps> = ({
     if (onDetailsClick) {
       onDetailsClick();
     } else {
-      window.open(`/datasets/${dataset.uid}`, "_self");
+      window.open(`/datasets/${dataset._id}`, "_self");
     }
   };
 

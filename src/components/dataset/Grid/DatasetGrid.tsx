@@ -11,7 +11,7 @@ const DatasetGrid: React.FC<DatasetGridProps> = ({ datasets }) => {
   return (
     <div className="row g-4 dataset-grid-wrapper">
       {datasets.map((ds) => (
-        <div key={ds.uid} className="col-12 col-md-6">
+        <div key={ds._id} className="col-12 col-md-6">
           <DatasetCard dataset={ds} />
         </div>
       ))}

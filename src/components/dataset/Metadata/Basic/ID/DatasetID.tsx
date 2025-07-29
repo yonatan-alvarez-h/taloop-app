@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "./DatasetUID.css";
+import "./DatasetID.css";
 
-interface DatasetUIDProps {
-  uid: string;
+interface DatasetIDProps {
+  _id: string;
 }
 
-const DatasetUID: React.FC<DatasetUIDProps> = ({ uid }) => {
+const DatasetID: React.FC<DatasetIDProps> = ({ _id }) => {
   const [isCopied, setIsCopied] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -30,12 +30,12 @@ const DatasetUID: React.FC<DatasetUIDProps> = ({ uid }) => {
   };
 
   return (
-    <div className="uid-container">
-      <span className="uid-value">{uid}</span>
+    <div className="id-container">
+      <span className="id-value">{_id}</span>
       <button
-        className={`uid-copy-btn ${isCopied ? "copied" : ""}`}
-        onClick={() => copyToClipboard(uid)}
-        title={isCopied ? "¡Copiado!" : "Copiar UID"}
+        className={`id-copy-btn ${isCopied ? "copied" : ""}`}
+        onClick={() => copyToClipboard(_id)}
+        title={isCopied ? "¡Copiado!" : "Copiar ID"}
       >
         {/* Icono moderno SVG para copiar */}
         {isCopied ? (
@@ -70,8 +70,8 @@ const DatasetUID: React.FC<DatasetUIDProps> = ({ uid }) => {
 
       {/* Popup temporal */}
       {showPopup && (
-        <div className="uid-popup">
-          <div className="uid-popup-content">
+        <div className="id-popup">
+          <div className="id-popup-content">
             <svg
               width="16"
               height="16"
@@ -84,7 +84,7 @@ const DatasetUID: React.FC<DatasetUIDProps> = ({ uid }) => {
             >
               <polyline points="20,6 9,17 4,12"></polyline>
             </svg>
-            UID copiado correctamente
+            ID copiado correctamente
           </div>
         </div>
       )}
@@ -92,4 +92,4 @@ const DatasetUID: React.FC<DatasetUIDProps> = ({ uid }) => {
   );
 };
 
-export default DatasetUID;
+export default DatasetID;

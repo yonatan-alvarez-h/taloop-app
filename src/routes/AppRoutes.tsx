@@ -1,23 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-// import DatasetRouter from "../DatasetRouter";
 import DatasetDetailsPage from "../pages/DatasetDetails/DatasetDetailsPage";
 import HomePage from "../pages/Home/HomePage";
-import datasetsData from "../data/datasetsData";
+import { fetchDatasets } from "../services/datasetsService";
+import type { DatasetWithSamples } from "../types/dataset";
 
 const AppRoutes: React.FC<{
   search: string;
   onSearch: (q: string) => void;
-}> = ({ search, onSearch }) => (
-  <Routes>
-    <Route
-      path="/"
-      element={
-        <HomePage datasets={datasetsData} search={search} onSearch={onSearch} />
-      }
-    />
-    <Route path="/datasets/:uid" element={<DatasetDetailsPage />} />
-  </Routes>
-);
+}> = ({ search, onSearch }) => {
+  const [datasets, setDatasets] = useState<DatasetWithSamples[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchDatasets()
+      .then(setDatasets)
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    console.log("datasets", datasets);
+  }, [datasets]);
+
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          loading ? (
+            <div className="mt-5 text-center">Cargando datasets...</div>
+          ) : error ? (
+            <div className="alert alert-danger mt-5 text-center">
+              Error: {error}
+            </div>
+          ) : (
+            <HomePage datasets={datasets} search={search} onSearch={onSearch} />
+          )
+        }
+      />
+      <Route path="/datasets/:_id" element={<DatasetDetailsPage />} />
+    </Routes>
+  );
+};
 
 export default AppRoutes;
