@@ -20,10 +20,6 @@ const AppRoutes: React.FC<{
       .finally(() => setLoading(false));
   }, []);
 
-  useEffect(() => {
-    console.log("datasets", datasets);
-  }, [datasets]);
-
   return (
     <Routes>
       <Route

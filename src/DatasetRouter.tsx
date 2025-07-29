@@ -21,10 +21,6 @@ const DatasetRouter: React.FC = () => {
       .finally(() => setLoading(false));
   }, [_id]);
 
-  useEffect(() => {
-    console.log("dataset", dataset);
-  }, [dataset]);
-
   if (loading) {
     return <div className="mt-5 text-center">Cargando dataset...</div>;
   }
