@@ -39,6 +39,8 @@
 }
 .dataset-details-page-content {
   flex: 0 0 auto;
+  overflow-x: hidden !important;
+  max-width: 100% !important;
 }
 
 .dataset-details-page-notfound--with-navbar {

@@ -6,6 +6,8 @@
   border-radius: 12px;
   height: fit-content;
   font-size: 0.85rem;
+  overflow-x: hidden !important;
+  max-width: 100% !important;
 }
 
 .dataset-preview-meta > li {
