@@ -1,0 +1,373 @@
+/* ============================================
+   COMPONENTE LOADING UNIFICADO
+   ============================================ */
+
+.loading {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+/* ========== TAMAÑOS ========== */
+
+.loading--xs {
+  gap: var(--space-1);
+}
+
+.loading--sm {
+  gap: var(--space-2);
+}
+
+.loading--md {
+  gap: var(--space-3);
+}
+
+.loading--lg {
+  gap: var(--space-4);
+}
+
+.loading--xl {
+  gap: var(--space-5);
+}
+
+/* ========== COLORES ========== */
+
+.loading--primary {
+  color: var(--color-primary-600);
+}
+
+.loading--secondary {
+  color: var(--color-neutral-600);
+}
+
+.loading--neutral {
+  color: var(--color-neutral-500);
+}
+
+/* ========== FULLSCREEN ========== */
+
+.loading--fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  z-index: var(--z-modal);
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ========== SPINNER VARIANT ========== */
+
+.loading__spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading__spinner-icon {
+  animation: loading-spin 1s linear infinite;
+}
+
+.loading--xs .loading__spinner-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.loading--sm .loading__spinner-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.loading--md .loading__spinner-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.loading--lg .loading__spinner-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.loading--xl .loading__spinner-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.loading__spinner-icon circle {
+  animation: loading-dash 1.5s ease-in-out infinite;
+}
+
+/* ========== DOTS VARIANT ========== */
+
+.loading__dots {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+}
+
+.loading__dot {
+  border-radius: var(--border-radius-full);
+  background-color: currentColor;
+  animation: loading-bounce 1.4s ease-in-out infinite both;
+}
+
+.loading--xs .loading__dot {
+  width: 4px;
+  height: 4px;
+}
+
+.loading--sm .loading__dot {
+  width: 6px;
+  height: 6px;
+}
+
+.loading--md .loading__dot {
+  width: 8px;
+  height: 8px;
+}
+
+.loading--lg .loading__dot {
+  width: 10px;
+  height: 10px;
+}
+
+.loading--xl .loading__dot {
+  width: 12px;
+  height: 12px;
+}
+
+.loading__dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loading__dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+.loading__dot:nth-child(3) {
+  animation-delay: 0s;
+}
+
+/* ========== PULSE VARIANT ========== */
+
+.loading__pulse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.loading__pulse-circle {
+  border-radius: var(--border-radius-full);
+  background-color: currentColor;
+  animation: loading-pulse 2s ease-in-out infinite;
+}
+
+.loading--xs .loading__pulse-circle {
+  width: 16px;
+  height: 16px;
+}
+
+.loading--sm .loading__pulse-circle {
+  width: 20px;
+  height: 20px;
+}
+
+.loading--md .loading__pulse-circle {
+  width: 24px;
+  height: 24px;
+}
+
+.loading--lg .loading__pulse-circle {
+  width: 32px;
+  height: 32px;
+}
+
+.loading--xl .loading__pulse-circle {
+  width: 40px;
+  height: 40px;
+}
+
+/* ========== SKELETON VARIANT ========== */
+
+.loading__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+  max-width: 300px;
+}
+
+.loading__skeleton-line {
+  height: 12px;
+  background: linear-gradient(
+    90deg,
+    var(--color-neutral-200) 25%,
+    var(--color-neutral-100) 50%,
+    var(--color-neutral-200) 75%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--border-radius-sm);
+  animation: loading-shimmer 2s ease-in-out infinite;
+}
+
+.loading__skeleton-line--long {
+  width: 100%;
+}
+
+.loading__skeleton-line--medium {
+  width: 75%;
+}
+
+.loading__skeleton-line--short {
+  width: 50%;
+}
+
+.loading--xs .loading__skeleton-line {
+  height: 8px;
+}
+
+.loading--sm .loading__skeleton-line {
+  height: 10px;
+}
+
+.loading--md .loading__skeleton-line {
+  height: 12px;
+}
+
+.loading--lg .loading__skeleton-line {
+  height: 16px;
+}
+
+.loading--xl .loading__skeleton-line {
+  height: 20px;
+}
+
+/* ========== TEXTO ========== */
+
+.loading__text {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-neutral-600);
+  text-align: center;
+}
+
+.loading--xs .loading__text {
+  font-size: var(--font-size-xs);
+}
+
+.loading--sm .loading__text {
+  font-size: var(--font-size-sm);
+}
+
+.loading--md .loading__text {
+  font-size: var(--font-size-base);
+}
+
+.loading--lg .loading__text {
+  font-size: var(--font-size-lg);
+}
+
+.loading--xl .loading__text {
+  font-size: var(--font-size-xl);
+}
+
+/* ========== ANIMACIONES ========== */
+
+@keyframes loading-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+@keyframes loading-bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes loading-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ========== ACCESIBILIDAD ========== */
+
+@media (prefers-reduced-motion: reduce) {
+  .loading__spinner-icon,
+  .loading__spinner-icon circle,
+  .loading__dot,
+  .loading__pulse-circle,
+  .loading__skeleton-line {
+    animation: none;
+  }
+
+  .loading__dot {
+    opacity: 0.7;
+  }
+
+  .loading__skeleton-line {
+    background: var(--color-neutral-200);
+  }
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 768px) {
+  .loading--fullscreen {
+    backdrop-filter: blur(2px);
+  }
+
+  .loading__skeleton {
+    max-width: 250px;
+  }
+}

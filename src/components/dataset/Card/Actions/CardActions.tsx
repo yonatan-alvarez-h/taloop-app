@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../../../UI/Button";
 import "./CardActions.css";
 
 interface CardAction {
@@ -40,18 +41,17 @@ const CardActions: React.FC<CardActionsProps> = ({
       className={`card-actions card-actions--${layout} card-actions--${variant}`}
     >
       {actions.map((action, index) => (
-        <button
+        <Button
           key={index}
-          className={getButtonClass(action)}
+          variant={action.variant || "primary"}
+          size={size === "small" ? "sm" : size === "large" ? "lg" : "md"}
           onClick={action.onClick}
           disabled={action.disabled}
-          type="button"
+          leftIcon={action.icon}
+          className="card-actions__button"
         >
-          {action.icon && (
-            <span className="card-actions__button-icon">{action.icon}</span>
-          )}
-          <span className="card-actions__button-text">{action.label}</span>
-        </button>
+          {action.label}
+        </Button>
       ))}
     </div>
   );

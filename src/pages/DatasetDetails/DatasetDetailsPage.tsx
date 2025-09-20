@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import NavBar from "../../components/Menu/Nav/NavBar";
+import Loading from "../../components/UI/Loading";
+import Button from "../../components/UI/Button";
 import { fetchDatasetById } from "../../services/datasetsService";
 import DatasetDetails from "../../components/Dataset/Details/DatasetDetails";
 import type { DatasetWithSamples } from "../../types/dataset";
@@ -28,8 +30,13 @@ const DatasetDetailsPage: React.FC = () => {
         <nav className="navbar">
           <NavBar />
         </nav>
-        <div className="dataset-details-page-notfound dataset-details-page-notfound--with-navbar">
-          Cargando dataset...
+        <div className="dataset-details-page-notfound dataset-details-page-notfound--with-navbar d-flex justify-content-center align-items-center">
+          <Loading
+            size="lg"
+            variant="spinner"
+            text="Cargando dataset..."
+            color="primary"
+          />
         </div>
       </div>
     );
@@ -41,12 +48,14 @@ const DatasetDetailsPage: React.FC = () => {
         <nav className="navbar">
           <NavBar />
           <div className="dataset-details-page-back-btn-container">
-            <button
+            <Button
               onClick={() => navigate(-1)}
+              variant="ghost"
+              size="sm"
               className="dataset-details-page-back-btn"
             >
               ← Volver
-            </button>
+            </Button>
           </div>
         </nav>
         <div className="dataset-details-page-notfound dataset-details-page-notfound--with-navbar">
@@ -61,13 +70,14 @@ const DatasetDetailsPage: React.FC = () => {
       <nav className="navbar">
         <NavBar />
         <div className="dataset-details-page-back-btn-container">
-          <button
-            type="submit"
+          <Button
             onClick={() => navigate(-1)}
+            variant="ghost"
+            size="sm"
             className="dataset-details-page-back-btn"
           >
             ← Volver
-          </button>
+          </Button>
         </div>
       </nav>
       <div className="dataset-details-page-container container">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import DatasetDetailsPage from "../pages/DatasetDetails/DatasetDetailsPage";
 import HomePage from "../pages/Home/HomePage";
+import Loading from "../components/UI/Loading";
 import { fetchDatasets } from "../services/datasetsService";
 import type { DatasetWithSamples } from "../types/dataset";
 
@@ -26,7 +27,14 @@ const AppRoutes: React.FC<{
         path="/"
         element={
           loading ? (
-            <div className="mt-5 text-center">Cargando datasets...</div>
+            <div className="mt-5 d-flex justify-content-center">
+              <Loading
+                size="lg"
+                variant="spinner"
+                text="Cargando datasets..."
+                color="primary"
+              />
+            </div>
           ) : error ? (
             <div className="alert alert-danger mt-5 text-center">
               Error: {error}
