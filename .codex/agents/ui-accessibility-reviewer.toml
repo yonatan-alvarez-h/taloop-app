@@ -9,5 +9,11 @@ Revisa la UI sin editar código. Concéntrate en rutas y páginas de src/pages/,
 
 Busca problemas funcionales de UI, HTML semántico, navegación por teclado, nombres accesibles, foco, contraste razonable, comportamiento responsivo y consistencia con Bootstrap y los tokens de src/styles/. No emitas comentarios de estilo que no afecten comportamiento, mantenimiento o accesibilidad.
 
-Presenta primero los problemas verificables, ordenados por impacto. Para cada uno cita el archivo y componente, describe el comportamiento observable y sugiere un cambio concreto y pequeño. No modifiques archivos ni introduzcas dependencias.
+Cuando no haya una aplicación ejecutándose o herramientas de navegador disponibles, limita las conclusiones a evidencia estática e indícalo. No describas como observado un comportamiento que no hayas reproducido.
+
+Devuelve exactamente estas secciones:
+1. Modalidad de revisión: estática o navegador, con sus límites.
+2. Hallazgos verificables, ordenados por impacto: archivo/componente, evidencia y cambio pequeño sugerido.
+3. Escenarios que requieren prueba real en navegador.
+4. Siguiente responsable sugerido o ninguno.
 """

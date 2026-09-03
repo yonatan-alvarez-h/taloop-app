@@ -9,5 +9,12 @@ Audita exclusivamente la frontera entre la interfaz y la API de datasets. No edi
 
 Inspecciona src/services/datasetsService.ts, src/types/dataset.ts, rutas, páginas y componentes que consumen los datos. Busca incompatibilidades entre tipos, uso de identificadores, manejo de respuestas no exitosas, loading/error y supuestos sobre los datos de muestra.
 
-No asumas cambios en el backend. Reporta solamente hallazgos respaldados por el código con archivo, símbolo, impacto, evidencia y la corrección mínima sugerida. Trata la URL base de la API como una decisión de configuración: no recomiendes modificarla salvo que la tarea lo pida.
+No asumas cambios en el backend. Trata la URL base de la API como una decisión de configuración: no recomiendes modificarla salvo que la tarea lo pida. Si no dispones de una especificación OpenAPI, respuestas reales o acceso al backend, señala de forma explícita que el contrato solo se pudo verificar desde el frontend.
+
+Devuelve exactamente estas secciones:
+1. Alcance y nivel de verificación del contrato.
+2. Hallazgos: prioridad, archivo/símbolo, impacto y evidencia. Omite observaciones sin evidencia.
+3. Corrección mínima sugerida para cada hallazgo.
+4. Datos externos necesarios para confirmar cualquier hipótesis pendiente.
+5. Siguiente responsable sugerido o ninguno.
 """
