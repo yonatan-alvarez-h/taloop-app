@@ -16,22 +16,29 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 
   return (
     <form className="search-bar-form" onSubmit={handleSubmit}>
-      <input
-        className="search-bar-input"
-        type="search"
-        placeholder="Explora datos, escribe tu búsqueda..."
-        aria-label="Buscar"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <Button
-        type="submit"
-        variant="primary"
-        size="md"
-        className="search-bar-btn"
-      >
-        Buscar
-      </Button>
+      <div className="search-bar-field">
+        <input
+          className="search-bar-input"
+          type="search"
+          placeholder="Explora datos, escribe tu búsqueda..."
+          aria-label="Buscar"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <Button
+          type="submit"
+          variant="primary"
+          size="md"
+          className="search-bar-btn"
+          aria-label="Buscar"
+          title="Buscar"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="11" cy="11" r="6.5" />
+            <path d="m16 16 4.5 4.5" />
+          </svg>
+        </Button>
+      </div>
     </form>
   );
 };
