@@ -85,6 +85,20 @@
 .datasetlist-pagination {
   justify-content: end;
   margin-bottom: 0;
+  flex-wrap: nowrap;
+}
+
+.datasetlist-pagination .page-link {
+  min-width: 2.5rem;
+  text-align: center;
+}
+
+.datasetlist-pagination .pagination-ellipsis .page-link {
+  border-color: transparent;
+  background: transparent;
+  color: #6c757d;
+  cursor: default;
+  pointer-events: none;
 }
 
 /* Efectos hover para los controles fijos */
@@ -191,6 +205,13 @@
 
   .datasetlist-pagination {
     justify-content: center;
+    max-width: 100%;
+  }
+
+  .datasetlist-pagination .page-link {
+    min-width: 2.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 
   /* Más espacio en mobile para controles apilados */

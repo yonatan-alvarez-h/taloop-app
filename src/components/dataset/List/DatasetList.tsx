@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatasetGrid from "../Grid";
 import WelcomeSection from "../../Home/Welcome/WelcomeSection";
 import type { Dataset } from "../../../types/dataset";
@@ -10,6 +10,106 @@ interface DatasetListProps {
   outerPagination?: boolean;
   onSearch?: (query: string) => void;
 }
+
+type PaginationItem = number | "ellipsis-start" | "ellipsis-end";
+
+const getPaginationItems = (
+  currentPage: number,
+  totalPages: number
+): PaginationItem[] => {
+  if (totalPages <= 5) {
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+
+  if (currentPage <= 3) {
+    return [1, 2, 3, "ellipsis-end", totalPages];
+  }
+
+  if (currentPage >= totalPages - 2) {
+    return [1, "ellipsis-start", totalPages - 2, totalPages - 1, totalPages];
+  }
+
+  return [1, "ellipsis-start", currentPage, "ellipsis-end", totalPages];
+};
+
+interface DatasetPaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+}
+
+const DatasetPagination: React.FC<DatasetPaginationProps> = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}) => {
+  if (totalPages <= 1) {
+    return null;
+  }
+
+  return (
+    <nav aria-label="Paginación de resultados">
+      <ul className="pagination datasetlist-pagination">
+        <li className={`page-item${currentPage === 1 ? " disabled" : ""}`}>
+          <button
+            type="button"
+            className="page-link"
+            onClick={() => onPageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            aria-label="Ir a la página anterior"
+          >
+            Anterior
+          </button>
+        </li>
+        {getPaginationItems(currentPage, totalPages).map((item) => {
+          if (typeof item !== "number") {
+            return (
+              <li
+                key={item}
+                className="page-item pagination-ellipsis"
+                aria-hidden="true"
+              >
+                <span className="page-link">…</span>
+              </li>
+            );
+          }
+
+          return (
+            <li
+              key={item}
+              className={`page-item${currentPage === item ? " active" : ""}`}
+            >
+              <button
+                type="button"
+                className="page-link"
+                onClick={() => onPageChange(item)}
+                aria-current={currentPage === item ? "page" : undefined}
+                aria-label={`Ir a la página ${item}`}
+              >
+                {item}
+              </button>
+            </li>
+          );
+        })}
+        <li
+          className={`page-item${
+            currentPage === totalPages ? " disabled" : ""
+          }`}
+        >
+          <button
+            type="button"
+            className="page-link"
+            onClick={() => onPageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            aria-label="Ir a la página siguiente"
+          >
+            Siguiente
+          </button>
+        </li>
+      </ul>
+    </nav>
+  );
+};
 
 const DatasetList: React.FC<DatasetListProps> = ({
   datasets,
@@ -26,6 +126,11 @@ const DatasetList: React.FC<DatasetListProps> = ({
       ds.tags.some((tag) => tag.toLowerCase().includes(search.toLowerCase())) ||
       ds.owner.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  useEffect(() => {
+    setPage(1);
+  }, [search]);
+
   if (!search) {
     // Opción 1: Diseño colorido y dinámico (ACTIVO)
     return <WelcomeSection datasets={datasets} onSearch={onSearch} />;
@@ -57,7 +162,16 @@ const DatasetList: React.FC<DatasetListProps> = ({
   }
 
   const totalPages = Math.ceil(filtered.length / pageSize);
-  const paginated = filtered.slice((page - 1) * pageSize, page * pageSize);
+  const currentPage = Math.min(page, totalPages);
+  const paginated = filtered.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
+
+  const handlePageSizeChange = (value: number) => {
+    setPageSize(value);
+    setPage(1);
+  };
 
   return (
     <div className="dataset-list">
@@ -71,10 +185,7 @@ const DatasetList: React.FC<DatasetListProps> = ({
               id="pageSizeSelectOuter"
               className="form-select form-select-sm w-auto"
               value={pageSize}
-              onChange={(e) => {
-                setPageSize(Number(e.target.value));
-                setPage(1);
-              }}
+              onChange={(e) => handlePageSizeChange(Number(e.target.value))}
             >
               <option value={6}>6</option>
               <option value={12}>12</option>
@@ -82,40 +193,11 @@ const DatasetList: React.FC<DatasetListProps> = ({
             </select>
           </div>
           <span className="total-results">{filtered.length} resultados</span>
-          <nav>
-            <ul className="pagination datasetlist-pagination">
-              <li className={`page-item${page === 1 ? " disabled" : ""}`}>
-                <button
-                  className="page-link"
-                  onClick={() => setPage(page - 1)}
-                  disabled={page === 1}
-                >
-                  Anterior
-                </button>
-              </li>
-              {Array.from({ length: totalPages }, (_, i) => (
-                <li
-                  key={i + 1}
-                  className={`page-item${page === i + 1 ? " active" : ""}`}
-                >
-                  <button className="page-link" onClick={() => setPage(i + 1)}>
-                    {i + 1}
-                  </button>
-                </li>
-              ))}
-              <li
-                className={`page-item${page === totalPages ? " disabled" : ""}`}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => setPage(page + 1)}
-                  disabled={page === totalPages}
-                >
-                  Siguiente
-                </button>
-              </li>
-            </ul>
-          </nav>
+          <DatasetPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
         </div>
       )}
       <div className="dataset-list__content">
@@ -129,10 +211,7 @@ const DatasetList: React.FC<DatasetListProps> = ({
                 id="pageSizeSelectInner"
                 className="form-select form-select-sm w-auto"
                 value={pageSize}
-                onChange={(e) => {
-                  setPageSize(Number(e.target.value));
-                  setPage(1);
-                }}
+                onChange={(e) => handlePageSizeChange(Number(e.target.value))}
               >
                 <option value={6}>6</option>
                 <option value={12}>12</option>
@@ -140,45 +219,11 @@ const DatasetList: React.FC<DatasetListProps> = ({
               </select>
             </div>
             <span className="total-results">{filtered.length} resultados</span>
-            <nav>
-              <ul className="pagination datasetlist-pagination">
-                <li className={`page-item${page === 1 ? " disabled" : ""}`}>
-                  <button
-                    className="page-link"
-                    onClick={() => setPage(page - 1)}
-                    disabled={page === 1}
-                  >
-                    Anterior
-                  </button>
-                </li>
-                {Array.from({ length: totalPages }, (_, i) => (
-                  <li
-                    key={i + 1}
-                    className={`page-item${page === i + 1 ? " active" : ""}`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => setPage(i + 1)}
-                    >
-                      {i + 1}
-                    </button>
-                  </li>
-                ))}
-                <li
-                  className={`page-item${
-                    page === totalPages ? " disabled" : ""
-                  }`}
-                >
-                  <button
-                    className="page-link"
-                    onClick={() => setPage(page + 1)}
-                    disabled={page === totalPages}
-                  >
-                    Siguiente
-                  </button>
-                </li>
-              </ul>
-            </nav>
+            <DatasetPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setPage}
+            />
           </div>
         )}
         <DatasetGrid datasets={paginated} />
