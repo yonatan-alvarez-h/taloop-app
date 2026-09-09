@@ -5,6 +5,7 @@ import HomePage from "../pages/Home/HomePage";
 import LoginPage from "../pages/Login/LoginPage";
 import RegisterPage from "../pages/Register/RegisterPage";
 import ChangePasswordPage from "../pages/ChangePassword/ChangePasswordPage";
+import ProfilePage from "../pages/Profile/ProfilePage";
 import Loading from "../components/UI/Loading";
 import { fetchDatasets } from "../services/datasetsService";
 import type { DatasetWithSamples } from "../types/dataset";
@@ -78,6 +79,8 @@ const AppRoutes: React.FC<{
           }
         />
         <Route path="/datasets/:_id" element={<DatasetDetailsPage />} />
+        <Route path="/perfil" element={<ProfilePage />} />
+        <Route path="/perfil/:userId" element={<ProfilePage />} />
         <Route
           path="/users/:userId/change-password"
           element={<ChangePasswordPage />}

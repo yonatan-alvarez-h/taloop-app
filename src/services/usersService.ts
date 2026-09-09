@@ -1,4 +1,4 @@
-import type { UserRegistrationData } from "../types/user";
+import type { UserProfile, UserRegistrationData } from "../types/user";
 import { getAuthorizationHeaders } from "./authService";
 
 const API_BASE = "http://127.0.0.1:8000/api/v1";
@@ -22,6 +22,19 @@ export interface LoginResponse {
   access_token: string;
   token_type?: string;
   user_id: string;
+}
+
+function getUserRequestHeaders(accessToken?: string | null): Headers {
+  const headers = new Headers({
+    accept: "application/json",
+    ...getAuthorizationHeaders(),
+  });
+
+  if (accessToken && !headers.has("Authorization")) {
+    headers.set("Authorization", `Bearer ${accessToken}`);
+  }
+
+  return headers;
 }
 
 async function getApiErrorMessage(
@@ -140,4 +153,49 @@ export async function changeUserPassword(
   }
 
   return response.json() as Promise<{ message: string }>;
+}
+
+export async function getUserProfile(
+  userId: string,
+  accessToken?: string | null
+): Promise<UserProfile> {
+  const response = await fetch(
+    `${API_BASE}/users/${encodeURIComponent(userId)}`,
+    {
+      method: "GET",
+      headers: getUserRequestHeaders(accessToken),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      await getApiErrorMessage(response, "No se pudieron cargar tus datos")
+    );
+  }
+
+  return response.json() as Promise<UserProfile>;
+}
+
+export async function updateUserProfile(
+  userId: string,
+  data: UserProfile,
+  accessToken?: string | null
+): Promise<void> {
+  const headers = getUserRequestHeaders(accessToken);
+  headers.set("content-type", "application/json");
+
+  const response = await fetch(
+    `${API_BASE}/users/${encodeURIComponent(userId)}`,
+    {
+      method: "PUT",
+      headers,
+      body: JSON.stringify(data),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      await getApiErrorMessage(response, "No se pudieron actualizar tus datos")
+    );
+  }
 }
