@@ -34,6 +34,11 @@ const RegisterPage: React.FC = () => {
     event.preventDefault();
     setError(null);
 
+    if (!formData.full_name.trim()) {
+      setError("El nombre completo es obligatorio.");
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError("Las contraseñas no coinciden.");
       return;
@@ -45,9 +50,7 @@ const RegisterPage: React.FC = () => {
       await createUser({
         email: formData.email.trim().toLowerCase(),
         password: formData.password,
-        ...(formData.full_name?.trim()
-          ? { full_name: formData.full_name.trim() }
-          : {}),
+        full_name: formData.full_name.trim(),
       });
       setSuccess(true);
       setFormData(initialFormData);
@@ -93,7 +96,7 @@ const RegisterPage: React.FC = () => {
 
           <form className="register-form" onSubmit={handleSubmit}>
             <div className="register-field">
-              <label htmlFor="full_name">Nombre completo (opcional)</label>
+              <label htmlFor="full_name">Nombre completo</label>
               <input
                 id="full_name"
                 name="full_name"
@@ -101,6 +104,7 @@ const RegisterPage: React.FC = () => {
                 autoComplete="name"
                 value={formData.full_name}
                 onChange={handleChange}
+                required
                 placeholder="Tu nombre"
               />
             </div>
