@@ -27,15 +27,6 @@ const CardActions: React.FC<CardActionsProps> = ({
     return null;
   }
 
-  const getButtonClass = (action: CardAction) => {
-    const baseClass = "card-actions__button";
-    const sizeClass = `${baseClass}--${size}`;
-    const variantClass = `${baseClass}--${action.variant || "primary"}`;
-    const disabledClass = action.disabled ? `${baseClass}--disabled` : "";
-
-    return `${baseClass} ${sizeClass} ${variantClass} ${disabledClass}`.trim();
-  };
-
   return (
     <div
       className={`card-actions card-actions--${layout} card-actions--${variant}`}

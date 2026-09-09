@@ -7,6 +7,11 @@ interface ApiErrorResponse {
   message?: string;
 }
 
+export interface ChangePasswordData {
+  current_password: string;
+  new_password: string;
+}
+
 async function getApiErrorMessage(
   response: Response,
   fallback: string
@@ -48,4 +53,39 @@ export async function createUser(
   }
 
   return response.json();
+}
+
+export async function changeUserPassword(
+  userId: string,
+  data: ChangePasswordData,
+  accessToken?: string | null
+): Promise<{ message: string }> {
+  const headers: HeadersInit = {
+    accept: "application/json",
+    "content-type": "application/json",
+  };
+
+  if (accessToken) {
+    headers.Authorization = `Bearer ${accessToken}`;
+  }
+
+  const response = await fetch(
+    `${API_BASE}/users/${encodeURIComponent(userId)}/change-password`,
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify(data),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      await getApiErrorMessage(
+        response,
+        "No se pudo actualizar la contraseña"
+      )
+    );
+  }
+
+  return response.json() as Promise<{ message: string }>;
 }

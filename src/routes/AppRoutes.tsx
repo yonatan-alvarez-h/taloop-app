@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import DatasetDetailsPage from "../pages/DatasetDetails/DatasetDetailsPage";
 import HomePage from "../pages/Home/HomePage";
 import RegisterPage from "../pages/Register/RegisterPage";
+import ChangePasswordPage from "../pages/ChangePassword/ChangePasswordPage";
 import Loading from "../components/UI/Loading";
 import { fetchDatasets } from "../services/datasetsService";
 import type { DatasetWithSamples } from "../types/dataset";
@@ -48,6 +49,18 @@ const AppRoutes: React.FC<{
       <Route path="/datasets/:_id" element={<DatasetDetailsPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/registro" element={<RegisterPage />} />
+      <Route
+        path="/users/:userId/change-password"
+        element={<ChangePasswordPage />}
+      />
+      <Route
+        path="/change-password/:userId"
+        element={<ChangePasswordPage />}
+      />
+      <Route
+        path="/cambiar-password/:userId"
+        element={<ChangePasswordPage />}
+      />
     </Routes>
   );
 };

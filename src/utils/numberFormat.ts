@@ -31,7 +31,7 @@ export const formatNumber = (
       maximumFractionDigits: 10, // Preservar hasta 10 decimales
       useGrouping: true, // Usar separadores de miles
     }).format(numValue);
-  } catch (error) {
+  } catch {
     // Fallback en caso de error
     return String(value);
   }
