@@ -52,6 +52,10 @@
   text-transform: uppercase;
 }
 
+.login-eyebrow .brand-name {
+  text-transform: lowercase;
+}
+
 .login-card h1 {
   margin: var(--space-2) 0;
   color: var(--color-neutral-900);

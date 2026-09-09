@@ -52,6 +52,10 @@
   text-transform: uppercase;
 }
 
+.register-eyebrow .brand-name {
+  text-transform: lowercase;
+}
+
 .register-card h1 {
   margin: var(--space-2) 0;
   color: var(--color-neutral-900);

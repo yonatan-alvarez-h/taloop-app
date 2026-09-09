@@ -78,7 +78,9 @@ const LoginPage: React.FC = () => {
       <main className="login-content">
         <section className="login-card" aria-labelledby="login-title">
           <div className="login-card-header">
-            <span className="login-eyebrow">Bienvenido a taloop</span>
+            <span className="login-eyebrow">
+              Bienvenido a <span className="brand-name">taloop</span>
+            </span>
             <h1 id="login-title">Inicia sesión</h1>
             <p>Accede para explorar y gestionar datasets.</p>
           </div>
