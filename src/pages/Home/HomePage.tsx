@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import NavBar from "../../components/Menu/Nav/NavBar";
 import SearchBar from "../../components/Menu/Search/SearchBar";
 import DatasetList from "../../components/Dataset/List/DatasetList";
@@ -27,8 +28,13 @@ const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => {
     <div className="homepage-wrapper">
       <nav className="navbar">
         <NavBar />
-        <div className="homepage-searchbar">
-          <SearchBar onSearch={onSearch} />
+        <div className="homepage-nav-actions">
+          <div className="homepage-searchbar">
+            <SearchBar onSearch={onSearch} />
+          </div>
+          <Link to="/register" className="homepage-register-link">
+            Registrarse
+          </Link>
         </div>
       </nav>
       <div className="homepage-container container">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import DatasetDetailsPage from "../pages/DatasetDetails/DatasetDetailsPage";
 import HomePage from "../pages/Home/HomePage";
+import RegisterPage from "../pages/Register/RegisterPage";
 import Loading from "../components/UI/Loading";
 import { fetchDatasets } from "../services/datasetsService";
 import type { DatasetWithSamples } from "../types/dataset";
@@ -45,6 +46,8 @@ const AppRoutes: React.FC<{
         }
       />
       <Route path="/datasets/:_id" element={<DatasetDetailsPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/registro" element={<RegisterPage />} />
     </Routes>
   );
 };

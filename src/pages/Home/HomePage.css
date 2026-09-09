@@ -19,6 +19,29 @@
   margin: 0 0 8px 0;
 }
 
+.homepage-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex: 0 1 auto;
+  width: min(100%, 620px);
+}
+
+.homepage-register-link {
+  flex-shrink: 0;
+  color: var(--color-primary-700);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.homepage-register-link:hover {
+  color: var(--color-primary-900);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .homepage-container {
   padding-top: 60px; /* Compensar por navbar fijo cuando no hay padding en body */
   margin-top: 0 !important; /* Eliminar cualquier margin de Bootstrap */
@@ -74,6 +97,14 @@
 
 /* Responsive adjustments para mobile */
 @media (max-width: 768px) {
+  .homepage-nav-actions {
+    gap: var(--space-2);
+  }
+
+  .homepage-register-link {
+    font-size: var(--font-size-xs);
+  }
+
   .homepage-container {
     padding-top: 56px; /* Compensar por navbar más pequeño en mobile */
     height: calc(100vh - 56px); /* Ajustado para navbar en mobile sin padding */
