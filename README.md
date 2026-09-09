@@ -1,4 +1,4 @@
-# Taloop App 🔍
+# taloop App 🔍
 
 Una aplicación web moderna para explorar y gestionar datasets, construida con React, TypeScript y Vite.
 

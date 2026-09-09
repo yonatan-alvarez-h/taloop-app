@@ -1,4 +1,4 @@
-# Taloop App
+# taloop App
 
 ## Project overview
 

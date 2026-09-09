@@ -1,5 +1,5 @@
 name = "ui_accessibility_reviewer"
-description = "Revisor de solo lectura para UI React, CSS responsivo y accesibilidad de Taloop."
+description = "Revisor de solo lectura para UI React, CSS responsivo y accesibilidad de taloop."
 model = "gpt-5.6-terra"
 model_reasoning_effort = "high"
 sandbox_mode = "read-only"

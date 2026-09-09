@@ -1,4 +1,4 @@
-# Configuración de Codex para Taloop
+# Configuración de Codex para taloop
 
 Esta carpeta contiene configuración específica de Codex para el repositorio. Codex debe cargarla únicamente cuando el proyecto esté marcado como confiable.
 
