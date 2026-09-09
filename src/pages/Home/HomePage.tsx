@@ -16,7 +16,7 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   // Aplicar clase para eliminar scroll global solo en HomePage
   useEffect(() => {
     document.body.classList.add("no-global-scroll");
@@ -35,9 +35,11 @@ const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => {
           <div className="homepage-searchbar">
             <SearchBar onSearch={onSearch} />
           </div>
-          <Link to="/register" className="homepage-register-link">
-            Registrarse
-          </Link>
+          {!isAuthenticated && (
+            <Link to="/register" className="homepage-register-link">
+              Registrarse
+            </Link>
+          )}
           <button
             type="button"
             className="homepage-logout-button"

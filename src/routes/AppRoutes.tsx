@@ -52,9 +52,9 @@ const AppRoutes: React.FC<{
     <Routes>
       <Route element={<GuestRoute />}>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/registro" element={<RegisterPage />} />
       </Route>
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/registro" element={<RegisterPage />} />
       <Route element={<ProtectedRoute />}>
         <Route
           path="/"
