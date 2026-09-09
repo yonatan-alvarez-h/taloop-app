@@ -1,0 +1,6 @@
+# Configuración compartida del proyecto para Codex.
+# Los modelos y las credenciales se heredan de la configuración del usuario o de la sesión.
+
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 3
