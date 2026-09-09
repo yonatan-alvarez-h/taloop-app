@@ -67,18 +67,22 @@ export async function createUser(
 }
 
 export async function loginUser(data: LoginData): Promise<LoginResponse> {
-  const body = new URLSearchParams({
-    username: data.email,
-    password: data.password,
-  });
-  const response = await fetch(`${API_BASE}/auth/login`, {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-      "content-type": "application/x-www-form-urlencoded",
-    },
-    body,
-  });
+  let response: Response;
+
+  try {
+    response = await fetch(`${API_BASE}/auth/login`, {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  } catch {
+    throw new Error(
+      "No se pudo conectar con el servidor. Verifica que la API esté encendida."
+    );
+  }
 
   if (!response.ok) {
     throw new Error(
