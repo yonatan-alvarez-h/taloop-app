@@ -49,11 +49,6 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
   letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.register-eyebrow .brand-name {
-  text-transform: lowercase;
 }
 
 .register-card h1 {

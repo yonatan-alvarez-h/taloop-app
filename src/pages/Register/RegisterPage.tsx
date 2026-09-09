@@ -88,9 +88,7 @@ const RegisterPage: React.FC = () => {
       <main className="register-content">
         <section className="register-card" aria-labelledby="register-title">
           <div className="register-card-header">
-            <span className="register-eyebrow">
-              Únete a <span className="brand-name">taloop</span>
-            </span>
+            <span className="register-eyebrow">Únete a taloop</span>
             <h1 id="register-title">Crea tu cuenta</h1>
             <p>Regístrate para explorar y gestionar datasets.</p>
           </div>

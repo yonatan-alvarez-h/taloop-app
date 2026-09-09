@@ -49,11 +49,6 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
   letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.login-eyebrow .brand-name {
-  text-transform: lowercase;
 }
 
 .login-card h1 {
