@@ -46,7 +46,7 @@ const LoginPage: React.FC = () => {
         email: formData.email.trim().toLowerCase(),
         password: formData.password,
       });
-      login(response.access_token);
+      login(response.access_token, response.user_id);
 
       const state = location.state as { from?: RedirectLocation } | null;
       const from = state?.from;

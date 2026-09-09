@@ -90,6 +90,7 @@ const AppRoutes: React.FC<{
           path="/cambiar-password/:userId"
           element={<ChangePasswordPage />}
         />
+        <Route path="/cambiar-password" element={<ChangePasswordPage />} />
       </Route>
     </Routes>
   );

@@ -22,7 +22,7 @@ nav.navbar,
   z-index: var(--z-fixed) !important;
   transition: all var(--transition-fast);
   margin-bottom: 0 !important;
-  overflow: hidden !important;
+  overflow: visible !important;
   box-sizing: border-box !important;
 }
 

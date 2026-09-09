@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NavBar from "../../components/Menu/Nav/NavBar";
 import SearchBar from "../../components/Menu/Search/SearchBar";
+import UserMenu from "../../components/Menu/UserMenu/UserMenu";
 import DatasetList from "../../components/Dataset/List/DatasetList";
 import { useAuth } from "../../context/useAuth";
 
@@ -15,8 +16,7 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => {
-  const navigate = useNavigate();
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated } = useAuth();
   // Aplicar clase para eliminar scroll global solo en HomePage
   useEffect(() => {
     document.body.classList.add("no-global-scroll");
@@ -40,16 +40,7 @@ const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => {
               Registrarse
             </Link>
           )}
-          <button
-            type="button"
-            className="homepage-logout-button"
-            onClick={() => {
-              logout();
-              navigate("/login", { replace: true });
-            }}
-          >
-            Cerrar sesión
-          </button>
+          <UserMenu />
         </div>
       </nav>
       <div className="homepage-container container">

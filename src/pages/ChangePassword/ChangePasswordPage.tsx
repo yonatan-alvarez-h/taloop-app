@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import NavBar from "../../components/Menu/Nav/NavBar";
 import Button from "../../components/UI/Button";
+import { useAuth } from "../../context/useAuth";
 import {
   changeUserPassword,
   type ChangePasswordData,
@@ -19,7 +20,9 @@ const initialFormData: ChangePasswordFormData = {
 };
 
 const ChangePasswordPage: React.FC = () => {
-  const { userId } = useParams<{ userId: string }>();
+  const { userId: routeUserId } = useParams<{ userId: string }>();
+  const { accessToken, userId: authenticatedUserId } = useAuth();
+  const userId = routeUserId ?? authenticatedUserId;
   const [formData, setFormData] = useState<ChangePasswordFormData>(
     initialFormData
   );
@@ -56,7 +59,6 @@ const ChangePasswordPage: React.FC = () => {
     setLoading(true);
 
     try {
-      const accessToken = localStorage.getItem("access_token");
       await changeUserPassword(
         userId,
         {

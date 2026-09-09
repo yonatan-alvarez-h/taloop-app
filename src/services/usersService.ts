@@ -21,6 +21,7 @@ export interface LoginData {
 export interface LoginResponse {
   access_token: string;
   token_type?: string;
+  user_id: string;
 }
 
 async function getApiErrorMessage(
@@ -94,6 +95,12 @@ export async function loginUser(data: LoginData): Promise<LoginResponse> {
 
   if (!payload.access_token) {
     throw new Error("La respuesta de inicio de sesión no contiene un token.");
+  }
+
+  if (!payload.user_id) {
+    throw new Error(
+      "La respuesta de inicio de sesión no contiene el identificador del usuario."
+    );
   }
 
   return payload as LoginResponse;
