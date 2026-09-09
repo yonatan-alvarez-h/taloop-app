@@ -27,7 +27,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         />
         <Button
           type="submit"
-          variant="primary"
+          variant="ghost"
           size="md"
           className="search-bar-btn"
           aria-label="Buscar"
