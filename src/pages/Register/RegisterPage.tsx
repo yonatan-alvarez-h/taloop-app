@@ -17,6 +17,15 @@ const initialFormData: RegisterFormData = {
   full_name: "",
 };
 
+const isValidFullName = (fullName: string): boolean => {
+  const normalizedFullName = fullName.trim();
+  const letters = normalizedFullName.match(/\p{L}/gu) ?? [];
+
+  return (
+    letters.length >= 2 && /^\p{L}+(?:[ .'-]+\p{L}+)*$/u.test(normalizedFullName)
+  );
+};
+
 const RegisterPage: React.FC = () => {
   const [formData, setFormData] = useState<RegisterFormData>(initialFormData);
   const [loading, setLoading] = useState(false);
@@ -34,8 +43,10 @@ const RegisterPage: React.FC = () => {
     event.preventDefault();
     setError(null);
 
-    if (!formData.full_name.trim()) {
-      setError("El nombre completo es obligatorio.");
+    if (!isValidFullName(formData.full_name)) {
+      setError(
+        "Ingresa un nombre completo válido con al menos dos letras."
+      );
       return;
     }
 
