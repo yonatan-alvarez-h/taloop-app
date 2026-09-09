@@ -26,6 +26,25 @@ const isValidFullName = (fullName: string): boolean => {
   );
 };
 
+const isStrongPassword = (password: string): boolean => {
+  const commonWeakPasswords = new Set([
+    "12345678",
+    "password",
+    "qwerty123",
+    "abcdefgh",
+  ]);
+
+  return (
+    password.length >= 8 &&
+    password.length <= 72 &&
+    !commonWeakPasswords.has(password.toLowerCase()) &&
+    /[A-Z]/.test(password) &&
+    /[a-z]/.test(password) &&
+    /\d/.test(password) &&
+    /[^A-Za-z0-9]/.test(password)
+  );
+};
+
 const RegisterPage: React.FC = () => {
   const [formData, setFormData] = useState<RegisterFormData>(initialFormData);
   const [loading, setLoading] = useState(false);
@@ -46,6 +65,13 @@ const RegisterPage: React.FC = () => {
     if (!isValidFullName(formData.full_name)) {
       setError(
         "Ingresa un nombre completo válido con al menos dos letras."
+      );
+      return;
+    }
+
+    if (!isStrongPassword(formData.password)) {
+      setError(
+        "La contraseña debe tener entre 8 y 72 caracteres, incluyendo mayúscula, minúscula, número y símbolo."
       );
       return;
     }
@@ -141,12 +167,17 @@ const RegisterPage: React.FC = () => {
                 name="password"
                 type="password"
                 autoComplete="new-password"
+                aria-describedby="password-help"
                 value={formData.password}
                 onChange={handleChange}
                 required
                 minLength={8}
-                placeholder="Mínimo 8 caracteres"
+                maxLength={72}
+                placeholder="Mayúscula, número y símbolo"
               />
+              <small id="password-help" className="register-field-hint">
+                Usa mayúsculas, minúsculas, números y símbolos.
+              </small>
             </div>
 
             <div className="register-field">

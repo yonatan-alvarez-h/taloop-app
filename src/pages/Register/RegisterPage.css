@@ -81,6 +81,11 @@
   font-weight: var(--font-weight-semibold);
 }
 
+.register-field-hint {
+  color: var(--color-neutral-500);
+  font-size: var(--font-size-xs);
+}
+
 .register-field input {
   width: 100%;
   padding: var(--space-3) var(--space-4);
