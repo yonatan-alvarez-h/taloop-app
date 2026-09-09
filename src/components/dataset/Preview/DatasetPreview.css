@@ -4,14 +4,14 @@
 .dataset-preview {
   padding: 0;
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 4px;
   width: 100%;
 }
 
 /* Fondo blanco para el contenido de la vista previa */
 .dataset-preview-card {
   background: #fff;
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 1.25rem;
   margin: 0;
   width: 100%;
@@ -45,12 +45,12 @@
 
 @media (max-width: 480px) {
   .dataset-preview {
-    border-radius: 8px;
+    border-radius: 3px;
   }
 
   .dataset-preview-card {
     padding: 1rem;
-    border-radius: 8px;
+    border-radius: 3px;
   }
 }
 

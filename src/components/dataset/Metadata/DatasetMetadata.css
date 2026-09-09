@@ -3,7 +3,7 @@
   padding: 1.5rem;
   list-style: none;
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 4px;
   height: fit-content;
   font-size: 0.85rem;
   overflow-x: hidden !important;
@@ -57,7 +57,7 @@
   font-size: 0.8rem; /* Ligeramente más grande */
   font-weight: 600;
   padding: 0.375rem 0.75rem; /* Padding más generoso */
-  border-radius: 0.5rem; /* Border radius más redondeado */
+  border-radius: 3px;
   margin-left: 0.75rem; /* Más separación */
   display: inline-block;
 }
@@ -68,7 +68,7 @@
   color: #374151;
   font-size: 0.7rem; /* Tamaño reducido */
   padding: 0.2rem 0.4rem; /* Padding reducido */
-  border-radius: 8px; /* Menos redondeado */
+  border-radius: 2px;
   margin-right: 0.4rem; /* Separación reducida */
   margin-bottom: 0.3rem; /* Separación vertical reducida */
   font-weight: 500;
@@ -193,7 +193,7 @@
 @media (max-width: 480px) {
   .dataset-preview-meta {
     padding: 0.8rem 1rem; /* Padding aún más reducido */
-    border-radius: 6px;
+    border-radius: 3px;
     font-size: 0.75rem; /* Font base más pequeño en móvil */
   }
 

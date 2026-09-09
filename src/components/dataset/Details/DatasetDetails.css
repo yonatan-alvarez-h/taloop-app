@@ -3,7 +3,7 @@
   margin: 0 auto;
   background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
   border: 1px solid #e2e8f0;
-  border-radius: 16px;
+  border-radius: 4px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.3s ease;
   height: calc(100vh - 60px); /* Altura máxima ampliada */
@@ -93,7 +93,7 @@
   font-size: 1.08em;
   color: #fff;
   padding: 3px 18px;
-  border-radius: 18px;
+  border-radius: 4px;
   margin-bottom: 14px;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -126,7 +126,7 @@
   .dataset-details-container {
     margin: 0 0.5rem;
     padding: 1.5rem 2rem;
-    border-radius: 12px;
+    border-radius: 4px;
   }
 
   .dataset-details-category {
@@ -140,6 +140,6 @@
   .dataset-details-container {
     margin: 0 0.25rem;
     padding: 1rem 1.5rem;
-    border-radius: 10px;
+    border-radius: 4px;
   }
 }

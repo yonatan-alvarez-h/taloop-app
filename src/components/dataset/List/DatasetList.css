@@ -102,7 +102,7 @@
   max-width: 600px;
   text-align: center;
   padding: 2rem;
-  border-radius: 12px;
+  border-radius: 4px;
   background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
   border: 1px solid #e1e8ff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -131,7 +131,7 @@
 .no-results-suggestions {
   text-align: left;
   background: rgba(255, 255, 255, 0.7);
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 1.25rem;
   margin-top: 1rem;
 }

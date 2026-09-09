@@ -121,11 +121,12 @@
   --border-width-4: 4px;
 
   --border-radius-none: 0;
-  --border-radius-sm: 0.125rem; /* 2px */
-  --border-radius-md: 0.375rem; /* 6px */
-  --border-radius-lg: 0.5rem; /* 8px */
-  --border-radius-xl: 0.75rem; /* 12px */
-  --border-radius-2xl: 1rem; /* 16px */
+  /* Escala más plana para una interfaz más sobria y minimalista */
+  --border-radius-sm: 0.0625rem; /* 1px */
+  --border-radius-md: 0.125rem; /* 2px */
+  --border-radius-lg: 0.25rem; /* 4px */
+  --border-radius-xl: 0.375rem; /* 6px */
+  --border-radius-2xl: 0.375rem; /* 6px */
   --border-radius-full: 9999px;
 
   /* ========== TRANSICIONES ========== */

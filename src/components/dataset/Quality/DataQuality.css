@@ -3,7 +3,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 1.25rem;
   margin: 0;
   height: fit-content;
@@ -61,7 +61,7 @@
 .quality-issues {
   background: #fef3c7;
   border: 1px solid #f59e0b;
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 1rem;
   margin: 1rem 0 1rem 0; /* Más margen superior para separación */
 }

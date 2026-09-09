@@ -55,7 +55,7 @@
   width: 100%;
   height: 4px;
   background: linear-gradient(90deg, #0891b2, #22d3ee);
-  border-radius: 2px;
+  border-radius: 1px;
   animation: underlineGrow 1.2s ease-out 0.5s both;
 }
 
@@ -97,7 +97,7 @@
   text-align: center;
   padding: 2rem 1rem;
   background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
+  border-radius: 4px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
