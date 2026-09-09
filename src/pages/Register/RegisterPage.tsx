@@ -80,8 +80,8 @@ const RegisterPage: React.FC = () => {
     <div className="register-page">
       <nav className="navbar register-navbar">
         <NavBar />
-        <Link to="/" className="register-navbar-link">
-          ← Explorar datasets
+        <Link to="/login" className="register-navbar-link">
+          ← Iniciar sesión
         </Link>
       </nav>
 
@@ -95,7 +95,7 @@ const RegisterPage: React.FC = () => {
 
           {success && (
             <div className="register-message register-message--success" role="status">
-              Tu cuenta fue creada correctamente. Ya puedes explorar los datasets.
+              Tu cuenta fue creada correctamente. Ya puedes iniciar sesión.
             </div>
           )}
 
@@ -170,7 +170,7 @@ const RegisterPage: React.FC = () => {
           </form>
 
           <p className="register-footer">
-            ¿Ya tienes una cuenta? <Link to="/">Volver a explorar</Link>
+            ¿Ya tienes una cuenta? <Link to="/login">Inicia sesión</Link>
           </p>
         </section>
       </main>

@@ -42,6 +42,25 @@
   text-underline-offset: 3px;
 }
 
+.homepage-logout-button {
+  flex-shrink: 0;
+  padding: 0;
+  color: var(--color-neutral-700);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.homepage-logout-button:hover {
+  color: var(--color-error-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .homepage-container {
   padding-top: 60px; /* Compensar por navbar fijo cuando no hay padding en body */
   margin-top: 0 !important; /* Eliminar cualquier margin de Bootstrap */
@@ -102,6 +121,10 @@
   }
 
   .homepage-register-link {
+    font-size: var(--font-size-xs);
+  }
+
+  .homepage-logout-button {
     font-size: var(--font-size-xs);
   }
 

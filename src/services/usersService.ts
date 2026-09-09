@@ -1,4 +1,5 @@
 import type { UserRegistrationData } from "../types/user";
+import { getAuthorizationHeaders } from "./authService";
 
 const API_BASE = "http://127.0.0.1:8000/api/v1";
 
@@ -10,6 +11,16 @@ interface ApiErrorResponse {
 export interface ChangePasswordData {
   current_password: string;
   new_password: string;
+}
+
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  access_token: string;
+  token_type?: string;
 }
 
 async function getApiErrorMessage(
@@ -55,18 +66,48 @@ export async function createUser(
   return response.json();
 }
 
+export async function loginUser(data: LoginData): Promise<LoginResponse> {
+  const body = new URLSearchParams({
+    username: data.email,
+    password: data.password,
+  });
+  const response = await fetch(`${API_BASE}/auth/login`, {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    body,
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      await getApiErrorMessage(response, "Correo o contraseña incorrectos")
+    );
+  }
+
+  const payload = (await response.json()) as Partial<LoginResponse>;
+
+  if (!payload.access_token) {
+    throw new Error("La respuesta de inicio de sesión no contiene un token.");
+  }
+
+  return payload as LoginResponse;
+}
+
 export async function changeUserPassword(
   userId: string,
   data: ChangePasswordData,
   accessToken?: string | null
 ): Promise<{ message: string }> {
-  const headers: HeadersInit = {
+  const headers = new Headers({
     accept: "application/json",
     "content-type": "application/json",
-  };
+    ...getAuthorizationHeaders(),
+  });
 
-  if (accessToken) {
-    headers.Authorization = `Bearer ${accessToken}`;
+  if (accessToken && !headers.has("Authorization")) {
+    headers.set("Authorization", `Bearer ${accessToken}`);
   }
 
   const response = await fetch(
