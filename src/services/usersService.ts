@@ -22,6 +22,8 @@ export interface LoginResponse {
   access_token: string;
   token_type?: string;
   user_id: string;
+  email: string;
+  full_name: string;
 }
 
 function getUserRequestHeaders(accessToken?: string | null): Headers {
@@ -113,6 +115,12 @@ export async function loginUser(data: LoginData): Promise<LoginResponse> {
   if (!payload.user_id) {
     throw new Error(
       "La respuesta de inicio de sesión no contiene el identificador del usuario."
+    );
+  }
+
+  if (!payload.email || !payload.full_name) {
+    throw new Error(
+      "La respuesta de inicio de sesión no contiene los datos del usuario."
     );
   }
 

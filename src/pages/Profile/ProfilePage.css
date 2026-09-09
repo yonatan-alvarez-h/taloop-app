@@ -109,6 +109,22 @@
   box-shadow: 0 0 0 3px var(--color-primary-100);
 }
 
+.profile-field input[readonly] {
+  color: var(--color-neutral-600);
+  background: var(--color-neutral-100);
+  cursor: not-allowed;
+}
+
+.profile-field input[readonly]:focus {
+  border-color: var(--color-neutral-300);
+  box-shadow: none;
+}
+
+.profile-field-hint {
+  color: var(--color-neutral-500);
+  font-size: var(--font-size-xs);
+}
+
 .profile-field input:invalid:not(:placeholder-shown) {
   border-color: var(--color-error-500);
 }

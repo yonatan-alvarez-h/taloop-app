@@ -27,7 +27,12 @@ const isValidFullName = (fullName: string): boolean => {
 
 const ProfilePage: React.FC = () => {
   const { userId: routeUserId } = useParams<{ userId: string }>();
-  const { accessToken, userId: authenticatedUserId } = useAuth();
+  const {
+    accessToken,
+    userId: authenticatedUserId,
+    userProfile,
+    updateProfile,
+  } = useAuth();
   const userId = routeUserId ?? authenticatedUserId;
   const [formData, setFormData] = useState<UserProfile>(initialFormData);
   const [initialLoading, setInitialLoading] = useState(true);
@@ -39,6 +44,13 @@ const ProfilePage: React.FC = () => {
     if (!userId) {
       setError("No se encontró el identificador del usuario.");
       setInitialLoading(false);
+      return;
+    }
+
+    if (userProfile && !routeUserId) {
+      setFormData(userProfile);
+      setInitialLoading(false);
+      setError(null);
       return;
     }
 
@@ -66,7 +78,7 @@ const ProfilePage: React.FC = () => {
     return () => {
       active = false;
     };
-  }, [accessToken, userId]);
+  }, [accessToken, routeUserId, userId, userProfile]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -86,7 +98,7 @@ const ProfilePage: React.FC = () => {
     }
 
     const updatedProfile: UserProfile = {
-      email: formData.email.trim().toLowerCase(),
+      email: formData.email,
       full_name: formData.full_name.trim(),
     };
 
@@ -95,16 +107,12 @@ const ProfilePage: React.FC = () => {
       return;
     }
 
-    if (!updatedProfile.email) {
-      setError("Ingresa un correo electrónico válido.");
-      return;
-    }
-
     setLoading(true);
 
     try {
       await updateUserProfile(userId, updatedProfile, accessToken);
       setFormData(updatedProfile);
+      if (!routeUserId) updateProfile(updatedProfile);
       setSuccess(true);
     } catch (requestError) {
       setError(
@@ -175,10 +183,12 @@ const ProfilePage: React.FC = () => {
                     type="email"
                     autoComplete="email"
                     value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="tu@correo.com"
+                    readOnly
+                    aria-describedby="email-hint"
                   />
+                  <span id="email-hint" className="profile-field-hint">
+                    El correo electrónico no se puede modificar por ahora.
+                  </span>
                 </div>
 
                 <Button type="submit" fullWidth size="lg" loading={loading}>
