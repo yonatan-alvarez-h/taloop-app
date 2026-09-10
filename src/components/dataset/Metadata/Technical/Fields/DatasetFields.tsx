@@ -16,6 +16,7 @@ interface DatasetFieldsProps {
   style?: React.CSSProperties;
   showDetails?: boolean; // Para mostrar tipo y descripción
   itemsPerPage?: number; // Número de elementos por página
+  compact?: boolean;
 }
 
 const DatasetFields: React.FC<DatasetFieldsProps> = ({
@@ -24,6 +25,7 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
   style,
   showDetails = false,
   itemsPerPage = 5,
+  compact = false,
 }) => {
   const {
     currentPage,
@@ -44,7 +46,9 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
   return (
     <div
       className={
-        className ? className + " dataset-fields-table" : "dataset-fields-table"
+        `${className ? className + " " : ""}dataset-fields-table${
+          compact ? " dataset-fields-table--compact" : ""
+        }`
       }
       style={style}
     >
@@ -55,7 +59,7 @@ const DatasetFields: React.FC<DatasetFieldsProps> = ({
         filteredCount={filteredFields.length}
       />
 
-      <FieldsTable fields={paginatedFields} />
+      <FieldsTable fields={paginatedFields} compact={compact} />
 
       <Pagination
         currentPage={currentPage}

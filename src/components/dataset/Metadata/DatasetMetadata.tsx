@@ -1,8 +1,7 @@
 import React from "react";
 import type { Dataset } from "../../../types/dataset";
-import { DatasetCategory, DatasetOwner, DatasetID } from "./Basic";
-import { DatasetFields, DatasetFormat, DatasetSize } from "./Technical";
-import { DatasetTimestamps, DatasetUsage } from "./Temporal";
+import { DatasetOwner, DatasetID } from "./Basic";
+import { DatasetFields } from "./Technical";
 import "./DatasetMetadata.css";
 
 interface DatasetMetadataProps {
@@ -10,115 +9,79 @@ interface DatasetMetadataProps {
 }
 
 const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
+  const qualityScore = dataset.dataQuality
+    ? Math.round(dataset.dataQuality.overallScore * 10)
+    : null;
+
   return (
-    <ul className="dataset-preview-meta">
-      {/* Fechas */}
-      {dataset.timestamps && (
-        <li className="metadata-section">
-          <DatasetTimestamps
-            createdAt={dataset.timestamps.createdAt}
-            updatedAt={dataset.timestamps.updatedAt}
-          />
-        </li>
-      )}
-
-      {/* id, Propietario y Categoría en línea */}
-      <li className="metadata-section">
-        <div className="header-info">
-          <div className="metadata-inline-item id-container-wrapper">
-            <div className="metadata-item--inline">
-              <strong>ID:</strong>
-              <DatasetID _id={dataset._id} />
-            </div>
+    <div className="dataset-metadata">
+      <section className="dataset-metadata-schema" aria-labelledby="schema-title">
+        <div className="dataset-metadata-heading">
+          <div>
+            <h2 id="schema-title">Esquema</h2>
+            <p>{dataset.fields.length} columnas disponibles</p>
           </div>
-          <div className="metadata-inline-item">
-            <div className="metadata-item--inline">
-              <strong>Propietario:</strong>
-              <DatasetOwner owner={dataset.owner} />
-            </div>
-          </div>
-          <div className="metadata-inline-item">
-            <div className="metadata-item--inline">
-              <strong>Categoría:</strong>
-              {dataset.category && (
-                <DatasetCategory category={dataset.category} />
-              )}
-            </div>
-          </div>
+          <span className="dataset-metadata-hint">6 visibles por página</span>
         </div>
-      </li>
+        <DatasetFields fields={dataset.fields} showDetails itemsPerPage={6} compact />
+      </section>
 
-      {/* Etiquetas */}
-      <li className="metadata-section">
-        <div className="metadata-item--inline">
-          <strong>Etiquetas:</strong>
-          <div className="tags-container">
-            {dataset.tags.map((tag: string) => (
-              <span className="dataset-tags-chip" key={tag}>
-                {tag}
+      <aside className="dataset-metadata-context" aria-label="Contexto del dataset">
+        {qualityScore !== null && (
+          <div className="dataset-context-item dataset-context-quality">
+            <span className="dataset-context-label">Calidad validada</span>
+            <div className="dataset-context-quality-row">
+              <strong>{qualityScore}%</strong>
+              <span>
+                {dataset.dataQuality?.validationMethod === "automated"
+                  ? "Automatizada"
+                  : dataset.dataQuality?.validationMethod === "manual"
+                    ? "Manual"
+                    : "Híbrida"}
               </span>
-            ))}
+            </div>
           </div>
+        )}
+
+        <div className="dataset-context-item">
+          <span className="dataset-context-label">Publicado por</span>
+          <DatasetOwner owner={dataset.owner} />
         </div>
-      </li>
 
-      {/* Línea divisora */}
-      <li className="metadata-divider">
-        <hr />
-      </li>
+        <div className="dataset-context-item dataset-context-reference">
+          <span className="dataset-context-label">Referencia</span>
+          <DatasetID _id={dataset._id} />
+        </div>
 
-      {/* Columnas */}
-      <li className="align-start metadata-section">
-        <strong>Columnas ({dataset.fields.length}):</strong>
-        <DatasetFields fields={dataset.fields} showDetails={true} />
-      </li>
+        {dataset.usage && (
+          <dl className="dataset-context-usage">
+            <div>
+              <dt>Descargas</dt>
+              <dd>{dataset.usage.downloads.toLocaleString("es-ES")}</dd>
+            </div>
+            <div>
+              <dt>Vistas</dt>
+              <dd>{dataset.usage.views.toLocaleString("es-ES")}</dd>
+            </div>
+            <div>
+              <dt>Llamadas API</dt>
+              <dd>{dataset.usage.apiCalls.toLocaleString("es-ES")}</dd>
+            </div>
+          </dl>
+        )}
 
-      {/* Línea divisora */}
-      <li className="metadata-divider">
-        <hr />
-      </li>
-
-      {/* Estadísticas de Uso y Tamaño en línea (50%-50%) */}
-      {(dataset.usage || dataset.size) && (
-        <li className="metadata-section">
-          <div className="usage-size-info">
-            {dataset.usage && (
-              <div className="metadata-inline-item">
-                <strong>Estadísticas de Uso:</strong>
-                <DatasetUsage
-                  downloads={dataset.usage.downloads}
-                  views={dataset.usage.views}
-                  apiCalls={dataset.usage.apiCalls}
-                />
-              </div>
-            )}
-            {dataset.size && (
-              <div className="metadata-inline-item">
-                <strong>Tamaño:</strong>
-                <DatasetSize
-                  fileSize={dataset.size.fileSize}
-                  recordCount={dataset.size.recordCount}
-                  columnCount={dataset.size.columnCount}
-                />
-              </div>
-            )}
+        {dataset.tags.length > 3 && (
+          <div className="dataset-context-item">
+            <span className="dataset-context-label">Todas las etiquetas</span>
+            <div className="dataset-context-tags">
+              {dataset.tags.map((tag) => (
+                <span key={tag}>{tag}</span>
+              ))}
+            </div>
           </div>
-        </li>
-      )}
-
-      {/* Formato */}
-      {dataset.format && (
-        <li className="metadata-section">
-          <strong>Formato:</strong>
-          <DatasetFormat
-            type={dataset.format.type}
-            encoding={dataset.format.encoding}
-            delimiter={dataset.format.delimiter}
-            compression={dataset.format.compression}
-          />
-        </li>
-      )}
-    </ul>
+        )}
+      </aside>
+    </div>
   );
 };
 

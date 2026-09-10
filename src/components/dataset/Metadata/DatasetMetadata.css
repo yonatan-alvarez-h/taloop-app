@@ -1,569 +1,156 @@
-.dataset-preview-meta {
-  margin: 0;
-  padding: 1.5rem;
-  list-style: none;
-  background: #ffffff;
-  border-radius: 4px;
-  height: fit-content;
-  font-size: 0.85rem;
-  overflow-x: hidden !important;
-  max-width: 100% !important;
+.dataset-metadata {
+  display: grid;
+  grid-template-columns: minmax(0, 1.9fr) minmax(300px, 0.6fr);
+  gap: 1.25rem;
+  align-items: start;
 }
 
-.dataset-preview-meta > li {
-  margin-bottom: 1rem;
+.dataset-metadata-heading {
   display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0;
-}
-
-.dataset-preview-meta > li strong {
-  font-size: 0.875rem;
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.dataset-preview-meta > li.align-start {
-  align-items: flex-start;
-}
-
-.dataset-preview-meta ul {
-  margin: 0.5rem 0; /* Margen reducido aún más */
-  padding-left: 1rem; /* Indentación reducida */
-}
-
-.dataset-preview-meta ul > li {
-  margin-bottom: 0.7rem;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0;
-}
-
-.dataset-preview-meta ul > li strong {
-  font-size: 0.875rem;
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.dataset-preview-meta ul > li.align-start {
-  align-items: flex-start;
-}
-
-/* Legacy category styles - migrated to DatasetCategory component */
-.dataset-details-category {
-  color: white;
-  font-size: 0.8rem; /* Ligeramente más grande */
-  font-weight: 600;
-  padding: 0.375rem 0.75rem; /* Padding más generoso */
-  border-radius: 3px;
-  margin-left: 0.75rem; /* Más separación */
-  display: inline-block;
-}
-
-.dataset-tags-chip {
-  display: inline-block;
-  background: #f3f4f6;
-  color: #374151;
-  font-size: 0.7rem; /* Tamaño reducido */
-  padding: 0.2rem 0.4rem; /* Padding reducido */
-  border-radius: 2px;
-  margin-right: 0.4rem; /* Separación reducida */
-  margin-bottom: 0.3rem; /* Separación vertical reducida */
-  font-weight: 500;
-}
-
-/* Metadata sections for new components */
-.metadata-section {
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  gap: 0.6rem !important;
-  padding-bottom: 1rem;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
   margin-bottom: 0.6rem;
 }
 
-.metadata-section strong {
-  font-size: 0.875rem;
-  color: #6b7280;
+.dataset-metadata-heading h2 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.dataset-metadata-heading p,
+.dataset-metadata-hint {
+  margin: 0.2rem 0 0;
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.dataset-metadata-hint {
+  white-space: nowrap;
+}
+
+.dataset-metadata-context {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.dataset-context-item {
+  min-width: 0;
+  padding-left: 0.7rem;
+  border-left: 2px solid #e2e8f0;
+}
+
+.dataset-context-quality {
+  border-left-color: #22a06b;
+}
+
+.dataset-context-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #64748b;
+  font-size: 0.72rem;
   font-weight: 500;
 }
 
-.metadata-description {
-  font-size: 0.875rem;
-  color: #374151;
-  line-height: 1.5;
-  margin: 0.5rem 0 0 0;
-  padding: 0;
-}
-
-.metadata-value {
-  font-size: 0.875rem;
-  color: #374151;
-  margin-left: 0.5rem;
-}
-
-.tags-container {
+.dataset-context-quality-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
-  margin-top: 0;
-  flex: 1;
+  align-items: baseline;
+  gap: 0.5rem;
 }
 
-/* =================================================================
-   RESPONSIVE DESIGN FOR DATASET METADATA
-   ================================================================= */
-
-/* Tablet adjustments */
-@media (max-width: 768px) {
-  .dataset-preview-meta {
-    padding: 1rem; /* Padding aún más reducido */
-    font-size: 0.8rem; /* Font base más pequeño en tablet */
-  }
-
-  .dataset-preview-meta > li {
-    margin-bottom: 0.7rem; /* Espaciado reducido */
-    gap: 0.5rem;
-  }
-
-  .dataset-preview-meta > li strong {
-    font-size: 0.875rem;
-    color: #6b7280;
-    font-weight: 500;
-  }
-
-  .dataset-preview-meta ul {
-    padding-left: 1rem; /* Indentación reducida */
-  }
-
-  .dataset-preview-meta ul > li {
-    margin-bottom: 0.4rem; /* Espaciado reducido */
-    gap: 0.5rem;
-  }
-
-  .dataset-preview-meta ul > li strong {
-    font-size: 0.875rem;
-    color: #6b7280;
-    font-weight: 500;
-  }
-
-  .dataset-details-category {
-    font-size: 0.7rem; /* Más pequeño */
-    padding: 0.25rem 0.5rem; /* Padding reducido */
-    margin-left: 0.4rem; /* Margen reducido */
-  }
-
-  .dataset-tags-chip {
-    font-size: 0.65rem; /* Más pequeño */
-    padding: 0.15rem 0.35rem; /* Padding reducido */
-    margin-right: 0.3rem; /* Margen reducido */
-    margin-bottom: 0.2rem;
-  }
-
-  .metadata-section {
-    gap: 0.4rem !important; /* Gap aún más reducido */
-    padding-bottom: 0.4rem; /* Padding reducido */
-  }
-
-  .metadata-section strong {
-    font-size: 0.875rem;
-    color: #6b7280;
-    font-weight: 500;
-  }
-
-  /* Responsive adjustments for id container */
-  .id-container {
-    padding: 0.4rem 0.6rem;
-    gap: 0.4rem;
-  }
-
-  .id-value {
-    font-size: 0.8rem;
-  }
-
-  .id-copy-btn {
-    min-width: 22px;
-    height: 22px;
-    font-size: 0.8rem;
-  }
+.dataset-context-quality-row strong {
+  color: #16754b;
+  font-size: 1.35rem;
+  line-height: 1;
 }
 
-/* Mobile adjustments */
-@media (max-width: 480px) {
-  .dataset-preview-meta {
-    padding: 0.8rem 1rem; /* Padding aún más reducido */
-    border-radius: 3px;
-    font-size: 0.75rem; /* Font base más pequeño en móvil */
-  }
-
-  .dataset-preview-meta > li {
-    margin-bottom: 0.7rem; /* Espaciado reducido */
-    gap: 0.4rem; /* Gap reducido */
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .dataset-preview-meta > li strong {
-    font-size: 0.875rem;
-    color: #6b7280;
-    font-weight: 500;
-  }
-
-  .dataset-preview-meta ul {
-    padding-left: 0.8rem; /* Indentación reducida */
-    margin: 0.4rem 0; /* Margen reducido */
-  }
-
-  .dataset-preview-meta ul > li {
-    margin-bottom: 0.4rem; /* Espaciado reducido */
-    gap: 0.4rem; /* Gap reducido */
-    flex-wrap: wrap;
-  }
-
-  .dataset-preview-meta ul > li strong {
-    font-size: 0.875rem;
-    color: #6b7280;
-    font-weight: 500;
-  }
-
-  .dataset-details-category {
-    font-size: 0.65rem; /* Más pequeño */
-    padding: 0.2rem 0.4rem; /* Padding reducido */
-    margin-left: 0;
-    margin-top: 0.2rem; /* Margen reducido */
-  }
-
-  .dataset-tags-chip {
-    font-size: 0.6rem; /* Más pequeño */
-    padding: 0.12rem 0.3rem; /* Padding reducido */
-    margin-right: 0.2rem; /* Margen reducido */
-    margin-bottom: 0.2rem;
-  }
-
-  .metadata-section {
-    gap: 0.35rem !important; /* Gap muy reducido */
-    padding-bottom: 0.35rem; /* Padding reducido */
-  }
-
-  .metadata-section strong {
-    font-size: 0.875rem;
-    color: #6b7280;
-    font-weight: 500;
-  }
-
-  .id-row {
-    flex-direction: column;
-    align-items: flex-start !important;
-    gap: 0.4rem; /* Gap reducido */
-  }
+.dataset-context-quality-row span {
+  color: #64748b;
+  font-size: 0.75rem;
 }
 
-/* Very small screens */
-@media (max-width: 320px) {
-  .dataset-preview-meta {
-    padding: 0.75rem 1rem 0.75rem 1rem; /* Padding mínimo */
-  }
-
-  .dataset-preview-meta > li {
-    margin-bottom: 0.75rem;
-  }
-
-  .dataset-preview-meta ul > li {
-    margin-bottom: 0.375rem;
-  }
-
-  .dataset-tags-chip {
-    font-size: 0.65em;
-    padding: 0.125rem 0.25rem;
-  }
+.dataset-metadata-context .dataset-owner {
+  font-size: 0.9rem;
 }
 
-/* id row styling */
-.id-row {
-  align-items: center !important;
+.dataset-metadata-context .dataset-owner__description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
-.metadata-item--inline .metadata-value {
-  max-width: 300px;
+.dataset-context-reference .id-container {
+  max-width: 100%;
+  padding: 0.35rem 0.45rem;
+}
+
+.dataset-context-reference .id-value {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.metadata-item--inline .metadata-value:hover {
-  white-space: normal;
-  overflow: visible;
-  text-overflow: unset;
-  max-width: none;
-}
-
-/* Header simplificado */
-.metadata-header {
-  margin-bottom: 0.75rem !important;
-  padding-bottom: 0.5rem !important;
-}
-
-.header-info {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  width: 100%;
-}
-
-/* Para el header principal que solo usa una columna */
-.metadata-header .header-info {
-  display: block;
-}
-
-.metadata-inline-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-/* Distribución específica: id (35%), Propietario (35%), Categoría (30%) */
-.metadata-inline-item:nth-child(1) {
-  flex: 0 0 35%;
-  max-width: 35%;
-}
-
-.metadata-inline-item:nth-child(2) {
-  flex: 0 0 35%;
-  max-width: 35%;
-}
-
-.metadata-inline-item:nth-child(3) {
-  flex: 0 0 30%;
-  max-width: 30%;
-}
-
-/* Manejo de overflow para contenido largo */
-.metadata-inline-item {
-  overflow: hidden;
-  word-wrap: break-word;
-  position: relative;
-}
-
-/* Excepción para el contenedor del id para permitir popup */
-.metadata-inline-item.id-container-wrapper {
-  overflow: visible;
-  z-index: 1001;
-}
-
-.metadata-inline-item .tags-container {
-  flex-wrap: wrap;
-  max-width: 100%;
-}
-
-.dataset-tags-chip {
-  word-break: break-word;
-  max-width: 100%;
-}
-
-/* Expanded header styles */
-.header-left-expanded {
-  flex: 1;
-  max-width: 100%;
-  gap: 0.75rem;
-}
-
-.header-left-expanded .description-section {
-  margin-top: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}
-
-.header-left-expanded .description-section strong {
-  font-size: 0.875rem;
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.header-left-expanded .description-section p {
+.dataset-context-usage {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.3rem;
   margin: 0;
-  font-size: 0.875rem;
-  color: #374151;
-  line-height: 1.5;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .header-info {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  /* En móvil, todos los elementos ocupan el ancho completo */
-  .metadata-inline-item:nth-child(1),
-  .metadata-inline-item:nth-child(2),
-  .metadata-inline-item:nth-child(3) {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-
-  .metadata-inline-item {
-    min-width: unset;
-  }
-
-  .metadata-header {
-    margin-bottom: 0.5rem !important;
-    padding-bottom: 0.25rem !important;
-  }
-
-  /* En móvil, Tamaño y Formato en columna */
-  .size-format-info {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .size-format-info .metadata-inline-item:nth-child(1),
-  .size-format-info .metadata-inline-item:nth-child(2) {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-
-  /* En móvil, Estadísticas de Uso y Tamaño en columna */
-  .usage-size-info {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .usage-size-info .metadata-inline-item:nth-child(1),
-  .usage-size-info .metadata-inline-item:nth-child(2) {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
+.dataset-context-usage div {
+  min-width: 0;
 }
 
-/* Tablet adjustments - mantener distribución pero con menor gap */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .header-info {
-    gap: 0.75rem;
-  }
-
-  .metadata-inline-item:nth-child(1) {
-    flex: 0 0 35%;
-    max-width: 35%;
-  }
-
-  .metadata-inline-item:nth-child(2) {
-    flex: 0 0 35%;
-    max-width: 35%;
-  }
-
-  .metadata-inline-item:nth-child(3) {
-    flex: 0 0 30%;
-    max-width: 30%;
-  }
-
-  /* Tamaño y Formato en tablet mantienen distribución */
-  .size-format-info {
-    gap: 0.75rem;
-  }
-
-  .size-format-info .metadata-inline-item:nth-child(1) {
-    flex: 0 0 60%;
-    max-width: 60%;
-  }
-
-  .size-format_info .metadata-inline-item:nth-child(2) {
-    flex: 0 0 40%;
-    max-width: 40%;
-  }
-
-  /* Estadísticas de Uso y Tamaño en tablet mantienen distribución 50-50 */
-  .usage-size-info {
-    gap: 0.75rem;
-  }
-
-  .usage-size-info .metadata-inline-item:nth-child(1) {
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
-
-  .usage-size-info .metadata-inline-item:nth-child(2) {
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
+.dataset-context-usage dt {
+  color: #64748b;
+  font-size: 0.68rem;
 }
 
-/* Distribución para Tamaño y Formato en línea (60% Tamaño, 40% Formato) */
-.size-format-info {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  width: 100%;
-}
-
-.size-format-info .metadata-inline-item:nth-child(1) {
-  flex: 0 0 60%;
-  max-width: 60%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.size-format-info .metadata-inline-item:nth-child(2) {
-  flex: 0 0 40%;
-  max-width: 40%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-/* Distribución para Estadísticas de Uso y Tamaño en línea (50% cada uno) */
-.usage-size-info {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  width: 100%;
-}
-
-.usage-size-info .metadata-inline-item:nth-child(1) {
-  flex: 0 0 50%;
-  max-width: 50%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.usage-size-info .metadata-inline-item:nth-child(2) {
-  flex: 0 0 50%;
-  max-width: 50%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-/* Estilo para elementos inline (id, Propietario, Categoría) */
-.metadata-item--inline {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.metadata-item--inline strong {
-  flex-shrink: 0;
+.dataset-context-usage dd {
+  margin: 0.16rem 0 0;
+  overflow: hidden;
+  color: #334155;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-/* Línea divisora sutil */
-.metadata-divider {
-  margin: 1.2rem 0 !important;
-  padding: 0 !important;
+.dataset-context-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
 }
 
-.metadata-divider hr {
-  border: none;
-  height: 1px;
-  background: #d1d5db;
-  margin: 0;
+.dataset-context-tags span {
+  padding: 0.16rem 0.35rem;
+  border-radius: 2px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.67rem;
 }
 
-/* Línea divisora en móvil */
-.metadata-divider {
-  margin: 0.8rem 0 !important;
+@media (max-width: 768px) {
+  .dataset-metadata {
+    grid-template-columns: 1fr;
+  }
+
+  .dataset-metadata-context {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .dataset-metadata-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .dataset-metadata-context {
+    grid-template-columns: 1fr;
+  }
 }

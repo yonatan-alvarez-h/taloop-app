@@ -4,12 +4,13 @@ import { TYPE_ICONS } from "../../../../../../utils/dataTypes";
 
 interface FieldsRowProps {
   field: DatasetField;
+  compact?: boolean;
 }
 
-const FieldsRow: React.FC<FieldsRowProps> = ({ field }) => {
+const FieldsRow: React.FC<FieldsRowProps> = ({ field, compact = false }) => {
   return (
     <tr>
-      <td className="field-index">{field.index}</td>
+      {!compact && <td className="field-index">{field.index}</td>}
       <td className="field-name">
         {field.unique && (
           <span className="primary-key-icon" title="Columna única">
@@ -27,23 +28,25 @@ const FieldsRow: React.FC<FieldsRowProps> = ({ field }) => {
         </div>
       </td>
       <td className="field-description">{field.description}</td>
-      <td className="field-nullable">
-        <div className="nullable-checkbox-container">
-          <input
-            type="checkbox"
-            checked={field.nullable}
-            readOnly
-            disabled
-            className="nullable-checkbox"
-            title={
-              field.nullable
-                ? "Permite valores nulos"
-                : "No permite valores nulos"
-            }
-          />
-          <span className="nullable-label">{field.nullable ? "Sí" : "No"}</span>
-        </div>
-      </td>
+      {!compact && (
+        <td className="field-nullable">
+          <div className="nullable-checkbox-container">
+            <input
+              type="checkbox"
+              checked={field.nullable}
+              readOnly
+              disabled
+              className="nullable-checkbox"
+              title={
+                field.nullable
+                  ? "Permite valores nulos"
+                  : "No permite valores nulos"
+              }
+            />
+            <span className="nullable-label">{field.nullable ? "Sí" : "No"}</span>
+          </div>
+        </td>
+      )}
     </tr>
   );
 };

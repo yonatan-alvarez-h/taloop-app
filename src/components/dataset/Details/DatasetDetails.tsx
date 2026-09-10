@@ -12,12 +12,12 @@ interface DatasetDetailsProps {
 const DatasetDetails: React.FC<DatasetDetailsProps> = ({ dataset }) => {
   return (
     <div className="dataset-details-container">
-      <div className="dataset-details-fixed-header">
+      <header className="dataset-details-header">
         <DetailsHeader dataset={dataset} />
-      </div>
-      <div className="dataset-details-scrollable-content">
+      </header>
+      <main className="dataset-details-content">
         <DetailsDashboard dataset={dataset} />
-      </div>
+      </main>
     </div>
   );
 };

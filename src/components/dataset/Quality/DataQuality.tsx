@@ -1,6 +1,5 @@
 import React from "react";
 import type { DataQuality as DataQualityType } from "../../../types/dataset";
-import RadarChart from "./Chart";
 import "./DataQuality.css";
 
 interface DataQualityProps {
@@ -50,15 +49,51 @@ const DataQuality: React.FC<DataQualityProps> = ({ dataQuality }) => {
       description: "Porcentaje de registros únicos sin duplicados",
     },
   ];
+  const overallPercentage = Math.round(dataQuality.overallScore * 10);
 
   return (
     <div className="data-quality-container">
-      {/* Gráfico Radar para visualización de métricas */}
-      <div className="quality-visual-section">
-        <RadarChart metrics={qualityMetrics} />
-      </div>
+      <section className="quality-overview" aria-labelledby="quality-overview-title">
+        <div
+          className="quality-score-ring"
+          style={
+            { "--quality-score": `${overallPercentage}%` } as React.CSSProperties
+          }
+          aria-label={`Calidad general: ${overallPercentage}%`}
+        >
+          <div className="quality-score-value">
+            <strong>{overallPercentage}%</strong>
+            <span>calidad general</span>
+          </div>
+        </div>
 
-      <div className="quality-metadata">
+        <div className="quality-metrics">
+          <h2 id="quality-overview-title">Dimensiones de calidad</h2>
+          <div className="quality-metrics-grid">
+            {qualityMetrics.map((metric) => (
+              <div className="quality-metric" key={metric.key}>
+                <div className="quality-metric-heading">
+                  <span>{metric.label}</span>
+                  <strong>{metric.value}%</strong>
+                </div>
+                <div
+                  className="quality-meter"
+                  role="progressbar"
+                  aria-label={metric.label}
+                  aria-valuenow={metric.value}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                >
+                  <span style={{ width: `${metric.value}%` }} />
+                </div>
+                <p>{metric.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="quality-metadata" aria-label="Validación y recomendaciones">
         <div className="quality-info-grid">
           <div className="quality-info-item">
             <span className="quality-info-label">Última validación:</span>
@@ -176,7 +211,7 @@ const DataQuality: React.FC<DataQualityProps> = ({ dataQuality }) => {
             </ul>
           </div>
         )}
-      </div>
+      </section>
     </div>
   );
 };

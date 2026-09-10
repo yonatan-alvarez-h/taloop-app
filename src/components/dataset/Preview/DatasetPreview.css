@@ -23,8 +23,11 @@
 }
 
 .preview-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
   margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
+  padding-bottom: 0.55rem;
   border-bottom: 1px solid #f1f5f9;
 }
 
@@ -34,6 +37,12 @@
   color: #374151;
   margin: 0;
   letter-spacing: 0.025em;
+}
+
+.preview-description {
+  margin: 0.25rem 0 0;
+  color: #64748b;
+  font-size: 0.75rem;
 }
 
 /* Responsive adjustments */

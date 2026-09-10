@@ -8,7 +8,7 @@ import PreviewTable from "./Table/PreviewTable";
 import "./DatasetPreview.css";
 
 // Constante configurable para el número de registros a mostrar en la vista previa
-const PREVIEW_RECORDS_LIMIT = 10;
+const PREVIEW_RECORDS_LIMIT = 5;
 
 interface DatasetPreviewProps {
   dataset: Dataset;
@@ -27,7 +27,12 @@ const DatasetPreview: React.FC<DatasetPreviewProps> = ({ dataset }) => {
     <div className="dataset-preview">
       <div className="dataset-preview-card">
         <div className="preview-header">
-          <h3 className="preview-title">Datos de ejemplo</h3>
+          <div>
+            <h3 className="preview-title">Datos de ejemplo</h3>
+            <p className="preview-description">
+              Muestra de hasta {PREVIEW_RECORDS_LIMIT} registros
+            </p>
+          </div>
         </div>
         <PreviewTable fields={dataset.fields} data={previewData} />
       </div>
