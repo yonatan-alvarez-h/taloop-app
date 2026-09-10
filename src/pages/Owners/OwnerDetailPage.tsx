@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AppHeader from "../../components/layout/AppHeader";
 import Button from "../../components/UI/Button";
@@ -137,6 +137,16 @@ const formatDate = (value: string): string =>
     timeStyle: "short",
   }).format(new Date(value));
 
+const ownerStatusLabel = (status: Owner["status"] | undefined): string => {
+  const labels: Record<NonNullable<Owner["status"]>, string> = {
+    active: "Activo",
+    suspended: "Suspendido",
+    archived: "Archivado",
+  };
+
+  return labels[status ?? "active"];
+};
+
 const getMemberName = (
   member: OwnerMembership,
   currentUserId: string | null,
@@ -210,6 +220,11 @@ const OwnerDetailPage: React.FC = () => {
   const [datasetError, setDatasetError] = useState<string | null>(null);
   const [datasetSuccess, setDatasetSuccess] = useState<string | null>(null);
   const [activeOwnerTab, setActiveOwnerTab] = useState<OwnerDetailTab>("datasets");
+  const [archiveConfirmationOpen, setArchiveConfirmationOpen] = useState(false);
+  const [archivingOwner, setArchivingOwner] = useState(false);
+  const archiveMenuActionRef = useRef<HTMLButtonElement>(null);
+  const archiveDialogRef = useRef<HTMLElement>(null);
+  const archiveDialogWasOpen = useRef(false);
 
   const membership = useMemo(
     () => members.find((candidate) => candidate.user_id === currentUserId) ?? null,
@@ -279,6 +294,16 @@ const OwnerDetailPage: React.FC = () => {
   }, [loadOwner]);
 
   useEffect(() => {
+    if (archiveConfirmationOpen) {
+      window.requestAnimationFrame(() => archiveDialogRef.current?.focus());
+    } else if (archiveDialogWasOpen.current) {
+      archiveMenuActionRef.current?.focus();
+    }
+
+    archiveDialogWasOpen.current = archiveConfirmationOpen;
+  }, [archiveConfirmationOpen]);
+
+  useEffect(() => {
     const query = inviteeQuery.trim();
     if (!ownerId || !capabilities.canInvite || selectedInvitee || query.length < 2) {
       setInviteeCandidates([]);
@@ -340,9 +365,10 @@ const OwnerDetailPage: React.FC = () => {
   };
 
   const handleArchiveOwner = async () => {
-    if (!ownerId || !window.confirm("¿Quieres archivar este proveedor? Esta acción quitará su disponibilidad pública.")) {
-      return;
-    }
+    if (!ownerId) return;
+
+    setArchivingOwner(true);
+    setError(null);
     try {
       await archiveOwner(ownerId, "owner_requested");
       navigate("/owners");
@@ -350,6 +376,9 @@ const OwnerDetailPage: React.FC = () => {
       setError(
         requestError instanceof Error ? requestError.message : "No se pudo archivar el proveedor."
       );
+      setArchiveConfirmationOpen(false);
+    } finally {
+      setArchivingOwner(false);
     }
   };
 
@@ -585,20 +614,72 @@ const OwnerDetailPage: React.FC = () => {
     <div className="workspace-page">
       <AppHeader />
       <main className="workspace-content">
-        <Link to="/owners" className="workspace-back-link">← Volver a mis perfiles de proveedor</Link>
+        <nav className="owner-breadcrumb" aria-label="Migas de pan">
+          <Link to="/owners">Proveedores</Link>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{owner.name}</span>
+        </nav>
         {error && <div className="workspace-message workspace-message--error" role="alert">{error}</div>}
         <section className="owner-detail-hero workspace-card">
-          <div>
+          <div className="owner-detail-hero__summary">
             <span className="workspace-eyebrow">{ownerTypeLabel(owner.type)} · {roleLabel(membership.role)}</span>
             <h1>{owner.name}</h1>
             <p>{owner.description || "Este proveedor aún no tiene una descripción."}</p>
+            <dl className="owner-detail-meta">
+              <div>
+                <dt>Estado</dt>
+                <dd className={`owner-status owner-status--${owner.status ?? "active"}`}>{ownerStatusLabel(owner.status)}</dd>
+              </div>
+              {owner.created_at && (
+                <div>
+                  <dt>Creado</dt>
+                  <dd>{formatDate(owner.created_at)}</dd>
+                </div>
+              )}
+            </dl>
           </div>
           <div className="workspace-inline-actions">
-            {capabilities.canCreateDataset && <Button onClick={openNewDataset}>Crear dataset</Button>}
             {capabilities.canEditOwner && <Button variant="outline" onClick={() => setEditingOwner((current) => !current)}>{editingOwner ? "Cancelar edición" : "Editar proveedor"}</Button>}
-            {capabilities.canEditOwner && <Button variant="ghost" onClick={handleArchiveOwner}>Archivar proveedor</Button>}
+            {capabilities.canEditOwner && (
+              <details className="owner-actions-menu">
+                <summary>Más acciones<span aria-hidden="true">⌄</span></summary>
+                <div className="owner-actions-menu__content">
+                  <button ref={archiveMenuActionRef} type="button" className="owner-actions-menu__danger" onClick={() => setArchiveConfirmationOpen(true)}>
+                    <span>Archivar proveedor</span>
+                    <small>Dejará de estar disponible públicamente</small>
+                  </button>
+                </div>
+              </details>
+            )}
           </div>
         </section>
+
+        {archiveConfirmationOpen && (
+          <div className="owner-danger-dialog-backdrop">
+            <section
+              className="owner-danger-dialog"
+              ref={archiveDialogRef}
+              role="alertdialog"
+              aria-modal="true"
+              aria-labelledby="archive-owner-title"
+              aria-describedby="archive-owner-description"
+              tabIndex={-1}
+              onKeyDown={(event) => {
+                if (event.key === "Escape" && !archivingOwner) {
+                  setArchiveConfirmationOpen(false);
+                }
+              }}
+            >
+              <span className="owner-danger-dialog__eyebrow">Acción irreversible desde esta vista</span>
+              <h2 id="archive-owner-title">¿Archivar {owner.name}?</h2>
+              <p id="archive-owner-description">El proveedor dejará de estar disponible públicamente y desaparecerá del catálogo. Confirma que quieres continuar.</p>
+              <div className="workspace-inline-actions">
+                <Button type="button" variant="ghost" onClick={() => setArchiveConfirmationOpen(false)} disabled={archivingOwner}>Cancelar</Button>
+                <Button type="button" variant="danger" loading={archivingOwner} onClick={() => void handleArchiveOwner()}>Archivar proveedor</Button>
+              </div>
+            </section>
+          </div>
+        )}
 
         {editingOwner && ownerForm && (
           <section className="workspace-card workspace-card--spaced" aria-labelledby="edit-owner-title">
@@ -749,13 +830,25 @@ const OwnerDetailPage: React.FC = () => {
         {capabilities.canViewInternal && activeOwnerTab === "datasets" && (
           <section id="owner-datasets-panel" className="workspace-card workspace-card--spaced owner-datasets-section" role="tabpanel" aria-labelledby="owner-datasets-tab">
             <div className="workspace-section-heading">
-              <div><span className="workspace-eyebrow">Contenido del proveedor</span><h2 id="datasets-title">Datasets</h2><p>Los nuevos datasets empiezan como borradores. Solo un Administrador puede publicarlos.</p></div>
-              {capabilities.canCreateDataset && <Button onClick={openNewDataset}>Crear dataset</Button>}
+              <div><h2 id="datasets-title">Datasets</h2><p>Los nuevos datasets empiezan como borradores. Solo un Administrador puede publicarlos.</p></div>
+              {capabilities.canCreateDataset && datasets.length > 0 && <Button onClick={openNewDataset}>Crear dataset</Button>}
             </div>
             {datasetSuccess && <div className="workspace-message workspace-message--success" role="status">{datasetSuccess}</div>}
             {datasetError && <div className="workspace-message workspace-message--error" role="alert">{datasetError}</div>}
             {datasetEditorOpen && <DatasetEditor initialDataset={editingDataset} canPublish={capabilities.canPublishDataset} saving={datasetSaving} onCancel={() => { setDatasetEditorOpen(false); setEditingDataset(null); }} onSave={handleDatasetSave} />}
-            {datasets.length === 0 ? <div className="workspace-empty">Aún no hay datasets visibles para este proveedor.</div> : <div className="dataset-admin-list">{datasets.map((dataset) => { const canEdit = capabilities.canEditDraft && dataset.status !== "archived" && (dataset.status === "draft" || capabilities.canPublishDataset); return <article className="dataset-admin-row" key={dataset._id}><div><span className={`dataset-status dataset-status--${dataset.status}`}>{dataset.status}</span><h3>{dataset.title}</h3><p>{dataset.description || "Sin descripción"}</p><span className="workspace-field__hint">{dataset.visibility} · actualización {dataset.timestamps?.updatedAt ? formatDate(dataset.timestamps.updatedAt) : "sin fecha"}</span></div><div className="workspace-inline-actions">{canEdit && <Button size="sm" variant="outline" onClick={() => { setEditingDataset(dataset); setDatasetEditorOpen(true); setDatasetError(null); }}>Editar</Button>}{capabilities.canPublishDataset && dataset.status !== "archived" && <Button size="sm" variant="ghost" onClick={() => void handleDatasetArchive(dataset)}>Archivar</Button>}</div></article>; })}</div>}
+            {datasets.length === 0 ? (
+              <div className="workspace-empty workspace-empty--datasets">
+                <svg className="workspace-empty__illustration" viewBox="0 0 48 48" aria-hidden="true">
+                  <path d="M14 6h14l8 8v24a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4V10a4 4 0 0 1 4-4Z" />
+                  <path d="M28 6v10h10M17 25h14M17 31h14" />
+                  <circle cx="36" cy="36" r="8" />
+                  <path d="M36 32v8M32 36h8" />
+                </svg>
+                <h3>Aún no hay datasets</h3>
+                <p>Crea el primero para empezar a organizar la información de {owner.name}. Quedará como borrador hasta que un Administrador lo publique.</p>
+                {capabilities.canCreateDataset && <Button onClick={openNewDataset}>Crear primer dataset</Button>}
+              </div>
+            ) : <div className="dataset-admin-list">{datasets.map((dataset) => { const canEdit = capabilities.canEditDraft && dataset.status !== "archived" && (dataset.status === "draft" || capabilities.canPublishDataset); return <article className="dataset-admin-row" key={dataset._id}><div><span className={`dataset-status dataset-status--${dataset.status}`}>{dataset.status}</span><h3>{dataset.title}</h3><p>{dataset.description || "Sin descripción"}</p><span className="workspace-field__hint">{dataset.visibility} · actualización {dataset.timestamps?.updatedAt ? formatDate(dataset.timestamps.updatedAt) : "sin fecha"}</span></div><div className="workspace-inline-actions">{canEdit && <Button size="sm" variant="outline" onClick={() => { setEditingDataset(dataset); setDatasetEditorOpen(true); setDatasetError(null); }}>Editar</Button>}{capabilities.canPublishDataset && dataset.status !== "archived" && <Button size="sm" variant="ghost" onClick={() => void handleDatasetArchive(dataset)}>Archivar</Button>}</div></article>; })}</div>}
           </section>
         )}
       </main>

@@ -3,7 +3,7 @@ import "./Button.css";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "link";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "link" | "danger";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   loading?: boolean;
   leftIcon?: React.ReactNode;
