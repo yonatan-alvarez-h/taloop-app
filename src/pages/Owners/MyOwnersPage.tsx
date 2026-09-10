@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AppHeader from "../../components/layout/AppHeader";
 import Button from "../../components/UI/Button";
@@ -39,6 +39,7 @@ const MyOwnersPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [creationFailed, setCreationFailed] = useState(false);
+  const creationInFlight = useRef(false);
 
   const loadOwners = useCallback(async () => {
     setLoading(true);
@@ -76,6 +77,9 @@ const MyOwnersPage: React.FC = () => {
   };
 
   const createProfile = async () => {
+    if (creationInFlight.current) return;
+
+    creationInFlight.current = true;
     setSaving(true);
     setError(null);
     setCreationFailed(false);
@@ -101,6 +105,7 @@ const MyOwnersPage: React.FC = () => {
           : "No se pudo crear el perfil de proveedor."
       );
     } finally {
+      creationInFlight.current = false;
       setSaving(false);
     }
   };

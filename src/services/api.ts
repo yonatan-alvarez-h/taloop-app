@@ -1,6 +1,7 @@
 import { getAuthorizationHeaders } from "./authService";
 
 export const API_BASE = "http://127.0.0.1:8000/api/v1";
+const TRANSIENT_RETRY_DELAY_MS = 250;
 
 export class ApiError extends Error {
   status: number;
@@ -15,6 +16,31 @@ export class ApiError extends Error {
 interface ApiErrorPayload {
   detail?: string | Array<{ msg?: string }>;
   message?: string;
+}
+
+const waitForTransientRetry = () =>
+  new Promise<void>((resolve) => {
+    window.setTimeout(resolve, TRANSIENT_RETRY_DELAY_MS);
+  });
+
+async function fetchWithTransientReadRetry(
+  path: string,
+  init: RequestInit,
+  headers: Headers
+): Promise<Response> {
+  const method = (init.method ?? "GET").toUpperCase();
+  const attempts = method === "GET" || method === "HEAD" ? 3 : 1;
+
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      return await fetch(`${API_BASE}${path}`, { ...init, headers });
+    } catch (error) {
+      if (attempt === attempts) throw error;
+      await waitForTransientRetry();
+    }
+  }
+
+  throw new Error("No se pudo iniciar la solicitud");
 }
 
 async function getErrorMessage(
@@ -54,7 +80,7 @@ export async function requestJson<T>(
 
   let response: Response;
   try {
-    response = await fetch(`${API_BASE}${path}`, { ...init, headers });
+    response = await fetchWithTransientReadRetry(path, init, headers);
   } catch {
     throw new ApiError(
       "No se pudo conectar con el servidor. Intenta de nuevo.",
