@@ -14,13 +14,13 @@
   flex: 0 0 auto; /* No permitir que flex crezca o se encoja */
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  margin: 0; /* Eliminar margen que puede causar problemas */
-  padding: 0 10px; /* Usar padding en su lugar */
+  justify-content: flex-start;
+  width: min(1400px, calc(100% - var(--space-4) - var(--space-4)));
+  margin: 0 auto;
+  padding: 0 0 var(--space-3);
   z-index: 10000; /* Z-index mayor que el navbar */
   position: relative; /* Asegurar que z-index funcione */
   min-width: 0; /* Permitir que se encoja si es necesario */
-  max-width: 50%; /* Limitar ancho máximo para no invadir el navbar */
 }
 .dataset-details-page-back-btn {
   font-weight: 500;
@@ -68,8 +68,8 @@
 /* Responsive adjustments para el botón volver */
 @media (max-width: 768px) {
   .dataset-details-page-back-btn-container {
-    padding: 0 5px; /* Menos padding en tablet */
-    max-width: 45%; /* Reducir ancho máximo en tablet */
+    width: calc(100% - 2.5rem);
+    padding-bottom: var(--space-2);
   }
 
   .dataset-details-page-back-btn {
@@ -91,8 +91,9 @@
 
 @media (max-width: 480px) {
   .dataset-details-page-back-btn-container {
-    padding: 0 3px; /* Padding mínimo en mobile */
-    max-width: 40%; /* Ancho máximo reducido para mobile */
+    width: calc(100% - 2.5rem);
+    padding: 0 0 var(--space-2);
+    max-width: 1400px;
   }
 
   .dataset-details-page-back-btn {
@@ -114,8 +115,8 @@
 @media (max-width: 360px) {
   /* Para pantallas muy angostas */
   .dataset-details-page-back-btn-container {
-    padding: 0 2px;
-    max-width: 35%;
+    padding: 0 0 var(--space-2);
+    max-width: 1400px;
   }
 
   .dataset-details-page-back-btn {

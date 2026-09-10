@@ -71,7 +71,7 @@ const DatasetDetailsPage: React.FC = () => {
             size="sm"
             className="dataset-details-page-back-btn"
           >
-            ← Volver
+            ← Volver a resultados
           </Button>
         </div>
         <div className="dataset-details-page-notfound dataset-details-page-notfound--with-navbar">
@@ -91,7 +91,7 @@ const DatasetDetailsPage: React.FC = () => {
             size="sm"
             className="dataset-details-page-back-btn"
           >
-            ← Volver
+            ← Volver a resultados
           </Button>
         </div>
       <div className="dataset-details-page-container container">
