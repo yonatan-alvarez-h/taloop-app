@@ -143,6 +143,7 @@
   --z-popover: 1060;
   --z-tooltip: 1070;
   --z-toast: 1080;
+  --z-menu: 10000;
 
   /* ========== BREAKPOINTS (para uso en JS) ========== */
   --breakpoint-sm: 640px;

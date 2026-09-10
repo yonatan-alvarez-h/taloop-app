@@ -16,6 +16,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ search, onSearch }) => {
 
   return (
     <header className="app-header navbar">
+      {isAuthenticated && <UserMenu />}
       <Link to="/" className="app-header__brand" aria-label="Ir al catálogo">
         <NavBar />
       </Link>
@@ -30,9 +31,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ search, onSearch }) => {
             <SearchBar onSearch={onSearch} initialQuery={search} />
           </div>
         )}
-        {isAuthenticated ? (
-          <UserMenu />
-        ) : (
+        {!isAuthenticated && (
           <div className="app-header__guest-actions">
             <Link to="/login" className="app-header__login-link">
               Iniciar sesión
