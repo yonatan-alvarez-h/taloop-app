@@ -686,7 +686,7 @@ const OwnerDetailPage: React.FC = () => {
                       <div className="member-row__identity">
                         <span className="member-avatar" aria-hidden="true">{getInitials(memberName)}</span>
                         <div>
-                          <div className="member-row__name">{memberName}{isCurrentUser && <span className="member-row__you">Tú</span>}</div>
+                          <div className="member-row__name"><span className="member-row__name-label">{memberName}</span>{isCurrentUser && <span className="member-row__you">Tú</span>}</div>
                           <div className="member-row__email">{memberEmail}</div>
                           <div className="member-row__meta">Acceso desde {formatDate(member.created_at)}</div>
                           <details className="member-row__details">
