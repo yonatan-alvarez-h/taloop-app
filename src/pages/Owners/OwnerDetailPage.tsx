@@ -695,8 +695,10 @@ const OwnerDetailPage: React.FC = () => {
                           </details>
                         </div>
                       </div>
-                      <div className="member-row__control"><label htmlFor={`member-role-${memberKey}`}>Rol</label><select id={`member-role-${memberKey}`} aria-label={`Rol de ${memberName}`} value={member.role} disabled={isSaving} onChange={(event) => void handleMemberUpdate(member, "role", event.target.value as OwnerMembershipRole)}><option value="owner_admin">Administrador</option><option value="owner_editor">Editor</option><option value="owner_viewer">Lector</option></select></div>
-                      <div className="member-row__control"><label htmlFor={`member-status-${memberKey}`}>Estado</label><select id={`member-status-${memberKey}`} aria-label={`Estado de ${memberName}`} value={member.status} disabled={isSaving} onChange={(event) => void handleMemberUpdate(member, "status", event.target.value as OwnerMembershipStatus)}><option value="active">Activa</option><option value="suspended">Suspendida</option><option value="revoked">Revocada</option></select></div>
+                      <div className="member-row__controls">
+                        <div className="member-row__control"><label htmlFor={`member-role-${memberKey}`}>Rol</label><select id={`member-role-${memberKey}`} aria-label={`Rol de ${memberName}`} value={member.role} disabled={isSaving} onChange={(event) => void handleMemberUpdate(member, "role", event.target.value as OwnerMembershipRole)}><option value="owner_admin">Administrador</option><option value="owner_editor">Editor</option><option value="owner_viewer">Lector</option></select></div>
+                        <div className="member-row__control"><label htmlFor={`member-status-${memberKey}`}>Estado</label><select id={`member-status-${memberKey}`} aria-label={`Estado de ${memberName}`} value={member.status} disabled={isSaving} onChange={(event) => void handleMemberUpdate(member, "status", event.target.value as OwnerMembershipStatus)}><option value="active">Activa</option><option value="suspended">Suspendida</option><option value="revoked">Revocada</option></select></div>
+                      </div>
                       <div className="member-row__feedback" aria-live="polite">{isSaving ? "Guardando…" : memberFeedback[memberKey]}</div>
                     </article>
                   );

@@ -130,8 +130,7 @@
 
 .member-row {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) repeat(2, minmax(120px, 0.75fr));
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
   padding: var(--space-4);
   background: var(--color-neutral-50);
@@ -240,6 +239,13 @@
   white-space: nowrap;
 }
 
+.member-row__controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 12rem));
+  justify-content: end;
+  gap: var(--space-4);
+}
+
 .member-row__control {
   display: grid;
   gap: var(--space-2);
@@ -269,7 +275,6 @@
 }
 
 .member-row__feedback {
-  grid-column: 2 / -1;
   min-height: 1rem;
   color: var(--color-success-700);
   font-size: var(--font-size-xs);
@@ -478,13 +483,8 @@
 }
 
 @media (max-width: 600px) {
-  .member-row {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .member-row__identity,
-  .member-row__feedback {
-    grid-column: 1 / -1;
+  .member-row__controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .dataset-admin-row {
@@ -497,6 +497,12 @@
 
   .invitation-card__header {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 420px) {
+  .member-row__controls {
+    grid-template-columns: 1fr;
   }
 }
 
