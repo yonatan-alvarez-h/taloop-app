@@ -1,6 +1,8 @@
 import { getAuthorizationHeaders } from "./authService";
 
-export const API_BASE = "http://127.0.0.1:8000/api/v1";
+export const API_BASE = import.meta.env.DEV
+  ? "/api/v1"
+  : "http://127.0.0.1:8000/api/v1";
 const TRANSIENT_RETRY_DELAY_MS = 250;
 
 export class ApiError extends Error {
