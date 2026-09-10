@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import type { Dataset } from "../../../../types/dataset";
 import DatasetRating from "../../Rating";
 import DatasetPrice from "../../Price";
@@ -24,6 +25,11 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset }) => {
       month: "short",
       year: "numeric",
     });
+
+  const compactDatasetId =
+    dataset._id.length > 14
+      ? `${dataset._id.slice(0, 8)}…${dataset._id.slice(-5)}`
+      : dataset._id;
 
   const metrics = [
     dataset.size && {
@@ -53,6 +59,16 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset }) => {
         isDescriptionExpanded ? " details-header--description-expanded" : ""
       }`}
     >
+      <nav className="details-header-breadcrumb" aria-label="Ubicación actual">
+        <Link to="/">Explorar datasets</Link>
+        <span aria-hidden="true">›</span>
+        <span>{dataset.category ?? "General"}</span>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page" aria-label={`ID del dataset ${dataset._id}`}>
+          ID {compactDatasetId}
+        </span>
+      </nav>
+
       <div className="details-header-main">
         <div className="details-header-identity">
           <div className="details-header-title-row">

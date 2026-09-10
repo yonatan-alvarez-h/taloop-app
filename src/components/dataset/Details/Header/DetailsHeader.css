@@ -2,6 +2,30 @@
   margin-bottom: 0.25rem;
 }
 
+.details-header-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.7rem;
+  color: #64748b;
+  font-family: var(--font-family-base);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.details-header-breadcrumb a {
+  color: #366ea6;
+  text-decoration: none;
+}
+
+.details-header-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.details-header-breadcrumb [aria-current="page"] {
+  color: #475569;
+}
+
 .details-header-main {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
