@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/useAuth";
 import { useInvitations } from "../../../context/useInvitations";
+import NavBar from "../Nav/NavBar";
 import "./UserMenu.css";
 
 type MenuIconName =
@@ -171,13 +172,11 @@ const UserMenu: React.FC = () => {
               className="user-menu-drawer"
               role="dialog"
               aria-modal="true"
-              aria-labelledby="user-menu-title"
+              aria-label="Menú de usuario"
               onKeyDown={handleDrawerKeyDown}
             >
               <div className="user-menu-drawer__header">
-                <span id="user-menu-title" className="user-menu-drawer__title">
-                  Menú
-                </span>
+                <NavBar />
                 <button
                   ref={closeButtonRef}
                   type="button"

@@ -90,12 +90,6 @@
   margin-bottom: var(--space-6);
 }
 
-.user-menu-drawer__title {
-  color: var(--color-neutral-900);
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-}
-
 .user-menu-close {
   display: inline-flex;
   align-items: center;
