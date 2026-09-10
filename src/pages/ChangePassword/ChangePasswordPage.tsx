@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import NavBar from "../../components/Menu/Nav/NavBar";
+import { Link } from "react-router-dom";
+import AppHeader from "../../components/layout/AppHeader";
 import Button from "../../components/UI/Button";
 import { useAuth } from "../../context/useAuth";
 import {
@@ -20,9 +20,8 @@ const initialFormData: ChangePasswordFormData = {
 };
 
 const ChangePasswordPage: React.FC = () => {
-  const { userId: routeUserId } = useParams<{ userId: string }>();
   const { accessToken, userId: authenticatedUserId } = useAuth();
-  const userId = routeUserId ?? authenticatedUserId;
+  const userId = authenticatedUserId;
   const [formData, setFormData] = useState<ChangePasswordFormData>(
     initialFormData
   );
@@ -82,12 +81,7 @@ const ChangePasswordPage: React.FC = () => {
 
   return (
     <div className="change-password-page">
-      <nav className="navbar change-password-navbar">
-        <NavBar />
-        <Link to="/" className="change-password-navbar-link">
-          ← Explorar datasets
-        </Link>
-      </nav>
+      <AppHeader />
 
       <main className="change-password-content">
         <section

@@ -1,5 +1,10 @@
-import type { UserProfile, UserRegistrationData } from "../types/user";
+import type {
+  UserInterest,
+  UserProfile,
+  UserRegistrationData,
+} from "../types/user";
 import { getAuthorizationHeaders } from "./authService";
+import { ApiError } from "./api";
 
 const API_BASE = "http://127.0.0.1:8000/api/v1";
 
@@ -24,6 +29,11 @@ export interface LoginResponse {
   user_id: string;
   email: string;
   full_name: string;
+  roles?: string[];
+}
+
+export interface EmailVerificationRequestResponse {
+  message: string;
 }
 
 function getUserRequestHeaders(accessToken?: string | null): Headers {
@@ -63,7 +73,7 @@ async function getApiErrorMessage(
 
 export async function createUser(
   data: UserRegistrationData
-): Promise<unknown> {
+): Promise<UserProfile> {
   const response = await fetch(`${API_BASE}/users`, {
     method: "POST",
     headers: {
@@ -79,7 +89,7 @@ export async function createUser(
     );
   }
 
-  return response.json();
+  return response.json() as Promise<UserProfile>;
 }
 
 export async function loginUser(data: LoginData): Promise<LoginResponse> {
@@ -125,6 +135,98 @@ export async function loginUser(data: LoginData): Promise<LoginResponse> {
   }
 
   return payload as LoginResponse;
+}
+
+export async function getCurrentUser(
+  accessToken?: string | null
+): Promise<UserProfile> {
+  const response = await fetch(`${API_BASE}/users/me`, {
+    method: "GET",
+    headers: getUserRequestHeaders(accessToken),
+  });
+
+  if (!response.ok) {
+    throw new ApiError(
+      await getApiErrorMessage(response, "No se pudo cargar tu perfil"),
+      response.status
+    );
+  }
+
+  return response.json() as Promise<UserProfile>;
+}
+
+export interface UserProfileUpdate {
+  email?: string;
+  full_name?: string;
+  timezone?: string;
+  locale?: string;
+  interests?: UserInterest[];
+}
+
+export async function updateCurrentUser(
+  data: UserProfileUpdate,
+  accessToken?: string | null
+): Promise<UserProfile> {
+  const headers = getUserRequestHeaders(accessToken);
+  headers.set("content-type", "application/json");
+
+  const response = await fetch(`${API_BASE}/users/me`, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new ApiError(
+      await getApiErrorMessage(response, "No se pudieron actualizar tus datos"),
+      response.status
+    );
+  }
+
+  return response.json() as Promise<UserProfile>;
+}
+
+export async function requestEmailVerification(
+  accessToken?: string | null
+): Promise<EmailVerificationRequestResponse> {
+  const response = await fetch(`${API_BASE}/users/me/verify-email/request`, {
+    method: "POST",
+    headers: getUserRequestHeaders(accessToken),
+  });
+
+  if (!response.ok) {
+    throw new ApiError(
+      await getApiErrorMessage(
+        response,
+        "No se pudo solicitar la verificación del correo"
+      ),
+      response.status
+    );
+  }
+
+  return response.json() as Promise<EmailVerificationRequestResponse>;
+}
+
+export async function verifyEmail(
+  token: string,
+  accessToken?: string | null
+): Promise<UserProfile> {
+  const headers = getUserRequestHeaders(accessToken);
+  headers.set("content-type", "application/json");
+  const response = await fetch(`${API_BASE}/users/me/verify-email`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ token }),
+  });
+
+  if (!response.ok) {
+    throw new ApiError(
+      await getApiErrorMessage(response, "El token de verificación no es válido"),
+      response.status
+    );
+  }
+
+  return response.json() as Promise<UserProfile>;
 }
 
 export async function changeUserPassword(
@@ -188,7 +290,18 @@ export async function updateUserProfile(
   userId: string,
   data: UserProfile,
   accessToken?: string | null
-): Promise<void> {
+): Promise<UserProfile> {
+  if (userId === "me") {
+    return updateCurrentUser(
+      {
+        email: data.email,
+        full_name: data.full_name ?? undefined,
+        interests: data.interests,
+      },
+      accessToken
+    );
+  }
+
   const headers = getUserRequestHeaders(accessToken);
   headers.set("content-type", "application/json");
 
@@ -206,4 +319,6 @@ export async function updateUserProfile(
       await getApiErrorMessage(response, "No se pudieron actualizar tus datos")
     );
   }
+
+  return response.json() as Promise<UserProfile>;
 }

@@ -36,7 +36,7 @@ const CardMeta: React.FC<CardMetaProps> = ({
 
         {showOwner && dataset.owner && (
           <div className="card-meta__owner">
-            <DatasetOwner owner={dataset.owner} />
+            <DatasetOwner owner={dataset.owner} ownerId={dataset.owner_id} />
           </div>
         )}
       </div>

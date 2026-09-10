@@ -14,6 +14,17 @@
   white-space: nowrap;
 }
 
+.dataset-owner--link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.dataset-owner--link:hover .dataset-owner__name {
+  color: var(--color-primary-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .dataset-owner-logo {
   width: 28px;
   height: 28px;

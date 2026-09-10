@@ -131,6 +131,15 @@ const DatasetList: React.FC<DatasetListProps> = ({
     setPage(1);
   }, [search]);
 
+  if (!search && datasets.length === 0) {
+    return (
+      <div className="dataset-list-no-results alert alert-info">
+        <h5 className="no-results-title">No hay datasets públicos disponibles</h5>
+        <p className="no-results-description">Vuelve a intentarlo más tarde.</p>
+      </div>
+    );
+  }
+
   if (!search) {
     // Opción 1: Diseño colorido y dinámico (ACTIVO)
     return <WelcomeSection datasets={datasets} onSearch={onSearch} />;

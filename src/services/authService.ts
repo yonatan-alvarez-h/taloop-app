@@ -46,8 +46,9 @@ export const clearAccessToken = (): void => {
   localStorage.removeItem(USER_PROFILE_KEY);
 };
 
-export const getAuthorizationHeaders = (): HeadersInit => {
-  const accessToken = getAccessToken();
+export const getAuthorizationHeaders = (
+  accessToken: string | null = getAccessToken()
+): HeadersInit => {
 
   return accessToken
     ? { Authorization: `Bearer ${accessToken}` }

@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import NavBar from "../../components/Menu/Nav/NavBar";
-import SearchBar from "../../components/Menu/Search/SearchBar";
-import UserMenu from "../../components/Menu/UserMenu/UserMenu";
+import AppHeader from "../../components/layout/AppHeader";
 import DatasetList from "../../components/Dataset/List/DatasetList";
-import { useAuth } from "../../context/useAuth";
 
 import type { Dataset } from "../../types/dataset";
 import "./HomePage.css";
@@ -16,7 +12,6 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => {
-  const { isAuthenticated } = useAuth();
   // Aplicar clase para eliminar scroll global solo en HomePage
   useEffect(() => {
     document.body.classList.add("no-global-scroll");
@@ -29,20 +24,7 @@ const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => {
 
   return (
     <div className="homepage-wrapper">
-      <nav className="navbar">
-        <NavBar />
-        <div className="homepage-nav-actions">
-          <div className="homepage-searchbar">
-            <SearchBar onSearch={onSearch} />
-          </div>
-          {!isAuthenticated && (
-            <Link to="/register" className="homepage-register-link">
-              Registrarse
-            </Link>
-          )}
-          <UserMenu />
-        </div>
-      </nav>
+      <AppHeader search={search} onSearch={onSearch} />
       <div className="homepage-container container">
         <div className="homepage-content">
           <DatasetList

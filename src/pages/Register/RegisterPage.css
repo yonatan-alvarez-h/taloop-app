@@ -86,6 +86,44 @@
   font-size: var(--font-size-xs);
 }
 
+.register-interests {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-2) 0 0;
+  padding: var(--space-4);
+  border: var(--border-width-1) solid var(--color-neutral-200);
+  border-radius: var(--border-radius-lg);
+}
+
+.register-interests legend {
+  float: left;
+  width: auto;
+  margin: 0;
+  padding: 0 var(--space-2);
+  color: var(--color-neutral-800);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.register-interests .register-field-hint {
+  margin: 0;
+}
+
+.register-interest-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-neutral-700);
+  font-size: var(--font-size-sm);
+}
+
+.register-interest-option input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--color-primary-600);
+}
+
 .register-field input {
   width: 100%;
   padding: var(--space-3) var(--space-4);

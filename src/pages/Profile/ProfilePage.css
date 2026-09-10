@@ -125,6 +125,58 @@
   font-size: var(--font-size-xs);
 }
 
+.profile-verification {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  padding: var(--space-4);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-sm);
+}
+
+.profile-verification div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.profile-verification span {
+  color: var(--color-neutral-600);
+}
+
+.profile-verification-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.profile-verification-form {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.profile-verification-form input {
+  width: 120px;
+  padding: var(--space-2);
+  font: inherit;
+  font-size: var(--font-size-xs);
+  border: var(--border-width-1) solid var(--color-neutral-300);
+  border-radius: var(--border-radius-lg);
+}
+
+.profile-verification--verified {
+  background: var(--color-success-50);
+  border: var(--border-width-1) solid var(--color-success-100);
+}
+
+.profile-verification--pending {
+  background: var(--color-warning-50);
+  border: var(--border-width-1) solid var(--color-warning-100);
+}
+
 .profile-field input:invalid:not(:placeholder-shown) {
   border-color: var(--color-error-500);
 }
@@ -147,6 +199,12 @@
   color: var(--color-error-700);
   background: var(--color-error-50);
   border: var(--border-width-1) solid var(--color-error-100);
+}
+
+.profile-message--info {
+  color: var(--color-info-700);
+  background: var(--color-info-50);
+  border: var(--border-width-1) solid var(--color-info-100);
 }
 
 .profile-footer {

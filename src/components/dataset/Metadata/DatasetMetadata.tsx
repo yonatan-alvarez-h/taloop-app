@@ -45,7 +45,7 @@ const DatasetMetadata: React.FC<DatasetMetadataProps> = ({ dataset }) => {
 
         <div className="dataset-context-item">
           <span className="dataset-context-label">Publicado por</span>
-          <DatasetOwner owner={dataset.owner} />
+          <DatasetOwner owner={dataset.owner} ownerId={dataset.owner_id} />
         </div>
 
         <div className="dataset-context-item dataset-context-reference">

@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/useAuth";
+import { useInvitations } from "../../../context/useInvitations";
 import "./UserMenu.css";
 
 const UserMenu: React.FC = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const { invitations } = useInvitations();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -61,6 +63,35 @@ const UserMenu: React.FC = () => {
           role="menu"
           aria-label="Opciones de usuario"
         >
+          <Link
+            to="/intereses"
+            className="user-menu-item"
+            role="menuitem"
+            onClick={() => setIsOpen(false)}
+          >
+            Mis intereses
+          </Link>
+          <Link
+            to="/owners"
+            className="user-menu-item"
+            role="menuitem"
+            onClick={() => setIsOpen(false)}
+          >
+            Mis owners
+          </Link>
+          <Link
+            to="/invitaciones"
+            className="user-menu-item user-menu-item--with-badge"
+            role="menuitem"
+            onClick={() => setIsOpen(false)}
+          >
+            Invitaciones
+            {invitations.length > 0 && (
+              <span className="user-menu-badge" aria-label={`${invitations.length} pendientes`}>
+                {invitations.length}
+              </span>
+            )}
+          </Link>
           <Link
             to="/cambiar-password"
             className="user-menu-item"

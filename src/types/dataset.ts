@@ -41,6 +41,8 @@ export interface DataQuality {
 
 export interface Dataset {
   _id: string;
+  owner_id?: string;
+  created_by_user_id?: string;
   title: string;
   category?: string;
   tags: string[];
@@ -48,7 +50,7 @@ export interface Dataset {
   fields: DatasetField[]; // Cambiado de string[] a DatasetField[]
   owner: {
     name: string;
-    type: "empresa" | "usuario";
+    type: "empresa" | "usuario" | "company" | "individual" | "person" | "org";
     logoUrl?: string;
     description?: string;
     website?: string;
@@ -86,6 +88,11 @@ export interface Dataset {
     apiCalls: number; // 23400
     lastAccessed: string; // "2 horas ago"
   };
+  visibility?: "public" | "unlisted" | "private";
+  status?: "draft" | "active" | "suspended" | "archived";
+  publicPreviewEnabled?: boolean;
+  isLimited?: boolean;
+  previewAvailable?: boolean;
 }
 
 // Dataset extendido con samples para el mock de datos

@@ -15,6 +15,7 @@ const initialFormData: RegisterFormData = {
   password: "",
   confirmPassword: "",
   full_name: "",
+  interests: [],
 };
 
 const isValidFullName = (fullName: string): boolean => {
@@ -88,6 +89,7 @@ const RegisterPage: React.FC = () => {
         email: formData.email.trim().toLowerCase(),
         password: formData.password,
         full_name: formData.full_name.trim(),
+        interests: formData.interests,
       });
       setSuccess(true);
       setFormData(initialFormData);
@@ -194,6 +196,44 @@ const RegisterPage: React.FC = () => {
                 placeholder="Repite tu contraseña"
               />
             </div>
+
+            <fieldset className="register-interests">
+              <legend>¿Cómo quieres usar taloop?</legend>
+              <p className="register-field-hint">
+                Puedes elegir una opción o ambas. Esto personaliza tu experiencia;
+                no cambia tus permisos.
+              </p>
+              <label className="register-interest-option">
+                <input
+                  type="checkbox"
+                  checked={formData.interests.includes("consume")}
+                  onChange={(event) =>
+                    setFormData((current) => ({
+                      ...current,
+                      interests: event.target.checked
+                        ? [...current.interests, "consume"]
+                        : current.interests.filter((interest) => interest !== "consume"),
+                    }))
+                  }
+                />
+                <span>Explorar y consumir datos</span>
+              </label>
+              <label className="register-interest-option">
+                <input
+                  type="checkbox"
+                  checked={formData.interests.includes("provide")}
+                  onChange={(event) =>
+                    setFormData((current) => ({
+                      ...current,
+                      interests: event.target.checked
+                        ? [...current.interests, "provide"]
+                        : current.interests.filter((interest) => interest !== "provide"),
+                    }))
+                  }
+                />
+                <span>Proveer y gestionar datos</span>
+              </label>
+            </fieldset>
 
             <Button type="submit" fullWidth size="lg" loading={loading}>
               Crear cuenta

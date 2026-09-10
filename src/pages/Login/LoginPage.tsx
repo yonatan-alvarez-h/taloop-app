@@ -49,6 +49,8 @@ const LoginPage: React.FC = () => {
       login(response.access_token, response.user_id, {
         email: response.email,
         full_name: response.full_name,
+        interests: [],
+        roles: response.roles,
       });
 
       const state = location.state as { from?: RedirectLocation } | null;
