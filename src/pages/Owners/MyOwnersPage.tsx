@@ -38,10 +38,12 @@ const MyOwnersPage: React.FC = () => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [creationFailed, setCreationFailed] = useState(false);
 
   const loadOwners = useCallback(async () => {
     setLoading(true);
     setError(null);
+    setCreationFailed(false);
     try {
       setOwners(await fetchMyOwners());
     } catch (requestError) {
@@ -73,10 +75,10 @@ const MyOwnersPage: React.FC = () => {
     setSuccess(null);
   };
 
-  const handleCreate = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const createProfile = async () => {
     setSaving(true);
     setError(null);
+    setCreationFailed(false);
     setSuccess(null);
 
     try {
@@ -90,9 +92,9 @@ const MyOwnersPage: React.FC = () => {
       setFormData(initialFormData);
       setShowCreate(false);
       setSuccess("Perfil de proveedor creado. Ya tienes el rol de Administrador.");
-      await loadOwners();
       navigate(`/owners/${owner._id}`);
     } catch (requestError) {
+      setCreationFailed(true);
       setError(
         requestError instanceof Error
           ? requestError.message
@@ -101,6 +103,11 @@ const MyOwnersPage: React.FC = () => {
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleCreate = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await createProfile();
   };
 
   return (
@@ -126,7 +133,12 @@ const MyOwnersPage: React.FC = () => {
         {error && (
           <div className="workspace-message workspace-message--error" role="alert">
             {error}
-            <button type="button" className="workspace-retry" onClick={() => void loadOwners()}>
+            <button
+              type="button"
+              className="workspace-retry"
+              onClick={() => void (creationFailed ? createProfile() : loadOwners())}
+              disabled={saving}
+            >
               Reintentar
             </button>
           </div>
