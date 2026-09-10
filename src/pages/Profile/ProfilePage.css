@@ -31,7 +31,7 @@
 }
 
 .profile-card {
-  width: min(100%, 500px);
+  width: min(100%, 760px);
   padding: var(--space-8);
   background: var(--color-neutral-0);
   border: var(--border-width-1) solid var(--color-neutral-200);
@@ -71,9 +71,14 @@
 }
 
 .profile-form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--space-5);
+}
+
+.profile-form > .btn-unified {
+  grid-column: 1 / -1;
 }
 
 .profile-section {
@@ -143,7 +148,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  margin: var(--space-2) 0 0;
+  margin: 0;
   padding: var(--space-5);
   background: var(--color-primary-50);
   border: var(--border-width-1) solid var(--color-primary-100);
@@ -301,6 +306,14 @@
 
   .profile-card h1 {
     font-size: var(--font-size-2xl);
+  }
+
+  .profile-form {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-form > .btn-unified {
+    grid-column: auto;
   }
 }
 
