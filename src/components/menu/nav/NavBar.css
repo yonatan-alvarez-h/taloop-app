@@ -1,9 +1,9 @@
-/* Navbar fijo - forzando estilos sobre Bootstrap */
+/* Estilos compartidos del encabezado para las páginas públicas y privadas. */
 nav.navbar,
 .navbar {
   background: rgba(248, 250, 252, 0.95) !important;
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px); /* Safari support */
+  -webkit-backdrop-filter: blur(8px);
   padding: 0 var(--space-8) !important;
   display: flex !important;
   align-items: center !important;
@@ -26,33 +26,31 @@ nav.navbar,
   box-sizing: border-box !important;
 }
 
-.navbar-brand {
-  display: flex;
+.taloop-logo {
+  display: inline-flex;
   align-items: center;
-  flex: 1;
-  max-width: calc(100% - 580px);
-  overflow: hidden;
-}
-
-.navbar .navbar-brand {
+  flex: 0 0 auto;
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-primary-600);
   letter-spacing: 0.01em;
-  margin-left: var(--space-2);
+  line-height: 1;
   text-shadow: 0 1px 0 var(--color-neutral-0),
     0 2px 8px rgba(179, 214, 252, 0.2);
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-/* Resaltar las "o" de taloop con efecto pulsante */
-.navbar-brand-pulse {
+.navbar:hover {
+  background: rgba(248, 250, 252, 0.98);
+  box-shadow: var(--shadow-xl);
+}
+
+.taloop-logo__pulse {
   color: var(--color-primary-800) !important;
   font-weight: var(--font-weight-extrabold) !important;
   text-shadow: 0 1px 0 var(--color-neutral-0), 0 2px 8px rgba(13, 71, 161, 0.2) !important;
   animation: pulseEffect 6s ease-in-out infinite;
+  animation-delay: 1s;
   display: inline-block;
 }
 
@@ -69,23 +67,6 @@ nav.navbar,
   }
 }
 
-/* Pulsación alternada - primera "o" */
-.navbar-brand-pulse-1 {
-  animation-delay: 0s; /* Empieza inmediatamente */
-}
-
-/* Pulsación alternada - segunda "o" */
-.navbar-brand-pulse-2 {
-  animation-delay: 1s; /* Empieza 1 segundo después */
-}
-
-/* Efecto al hacer scroll para mayor transparencia */
-.navbar:hover {
-  background: rgba(248, 250, 252, 0.98);
-  box-shadow: var(--shadow-xl);
-}
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
   nav.navbar,
   .navbar {
@@ -95,35 +76,18 @@ nav.navbar,
     max-height: 56px !important;
   }
 
-  .navbar-brand {
-    max-width: calc(100% - 300px);
-  }
-
-  .navbar .navbar-brand {
+  .taloop-logo {
     font-size: var(--font-size-lg);
-    margin-left: var(--space-1);
   }
 
-  /* Ajustar pulsación en tablet */
-  .navbar-brand-pulse {
+  .taloop-logo__pulse {
     font-weight: var(--font-weight-bold) !important;
     animation-duration: 2.5s;
   }
 }
 
 @media (max-width: 480px) {
-  nav.navbar,
-  .navbar {
-    padding: 0 var(--space-2) !important;
-    max-height: 56px !important;
-  }
-
-  .navbar-brand {
-    max-width: calc(100% - 250px);
-  }
-
-  /* Ajustar pulsación en mobile */
-  .navbar-brand-pulse {
+  .taloop-logo__pulse {
     font-weight: var(--font-weight-bold) !important;
     animation-duration: 3s;
     color: var(--color-primary-500) !important;

@@ -3,12 +3,10 @@ import "./NavBar.css";
 
 const NavBar: React.FC = () => {
   return (
-    <div className="navbar-brand">
-      <span className="navbar-brand ms-2">
-        ta
-        <span className="navbar-brand-pulse navbar-brand-pulse-2">loop</span>
-      </span>
-    </div>
+    <span className="taloop-logo">
+      ta
+      <span className="taloop-logo__pulse">loop</span>
+    </span>
   );
 };
 
