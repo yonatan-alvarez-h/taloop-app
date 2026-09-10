@@ -56,13 +56,16 @@ const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const userId = authenticatedUserId;
   const [formData, setFormData] = useState<UserProfile>(initialFormData);
+  const [savedProfile, setSavedProfile] = useState<UserProfile>(initialFormData);
   const [initialLoading, setInitialLoading] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [verificationLoading, setVerificationLoading] = useState(false);
   const [verificationMessage, setVerificationMessage] = useState<string | null>(null);
+  const [verificationError, setVerificationError] = useState<string | null>(null);
   const [verificationToken, setVerificationToken] = useState("");
+  const [showVerificationCodeForm, setShowVerificationCodeForm] = useState(false);
   const [confirmingVerification, setConfirmingVerification] = useState(false);
 
   useEffect(() => {
@@ -78,7 +81,10 @@ const ProfilePage: React.FC = () => {
 
     getCurrentUser(accessToken)
       .then((profile) => {
-        if (active) setFormData(profile);
+        if (active) {
+          setFormData(profile);
+          setSavedProfile(profile);
+        }
       })
       .catch((requestError) => {
         if (active) {
@@ -137,7 +143,6 @@ const ProfilePage: React.FC = () => {
 
     const updatedProfile: UserProfile = {
       ...formData,
-      email: formData.email,
       full_name: formData.full_name?.trim() ?? "",
       interests: formData.interests,
     };
@@ -152,13 +157,13 @@ const ProfilePage: React.FC = () => {
     try {
       const savedProfile = await updateCurrentUser(
         {
-          email: updatedProfile.email,
           full_name: updatedProfile.full_name ?? undefined,
           interests: updatedProfile.interests,
         },
         accessToken
       );
       setFormData(savedProfile);
+      setSavedProfile(savedProfile);
       updateProfile(savedProfile);
       setSuccess(true);
     } catch (requestError) {
@@ -180,16 +185,18 @@ const ProfilePage: React.FC = () => {
   const handleRequestVerification = async () => {
     setVerificationLoading(true);
     setVerificationMessage(null);
+    setVerificationError(null);
     try {
-      const response = await requestEmailVerification(accessToken);
-      setVerificationMessage(response.message);
+      await requestEmailVerification(accessToken);
+      setShowVerificationCodeForm(true);
+      setVerificationMessage(`Enviamos un código de verificación a ${formData.email}.`);
     } catch (requestError) {
       if (requestError instanceof ApiError && requestError.status === 401) {
         logout();
         navigate("/login", { replace: true });
         return;
       }
-      setVerificationMessage(
+      setVerificationError(
         requestError instanceof Error
           ? requestError.message
           : "No se pudo solicitar la verificación. Intenta de nuevo."
@@ -203,14 +210,19 @@ const ProfilePage: React.FC = () => {
     event.preventDefault();
     setConfirmingVerification(true);
     setVerificationMessage(null);
+    setVerificationError(null);
     try {
       const profile = await verifyEmail(verificationToken.trim(), accessToken);
-      setFormData(profile);
+      setFormData((current) => ({
+        ...current,
+        email_verified_at: profile.email_verified_at,
+      }));
+      setSavedProfile(profile);
       updateProfile(profile);
       setVerificationToken("");
       setVerificationMessage("Tu correo fue verificado correctamente.");
     } catch (requestError) {
-      setVerificationMessage(
+      setVerificationError(
         requestError instanceof Error
           ? requestError.message
           : "No se pudo verificar el correo."
@@ -219,6 +231,13 @@ const ProfilePage: React.FC = () => {
       setConfirmingVerification(false);
     }
   };
+
+  const currentInterests = formData.interests ?? [];
+  const savedInterests = savedProfile.interests ?? [];
+  const hasUnsavedChanges =
+    (formData.full_name?.trim() ?? "") !== (savedProfile.full_name?.trim() ?? "") ||
+    currentInterests.length !== savedInterests.length ||
+    currentInterests.some((interest) => !savedInterests.includes(interest));
 
   return (
     <div className="profile-page">
@@ -257,30 +276,54 @@ const ProfilePage: React.FC = () => {
                     : "profile-verification--pending"
                 }`}
               >
-                <div>
-                  <strong>Verificación de correo</strong>
-                  <span>
-                    {formData.email_verified_at
-                      ? "Tu correo está verificado."
-                      : "Necesitas verificar tu correo para aceptar invitaciones."}
+                <div className="profile-verification__copy">
+                  <span className="profile-verification__status">
+                    {formData.email_verified_at ? "Correo verificado" : "Correo sin verificar"}
                   </span>
+                  <h2>{formData.email_verified_at ? "Tu correo está listo" : "Verifica tu correo"}</h2>
+                  <p>
+                    {formData.email_verified_at
+                      ? `${formData.email} está verificado.`
+                      : `Confirma ${formData.email} para poder aceptar invitaciones de proveedores.`}
+                  </p>
                 </div>
                 {!formData.email_verified_at && (
-                  <div className="profile-verification-actions">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      loading={verificationLoading}
-                      onClick={handleRequestVerification}
-                    >
-                      Solicitar verificación
-                    </Button>
-                    <form className="profile-verification-form" onSubmit={handleVerifyEmail}>
-                      <label className="visually-hidden" htmlFor="verification-token">Token de verificación</label>
-                      <input id="verification-token" value={verificationToken} onChange={(event) => setVerificationToken(event.target.value)} placeholder="Token" required />
-                      <Button type="submit" variant="ghost" size="sm" loading={confirmingVerification}>Confirmar</Button>
-                    </form>
+                  <div className="profile-verification__actions">
+                    {showVerificationCodeForm ? (
+                      <form className="profile-verification-form" onSubmit={handleVerifyEmail}>
+                        <label htmlFor="verification-token">Código de verificación</label>
+                        <div className="profile-verification-form__controls">
+                          <input
+                            id="verification-token"
+                            value={verificationToken}
+                            onChange={(event) => setVerificationToken(event.target.value)}
+                            autoComplete="one-time-code"
+                            placeholder="Ingresa el código"
+                            required
+                          />
+                          <Button type="submit" size="sm" loading={confirmingVerification}>Verificar código</Button>
+                        </div>
+                        <div className="profile-verification-form__help">
+                          <span>Revisa tu bandeja de entrada y el correo no deseado.</span>
+                          <Button type="button" variant="link" size="sm" loading={verificationLoading} onClick={() => void handleRequestVerification()}>Reenviar código</Button>
+                        </div>
+                      </form>
+                    ) : (
+                      <>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          loading={verificationLoading}
+                          onClick={() => void handleRequestVerification()}
+                        >
+                          Enviar código
+                        </Button>
+                        <Button type="button" variant="link" size="sm" onClick={() => setShowVerificationCodeForm(true)}>
+                          Ya tengo un código
+                        </Button>
+                      </>
+                    )}
                   </div>
                 )}
               </div>
@@ -291,9 +334,15 @@ const ProfilePage: React.FC = () => {
                 </div>
               )}
 
+              {verificationError && (
+                <div className="profile-message profile-message--error" role="alert">
+                  {verificationError}
+                </div>
+              )}
+
               <form className="profile-form" onSubmit={handleSubmit}>
-                <section className="profile-section" aria-labelledby="personal-details-title">
-                  <h2 id="personal-details-title">Datos personales</h2>
+                <section className="profile-section" aria-labelledby="profile-details-title">
+                  <h2 id="profile-details-title">Perfil</h2>
                   <div className="profile-field">
                     <label htmlFor="full_name">Nombre completo</label>
                     <input
@@ -308,29 +357,17 @@ const ProfilePage: React.FC = () => {
                     />
                   </div>
 
-                  <div className="profile-field">
-                    <label htmlFor="email">Correo electrónico</label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      value={formData.email}
-                      readOnly
-                      aria-describedby="email-hint"
-                    />
-                    <span id="email-hint" className="profile-field-hint">
-                      El correo electrónico no se puede modificar por ahora.
-                    </span>
-                  </div>
+                  <section className="profile-account-email" aria-labelledby="profile-email-title">
+                    <span id="profile-email-title">Correo electrónico</span>
+                    <strong>{formData.email}</strong>
+                    <p>Se usa para iniciar sesión y por ahora no puede modificarse.</p>
+                  </section>
                 </section>
 
                 <fieldset className="profile-preferences" aria-describedby="preferences-hint">
-                  <legend>Cómo usas taloop</legend>
+                  <legend>¿Qué quieres hacer en taloop?</legend>
                   <p id="preferences-hint" className="profile-preferences__hint">
-                    Selecciona las actividades que te interesan. Esta selección solo
-                    personaliza tu experiencia; no concede ni quita permisos sobre
-                    proveedores o datasets.
+                    Personalizaremos tu experiencia con esta selección. No cambia tus permisos.
                   </p>
                   <div className="profile-preferences__options">
                     {INTEREST_OPTIONS.map((option) => {
@@ -356,9 +393,14 @@ const ProfilePage: React.FC = () => {
                   </div>
                 </fieldset>
 
-                <Button type="submit" fullWidth size="lg" loading={loading}>
-                  Guardar cambios de cuenta
-                </Button>
+                <div className="profile-save-bar">
+                  <span className="profile-save-bar__status" role="status">
+                    {hasUnsavedChanges ? "Cambios sin guardar" : "Todos los cambios están guardados"}
+                  </span>
+                  <Button type="submit" loading={loading} disabled={!hasUnsavedChanges}>
+                    Guardar cambios
+                  </Button>
+                </div>
               </form>
             </>
           )}
