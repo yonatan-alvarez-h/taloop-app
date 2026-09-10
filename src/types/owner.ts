@@ -33,6 +33,13 @@ export interface OwnerMembership {
   status: OwnerMembershipStatus;
   created_at: string;
   updated_at: string;
+  user?: OwnerMemberSummary | null;
+}
+
+export interface OwnerMemberSummary {
+  id: string;
+  email: string;
+  full_name?: string | null;
 }
 
 export interface OwnerInvitationOwnerSummary {

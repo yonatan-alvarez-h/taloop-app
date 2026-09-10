@@ -35,8 +35,8 @@ Fuera de esta versión:
 - envío real de emails de invitación;
 - asignar acceso directamente a un usuario por `user_id` sin pasar por una
   invitación aceptada;
-- búsqueda o descubrimiento masivo de usuarios. La selección del destinatario
-  debe usar el mecanismo de usuarios que el producto defina posteriormente.
+- directorio público de usuarios. La búsqueda de destinatarios está limitada a
+  administradores del owner y devuelve solo cuentas activas coincidentes.
 
 ## 3. Modelo que debe conocer frontend
 
@@ -78,6 +78,12 @@ Roles:
 
 Estados: `active`, `suspended`, `revoked`. Solo `active` concede permisos.
 Frontend no debe inferir permisos desde `User.roles` o `User.interests`.
+
+Cuando un `owner_admin` lista membresías en el contexto de un owner, la respuesta
+incluye un resumen seguro del usuario (`user.id`, `user.full_name` y
+`user.email`) para que la interfaz identifique a la persona sin mostrar el
+`user_id` como etiqueta principal. El ID queda reservado para detalles técnicos
+y soporte; otros roles reciben el contrato mínimo de membresía.
 
 ### 3.4 OwnerInvitation
 
@@ -200,6 +206,7 @@ que se indique lo contrario. El backend deriva el usuario actual del token.
 | Actualizar owner | `PUT /owners/{owner_id}` | `owner_admin`. |
 | Archivar owner | `DELETE /owners/{owner_id}?confirmation=true&reason=...` | `owner_admin`. |
 | Listar miembros | `GET /owners/{owner_id}/members` | `VIEW_INTERNAL`. |
+| Buscar usuarios para invitar | `GET /owners/{owner_id}/member-candidates?query=...` | `owner_admin`. |
 | Cambiar rol/estado | `PATCH /owners/{owner_id}/members/{user_id}` | `owner_admin`. |
 
 ### 5.3 Invitaciones in-app
@@ -341,12 +348,13 @@ Los endpoints de compras, suscripciones y concesión directa de acceso por
 - Un usuario no destinatario no puede aceptar ni rechazar la invitación.
 - Invitaciones vencidas, owners no activos y cuentas no activas no aparecen como
   acciones disponibles.
+- Las membresías muestran nombre y correo como identidad principal; el
+  `user_id` solo aparece dentro de los detalles técnicos.
 - Un usuario puede ser proveedor y consumidor simultáneamente, con permisos
   evaluados de forma independiente.
 
 ## 8. Decisiones pendientes para una versión posterior
 
-- mecanismo seguro para buscar/seleccionar usuarios destinatarios;
 - historial visible de invitaciones terminales;
 - notificaciones push o email;
 - compras, suscripciones y emisión automática de entitlements;

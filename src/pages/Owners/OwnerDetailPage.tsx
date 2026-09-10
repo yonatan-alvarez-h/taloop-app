@@ -9,6 +9,7 @@ import {
   createOwnerInvitation,
   fetchOwner,
   fetchOwnerMembers,
+  searchOwnerMemberCandidates,
   updateOwner,
   updateOwnerMember,
 } from "../../services/ownersService";
@@ -26,6 +27,7 @@ import {
 import type {
   Owner,
   OwnerInvitationCreate,
+  OwnerMemberSummary,
   OwnerMembership,
   OwnerMembershipRole,
   OwnerMembershipStatus,
@@ -36,6 +38,7 @@ import {
   roleLabel,
 } from "../../types/owner";
 import type { DatasetWithSamples } from "../../types/dataset";
+import type { UserProfile } from "../../types/user";
 import "../WorkspacePage.css";
 
 const DATASET_CACHE_KEY = "taloop_owner_dataset_cache";
@@ -132,6 +135,44 @@ const formatDate = (value: string): string =>
     timeStyle: "short",
   }).format(new Date(value));
 
+const getMemberName = (
+  member: OwnerMembership,
+  currentUserId: string | null,
+  currentUser: UserProfile | null
+): string => {
+  const profileName = member.user?.full_name?.trim();
+  if (profileName) return profileName;
+  if (member.user?.email) return member.user.email;
+  if (member.user_id === currentUserId && currentUser?.full_name?.trim()) {
+    return currentUser.full_name.trim();
+  }
+  return "Usuario sin nombre";
+};
+
+const getMemberEmail = (
+  member: OwnerMembership,
+  currentUserId: string | null,
+  currentUser: UserProfile | null
+): string => {
+  if (member.user?.email) return member.user.email;
+  if (member.user_id === currentUserId && currentUser?.email) return currentUser.email;
+  return "Correo no disponible";
+};
+
+const getInitials = (value: string): string =>
+  value
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("") || "U";
+
+const getMemberKey = (member: OwnerMembership): string =>
+  member.id ?? member.user_id;
+
+const getCandidateName = (candidate: OwnerMemberSummary): string =>
+  candidate.full_name?.trim() || candidate.email;
+
 const OwnerDetailPage: React.FC = () => {
   const { ownerId } = useParams<{ ownerId: string }>();
   const navigate = useNavigate();
@@ -139,6 +180,7 @@ const OwnerDetailPage: React.FC = () => {
   const [owner, setOwner] = useState<Owner | null>(null);
   const [members, setMembers] = useState<OwnerMembership[]>([]);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
   const [datasets, setDatasets] = useState<DatasetWithSamples[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -153,7 +195,13 @@ const OwnerDetailPage: React.FC = () => {
   });
   const [inviting, setInviting] = useState(false);
   const [invitationSuccess, setInvitationSuccess] = useState<string | null>(null);
+  const [inviteeQuery, setInviteeQuery] = useState("");
+  const [inviteeCandidates, setInviteeCandidates] = useState<OwnerMemberSummary[]>([]);
+  const [selectedInvitee, setSelectedInvitee] = useState<OwnerMemberSummary | null>(null);
+  const [searchingInvitees, setSearchingInvitees] = useState(false);
   const [memberSaving, setMemberSaving] = useState<string | null>(null);
+  const [memberFeedback, setMemberFeedback] = useState<Record<string, string>>({});
+  const [copiedMemberId, setCopiedMemberId] = useState<string | null>(null);
   const [datasetEditorOpen, setDatasetEditorOpen] = useState(false);
   const [editingDataset, setEditingDataset] = useState<DatasetWithSamples | null>(null);
   const [datasetSaving, setDatasetSaving] = useState(false);
@@ -176,8 +224,10 @@ const OwnerDetailPage: React.FC = () => {
       setOwnerForm(toOwnerForm(loadedOwner));
       if (isAuthenticated) {
         const currentUser = await getCurrentUser(accessToken);
+        setCurrentUser(currentUser);
         setCurrentUserId(currentUser.id ?? null);
       } else {
+        setCurrentUser(null);
         setCurrentUserId(null);
       }
 
@@ -224,6 +274,35 @@ const OwnerDetailPage: React.FC = () => {
   useEffect(() => {
     void loadOwner();
   }, [loadOwner]);
+
+  useEffect(() => {
+    const query = inviteeQuery.trim();
+    if (!ownerId || !capabilities.canInvite || selectedInvitee || query.length < 2) {
+      setInviteeCandidates([]);
+      setSearchingInvitees(false);
+      return;
+    }
+
+    let active = true;
+    const timeoutId = window.setTimeout(() => {
+      setSearchingInvitees(true);
+      void searchOwnerMemberCandidates(ownerId, query)
+        .then((candidates) => {
+          if (active) setInviteeCandidates(candidates);
+        })
+        .catch(() => {
+          if (active) setInviteeCandidates([]);
+        })
+        .finally(() => {
+          if (active) setSearchingInvitees(false);
+        });
+    }, 250);
+
+    return () => {
+      active = false;
+      window.clearTimeout(timeoutId);
+    };
+  }, [capabilities.canInvite, inviteeQuery, ownerId, selectedInvitee]);
 
   const handleOwnerFormChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -274,6 +353,10 @@ const OwnerDetailPage: React.FC = () => {
   const handleInvite = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!ownerId) return;
+    if (!invitationForm.invited_user_id) {
+      setError("Selecciona una persona de la lista para enviar la invitación.");
+      return;
+    }
     setInviting(true);
     setError(null);
     setInvitationSuccess(null);
@@ -293,7 +376,12 @@ const OwnerDetailPage: React.FC = () => {
     try {
       await createOwnerInvitation(ownerId, payload);
       setInvitationForm((current) => ({ ...current, invited_user_id: "", confirmation: false }));
-      setInvitationSuccess("Invitación creada. El destinatario la verá en su bandeja dentro de taloop.");
+      setInviteeQuery("");
+      setSelectedInvitee(null);
+      setInviteeCandidates([]);
+      setInvitationSuccess(
+        `Invitación creada para ${selectedInvitee ? getCandidateName(selectedInvitee) : "la persona seleccionada"}.`
+      );
     } catch (requestError) {
       setError(
         requestError instanceof Error ? requestError.message : "No se pudo crear la invitación."
@@ -309,16 +397,61 @@ const OwnerDetailPage: React.FC = () => {
     value: OwnerMembershipRole | OwnerMembershipStatus
   ) => {
     if (!ownerId) return;
+    const memberName = getMemberName(member, currentUserId, currentUser);
+    if (
+      field === "status" &&
+      value === "revoked" &&
+      member.status !== "revoked" &&
+      !window.confirm(`¿Quieres revocar el acceso de ${memberName}? Esta acción no se puede deshacer desde aquí.`)
+    ) {
+      return;
+    }
+    if (
+      field === "role" &&
+      value === "owner_admin" &&
+      member.role !== "owner_admin" &&
+      !window.confirm(`¿Quieres conceder permisos de Administrador a ${memberName}?`)
+    ) {
+      return;
+    }
     setMemberSaving(member.user_id);
+    setMemberFeedback((current) => ({ ...current, [getMemberKey(member)]: "" }));
     try {
       const updated = await updateOwnerMember(ownerId, member.user_id, { [field]: value });
-      setMembers((current) => current.map((item) => item.user_id === member.user_id ? updated : item));
+      setMembers((current) => current.map((item) => item.user_id === member.user_id
+        ? { ...item, ...updated, user: updated.user ?? item.user }
+        : item));
+      setMemberFeedback((current) => ({ ...current, [getMemberKey(member)]: "Cambios guardados." }));
     } catch (requestError) {
       setError(
         requestError instanceof Error ? requestError.message : "No se pudo actualizar la membresía."
       );
     } finally {
       setMemberSaving(null);
+    }
+  };
+
+  const handleInviteeQueryChange = (value: string) => {
+    setInviteeQuery(value);
+    setSelectedInvitee(null);
+    setInvitationForm((current) => ({ ...current, invited_user_id: "" }));
+  };
+
+  const handleInviteeSelect = (candidate: OwnerMemberSummary) => {
+    setSelectedInvitee(candidate);
+    setInviteeQuery(getCandidateName(candidate));
+    setInviteeCandidates([]);
+    setInvitationForm((current) => ({ ...current, invited_user_id: candidate.id }));
+    setError(null);
+  };
+
+  const handleCopyMemberId = async (memberId: string) => {
+    try {
+      await navigator.clipboard.writeText(memberId);
+      setCopiedMemberId(memberId);
+      window.setTimeout(() => setCopiedMemberId((current) => current === memberId ? null : current), 1800);
+    } catch {
+      setError("No se pudo copiar el ID técnico.");
     }
   };
 
@@ -486,7 +619,47 @@ const OwnerDetailPage: React.FC = () => {
               <div className="workspace-card__header"><h2 id="invite-title">Invitar colaboradores</h2><p>Las personas invitadas podrán aceptar el acceso desde su bandeja.</p></div>
               {invitationSuccess && <div className="workspace-message workspace-message--success" role="status">{invitationSuccess}</div>}
               <form className="workspace-form" onSubmit={handleInvite}>
-                <div className="workspace-field"><label htmlFor="invited-user-id">Identificador del usuario registrado</label><input id="invited-user-id" value={invitationForm.invited_user_id} onChange={(event) => setInvitationForm((current) => ({ ...current, invited_user_id: event.target.value }))} required /><span className="workspace-field__hint">La persona debe tener una cuenta registrada en taloop.</span></div>
+                <div className="workspace-field workspace-field--search">
+                  <label htmlFor="invitee-search">Busca por nombre o correo electrónico</label>
+                  <input
+                    id="invitee-search"
+                    value={inviteeQuery}
+                    onChange={(event) => handleInviteeQueryChange(event.target.value)}
+                    placeholder="Ej. Ana Pérez o ana@ejemplo.com"
+                    autoComplete="off"
+                    role="combobox"
+                    aria-autocomplete="list"
+                    aria-expanded={!selectedInvitee && inviteeQuery.trim().length >= 2}
+                    aria-controls="invitee-results"
+                    disabled={Boolean(selectedInvitee)}
+                  />
+                  {searchingInvitees && <span className="workspace-field__hint">Buscando personas…</span>}
+                  {!selectedInvitee && inviteeQuery.trim().length >= 2 && (
+                    <div id="invitee-results" className="member-search-results" role="listbox">
+                      {!searchingInvitees && inviteeCandidates.length === 0 && <div className="member-search-results__empty">No encontramos una cuenta activa con esos datos.</div>}
+                      {inviteeCandidates.map((candidate) => (
+                        <button
+                          type="button"
+                          role="option"
+                          className="member-search-result"
+                          key={candidate.id}
+                          onClick={() => handleInviteeSelect(candidate)}
+                        >
+                          <span className="member-avatar" aria-hidden="true">{getInitials(getCandidateName(candidate))}</span>
+                          <span className="member-search-result__identity"><strong>{getCandidateName(candidate)}</strong><span>{candidate.email}</span></span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  {selectedInvitee && (
+                    <div className="member-selection" role="status">
+                      <span className="member-avatar" aria-hidden="true">{getInitials(getCandidateName(selectedInvitee))}</span>
+                      <span className="member-search-result__identity"><strong>{getCandidateName(selectedInvitee)}</strong><span>{selectedInvitee.email}</span></span>
+                      <Button type="button" size="sm" variant="link" onClick={() => handleInviteeQueryChange("")}>Cambiar</Button>
+                    </div>
+                  )}
+                  <span className="workspace-field__hint">Solo puedes invitar cuentas activas registradas en taloop.</span>
+                </div>
                 <div className="workspace-form__row">
                   <div className="workspace-field"><label htmlFor="invitation-role">Rol ofrecido</label><select id="invitation-role" value={invitationForm.role} onChange={(event) => setInvitationForm((current) => ({ ...current, role: event.target.value as OwnerMembershipRole }))}><option value="owner_editor">Editor</option><option value="owner_viewer">Lector</option><option value="owner_admin">Administrador</option></select></div>
                   <div className="workspace-field"><label htmlFor="invitation-expires">Vence</label><input id="invitation-expires" type="datetime-local" value={invitationForm.expires_at} onChange={(event) => setInvitationForm((current) => ({ ...current, expires_at: event.target.value }))} required /></div>
@@ -499,15 +672,35 @@ const OwnerDetailPage: React.FC = () => {
 
           {capabilities.canManageMembers && (
             <section className="workspace-card" aria-labelledby="members-title">
-              <div className="workspace-card__header"><h2 id="members-title">Personas con acceso</h2><p>Aquí puedes revisar y cambiar el acceso de las personas a este proveedor.</p></div>
+              <div className="workspace-card__header"><h2 id="members-title">Personas con acceso <span className="workspace-count">{members.length}</span></h2><p>Administra quién puede ver y editar {owner.name}.</p></div>
               <div className="member-list">
-                {members.map((member) => (
-                  <div className="member-row" key={member.user_id}>
-                    <span className="member-row__id">{member.user_id}</span>
-                    <select aria-label={`Rol de ${member.user_id}`} value={member.role} disabled={memberSaving === member.user_id} onChange={(event) => void handleMemberUpdate(member, "role", event.target.value as OwnerMembershipRole)}><option value="owner_admin">Administrador</option><option value="owner_editor">Editor</option><option value="owner_viewer">Lector</option></select>
-                    <select aria-label={`Estado de ${member.user_id}`} value={member.status} disabled={memberSaving === member.user_id} onChange={(event) => void handleMemberUpdate(member, "status", event.target.value as OwnerMembershipStatus)}><option value="active">Activa</option><option value="suspended">Suspendida</option><option value="revoked">Revocada</option></select>
-                  </div>
-                ))}
+                {members.length === 0 && <div className="workspace-empty">Aún no hay otras personas con acceso a este proveedor.</div>}
+                {members.map((member) => {
+                  const memberKey = getMemberKey(member);
+                  const memberName = getMemberName(member, currentUserId, currentUser);
+                  const memberEmail = getMemberEmail(member, currentUserId, currentUser);
+                  const isCurrentUser = member.user_id === currentUserId;
+                  const isSaving = memberSaving === member.user_id;
+                  return (
+                    <article className="member-row" key={member.user_id} aria-busy={isSaving}>
+                      <div className="member-row__identity">
+                        <span className="member-avatar" aria-hidden="true">{getInitials(memberName)}</span>
+                        <div>
+                          <div className="member-row__name">{memberName}{isCurrentUser && <span className="member-row__you">Tú</span>}</div>
+                          <div className="member-row__email">{memberEmail}</div>
+                          <div className="member-row__meta">Acceso desde {formatDate(member.created_at)}</div>
+                          <details className="member-row__details">
+                            <summary>Ver ID técnico</summary>
+                            <div className="member-row__technical-id"><code>{member.user_id}</code><Button type="button" size="xs" variant="link" onClick={() => void handleCopyMemberId(member.user_id)}>{copiedMemberId === member.user_id ? "Copiado" : "Copiar ID"}</Button></div>
+                          </details>
+                        </div>
+                      </div>
+                      <div className="member-row__control"><label htmlFor={`member-role-${memberKey}`}>Rol</label><select id={`member-role-${memberKey}`} aria-label={`Rol de ${memberName}`} value={member.role} disabled={isSaving} onChange={(event) => void handleMemberUpdate(member, "role", event.target.value as OwnerMembershipRole)}><option value="owner_admin">Administrador</option><option value="owner_editor">Editor</option><option value="owner_viewer">Lector</option></select></div>
+                      <div className="member-row__control"><label htmlFor={`member-status-${memberKey}`}>Estado</label><select id={`member-status-${memberKey}`} aria-label={`Estado de ${memberName}`} value={member.status} disabled={isSaving} onChange={(event) => void handleMemberUpdate(member, "status", event.target.value as OwnerMembershipStatus)}><option value="active">Activa</option><option value="suspended">Suspendida</option><option value="revoked">Revocada</option></select></div>
+                      <div className="member-row__feedback" aria-live="polite">{isSaving ? "Guardando…" : memberFeedback[memberKey]}</div>
+                    </article>
+                  );
+                })}
               </div>
             </section>
           )}

@@ -2,6 +2,7 @@ import type {
   Owner,
   OwnerInvitation,
   OwnerInvitationCreate,
+  OwnerMemberSummary,
   OwnerMembership,
   OwnerUpdateData,
 } from "../types/owner";
@@ -79,6 +80,15 @@ export async function fetchOwnerMembers(
 ): Promise<OwnerMembership[]> {
   return requestJson<OwnerMembership[]>(
     `/owners/${encodeURIComponent(ownerId)}/members`
+  );
+}
+
+export async function searchOwnerMemberCandidates(
+  ownerId: string,
+  query: string
+): Promise<OwnerMemberSummary[]> {
+  return requestJson<OwnerMemberSummary[]>(
+    `/owners/${encodeURIComponent(ownerId)}/member-candidates?query=${encodeURIComponent(query)}`
   );
 }
 
