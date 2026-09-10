@@ -10,33 +10,6 @@
   display: flex;
   flex-direction: column;
 }
-.dataset-details-page-back-btn-container {
-  flex: 0 0 auto; /* No permitir que flex crezca o se encoja */
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: min(1400px, calc(100% - var(--space-4) - var(--space-4)));
-  margin: 0 auto;
-  padding: 0 0 var(--space-3);
-  z-index: 10000; /* Z-index mayor que el navbar */
-  position: relative; /* Asegurar que z-index funcione */
-  min-width: 0; /* Permitir que se encoja si es necesario */
-}
-.dataset-details-page-back-btn {
-  font-weight: 500;
-  border-radius: 2px;
-  min-width: 90px;
-  padding: 0.38em 1.1em;
-  border: 1px solid #1967d2;
-  background: #fff;
-  color: #1967d2;
-  transition: background 0.2s, color 0.2s;
-  cursor: pointer;
-}
-.dataset-details-page-back-btn:hover {
-  background: #1967d2;
-  color: #fff;
-}
 .dataset-details-page-content {
   flex: 0 0 auto;
   overflow-x: hidden !important;
@@ -45,6 +18,17 @@
 
 .dataset-details-page-notfound--with-navbar {
   padding-top: 40px; /* Solo padding adicional para el caso not found */
+}
+
+.dataset-details-page-error-back-link {
+  color: var(--color-primary-700);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+.dataset-details-page-error-back-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* Asegurar que el navbar en DatasetDetailsPage tenga la estructura correcta */
@@ -65,19 +49,7 @@
   overflow: hidden !important;
 }
 
-/* Responsive adjustments para el botón volver */
 @media (max-width: 768px) {
-  .dataset-details-page-back-btn-container {
-    width: calc(100% - 2.5rem);
-    padding-bottom: var(--space-2);
-  }
-
-  .dataset-details-page-back-btn {
-    min-width: 80px;
-    padding: 0.3em 0.8em;
-    font-size: 0.9em;
-  }
-
   .dataset-details-page-container .navbar {
     height: 56px !important;
     max-height: 56px !important;
@@ -90,18 +62,6 @@
 }
 
 @media (max-width: 480px) {
-  .dataset-details-page-back-btn-container {
-    width: calc(100% - 2.5rem);
-    padding: 0 0 var(--space-2);
-    max-width: 1400px;
-  }
-
-  .dataset-details-page-back-btn {
-    min-width: 60px; /* Ancho mínimo reducido */
-    padding: 0.25em 0.5em; /* Padding reducido */
-    font-size: 0.8em; /* Texto más pequeño */
-  }
-
   .dataset-details-page-container .navbar {
     padding: 0 0.25rem !important; /* Padding mínimo en mobile */
   }
@@ -113,19 +73,6 @@
 }
 
 @media (max-width: 360px) {
-  /* Para pantallas muy angostas */
-  .dataset-details-page-back-btn-container {
-    padding: 0 0 var(--space-2);
-    max-width: 1400px;
-  }
-
-  .dataset-details-page-back-btn {
-    min-width: 50px;
-    padding: 0.2em 0.4em;
-    font-size: 0.75em;
-    /* Usar solo icono en pantallas muy pequeñas */
-  }
-
   .dataset-details-page-container .navbar {
     padding: 0 0.125rem !important; /* Padding ultra mínimo */
   }

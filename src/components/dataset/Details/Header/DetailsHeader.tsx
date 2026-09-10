@@ -8,9 +8,10 @@ import "./DetailsHeader.css";
 
 interface DetailsHeaderProps {
   dataset: Dataset;
+  onBackToResults: () => void;
 }
 
-const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset }) => {
+const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset, onBackToResults }) => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const formatNumber = (value: number) =>
     value >= 1000000
@@ -53,6 +54,11 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset }) => {
     },
   ].filter(Boolean) as Array<{ label: string; value: string | number }>;
 
+  const handleBackToResults = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    onBackToResults();
+  };
+
   return (
     <div
       className={`details-header${
@@ -60,7 +66,9 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset }) => {
       }`}
     >
       <nav className="details-header-breadcrumb" aria-label="Ubicación actual">
-        <Link to="/">Explorar datasets</Link>
+        <Link to="/" onClick={handleBackToResults}>
+          ← Volver a resultados
+        </Link>
         <span aria-hidden="true">›</span>
         <span>{dataset.category ?? "General"}</span>
         <span aria-hidden="true">›</span>

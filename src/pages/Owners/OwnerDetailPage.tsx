@@ -214,7 +214,7 @@ const OwnerDetailPage: React.FC = () => {
       setError(
         requestError instanceof Error
           ? requestError.message
-          : "No se pudo cargar este owner."
+          : "No se pudo cargar este proveedor."
       );
     } finally {
       setLoading(false);
@@ -250,7 +250,7 @@ const OwnerDetailPage: React.FC = () => {
       setEditingOwner(false);
     } catch (requestError) {
       setError(
-        requestError instanceof Error ? requestError.message : "No se pudo actualizar el owner."
+        requestError instanceof Error ? requestError.message : "No se pudo actualizar el proveedor."
       );
     } finally {
       setSavingOwner(false);
@@ -258,7 +258,7 @@ const OwnerDetailPage: React.FC = () => {
   };
 
   const handleArchiveOwner = async () => {
-    if (!ownerId || !window.confirm("¿Quieres archivar este owner? Esta acción quitará su disponibilidad pública.")) {
+    if (!ownerId || !window.confirm("¿Quieres archivar este proveedor? Esta acción quitará su disponibilidad pública.")) {
       return;
     }
     try {
@@ -266,7 +266,7 @@ const OwnerDetailPage: React.FC = () => {
       navigate("/owners");
     } catch (requestError) {
       setError(
-        requestError instanceof Error ? requestError.message : "No se pudo archivar el owner."
+        requestError instanceof Error ? requestError.message : "No se pudo archivar el proveedor."
       );
     }
   };
@@ -400,7 +400,7 @@ const OwnerDetailPage: React.FC = () => {
     return (
       <div className="workspace-page">
         <AppHeader />
-        <div className="workspace-state"><Loading size="lg" text="Cargando owner..." /></div>
+        <div className="workspace-state"><Loading size="lg" text="Cargando proveedor..." /></div>
       </div>
     );
   }
@@ -425,18 +425,18 @@ const OwnerDetailPage: React.FC = () => {
         <AppHeader />
         <main className="workspace-content workspace-content--narrow">
           <Link to={isAuthenticated ? "/owners" : "/"} className="workspace-back-link">
-            {isAuthenticated ? "← Volver a mis owners" : "← Volver al catálogo"}
+            {isAuthenticated ? "← Volver a mis perfiles de proveedor" : "← Volver al catálogo"}
           </Link>
           <section className="workspace-card" aria-labelledby="owner-blocked-title">
-            <span className="workspace-eyebrow">Contexto de owner</span>
+            <span className="workspace-eyebrow">Perfil de proveedor</span>
             <h1 id="owner-blocked-title">{owner.name}</h1>
             <div className="workspace-message workspace-message--error" role="alert">
               {isAuthenticated
-                ? "No tienes una membresía activa para este owner. Las capacidades se evalúan por owner y no por tu interés o rol global."
-                : "Este es un owner público. Inicia sesión para comprobar si tienes una membresía y acceder al panel interno."}
+                ? "No tienes acceso activo a este proveedor. Tus permisos se definen para cada proveedor, independientemente de tus intereses o del rol general de tu cuenta."
+                : "Este es un proveedor público. Inicia sesión para comprobar si tienes acceso y entrar al panel de administración."}
             </div>
             <Link to={isAuthenticated ? "/owners" : "/login"} className="workspace-back-link">
-              {isAuthenticated ? "Ir a mis owners" : "Iniciar sesión"}
+              {isAuthenticated ? "Ir a mis perfiles de proveedor" : "Iniciar sesión"}
             </Link>
           </section>
         </main>
@@ -448,23 +448,23 @@ const OwnerDetailPage: React.FC = () => {
     <div className="workspace-page">
       <AppHeader />
       <main className="workspace-content">
-        <Link to="/owners" className="workspace-back-link">← Volver a mis owners</Link>
+        <Link to="/owners" className="workspace-back-link">← Volver a mis perfiles de proveedor</Link>
         {error && <div className="workspace-message workspace-message--error" role="alert">{error}</div>}
         <section className="owner-detail-hero workspace-card">
           <div>
             <span className="workspace-eyebrow">{ownerTypeLabel(owner.type)} · {roleLabel(membership.role)}</span>
             <h1>{owner.name}</h1>
-            <p>{owner.description || "Este owner aún no tiene una descripción."}</p>
+            <p>{owner.description || "Este proveedor aún no tiene una descripción."}</p>
           </div>
           <div className="workspace-inline-actions">
-            {capabilities.canEditOwner && <Button variant="outline" onClick={() => setEditingOwner((current) => !current)}>{editingOwner ? "Cancelar edición" : "Editar owner"}</Button>}
-            {capabilities.canEditOwner && <Button variant="ghost" onClick={handleArchiveOwner}>Archivar owner</Button>}
+            {capabilities.canEditOwner && <Button variant="outline" onClick={() => setEditingOwner((current) => !current)}>{editingOwner ? "Cancelar edición" : "Editar proveedor"}</Button>}
+            {capabilities.canEditOwner && <Button variant="ghost" onClick={handleArchiveOwner}>Archivar proveedor</Button>}
           </div>
         </section>
 
         {editingOwner && ownerForm && (
           <section className="workspace-card workspace-card--spaced" aria-labelledby="edit-owner-title">
-            <div className="workspace-card__header"><h2 id="edit-owner-title">Editar owner</h2></div>
+            <div className="workspace-card__header"><h2 id="edit-owner-title">Editar proveedor</h2></div>
             <form className="workspace-form" onSubmit={handleOwnerSave}>
               <div className="workspace-form__row">
                 <div className="workspace-field"><label htmlFor="edit-owner-name">Nombre</label><input id="edit-owner-name" name="name" value={ownerForm.name} onChange={handleOwnerFormChange} required /></div>
@@ -475,7 +475,7 @@ const OwnerDetailPage: React.FC = () => {
                 <div className="workspace-field"><label htmlFor="edit-owner-website">Sitio web</label><input id="edit-owner-website" name="website" type="url" value={ownerForm.website} onChange={handleOwnerFormChange} /></div>
                 <div className="workspace-field"><label htmlFor="edit-owner-email">Correo</label><input id="edit-owner-email" name="email" type="email" value={ownerForm.email} onChange={handleOwnerFormChange} /></div>
               </div>
-              <Button type="submit" loading={savingOwner}>Guardar owner</Button>
+              <Button type="submit" loading={savingOwner}>Guardar cambios</Button>
             </form>
           </section>
         )}
@@ -483,10 +483,10 @@ const OwnerDetailPage: React.FC = () => {
         <div className="owner-detail-grid">
           {capabilities.canInvite && (
             <section className="workspace-card" aria-labelledby="invite-title">
-              <div className="workspace-card__header"><h2 id="invite-title">Invitar a este owner</h2><p>La invitación quedará disponible en la bandeja del usuario registrado.</p></div>
+              <div className="workspace-card__header"><h2 id="invite-title">Invitar colaboradores</h2><p>Las personas invitadas podrán aceptar el acceso desde su bandeja.</p></div>
               {invitationSuccess && <div className="workspace-message workspace-message--success" role="status">{invitationSuccess}</div>}
               <form className="workspace-form" onSubmit={handleInvite}>
-                <div className="workspace-field"><label htmlFor="invited-user-id">ID del usuario registrado</label><input id="invited-user-id" value={invitationForm.invited_user_id} onChange={(event) => setInvitationForm((current) => ({ ...current, invited_user_id: event.target.value }))} required /><span className="workspace-field__hint">La selección de usuarios se hará con el mecanismo que defina el producto.</span></div>
+                <div className="workspace-field"><label htmlFor="invited-user-id">Identificador del usuario registrado</label><input id="invited-user-id" value={invitationForm.invited_user_id} onChange={(event) => setInvitationForm((current) => ({ ...current, invited_user_id: event.target.value }))} required /><span className="workspace-field__hint">La persona debe tener una cuenta registrada en taloop.</span></div>
                 <div className="workspace-form__row">
                   <div className="workspace-field"><label htmlFor="invitation-role">Rol ofrecido</label><select id="invitation-role" value={invitationForm.role} onChange={(event) => setInvitationForm((current) => ({ ...current, role: event.target.value as OwnerMembershipRole }))}><option value="owner_editor">Editor</option><option value="owner_viewer">Lector</option><option value="owner_admin">Administrador</option></select></div>
                   <div className="workspace-field"><label htmlFor="invitation-expires">Vence</label><input id="invitation-expires" type="datetime-local" value={invitationForm.expires_at} onChange={(event) => setInvitationForm((current) => ({ ...current, expires_at: event.target.value }))} required /></div>
@@ -499,7 +499,7 @@ const OwnerDetailPage: React.FC = () => {
 
           {capabilities.canManageMembers && (
             <section className="workspace-card" aria-labelledby="members-title">
-              <div className="workspace-card__header"><h2 id="members-title">Membresías</h2><p>Los permisos se resuelven con la membresía activa de este owner.</p></div>
+              <div className="workspace-card__header"><h2 id="members-title">Personas con acceso</h2><p>Aquí puedes revisar y cambiar el acceso de las personas a este proveedor.</p></div>
               <div className="member-list">
                 {members.map((member) => (
                   <div className="member-row" key={member.user_id}>
@@ -516,13 +516,13 @@ const OwnerDetailPage: React.FC = () => {
         {capabilities.canViewInternal && (
           <section className="workspace-card workspace-card--spaced owner-datasets-section" aria-labelledby="datasets-title">
             <div className="workspace-section-heading">
-              <div><span className="workspace-eyebrow">Contenido del owner</span><h2 id="datasets-title">Datasets</h2><p>Los nuevos datasets empiezan como borradores. El owner_admin controla la publicación.</p></div>
+              <div><span className="workspace-eyebrow">Contenido del proveedor</span><h2 id="datasets-title">Datasets</h2><p>Los nuevos datasets empiezan como borradores. Solo un Administrador puede publicarlos.</p></div>
               {capabilities.canCreateDataset && <Button onClick={openNewDataset}>Crear dataset</Button>}
             </div>
             {datasetSuccess && <div className="workspace-message workspace-message--success" role="status">{datasetSuccess}</div>}
             {datasetError && <div className="workspace-message workspace-message--error" role="alert">{datasetError}</div>}
             {datasetEditorOpen && <DatasetEditor initialDataset={editingDataset} canPublish={capabilities.canPublishDataset} saving={datasetSaving} onCancel={() => { setDatasetEditorOpen(false); setEditingDataset(null); }} onSave={handleDatasetSave} />}
-            {datasets.length === 0 ? <div className="workspace-empty">Aún no hay datasets visibles en este owner.</div> : <div className="dataset-admin-list">{datasets.map((dataset) => { const canEdit = capabilities.canEditDraft && dataset.status !== "archived" && (dataset.status === "draft" || capabilities.canPublishDataset); return <article className="dataset-admin-row" key={dataset._id}><div><span className={`dataset-status dataset-status--${dataset.status}`}>{dataset.status}</span><h3>{dataset.title}</h3><p>{dataset.description || "Sin descripción"}</p><span className="workspace-field__hint">{dataset.visibility} · actualización {dataset.timestamps?.updatedAt ? formatDate(dataset.timestamps.updatedAt) : "sin fecha"}</span></div><div className="workspace-inline-actions">{canEdit && <Button size="sm" variant="outline" onClick={() => { setEditingDataset(dataset); setDatasetEditorOpen(true); setDatasetError(null); }}>Editar</Button>}{capabilities.canPublishDataset && dataset.status !== "archived" && <Button size="sm" variant="ghost" onClick={() => void handleDatasetArchive(dataset)}>Archivar</Button>}</div></article>; })}</div>}
+            {datasets.length === 0 ? <div className="workspace-empty">Aún no hay datasets visibles para este proveedor.</div> : <div className="dataset-admin-list">{datasets.map((dataset) => { const canEdit = capabilities.canEditDraft && dataset.status !== "archived" && (dataset.status === "draft" || capabilities.canPublishDataset); return <article className="dataset-admin-row" key={dataset._id}><div><span className={`dataset-status dataset-status--${dataset.status}`}>{dataset.status}</span><h3>{dataset.title}</h3><p>{dataset.description || "Sin descripción"}</p><span className="workspace-field__hint">{dataset.visibility} · actualización {dataset.timestamps?.updatedAt ? formatDate(dataset.timestamps.updatedAt) : "sin fecha"}</span></div><div className="workspace-inline-actions">{canEdit && <Button size="sm" variant="outline" onClick={() => { setEditingDataset(dataset); setDatasetEditorOpen(true); setDatasetError(null); }}>Editar</Button>}{capabilities.canPublishDataset && dataset.status !== "archived" && <Button size="sm" variant="ghost" onClick={() => void handleDatasetArchive(dataset)}>Archivar</Button>}</div></article>; })}</div>}
           </section>
         )}
       </main>
@@ -557,7 +557,7 @@ const DatasetEditor: React.FC<DatasetEditorProps> = ({ initialDataset, canPublis
         <div className="workspace-field"><label htmlFor="dataset-tags">Tags</label><input id="dataset-tags" name="tags" value={form.tags} onChange={handleChange} placeholder="movilidad, ciudad" /></div>
       </div>
       <label className="workspace-check"><input type="checkbox" name="publicPreviewEnabled" checked={form.publicPreviewEnabled} onChange={handleChange} /><span>Permitir vista previa pública limitada (solo datasets activos públicos o no listados).</span></label>
-      {initialDataset && canPublish && <div className="workspace-field"><label htmlFor="dataset-status">Estado</label><select id="dataset-status" name="status" value={form.status} onChange={handleChange}>{getAllowedDatasetStatuses(form.status).map((status) => <option value={status} key={status}>{status === "draft" ? "Borrador" : status === "active" ? "Activo / publicado" : status === "suspended" ? "Suspendido" : "Archivado"}</option>)}</select><span className="workspace-field__hint">Publicar, suspender o archivar requiere el rol owner_admin.</span></div>}
+      {initialDataset && canPublish && <div className="workspace-field"><label htmlFor="dataset-status">Estado</label><select id="dataset-status" name="status" value={form.status} onChange={handleChange}>{getAllowedDatasetStatuses(form.status).map((status) => <option value={status} key={status}>{status === "draft" ? "Borrador" : status === "active" ? "Activo / publicado" : status === "suspended" ? "Suspendido" : "Archivado"}</option>)}</select><span className="workspace-field__hint">Publicar, suspender o archivar requiere el rol de Administrador.</span></div>}
       <div className="workspace-inline-actions"><Button type="submit" loading={saving}>{initialDataset ? "Guardar cambios" : "Crear borrador"}</Button><Button type="button" variant="ghost" onClick={onCancel}>Cancelar</Button></div>
     </form>
   );

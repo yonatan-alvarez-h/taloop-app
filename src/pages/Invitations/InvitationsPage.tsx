@@ -94,7 +94,7 @@ const InvitationsPage: React.FC = () => {
                 <div className="invitation-card__header">
                   <div>
                     <span className="workspace-eyebrow">Invitación pendiente</span>
-                    <h2>{invitation.owner?.name ?? "Owner sin nombre"}</h2>
+                    <h2>{invitation.owner?.name ?? "Proveedor sin nombre"}</h2>
                   </div>
                   <span className="invitation-role">{roleLabel(invitation.role)}</span>
                 </div>

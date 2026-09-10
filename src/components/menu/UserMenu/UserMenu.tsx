@@ -193,7 +193,7 @@ const UserMenu: React.FC = () => {
                   </NavLink>
                   <NavLink to="/owners" className="user-menu-item" onClick={closeMenu}>
                     <MenuIcon name="owners" />
-                    <span>Mis owners</span>
+                    <span>Mis perfiles de proveedor</span>
                   </NavLink>
                   <NavLink
                     to="/invitaciones"

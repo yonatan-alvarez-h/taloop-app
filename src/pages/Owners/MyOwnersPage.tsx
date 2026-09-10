@@ -53,7 +53,7 @@ const MyOwnersPage: React.FC = () => {
       setError(
         requestError instanceof Error
           ? requestError.message
-          : "No se pudieron cargar tus owners."
+          : "No se pudieron cargar tus perfiles de proveedor."
       );
     } finally {
       setLoading(false);
@@ -89,14 +89,14 @@ const MyOwnersPage: React.FC = () => {
       });
       setFormData(initialFormData);
       setShowCreate(false);
-      setSuccess("Owner creado. Ya tienes el rol de administrador.");
+      setSuccess("Perfil de proveedor creado. Ya tienes el rol de Administrador.");
       await loadOwners();
       navigate(`/owners/${owner._id}`);
     } catch (requestError) {
       setError(
         requestError instanceof Error
           ? requestError.message
-          : "No se pudo crear el owner."
+          : "No se pudo crear el perfil de proveedor."
       );
     } finally {
       setSaving(false);
@@ -110,11 +110,11 @@ const MyOwnersPage: React.FC = () => {
         <div className="workspace-heading">
           <div>
             <span className="workspace-eyebrow">Proveer datos</span>
-            <h1>Mis owners</h1>
-            <p>Administra los contextos desde los que puedes proveer datos.</p>
+            <h1>Mis perfiles de proveedor</h1>
+            <p>Administra los perfiles desde los que publicas datasets.</p>
           </div>
           <Button onClick={() => setShowCreate((current) => !current)}>
-            {showCreate ? "Cancelar" : "Crear owner"}
+            {showCreate ? "Cancelar" : "Crear perfil de proveedor"}
           </Button>
         </div>
 
@@ -135,8 +135,8 @@ const MyOwnersPage: React.FC = () => {
         {showCreate && (
           <section className="workspace-card workspace-card--spaced" aria-labelledby="create-owner-title">
             <div className="workspace-card__header">
-              <h2 id="create-owner-title">Nuevo owner</h2>
-              <p>Al crearlo, tu cuenta recibirá automáticamente una membresía owner_admin activa.</p>
+              <h2 id="create-owner-title">Nuevo perfil de proveedor</h2>
+              <p>Al crearlo, tu cuenta recibirá automáticamente el rol de Administrador.</p>
             </div>
             <form className="workspace-form" onSubmit={handleCreate}>
               <div className="workspace-form__row">
@@ -167,7 +167,7 @@ const MyOwnersPage: React.FC = () => {
                 </div>
               </div>
               <div className="workspace-inline-actions">
-                <Button type="submit" loading={saving}>Crear owner</Button>
+                <Button type="submit" loading={saving}>Crear perfil de proveedor</Button>
                 <Button type="button" variant="ghost" onClick={() => setShowCreate(false)}>Cancelar</Button>
               </div>
             </form>
@@ -175,12 +175,12 @@ const MyOwnersPage: React.FC = () => {
         )}
 
         {loading ? (
-          <div className="workspace-state"><Loading size="lg" text="Cargando tus owners..." /></div>
+          <div className="workspace-state"><Loading size="lg" text="Cargando tus perfiles de proveedor..." /></div>
         ) : owners.length === 0 ? (
           <div className="workspace-empty">
-            <h2>Aún no administras ningún owner</h2>
-            <p>Crea un owner para empezar a gestionar y publicar datasets.</p>
-            {!showCreate && <Button onClick={() => setShowCreate(true)}>Crear mi primer owner</Button>}
+            <h2>Aún no administras ningún perfil de proveedor</h2>
+            <p>Crea un perfil de proveedor para empezar a gestionar y publicar datasets.</p>
+            {!showCreate && <Button onClick={() => setShowCreate(true)}>Crear mi primer perfil de proveedor</Button>}
           </div>
         ) : (
           <div className="owner-grid">

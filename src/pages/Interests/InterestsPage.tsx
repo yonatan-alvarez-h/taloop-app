@@ -22,7 +22,7 @@ const INTEREST_OPTIONS: Array<{
   {
     value: "provide",
     title: "Proveer datos",
-    description: "Crear owners y publicar datasets con un contexto de permisos.",
+    description: "Crear perfiles de proveedor y publicar datasets con permisos para tu equipo.",
   },
 ];
 
@@ -114,7 +114,7 @@ const InterestsPage: React.FC = () => {
             <h1 id="interests-title">Mis intereses</h1>
             <p>
               Elige cómo quieres usar taloop. Estas preferencias no conceden ni
-              quitan permisos sobre owners o datasets.
+              quitan permisos sobre proveedores o datasets.
             </p>
           </div>
 

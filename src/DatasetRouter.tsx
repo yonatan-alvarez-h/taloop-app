@@ -49,7 +49,7 @@ const DatasetRouter: React.FC = () => {
       >
         ← Volver a la búsqueda
       </button>
-      <DatasetDetails dataset={dataset} />
+      <DatasetDetails dataset={dataset} onBackToResults={() => navigate(-1)} />
     </div>
   );
 };

@@ -47,7 +47,7 @@ const normalizeDataset = (
     tags: dataset.tags ?? [],
     description: dataset.description ?? "",
     fields,
-    owner: dataset.owner ?? { name: "Owner no disponible", type: "individual" },
+    owner: dataset.owner ?? { name: "Proveedor no disponible", type: "individual" },
     priceUsd: dataset.priceUsd ?? 0,
     publicPreviewEnabled: dataset.publicPreviewEnabled ?? false,
     visibility: dataset.visibility ?? "public",

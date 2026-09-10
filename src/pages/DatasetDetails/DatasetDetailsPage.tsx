@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import AppHeader from "../../components/layout/AppHeader";
 import Loading from "../../components/UI/Loading";
-import Button from "../../components/UI/Button";
 import { fetchDatasetById } from "../../services/datasetsService";
 import { fetchDatasetPreview } from "../../services/datasetsService";
 import DatasetDetails from "../../components/Dataset/Details/DatasetDetails";
@@ -17,6 +16,21 @@ const DatasetDetailsPage: React.FC = () => {
   const [dataset, setDataset] = useState<DatasetWithSamples | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const handleBackToResults = () => {
+    if (document.referrer) {
+      try {
+        if (new URL(document.referrer).origin === window.location.origin) {
+          navigate(-1);
+          return;
+        }
+      } catch {
+        // Si el referrer no es válido, se usa el catálogo como destino seguro.
+      }
+    }
+
+    navigate("/");
+  };
 
   useEffect(() => {
     if (!_id) return;
@@ -64,18 +78,18 @@ const DatasetDetailsPage: React.FC = () => {
     return (
       <div>
         <AppHeader />
-        <div className="dataset-details-page-back-btn-container">
-          <Button
-            onClick={() => navigate(-1)}
-            variant="ghost"
-            size="sm"
-            className="dataset-details-page-back-btn"
+        <div className="dataset-details-page-notfound dataset-details-page-notfound--with-navbar">
+          <p>Dataset no encontrado.</p>
+          <Link
+            to="/"
+            className="dataset-details-page-error-back-link"
+            onClick={(event) => {
+              event.preventDefault();
+              handleBackToResults();
+            }}
           >
             ← Volver a resultados
-          </Button>
-        </div>
-        <div className="dataset-details-page-notfound dataset-details-page-notfound--with-navbar">
-          Dataset no encontrado.
+          </Link>
         </div>
       </div>
     );
@@ -84,19 +98,9 @@ const DatasetDetailsPage: React.FC = () => {
   return (
     <div>
       <AppHeader />
-        <div className="dataset-details-page-back-btn-container">
-          <Button
-            onClick={() => navigate(-1)}
-            variant="ghost"
-            size="sm"
-            className="dataset-details-page-back-btn"
-          >
-            ← Volver a resultados
-          </Button>
-        </div>
       <div className="dataset-details-page-container container">
         <div className="dataset-details-page-content">
-          <DatasetDetails dataset={dataset} />
+          <DatasetDetails dataset={dataset} onBackToResults={handleBackToResults} />
         </div>
       </div>
     </div>
