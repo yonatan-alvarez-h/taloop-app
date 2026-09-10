@@ -61,6 +61,8 @@ interface DatasetFormData {
   status: "draft" | "active" | "suspended" | "archived";
 }
 
+type OwnerDetailTab = "datasets" | "access";
+
 const emptyDatasetForm: DatasetFormData = {
   title: "",
   category: "",
@@ -207,6 +209,7 @@ const OwnerDetailPage: React.FC = () => {
   const [datasetSaving, setDatasetSaving] = useState(false);
   const [datasetError, setDatasetError] = useState<string | null>(null);
   const [datasetSuccess, setDatasetSuccess] = useState<string | null>(null);
+  const [activeOwnerTab, setActiveOwnerTab] = useState<OwnerDetailTab>("datasets");
 
   const membership = useMemo(
     () => members.find((candidate) => candidate.user_id === currentUserId) ?? null,
@@ -456,6 +459,7 @@ const OwnerDetailPage: React.FC = () => {
   };
 
   const openNewDataset = () => {
+    setActiveOwnerTab("datasets");
     setEditingDataset(null);
     setDatasetEditorOpen(true);
     setDatasetError(null);
@@ -590,6 +594,7 @@ const OwnerDetailPage: React.FC = () => {
             <p>{owner.description || "Este proveedor aún no tiene una descripción."}</p>
           </div>
           <div className="workspace-inline-actions">
+            {capabilities.canCreateDataset && <Button onClick={openNewDataset}>Crear dataset</Button>}
             {capabilities.canEditOwner && <Button variant="outline" onClick={() => setEditingOwner((current) => !current)}>{editingOwner ? "Cancelar edición" : "Editar proveedor"}</Button>}
             {capabilities.canEditOwner && <Button variant="ghost" onClick={handleArchiveOwner}>Archivar proveedor</Button>}
           </div>
@@ -613,6 +618,37 @@ const OwnerDetailPage: React.FC = () => {
           </section>
         )}
 
+        {capabilities.canManageMembers && (
+        <div className="owner-detail-tabs" role="tablist" aria-label="Secciones del proveedor">
+          <button
+            id="owner-datasets-tab"
+            className={`owner-detail-tab${activeOwnerTab === "datasets" ? " owner-detail-tab--active" : ""}`}
+            type="button"
+            role="tab"
+            aria-selected={activeOwnerTab === "datasets"}
+            aria-controls="owner-datasets-panel"
+            onClick={() => setActiveOwnerTab("datasets")}
+          >
+            Datasets <span className="workspace-count">{datasets.length}</span>
+          </button>
+          {capabilities.canManageMembers && (
+            <button
+              id="owner-access-tab"
+              className={`owner-detail-tab${activeOwnerTab === "access" ? " owner-detail-tab--active" : ""}`}
+              type="button"
+              role="tab"
+              aria-selected={activeOwnerTab === "access"}
+              aria-controls="owner-access-panel"
+              onClick={() => setActiveOwnerTab("access")}
+            >
+              Personas con acceso <span className="workspace-count">{members.length}</span>
+            </button>
+          )}
+        </div>
+        )}
+
+        {activeOwnerTab === "access" && capabilities.canManageMembers && (
+        <div id="owner-access-panel" role="tabpanel" aria-labelledby="owner-access-tab">
         <div className="owner-detail-grid">
           {capabilities.canInvite && (
             <section className="workspace-card" aria-labelledby="invite-title">
@@ -707,9 +743,11 @@ const OwnerDetailPage: React.FC = () => {
             </section>
           )}
         </div>
+        </div>
+        )}
 
-        {capabilities.canViewInternal && (
-          <section className="workspace-card workspace-card--spaced owner-datasets-section" aria-labelledby="datasets-title">
+        {capabilities.canViewInternal && activeOwnerTab === "datasets" && (
+          <section id="owner-datasets-panel" className="workspace-card workspace-card--spaced owner-datasets-section" role="tabpanel" aria-labelledby="owner-datasets-tab">
             <div className="workspace-section-heading">
               <div><span className="workspace-eyebrow">Contenido del proveedor</span><h2 id="datasets-title">Datasets</h2><p>Los nuevos datasets empiezan como borradores. Solo un Administrador puede publicarlos.</p></div>
               {capabilities.canCreateDataset && <Button onClick={openNewDataset}>Crear dataset</Button>}
