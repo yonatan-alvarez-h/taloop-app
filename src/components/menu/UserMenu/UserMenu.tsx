@@ -7,7 +7,6 @@ import NavBar from "../Nav/NavBar";
 import "./UserMenu.css";
 
 type MenuIconName =
-  | "home"
   | "heart"
   | "owners"
   | "invitations"
@@ -17,13 +16,6 @@ type MenuIconName =
 
 const MenuIcon: React.FC<{ name: MenuIconName }> = ({ name }) => {
   const paths: Record<MenuIconName, React.ReactNode> = {
-    home: (
-      <>
-        <path d="m3 10 9-7 9 7" />
-        <path d="M5 9v11h14V9" />
-        <path d="M9 20v-6h6v6" />
-      </>
-    ),
     heart: <path d="M20.8 8.6c0 5.2-8.8 10.1-8.8 10.1S3.2 13.8 3.2 8.6A4.6 4.6 0 0 1 12 6a4.6 4.6 0 0 1 8.8 2.6Z" />,
     owners: (
       <>
@@ -195,10 +187,6 @@ const UserMenu: React.FC = () => {
                   <h2 id="user-menu-navigation-title" className="user-menu-section-title">
                     Navegación
                   </h2>
-                  <NavLink to="/" end className="user-menu-item" onClick={closeMenu}>
-                    <MenuIcon name="home" />
-                    <span>Catálogo</span>
-                  </NavLink>
                   <NavLink to="/intereses" className="user-menu-item" onClick={closeMenu}>
                     <MenuIcon name="heart" />
                     <span>Mis intereses</span>

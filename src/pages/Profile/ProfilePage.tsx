@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AppHeader from "../../components/layout/AppHeader";
 import Button from "../../components/UI/Button";
 import Loading from "../../components/UI/Loading";
@@ -296,9 +296,6 @@ const ProfilePage: React.FC = () => {
             </>
           )}
 
-          <p className="profile-footer">
-            ¿Quieres volver? <Link to="/">Explorar datasets</Link>
-          </p>
         </section>
       </main>
     </div>

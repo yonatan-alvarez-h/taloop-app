@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AppHeader from "../../components/layout/AppHeader";
 import Button from "../../components/UI/Button";
 import Loading from "../../components/UI/Loading";
@@ -64,7 +64,6 @@ const InvitationsPage: React.FC = () => {
     <div className="workspace-page">
       <AppHeader />
       <main className="workspace-content workspace-content--narrow">
-        <Link to="/" className="workspace-back-link">← Volver al catálogo</Link>
         <div className="workspace-heading">
           <div>
             <span className="workspace-eyebrow">Acceso contextual</span>

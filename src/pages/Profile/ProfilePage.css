@@ -207,17 +207,6 @@
   border: var(--border-width-1) solid var(--color-info-100);
 }
 
-.profile-footer {
-  margin: var(--space-6) 0 0;
-  color: var(--color-neutral-600);
-  font-size: var(--font-size-sm);
-  text-align: center;
-}
-
-.profile-footer a {
-  color: var(--color-primary-700);
-  font-weight: var(--font-weight-semibold);
-}
 
 @media (max-width: 768px) {
   .profile-content {

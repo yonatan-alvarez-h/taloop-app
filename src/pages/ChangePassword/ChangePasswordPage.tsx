@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import AppHeader from "../../components/layout/AppHeader";
 import Button from "../../components/UI/Button";
 import { useAuth } from "../../context/useAuth";
@@ -172,9 +171,6 @@ const ChangePasswordPage: React.FC = () => {
             </Button>
           </form>
 
-          <p className="change-password-footer">
-            ¿Quieres volver? <Link to="/">Explorar datasets</Link>
-          </p>
         </section>
       </main>
     </div>

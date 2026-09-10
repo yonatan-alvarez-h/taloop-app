@@ -107,9 +107,6 @@ const MyOwnersPage: React.FC = () => {
     <div className="workspace-page">
       <AppHeader />
       <main className="workspace-content">
-        <Link to="/" className="workspace-back-link">
-          ← Volver al catálogo
-        </Link>
         <div className="workspace-heading">
           <div>
             <span className="workspace-eyebrow">Proveer datos</span>
