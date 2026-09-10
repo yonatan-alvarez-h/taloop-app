@@ -48,6 +48,12 @@ export interface OwnerInvitationOwnerSummary {
   type: string;
 }
 
+export interface OwnerInvitationInviterSummary {
+  id: string;
+  email: string;
+  full_name?: string | null;
+}
+
 export interface OwnerInvitation {
   id: string;
   owner_id: string;
@@ -60,6 +66,7 @@ export interface OwnerInvitation {
   declined_at?: string | null;
   created_at: string;
   owner?: OwnerInvitationOwnerSummary | null;
+  invited_by?: OwnerInvitationInviterSummary | null;
 }
 
 export interface OwnerInvitationCreate {

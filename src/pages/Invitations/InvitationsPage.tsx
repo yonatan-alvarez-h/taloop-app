@@ -7,6 +7,7 @@ import { useInvitations } from "../../context/useInvitations";
 import { acceptOwnerInvitation, declineOwnerInvitation } from "../../services/ownersService";
 import { ApiError } from "../../services/api";
 import { roleLabel } from "../../types/owner";
+import type { OwnerInvitation, OwnerMembershipRole } from "../../types/owner";
 import "../WorkspacePage.css";
 
 const formatDate = (value: string): string =>
@@ -14,6 +15,40 @@ const formatDate = (value: string): string =>
     dateStyle: "medium",
     timeStyle: "short",
   }).format(new Date(value));
+
+const roleDescription: Record<OwnerMembershipRole, string> = {
+  owner_admin: "Administrar el proveedor, sus miembros y sus publicaciones.",
+  owner_editor: "Crear y editar datasets en borrador.",
+  owner_viewer: "Consultar los datasets disponibles.",
+};
+
+const getInviterName = (invitation: OwnerInvitation): string => {
+  const fullName = invitation.invited_by?.full_name?.trim();
+  return fullName || invitation.invited_by?.email || "Una cuenta de taloop";
+};
+
+const getExpiryStatus = (value: string): { label: string; isSoon: boolean } => {
+  const remainingMs = new Date(value).getTime() - Date.now();
+  const hour = 60 * 60 * 1000;
+  const day = 24 * hour;
+
+  if (remainingMs <= 0) {
+    return { label: "Vencida", isSoon: true };
+  }
+  if (remainingMs < hour) {
+    return {
+      label: `Vence en ${Math.max(1, Math.ceil(remainingMs / 60000))} min`,
+      isSoon: true,
+    };
+  }
+  if (remainingMs < day) {
+    return { label: `Vence en ${Math.ceil(remainingMs / hour)} h`, isSoon: true };
+  }
+  if (remainingMs < 7 * day) {
+    return { label: `Vence en ${Math.ceil(remainingMs / day)} días`, isSoon: false };
+  }
+  return { label: `Vence el ${formatDate(value)}`, isSoon: false };
+};
 
 const InvitationsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -26,6 +61,7 @@ const InvitationsPage: React.FC = () => {
   } = useInvitations();
   const [decisionId, setDecisionId] = useState<string | null>(null);
   const [decisionError, setDecisionError] = useState<string | null>(null);
+  const [declineConfirmationId, setDeclineConfirmationId] = useState<string | null>(null);
 
   const handleDecision = async (invitationId: string, accept: boolean) => {
     setDecisionId(invitationId);
@@ -68,9 +104,9 @@ const InvitationsPage: React.FC = () => {
           <div>
             <span className="workspace-eyebrow">Acceso contextual</span>
             <h1>Invitaciones</h1>
-            <p>Revisa las invitaciones dirigidas a tu cuenta.</p>
+            <p>Revisa y decide qué accesos aceptar en tu cuenta.</p>
           </div>
-          <Button variant="outline" onClick={() => void refreshInvitations()}>Actualizar</Button>
+          <Button variant="outline" onClick={() => void refreshInvitations()}>Actualizar invitaciones</Button>
         </div>
 
         {(error || decisionError) && (
@@ -93,19 +129,59 @@ const InvitationsPage: React.FC = () => {
               <article className="invitation-card" key={invitation.id}>
                 <div className="invitation-card__header">
                   <div>
-                    <span className="workspace-eyebrow">Invitación pendiente</span>
+                    <span className="invitation-status">
+                      <span className="invitation-status__dot" aria-hidden="true" />
+                      Invitación pendiente
+                    </span>
                     <h2>{invitation.owner?.name ?? "Proveedor sin nombre"}</h2>
                   </div>
                   <span className="invitation-role">{roleLabel(invitation.role)}</span>
                 </div>
+                <div className="invitation-card__summary">
+                  <p>
+                    <strong>{getInviterName(invitation)}</strong> te invita a colaborar en este proveedor.
+                  </p>
+                  <p className="invitation-card__permission">{roleDescription[invitation.role]}</p>
+                </div>
                 <dl className="invitation-details">
-                  <div><dt>Enviada</dt><dd>{formatDate(invitation.created_at)}</dd></div>
-                  <div><dt>Vence</dt><dd>{formatDate(invitation.expires_at)}</dd></div>
-                  <div><dt>Emisor</dt><dd className="invitation-details__id">{invitation.invited_by_user_id}</dd></div>
+                  <div>
+                    <dt>Invitada por</dt>
+                    <dd className="invitation-details__person">
+                      <strong>{getInviterName(invitation)}</strong>
+                      {invitation.invited_by?.full_name && <span>{invitation.invited_by.email}</span>}
+                    </dd>
+                  </div>
+                  <div><dt>Recibida</dt><dd>{formatDate(invitation.created_at)}</dd></div>
+                  <div className={getExpiryStatus(invitation.expires_at).isSoon ? "invitation-details__expiry invitation-details__expiry--soon" : "invitation-details__expiry"}>
+                    <dt>Vencimiento</dt>
+                    <dd>
+                      <strong>{getExpiryStatus(invitation.expires_at).label}</strong>
+                      <span>{formatDate(invitation.expires_at)}</span>
+                    </dd>
+                  </div>
                 </dl>
-                <div className="workspace-inline-actions">
-                  <Button disabled={decisionId !== null} loading={decisionId === invitation.id} onClick={() => void handleDecision(invitation.id, true)}>Aceptar</Button>
-                  <Button variant="outline" disabled={decisionId !== null} onClick={() => void handleDecision(invitation.id, false)}>Rechazar</Button>
+                <details className="invitation-technical">
+                  <summary>Ver detalles técnicos</summary>
+                  <dl>
+                    <div><dt>ID de invitación</dt><dd>{invitation.id}</dd></div>
+                    <div><dt>ID de quien invita</dt><dd>{invitation.invited_by_user_id}</dd></div>
+                  </dl>
+                </details>
+                <div className="invitation-card__footer">
+                  {declineConfirmationId === invitation.id ? (
+                    <div className="invitation-confirmation" role="alert">
+                      <p>¿Seguro que quieres rechazar esta invitación?</p>
+                      <div className="workspace-inline-actions">
+                        <Button variant="ghost" disabled={decisionId !== null} onClick={() => setDeclineConfirmationId(null)}>Cancelar</Button>
+                        <Button variant="outline" disabled={decisionId !== null} loading={decisionId === invitation.id} onClick={() => void handleDecision(invitation.id, false)}>Sí, rechazar</Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="workspace-inline-actions">
+                      <Button disabled={decisionId !== null} loading={decisionId === invitation.id} onClick={() => void handleDecision(invitation.id, true)}>Aceptar invitación</Button>
+                      <Button variant="ghost" disabled={decisionId !== null} onClick={() => setDeclineConfirmationId(invitation.id)}>Rechazar</Button>
+                    </div>
+                  )}
                 </div>
               </article>
             ))}
