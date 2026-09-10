@@ -187,10 +187,6 @@ const UserMenu: React.FC = () => {
                   <h2 id="user-menu-navigation-title" className="user-menu-section-title">
                     Navegación
                   </h2>
-                  <NavLink to="/intereses" className="user-menu-item" onClick={closeMenu}>
-                    <MenuIcon name="heart" />
-                    <span>Mis intereses</span>
-                  </NavLink>
                   <NavLink to="/owners" className="user-menu-item" onClick={closeMenu}>
                     <MenuIcon name="owners" />
                     <span>Mis perfiles de proveedor</span>
@@ -220,7 +216,7 @@ const UserMenu: React.FC = () => {
                   </h2>
                   <NavLink to="/perfil" className="user-menu-item" onClick={closeMenu}>
                     <MenuIcon name="profile" />
-                    <span>Modificar datos personales</span>
+                    <span>Datos de tu cuenta</span>
                   </NavLink>
                   <NavLink to="/cambiar-password" className="user-menu-item" onClick={closeMenu}>
                     <MenuIcon name="password" />

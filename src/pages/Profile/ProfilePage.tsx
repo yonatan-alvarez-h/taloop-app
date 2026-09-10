@@ -11,7 +11,7 @@ import {
   updateCurrentUser,
   verifyEmail,
 } from "../../services/usersService";
-import type { UserProfile } from "../../types/user";
+import type { UserInterest, UserProfile } from "../../types/user";
 import "./ProfilePage.css";
 
 const initialFormData: UserProfile = {
@@ -19,6 +19,23 @@ const initialFormData: UserProfile = {
   full_name: "",
   interests: [],
 };
+
+const INTEREST_OPTIONS: Array<{
+  value: UserInterest;
+  title: string;
+  description: string;
+}> = [
+  {
+    value: "consume",
+    title: "Explorar y usar datos",
+    description: "Encuentra datasets para tus análisis y proyectos.",
+  },
+  {
+    value: "provide",
+    title: "Publicar y compartir datos",
+    description: "Organiza y comparte datasets con tu equipo.",
+  },
+];
 
 const isValidFullName = (fullName: string): boolean => {
   const normalizedFullName = fullName.trim();
@@ -93,6 +110,21 @@ const ProfilePage: React.FC = () => {
     setSuccess(false);
   };
 
+  const toggleInterest = (interest: UserInterest) => {
+    setFormData((current) => {
+      const interests = current.interests ?? [];
+
+      return {
+        ...current,
+        interests: interests.includes(interest)
+          ? interests.filter((item) => item !== interest)
+          : [...interests, interest],
+      };
+    });
+    setError(null);
+    setSuccess(false);
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
@@ -122,6 +154,7 @@ const ProfilePage: React.FC = () => {
         {
           email: updatedProfile.email,
           full_name: updatedProfile.full_name ?? undefined,
+          interests: updatedProfile.interests,
         },
         accessToken
       );
@@ -195,8 +228,8 @@ const ProfilePage: React.FC = () => {
         <section className="profile-card" aria-labelledby="profile-title">
           <div className="profile-card-header">
             <span className="profile-eyebrow">Tu cuenta</span>
-            <h1 id="profile-title">Modificar datos personales</h1>
-            <p>Actualiza la información asociada a tu cuenta.</p>
+            <h1 id="profile-title">Datos de tu cuenta</h1>
+            <p>Actualiza tu información y personaliza cómo usas taloop.</p>
           </div>
 
           {initialLoading ? (
@@ -207,7 +240,7 @@ const ProfilePage: React.FC = () => {
             <>
               {success && (
                 <div className="profile-message profile-message--success" role="status">
-                  Tus datos fueron actualizados correctamente.
+                  Los cambios en tu cuenta se guardaron correctamente.
                 </div>
               )}
 
@@ -259,38 +292,72 @@ const ProfilePage: React.FC = () => {
               )}
 
               <form className="profile-form" onSubmit={handleSubmit}>
-                <div className="profile-field">
-                  <label htmlFor="full_name">Nombre completo</label>
-                  <input
-                    id="full_name"
-                    name="full_name"
-                    type="text"
-                    autoComplete="name"
-                    value={formData.full_name ?? ""}
-                    onChange={handleChange}
-                    required
-                    placeholder="Tu nombre"
-                  />
-                </div>
+                <section className="profile-section" aria-labelledby="personal-details-title">
+                  <h2 id="personal-details-title">Datos personales</h2>
+                  <div className="profile-field">
+                    <label htmlFor="full_name">Nombre completo</label>
+                    <input
+                      id="full_name"
+                      name="full_name"
+                      type="text"
+                      autoComplete="name"
+                      value={formData.full_name ?? ""}
+                      onChange={handleChange}
+                      required
+                      placeholder="Tu nombre"
+                    />
+                  </div>
 
-                <div className="profile-field">
-                  <label htmlFor="email">Correo electrónico</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    value={formData.email}
-                    readOnly
-                    aria-describedby="email-hint"
-                  />
-                  <span id="email-hint" className="profile-field-hint">
-                    El correo electrónico no se puede modificar por ahora.
-                  </span>
-                </div>
+                  <div className="profile-field">
+                    <label htmlFor="email">Correo electrónico</label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      value={formData.email}
+                      readOnly
+                      aria-describedby="email-hint"
+                    />
+                    <span id="email-hint" className="profile-field-hint">
+                      El correo electrónico no se puede modificar por ahora.
+                    </span>
+                  </div>
+                </section>
+
+                <fieldset className="profile-preferences" aria-describedby="preferences-hint">
+                  <legend>Cómo usas taloop</legend>
+                  <p id="preferences-hint" className="profile-preferences__hint">
+                    Selecciona las actividades que te interesan. Esta selección solo
+                    personaliza tu experiencia; no concede ni quita permisos sobre
+                    proveedores o datasets.
+                  </p>
+                  <div className="profile-preferences__options">
+                    {INTEREST_OPTIONS.map((option) => {
+                      const selected = formData.interests?.includes(option.value) ?? false;
+
+                      return (
+                        <label
+                          className={`profile-preference${selected ? " profile-preference--selected" : ""}`}
+                          key={option.value}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={selected}
+                            onChange={() => toggleInterest(option.value)}
+                          />
+                          <span className="profile-preference__copy">
+                            <strong>{option.title}</strong>
+                            <span>{option.description}</span>
+                          </span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </fieldset>
 
                 <Button type="submit" fullWidth size="lg" loading={loading}>
-                  Guardar cambios
+                  Guardar cambios de cuenta
                 </Button>
               </form>
             </>

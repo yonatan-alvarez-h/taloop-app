@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Navigate, Routes, Route } from "react-router-dom";
 import DatasetDetailsPage from "../pages/DatasetDetails/DatasetDetailsPage";
 import HomePage from "../pages/Home/HomePage";
 import LoginPage from "../pages/Login/LoginPage";
 import RegisterPage from "../pages/Register/RegisterPage";
 import ChangePasswordPage from "../pages/ChangePassword/ChangePasswordPage";
 import ProfilePage from "../pages/Profile/ProfilePage";
-import InterestsPage from "../pages/Interests/InterestsPage";
 import MyOwnersPage from "../pages/Owners/MyOwnersPage";
 import OwnerDetailPage from "../pages/Owners/OwnerDetailPage";
 import InvitationsPage from "../pages/Invitations/InvitationsPage";
@@ -95,7 +94,7 @@ const AppRoutes: React.FC<{
       <Route path="/datasets/:_id" element={<DatasetDetailsPage />} />
       <Route path="/owners/:ownerId" element={<OwnerDetailPage />} />
       <Route element={<ProtectedRoute />}>
-        <Route path="/intereses" element={<InterestsPage />} />
+        <Route path="/intereses" element={<Navigate to="/perfil" replace />} />
         <Route path="/owners" element={<MyOwnersPage />} />
         <Route path="/invitaciones" element={<InvitationsPage />} />
         <Route path="/perfil" element={<ProfilePage />} />
