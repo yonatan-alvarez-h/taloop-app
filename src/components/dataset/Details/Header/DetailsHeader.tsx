@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import type { Dataset } from "../../../../types/dataset";
 import DatasetRating from "../../Rating";
 import DatasetPrice from "../../Price";
@@ -10,6 +10,7 @@ interface DetailsHeaderProps {
 }
 
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset }) => {
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const formatNumber = (value: number) =>
     value >= 1000000
       ? `${(value / 1000000).toFixed(1)} M`
@@ -47,16 +48,16 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset }) => {
   ].filter(Boolean) as Array<{ label: string; value: string | number }>;
 
   return (
-    <div className="details-header">
+    <div
+      className={`details-header${
+        isDescriptionExpanded ? " details-header--description-expanded" : ""
+      }`}
+    >
       <div className="details-header-main">
         <div className="details-header-identity">
           <div className="details-header-title-row">
             <h1 className="details-header-title">{dataset.title}</h1>
             {dataset.category && <DatasetCategory category={dataset.category} />}
-          </div>
-
-          <div className="details-header-description">
-            <p>{dataset.description}</p>
           </div>
 
           {dataset.tags.length > 0 && (
@@ -73,6 +74,23 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset }) => {
               )}
             </div>
           )}
+
+          <div className="details-header-description">
+            <p>{dataset.description}</p>
+          </div>
+
+          {!isDescriptionExpanded && (
+            <button
+              className="details-header-description-toggle"
+              type="button"
+              aria-expanded={false}
+              aria-controls="dataset-full-description"
+              onClick={() => setIsDescriptionExpanded(true)}
+            >
+              Ver descripción completa
+            </button>
+          )}
+
         </div>
 
         <div className="details-header-purchase">
@@ -86,6 +104,23 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset }) => {
             />
           )}
         </div>
+      </div>
+
+      <div
+        className="details-header-full-description"
+        id="dataset-full-description"
+        hidden={!isDescriptionExpanded}
+      >
+        <p>{dataset.description}</p>
+        <button
+          className="details-header-description-toggle"
+          type="button"
+          aria-expanded={true}
+          aria-controls="dataset-full-description"
+          onClick={() => setIsDescriptionExpanded(false)}
+        >
+          Ocultar descripción
+        </button>
       </div>
 
       {metrics.length > 0 && (

@@ -47,6 +47,47 @@
   -webkit-line-clamp: 2;
 }
 
+.details-header-description-toggle {
+  margin-top: 0.25rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #366ea6;
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.details-header-description-toggle:hover {
+  color: #255482;
+  text-decoration: underline;
+}
+
+.details-header--description-expanded .details-header-description {
+  display: none;
+}
+
+.details-header-full-description {
+  margin-top: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border-left: 2px solid #366ea6;
+  background: #f8fafc;
+}
+
+.details-header-full-description p {
+  margin: 0;
+  color: #475569;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  overflow-wrap: anywhere;
+}
+
+.details-header-full-description .details-header-description-toggle {
+  margin-top: 0.55rem;
+}
+
 .details-header-tags {
   display: flex;
   flex-wrap: wrap;
