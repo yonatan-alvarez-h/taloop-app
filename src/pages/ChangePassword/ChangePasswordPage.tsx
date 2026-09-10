@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import AppHeader from "../../components/layout/AppHeader";
 import Button from "../../components/UI/Button";
 import { useAuth } from "../../context/useAuth";
@@ -18,6 +19,23 @@ const initialFormData: ChangePasswordFormData = {
   confirm_password: "",
 };
 
+type PasswordField = keyof ChangePasswordFormData;
+
+const getPasswordLengthMessage = (password: string): string => {
+  if (password.length === 0) return "Usa una frase larga y única que no emplees en otros servicios.";
+  if (password.length < 8) return "Necesita al menos 8 caracteres.";
+  if (password.length < 12) return "Buena longitud. Una frase más larga ofrece mayor protección.";
+  if (password.length < 16) return "Muy buena longitud para una contraseña única.";
+  return "Excelente longitud. Asegúrate de que sea única.";
+};
+
+const getPasswordLengthLevel = (password: string): number => {
+  if (password.length < 8) return 0;
+  if (password.length < 12) return 1;
+  if (password.length < 16) return 2;
+  return 3;
+};
+
 const ChangePasswordPage: React.FC = () => {
   const { accessToken, userId: authenticatedUserId } = useAuth();
   const userId = authenticatedUserId;
@@ -27,6 +45,11 @@ const ChangePasswordPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [visiblePasswords, setVisiblePasswords] = useState<Record<PasswordField, boolean>>({
+    current_password: false,
+    new_password: false,
+    confirm_password: false,
+  });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -35,12 +58,36 @@ const ChangePasswordPage: React.FC = () => {
     setSuccess(false);
   };
 
+  const togglePasswordVisibility = (field: PasswordField) => {
+    setVisiblePasswords((current) => ({ ...current, [field]: !current[field] }));
+  };
+
+  const hasValidPasswordLength =
+    formData.new_password.length >= 8 && formData.new_password.length <= 72;
+  const passwordsMatch =
+    formData.confirm_password.length > 0 &&
+    formData.new_password === formData.confirm_password;
+  const usesDifferentPassword =
+    formData.current_password.length > 0 &&
+    formData.current_password !== formData.new_password;
+  const canSubmit =
+    formData.current_password.length > 0 &&
+    hasValidPasswordLength &&
+    passwordsMatch &&
+    usesDifferentPassword;
+  const passwordLengthLevel = getPasswordLengthLevel(formData.new_password);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
 
     if (!userId) {
       setError("No se encontró el identificador del usuario.");
+      return;
+    }
+
+    if (!hasValidPasswordLength) {
+      setError("La nueva contraseña debe tener entre 8 y 72 caracteres.");
       return;
     }
 
@@ -91,7 +138,7 @@ const ChangePasswordPage: React.FC = () => {
             <span className="change-password-eyebrow">Seguridad de la cuenta</span>
             <h1 id="change-password-title">Cambia tu contraseña</h1>
             <p>
-              Actualiza tu contraseña para mantener tu cuenta protegida.
+              Usa una contraseña larga y única que no emplees en otros servicios.
             </p>
           </div>
 
@@ -116,59 +163,95 @@ const ChangePasswordPage: React.FC = () => {
           <form className="change-password-form" onSubmit={handleSubmit}>
             <div className="change-password-field">
               <label htmlFor="current_password">Contraseña actual</label>
-              <input
-                id="current_password"
-                name="current_password"
-                type="password"
-                autoComplete="current-password"
-                value={formData.current_password}
-                onChange={handleChange}
-                required
-                maxLength={72}
-                placeholder="Ingresa tu contraseña actual"
-              />
+              <div className="change-password-input-wrap">
+                <input
+                  id="current_password"
+                  name="current_password"
+                  type={visiblePasswords.current_password ? "text" : "password"}
+                  autoComplete="current-password"
+                  value={formData.current_password}
+                  onChange={handleChange}
+                  required
+                  maxLength={72}
+                  placeholder="Ingresa tu contraseña actual"
+                />
+                <button type="button" className="change-password-visibility" aria-label={`${visiblePasswords.current_password ? "Ocultar" : "Mostrar"} contraseña actual`} aria-pressed={visiblePasswords.current_password} onClick={() => togglePasswordVisibility("current_password")}>
+                  {visiblePasswords.current_password ? "Ocultar" : "Mostrar"}
+                </button>
+              </div>
             </div>
 
             <div className="change-password-field">
               <label htmlFor="new_password">Nueva contraseña</label>
-              <input
-                id="new_password"
-                name="new_password"
-                type="password"
-                autoComplete="new-password"
-                value={formData.new_password}
-                onChange={handleChange}
-                required
-                minLength={8}
-                maxLength={72}
-                placeholder="Mínimo 8 caracteres"
-              />
-              <span className="change-password-hint">
-                Usa entre 8 y 72 caracteres.
-              </span>
+              <div className="change-password-input-wrap">
+                <input
+                  id="new_password"
+                  name="new_password"
+                  type={visiblePasswords.new_password ? "text" : "password"}
+                  autoComplete="new-password"
+                  value={formData.new_password}
+                  onChange={handleChange}
+                  required
+                  minLength={8}
+                  maxLength={72}
+                  placeholder="Mínimo 8 caracteres"
+                  aria-describedby="new-password-hint"
+                />
+                <button type="button" className="change-password-visibility" aria-label={`${visiblePasswords.new_password ? "Ocultar" : "Mostrar"} nueva contraseña`} aria-pressed={visiblePasswords.new_password} onClick={() => togglePasswordVisibility("new_password")}>
+                  {visiblePasswords.new_password ? "Ocultar" : "Mostrar"}
+                </button>
+              </div>
+              <div id="new-password-hint" className="change-password-length" role="status">
+                <span className="change-password-length__bars" aria-hidden="true">
+                  {[1, 2, 3].map((level) => <span className={level <= passwordLengthLevel ? "change-password-length__bar change-password-length__bar--active" : "change-password-length__bar"} key={level} />)}
+                </span>
+                <span>{getPasswordLengthMessage(formData.new_password)}</span>
+              </div>
+              {formData.new_password.length > 0 && !usesDifferentPassword && (
+                <span className="change-password-validation change-password-validation--error" role="status">La nueva contraseña debe ser diferente a la actual.</span>
+              )}
             </div>
 
             <div className="change-password-field">
               <label htmlFor="confirm_password">
                 Confirmar nueva contraseña
               </label>
-              <input
-                id="confirm_password"
-                name="confirm_password"
-                type="password"
-                autoComplete="new-password"
-                value={formData.confirm_password}
-                onChange={handleChange}
-                required
-                minLength={8}
-                maxLength={72}
-                placeholder="Repite tu nueva contraseña"
-              />
+              <div className="change-password-input-wrap">
+                <input
+                  id="confirm_password"
+                  name="confirm_password"
+                  type={visiblePasswords.confirm_password ? "text" : "password"}
+                  autoComplete="new-password"
+                  value={formData.confirm_password}
+                  onChange={handleChange}
+                  required
+                  minLength={8}
+                  maxLength={72}
+                  placeholder="Repite tu nueva contraseña"
+                  aria-describedby={formData.confirm_password ? "confirm-password-feedback" : undefined}
+                />
+                <button type="button" className="change-password-visibility" aria-label={`${visiblePasswords.confirm_password ? "Ocultar" : "Mostrar"} confirmación de contraseña`} aria-pressed={visiblePasswords.confirm_password} onClick={() => togglePasswordVisibility("confirm_password")}>
+                  {visiblePasswords.confirm_password ? "Ocultar" : "Mostrar"}
+                </button>
+              </div>
+              {formData.confirm_password && (
+                <span id="confirm-password-feedback" className={`change-password-validation${passwordsMatch ? " change-password-validation--success" : " change-password-validation--error"}`} role="status">
+                  {passwordsMatch ? "Las contraseñas coinciden." : "Las contraseñas no coinciden."}
+                </span>
+              )}
             </div>
 
-            <Button type="submit" fullWidth size="lg" loading={loading}>
-              Actualizar contraseña
-            </Button>
+            <div className="change-password-security-note">
+              <strong>Después del cambio</strong>
+              <p>Usa tu nueva contraseña en los próximos inicios de sesión y no la compartas con nadie.</p>
+            </div>
+
+            <div className="change-password-actions">
+              <Link to="/perfil">Volver a mi cuenta</Link>
+              <Button type="submit" loading={loading} disabled={!canSubmit}>
+                Actualizar contraseña
+              </Button>
+            </div>
           </form>
 
         </section>
