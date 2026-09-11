@@ -9,6 +9,7 @@ import ProfilePage from "../pages/Profile/ProfilePage";
 import MyOwnersPage from "../pages/Owners/MyOwnersPage";
 import OwnerDetailPage from "../pages/Owners/OwnerDetailPage";
 import InvitationsPage from "../pages/Invitations/InvitationsPage";
+import FavoriteListsPage from "../pages/FavoriteLists/FavoriteListsPage";
 import Loading from "../components/UI/Loading";
 import AppHeader from "../components/layout/AppHeader";
 import { fetchDatasets } from "../services/datasetsService";
@@ -97,6 +98,7 @@ const AppRoutes: React.FC<{
         <Route path="/intereses" element={<Navigate to="/perfil" replace />} />
         <Route path="/owners" element={<MyOwnersPage />} />
         <Route path="/invitaciones" element={<InvitationsPage />} />
+        <Route path="/favoritos" element={<FavoriteListsPage />} />
         <Route path="/perfil" element={<ProfilePage />} />
         <Route path="/perfil/:userId" element={<ProfilePage />} />
         <Route

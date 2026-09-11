@@ -73,3 +73,14 @@
   flex-shrink: 0;
   position: relative;
 }
+
+.card-header__actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 10px;
+}
+
+.card-header__actions .favorite-button {
+  box-shadow: var(--shadow-xs);
+}

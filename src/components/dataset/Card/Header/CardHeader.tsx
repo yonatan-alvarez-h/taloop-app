@@ -8,6 +8,7 @@ interface CardHeaderProps {
   currency?: string;
   variant?: "default" | "compact" | "detailed";
   onClick?: () => void;
+  action?: React.ReactNode;
 }
 
 const CardHeader: React.FC<CardHeaderProps> = ({
@@ -16,6 +17,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   currency = "USD",
   variant = "default",
   onClick,
+  action,
 }) => {
   return (
     <div
@@ -30,8 +32,11 @@ const CardHeader: React.FC<CardHeaderProps> = ({
         </h4>
       </div>
 
-      <div className="card-header__price-container">
-        <DatasetPrice price={price} currency={currency} />
+      <div className="card-header__actions">
+        <div className="card-header__price-container">
+          <DatasetPrice price={price} currency={currency} />
+        </div>
+        {action}
       </div>
     </div>
   );

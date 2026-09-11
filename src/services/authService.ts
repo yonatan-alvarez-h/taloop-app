@@ -3,6 +3,7 @@ import type { UserProfile } from "../types/user";
 export const ACCESS_TOKEN_KEY = "access_token";
 export const USER_ID_KEY = "user_id";
 export const USER_PROFILE_KEY = "user_profile";
+export const AUTH_UNAUTHORIZED_EVENT = "taloop:unauthorized";
 
 export const getAccessToken = (): string | null => {
   if (typeof window === "undefined") return null;

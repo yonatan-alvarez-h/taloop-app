@@ -1,0 +1,78 @@
+.favorite-button-wrapper {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.favorite-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  color: var(--color-neutral-500);
+  background: var(--color-neutral-0);
+  border: var(--border-width-1) solid var(--color-neutral-200);
+  border-radius: var(--border-radius-full);
+  cursor: pointer;
+  transition: color var(--transition-fast), background-color var(--transition-fast),
+    border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.favorite-button:hover,
+.favorite-button:focus-visible {
+  color: var(--color-error-500);
+  background: var(--color-error-50);
+  border-color: var(--color-error-100);
+  outline: none;
+  transform: scale(1.05);
+}
+
+.favorite-button--active {
+  color: var(--color-error-600);
+  background: var(--color-error-50);
+  border-color: var(--color-error-100);
+}
+
+.favorite-button svg {
+  width: 21px;
+  height: 21px;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.favorite-button--active svg {
+  fill: currentColor;
+}
+
+.favorite-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.favorite-button__error {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  z-index: var(--z-popover);
+  width: max-content;
+  max-width: 240px;
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-error-700);
+  background: var(--color-error-50);
+  border: var(--border-width-1) solid var(--color-error-100);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
+}
+
+@media (max-width: 480px) {
+  .favorite-button {
+    width: 36px;
+    height: 36px;
+  }
+}

@@ -3,6 +3,7 @@ import CardHeader from "./Header";
 import CardContent from "./Content";
 import CardMeta from "./Meta";
 import CardActions from "./Actions";
+import FavoriteButton from "../../Favorites/FavoriteButton";
 import type { Dataset } from "../../../types/dataset";
 import "./DatasetCard.css";
 
@@ -60,6 +61,12 @@ const DatasetCard: React.FC<DatasetCardProps> = ({
         price={dataset.priceUsd}
         variant={variant}
         onClick={clickable ? onCardClick : undefined}
+        action={
+          <FavoriteButton
+            datasetId={dataset._id}
+            datasetTitle={dataset.title}
+          />
+        }
       />
 
       <CardContent

@@ -29,7 +29,7 @@ nav.navbar,
 .taloop-logo {
   display: block;
   flex: 0 0 auto;
-  width: 148px;
+  width: 116px;
   height: auto;
 }
 
@@ -48,12 +48,12 @@ nav.navbar,
   }
 
   .taloop-logo {
-    width: 126px;
+    width: 100px;
   }
 }
 
 @media (max-width: 480px) {
   .taloop-logo {
-    width: 112px;
+    width: 90px;
   }
 }

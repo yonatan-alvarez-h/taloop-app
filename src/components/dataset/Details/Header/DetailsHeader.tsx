@@ -4,6 +4,7 @@ import type { Dataset } from "../../../../types/dataset";
 import DatasetRating from "../../Rating";
 import DatasetPrice from "../../Price";
 import DatasetCategory from "../../Metadata/Basic/Category";
+import FavoriteButton from "../../../Favorites/FavoriteButton";
 import "./DetailsHeader.css";
 
 interface DetailsHeaderProps {
@@ -82,6 +83,10 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset, onBackToResults 
           <div className="details-header-title-row">
             <h1 className="details-header-title">{dataset.title}</h1>
             {dataset.category && <DatasetCategory category={dataset.category} />}
+            <FavoriteButton
+              datasetId={dataset._id}
+              datasetTitle={dataset.title}
+            />
           </div>
 
           {dataset.tags.length > 0 && (

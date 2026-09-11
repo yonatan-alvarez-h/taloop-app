@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
+  AUTH_UNAUTHORIZED_EVENT,
   clearAccessToken,
   getAccessToken,
   getStoredUserProfile,
@@ -20,6 +21,20 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
   const [userProfile, setUserProfile] = useState<UserProfile | null>(
     getStoredUserProfile
   );
+
+  useEffect(() => {
+    const handleUnauthorized = () => {
+      clearAccessToken();
+      setAccessToken(null);
+      setUserId(null);
+      setUserProfile(null);
+    };
+
+    window.addEventListener(AUTH_UNAUTHORIZED_EVENT, handleUnauthorized);
+    return () => {
+      window.removeEventListener(AUTH_UNAUTHORIZED_EVENT, handleUnauthorized);
+    };
+  }, []);
 
   useEffect(() => {
     if (!accessToken) return;

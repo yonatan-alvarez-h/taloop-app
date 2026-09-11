@@ -1,4 +1,8 @@
-import { getAuthorizationHeaders } from "./authService";
+import {
+  AUTH_UNAUTHORIZED_EVENT,
+  clearAccessToken,
+  getAuthorizationHeaders,
+} from "./authService";
 
 export const API_BASE = import.meta.env.DEV
   ? "/api/v1"
@@ -7,16 +11,22 @@ const TRANSIENT_RETRY_DELAY_MS = 250;
 
 export class ApiError extends Error {
   status: number;
+  fieldErrors: Record<string, string>;
 
-  constructor(message: string, status: number) {
+  constructor(
+    message: string,
+    status: number,
+    fieldErrors: Record<string, string> = {}
+  ) {
     super(message);
     this.name = "ApiError";
     this.status = status;
+    this.fieldErrors = fieldErrors;
   }
 }
 
 interface ApiErrorPayload {
-  detail?: string | Array<{ msg?: string }>;
+  detail?: string | Array<{ loc?: Array<string | number>; msg?: string }>;
   message?: string;
 }
 
@@ -45,26 +55,37 @@ async function fetchWithTransientReadRetry(
   throw new Error("No se pudo iniciar la solicitud");
 }
 
-async function getErrorMessage(
+async function getErrorDetails(
   response: Response,
   fallback: string
-): Promise<string> {
+): Promise<{ message: string; fieldErrors: Record<string, string> }> {
   try {
     const payload = (await response.json()) as ApiErrorPayload;
 
-    if (typeof payload.detail === "string") return payload.detail;
+    if (typeof payload.detail === "string") {
+      return { message: payload.detail, fieldErrors: {} };
+    }
     if (Array.isArray(payload.detail)) {
       const messages = payload.detail
         .map((error) => error.msg)
         .filter((message): message is string => Boolean(message));
-      if (messages.length > 0) return messages.join(". ");
+      const fieldErrors: Record<string, string> = {};
+      payload.detail.forEach((error) => {
+        const field = error.loc?.at(-1);
+        if (typeof field === "string" && error.msg) {
+          fieldErrors[field] = error.msg;
+        }
+      });
+      if (messages.length > 0) {
+        return { message: messages.join(". "), fieldErrors };
+      }
     }
-    if (payload.message) return payload.message;
+    if (payload.message) return { message: payload.message, fieldErrors: {} };
   } catch {
     // Algunos errores del backend no incluyen un cuerpo JSON.
   }
 
-  return fallback;
+  return { message: fallback, fieldErrors: {} };
 }
 
 export async function requestJson<T>(
@@ -91,10 +112,18 @@ export async function requestJson<T>(
   }
 
   if (!response.ok) {
-    throw new ApiError(
-      await getErrorMessage(response, "No se pudo completar la operación"),
-      response.status
+    if (response.status === 401) {
+      clearAccessToken();
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event(AUTH_UNAUTHORIZED_EVENT));
+      }
+    }
+
+    const errorDetails = await getErrorDetails(
+      response,
+      "No se pudo completar la operación"
     );
+    throw new ApiError(errorDetails.message, response.status, errorDetails.fieldErrors);
   }
 
   if (response.status === 204) return undefined as T;

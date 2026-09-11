@@ -54,6 +54,10 @@
   margin-left: 0;
 }
 
+.details-header-title-row .favorite-button-wrapper {
+  margin-left: auto;
+}
+
 .details-header-description {
   margin-top: 0.35rem;
 }
