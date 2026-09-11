@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ApiError } from "../services/api";
 import {
   addDatasetToFavoriteList,
@@ -38,14 +38,28 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
   const { isAuthenticated, logout } = useAuth();
   const [lists, setLists] = useState<FavoriteList[]>([]);
   const [memberships, setMemberships] = useState<Record<string, string[]>>({});
+  const membershipsRef = useRef<Record<string, string[]>>({});
   const [listsLoading, setListsLoading] = useState(false);
   const [listsError, setListsError] = useState<string | null>(null);
   const [undoToast, setUndoToast] = useState<FavoriteUndoToast | null>(null);
 
+  const updateMemberships = useCallback(
+    (
+      updater: (
+        current: Record<string, string[]>
+      ) => Record<string, string[]>
+    ) => {
+      const next = updater(membershipsRef.current);
+      membershipsRef.current = next;
+      setMemberships(next);
+    },
+    []
+  );
+
   const refreshLists = useCallback(async () => {
     if (!isAuthenticated) {
       setLists([]);
-      setMemberships({});
+      updateMemberships(() => ({}));
       setListsError(null);
       return;
     }
@@ -66,7 +80,7 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
     } finally {
       setListsLoading(false);
     }
-  }, [isAuthenticated, logout]);
+  }, [isAuthenticated, logout, updateMemberships]);
 
   useEffect(() => {
     void refreshLists();
@@ -77,7 +91,9 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
       const ids = uniqueIds(datasetIds);
       if (!isAuthenticated || ids.length === 0) return {};
 
-      const missingIds = ids.filter((datasetId) => !(datasetId in memberships));
+      const missingIds = ids.filter(
+        (datasetId) => !(datasetId in membershipsRef.current)
+      );
       let loadedMemberships: Record<string, string[]> = {};
       if (missingIds.length > 0) {
         try {
@@ -88,7 +104,7 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
               uniqueIds(membership.list_ids),
             ])
           );
-          setMemberships((current) => {
+          updateMemberships((current) => {
             const next = { ...current };
             response.forEach((membership) => {
               next[membership.dataset_id] = uniqueIds(membership.list_ids);
@@ -106,12 +122,12 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
       const resolvedMemberships: Record<string, string[]> = {};
       ids.forEach((datasetId) => {
         resolvedMemberships[datasetId] =
-          loadedMemberships[datasetId] ?? memberships[datasetId] ?? [];
+          loadedMemberships[datasetId] ?? membershipsRef.current[datasetId] ?? [];
       });
 
       return resolvedMemberships;
     },
-    [isAuthenticated, logout, memberships]
+    [isAuthenticated, logout, updateMemberships]
   );
 
   const createList = useCallback(async (name: string) => {
@@ -133,18 +149,18 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
   const deleteList = useCallback(async (listId: string) => {
     await deleteFavoriteList(listId);
     setLists((current) => current.filter((list) => list.id !== listId));
-    setMemberships((current) => {
+    updateMemberships((current) => {
       const next: Record<string, string[]> = {};
       Object.entries(current).forEach(([datasetId, listIds]) => {
         next[datasetId] = listIds.filter((id) => id !== listId);
       });
       return next;
     });
-  }, []);
+  }, [updateMemberships]);
 
   const updateDatasetLists = useCallback(
     async (datasetId: string, listIds: string[]): Promise<FavoriteMutationResult> => {
-      const initialListIds = uniqueIds(memberships[datasetId] ?? []);
+      const initialListIds = uniqueIds(membershipsRef.current[datasetId] ?? []);
       const targetListIds = uniqueIds(listIds);
       const additions = targetListIds.filter((id) => !initialListIds.includes(id));
       const removals = initialListIds.filter((id) => !targetListIds.includes(id));
@@ -167,7 +183,7 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
 
       if (actions.length === 0) return { failures: [], succeeded: 0 };
 
-      setMemberships((current) => ({
+      updateMemberships((current) => ({
         ...current,
         [datasetId]: targetListIds,
       }));
@@ -175,7 +191,7 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
       const settled = await Promise.allSettled(
         actions.map(async (action) => {
           await action.request();
-          setMemberships((current) => {
+          updateMemberships((current) => {
             const currentIds = new Set(current[datasetId] ?? []);
             if (action.action === "add") currentIds.add(action.listId);
             else currentIds.delete(action.listId);
@@ -204,7 +220,7 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
         if (action.action === "add") finalListIds.add(action.listId);
         else finalListIds.delete(action.listId);
       });
-      setMemberships((current) => ({
+      updateMemberships((current) => ({
         ...current,
         [datasetId]: [...finalListIds],
       }));
@@ -212,16 +228,16 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
       if (successfulActions.size > 0) void refreshLists();
       return { failures, succeeded: successfulActions.size };
     },
-    [memberships, refreshLists]
+    [refreshLists, updateMemberships]
   );
 
   const removeDatasetFromList = useCallback(
     (listId: string, datasetId: string) =>
       updateDatasetLists(
         datasetId,
-        (memberships[datasetId] ?? []).filter((id) => id !== listId)
+        (membershipsRef.current[datasetId] ?? []).filter((id) => id !== listId)
       ),
-    [memberships, updateDatasetLists]
+    [updateDatasetLists]
   );
 
   const loadListDatasets = useCallback(
