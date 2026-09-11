@@ -93,10 +93,6 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset, onBackToResults 
           <div className="details-header-title-row">
             <h1 className="details-header-title">{dataset.title}</h1>
             {dataset.category && <DatasetCategory category={dataset.category} />}
-            <FavoriteButton
-              datasetId={dataset._id}
-              datasetTitle={dataset.title}
-            />
           </div>
 
           {dataset.tags.length > 0 && (
@@ -133,7 +129,13 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset, onBackToResults 
         </div>
 
         <div className="details-header-purchase">
-          <DatasetPrice price={dataset.priceUsd} currency="USD" />
+          <div className="details-header-purchase__top">
+            <DatasetPrice price={dataset.priceUsd} currency="USD" />
+            <FavoriteButton
+              datasetId={dataset._id}
+              datasetTitle={dataset.title}
+            />
+          </div>
           {typeof dataset.rating === "number" && (
             <DatasetRating
               rating={dataset.rating}

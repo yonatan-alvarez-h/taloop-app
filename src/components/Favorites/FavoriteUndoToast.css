@@ -24,7 +24,7 @@
 .favorite-undo-toast > button {
   flex: 0 0 auto;
   padding: var(--space-1) var(--space-2);
-  color: var(--color-brand-violet-100);
+  color: var(--color-primary-100);
   background: transparent;
   border: 0;
   cursor: pointer;

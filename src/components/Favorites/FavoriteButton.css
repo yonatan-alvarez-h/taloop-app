@@ -5,6 +5,7 @@
 }
 
 .favorite-button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -12,32 +13,51 @@
   height: 40px;
   padding: 0;
   color: var(--color-neutral-500);
-  background: var(--color-neutral-0);
-  border: var(--border-width-1) solid var(--color-neutral-200);
+  background: transparent;
+  border: 0;
   border-radius: var(--border-radius-full);
   cursor: pointer;
   transition: color var(--transition-fast), background-color var(--transition-fast),
     border-color var(--transition-fast), transform var(--transition-fast);
 }
 
+.favorite-button::before {
+  position: absolute;
+  inset: 2px;
+  content: "";
+  background: var(--color-neutral-0);
+  border: var(--border-width-1) solid var(--color-neutral-200);
+  border-radius: var(--border-radius-full);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
 .favorite-button:hover,
 .favorite-button:focus-visible {
   color: var(--color-brand-violet-600);
-  background: var(--color-brand-violet-50);
-  border-color: var(--color-brand-violet-200);
   outline: none;
   transform: scale(1.05);
 }
 
+.favorite-button:hover::before,
+.favorite-button:focus-visible::before {
+  background: var(--color-brand-violet-50);
+  border-color: var(--color-brand-violet-200);
+}
+
 .favorite-button--active {
   color: var(--color-brand-violet-600);
+}
+
+.favorite-button--active::before {
   background: var(--color-brand-violet-50);
   border-color: var(--color-brand-violet-200);
 }
 
 .favorite-button svg {
-  width: 21px;
-  height: 21px;
+  position: relative;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
   fill: transparent;
   stroke: currentColor;
   stroke-linecap: round;
@@ -72,7 +92,7 @@
 
 @media (max-width: 480px) {
   .favorite-button {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
   }
 }

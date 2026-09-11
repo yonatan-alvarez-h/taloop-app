@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import AppHeader from "../../components/layout/AppHeader";
 import FavoriteButton from "../../components/Favorites/FavoriteButton";
 import Loading from "../../components/UI/Loading";
@@ -19,6 +20,55 @@ const formatTimestamp = (value: string) => {
   return Number.isNaN(date.getTime()) ? value : date.toISOString();
 };
 
+const formatLocalDate = (value: string) => {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "Fecha no disponible" :
+    new Intl.DateTimeFormat("es-CO", {
+      day: "numeric", month: "short", year: "numeric",
+      hour: "2-digit", minute: "2-digit",
+    }).format(date);
+};
+
+const ListActions: React.FC<{
+  list: FavoriteList;
+  onRename: () => void;
+  onDelete: () => void;
+}> = ({ list, onRename, onDelete }) => {
+  const ref = useRef<HTMLDetailsElement>(null);
+
+  useEffect(() => {
+    const closeOutside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !ref.current?.contains(event.target)) {
+        ref.current?.removeAttribute("open");
+      }
+    };
+    document.addEventListener("pointerdown", closeOutside);
+    return () => document.removeEventListener("pointerdown", closeOutside);
+  }, []);
+
+  return (
+    <details ref={ref} className="favorite-list-actions" onKeyDown={(event) => {
+      if (event.key === "Escape") {
+        ref.current?.removeAttribute("open");
+        ref.current?.querySelector("summary")?.focus();
+      }
+    }}>
+      <summary aria-label={`Acciones de ${list.name}`}>⋯</summary>
+      <div className="favorite-list-actions__popover">
+        <button type="button" onClick={() => {
+          ref.current?.removeAttribute("open");
+          onRename();
+        }}>Renombrar</button>
+        <button type="button" onClick={() => {
+          ref.current?.removeAttribute("open");
+          ref.current?.querySelector("summary")?.focus();
+          onDelete();
+        }}>Eliminar</button>
+      </div>
+    </details>
+  );
+};
+
 interface FavoriteDatasetCardProps {
   dataset: DatasetPublicResponse;
   listId: string;
@@ -31,7 +81,9 @@ const FavoriteDatasetCard: React.FC<FavoriteDatasetCardProps> = ({
   listId,
   onRemoved,
   onRestored,
-}) => (
+}) => {
+  const [expandedTags, setExpandedTags] = useState(false);
+  return (
   <li className="favorite-dataset-card">
     <div className="favorite-dataset-card__header">
       <div className="favorite-dataset-card__identity">
@@ -53,21 +105,28 @@ const FavoriteDatasetCard: React.FC<FavoriteDatasetCardProps> = ({
 
     {dataset.tags.length > 0 && (
       <div className="favorite-dataset-card__tags" aria-label="Etiquetas">
-        {dataset.tags.map((tag) => (
+        {(expandedTags ? dataset.tags : dataset.tags.slice(0, 4)).map((tag) => (
           <span key={tag}>{tag}</span>
         ))}
+        {dataset.tags.length > 4 && (
+          <button type="button" aria-expanded={expandedTags}
+            onClick={() => setExpandedTags((current) => !current)}>
+            {expandedTags ? "Ver menos" : `+${dataset.tags.length - 4} más`}
+          </button>
+        )}
       </div>
     )}
 
     <div className="favorite-dataset-card__meta">
-      <span>{dataset.visibility}</span>
-      <span>{dataset.status}</span>
-      <a href={`/datasets/${encodeURIComponent(dataset._id)}`}>
+      <span>{{ public: "Público", private: "Privado", unlisted: "No listado" }[dataset.visibility]}</span>
+      <span>{{ active: "Activo", draft: "Borrador", suspended: "Suspendido", archived: "Archivado" }[dataset.status]}</span>
+      <Link to={`/datasets/${encodeURIComponent(dataset._id)}`}>
         Ver detalles
-      </a>
+      </Link>
     </div>
   </li>
 );
+};
 
 const FavoriteListsPage: React.FC = () => {
   const {
@@ -89,6 +148,9 @@ const FavoriteListsPage: React.FC = () => {
   const [editingListId, setEditingListId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState("");
   const [newListName, setNewListName] = useState("");
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
+  const createTriggerRef = useRef<HTMLButtonElement>(null);
   const [actionError, setActionError] = useState<string | null>(null);
   const selectedList = lists.find((list) => list.id === selectedListId);
 
@@ -140,6 +202,7 @@ const FavoriteListsPage: React.FC = () => {
 
   const handleCreateList = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (isCreating) return;
     const trimmedName = newListName.trim();
     if (!trimmedName) {
       setActionError("Escribe un nombre para la lista.");
@@ -151,10 +214,13 @@ const FavoriteListsPage: React.FC = () => {
     }
 
     setActionError(null);
+    setIsCreating(true);
     try {
       const list = await createList(trimmedName);
       setNewListName("");
       setSelectedListId(list.id);
+      setIsCreateOpen(false);
+      createTriggerRef.current?.focus();
     } catch (error) {
       setActionError(
         getRequestErrorMessage(
@@ -162,6 +228,8 @@ const FavoriteListsPage: React.FC = () => {
           "No se pudo crear la lista. Intenta de nuevo."
         )
       );
+    } finally {
+      setIsCreating(false);
     }
   };
 
@@ -230,20 +298,6 @@ const FavoriteListsPage: React.FC = () => {
             <h1>Mis favoritos</h1>
             <p>Organiza datasets que quieras volver a consultar.</p>
           </div>
-          <form className="favorite-list-create" onSubmit={handleCreateList}>
-            <label htmlFor="favorite-page-new-list">Nueva lista</label>
-            <div>
-              <input
-                id="favorite-page-new-list"
-                type="text"
-                value={newListName}
-                maxLength={100}
-                placeholder="Nombre de la lista"
-                onChange={(event) => setNewListName(event.target.value)}
-              />
-              <button type="submit">Crear lista</button>
-            </div>
-          </form>
         </div>
 
         {actionError && (
@@ -270,14 +324,6 @@ const FavoriteListsPage: React.FC = () => {
               color="primary"
             />
           </div>
-        ) : lists.length === 0 ? (
-          <section className="favorite-lists-empty" aria-live="polite">
-            <div className="favorite-lists-empty__icon" aria-hidden="true">
-              ♡
-            </div>
-            <h2>Crea una lista para organizar datasets que quieras revisar</h2>
-            <p>También puedes crearla al pulsar el corazón de cualquier dataset.</p>
-          </section>
         ) : (
           <div className="favorite-lists-layout">
             <aside className="favorite-lists-sidebar" aria-label="Tus listas">
@@ -285,6 +331,32 @@ const FavoriteListsPage: React.FC = () => {
                 <h2>Listas</h2>
                 <span>{lists.length}</span>
               </div>
+              <button type="button" ref={createTriggerRef}
+                className="favorite-lists-sidebar__new"
+                aria-expanded={isCreateOpen} aria-controls="favorite-create-form"
+                onClick={() => setIsCreateOpen((current) => !current)}>
+                + Nueva lista
+              </button>
+              {isCreateOpen && (
+                <form id="favorite-create-form" className="favorite-list-create"
+                  onSubmit={handleCreateList}>
+                  <label htmlFor="favorite-page-new-list">Nombre de la lista</label>
+                  <input id="favorite-page-new-list" type="text" autoFocus
+                    value={newListName} maxLength={100} disabled={isCreating}
+                    placeholder="Ej. Para investigar"
+                    onChange={(event) => setNewListName(event.target.value)} />
+                  <div>
+                    <button type="submit" disabled={isCreating}>
+                      {isCreating ? "Creando…" : "Crear"}
+                    </button>
+                    <button type="button" disabled={isCreating}
+                      className="favorite-list-create__cancel" onClick={() => {
+                        setIsCreateOpen(false);
+                        createTriggerRef.current?.focus();
+                      }}>Cancelar</button>
+                  </div>
+                </form>
+              )}
               <div className="favorite-lists-sidebar__items">
                 {lists.map((list) => (
                   <div
@@ -319,27 +391,18 @@ const FavoriteListsPage: React.FC = () => {
                         <button
                           type="button"
                           className="favorite-list-row__select"
+                          aria-current={selectedListId === list.id ? "true" : undefined}
                           onClick={() => setSelectedListId(list.id)}
                         >
                           <span>{list.name}</span>
-                          <small>{formatTimestamp(list.updated_at)}</small>
+                          <small><time dateTime={list.updated_at}
+                            title={formatTimestamp(list.updated_at)}>
+                            {formatLocalDate(list.updated_at)}
+                          </time></small>
                         </button>
-                        <div className="favorite-list-row__actions">
-                          <button
-                            type="button"
-                            aria-label={`Renombrar ${list.name}`}
-                            onClick={() => startRenaming(list)}
-                          >
-                            Editar
-                          </button>
-                          <button
-                            type="button"
-                            aria-label={`Eliminar ${list.name}`}
-                            onClick={() => void handleDelete(list)}
-                          >
-                            Eliminar
-                          </button>
-                        </div>
+                        <ListActions list={list}
+                          onRename={() => startRenaming(list)}
+                          onDelete={() => void handleDelete(list)} />
                       </>
                     )}
                   </div>
@@ -354,18 +417,31 @@ const FavoriteListsPage: React.FC = () => {
                     <h2>{selectedList.name}</h2>
                     <p>
                       Actualizada <time dateTime={selectedList.updated_at}>
-                        {formatTimestamp(selectedList.updated_at)}
+                        {formatLocalDate(selectedList.updated_at)}
                       </time>
                     </p>
+                    <details className="favorite-list-timestamps">
+                      <summary>Ver fechas UTC</summary>
+                      <dl>
+                        <dt>Creada</dt><dd><time dateTime={selectedList.created_at}>{formatTimestamp(selectedList.created_at)}</time></dd>
+                        <dt>Actualizada</dt><dd><time dateTime={selectedList.updated_at}>{formatTimestamp(selectedList.updated_at)}</time></dd>
+                      </dl>
+                    </details>
                   </div>
                   <span className="favorite-lists-content__count">
-                    {favoriteDatasets.length} dataset
+                    {datasetsLoading ? "…" : favoriteDatasets.length} dataset
                     {favoriteDatasets.length === 1 ? "" : "s"}
                   </span>
                 </div>
               )}
 
-              {datasetsLoading ? (
+              {lists.length === 0 && !listsError ? (
+                <div className="favorite-lists-empty">
+                  <div className="favorite-lists-empty__icon" aria-hidden="true">♡</div>
+                  <h2>Crea una lista para organizar datasets que quieras revisar</h2>
+                  <p>Usa “+ Nueva lista” o el corazón de cualquier dataset.</p>
+                </div>
+              ) : datasetsLoading ? (
                 <div className="favorite-lists-content__loading">
                   <Loading
                     size="md"
