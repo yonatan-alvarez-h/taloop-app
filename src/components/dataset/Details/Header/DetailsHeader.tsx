@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { Dataset } from "../../../../types/dataset";
+import { useAuth } from "../../../../context/useAuth";
+import { useFavorites } from "../../../../context/useFavorites";
 import DatasetRating from "../../Rating";
 import DatasetPrice from "../../Price";
 import DatasetCategory from "../../Metadata/Basic/Category";
@@ -14,6 +16,14 @@ interface DetailsHeaderProps {
 
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({ dataset, onBackToResults }) => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const { isAuthenticated } = useAuth();
+  const { ensureMemberships } = useFavorites();
+
+  useEffect(() => {
+    if (!isAuthenticated || !dataset._id) return;
+    void ensureMemberships([dataset._id]).catch(() => undefined);
+  }, [dataset._id, ensureMemberships, isAuthenticated]);
+
   const formatNumber = (value: number) =>
     value >= 1000000
       ? `${(value / 1000000).toFixed(1)} M`
