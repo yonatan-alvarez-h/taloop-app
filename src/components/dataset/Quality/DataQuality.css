@@ -46,8 +46,8 @@
 .quality-metrics h2 {
   margin: 0 0 0.75rem;
   color: #1e293b;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
 }
 
 .quality-metrics-grid {
@@ -66,7 +66,7 @@
 
 .quality-metric-heading strong {
   color: #1e293b;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .quality-meter {
@@ -110,14 +110,14 @@
 
 .quality-info-label {
   color: #64748b;
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
 }
 
 .quality-info-value {
   color: #1f2937;
   font-size: 0.86rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .quality-method {
@@ -142,7 +142,7 @@
   margin: 0 0 0.45rem;
   color: #334155;
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .quality-rec-section ul,
@@ -154,7 +154,7 @@
 .quality-rec-section li,
 .quality-issues li {
   margin-bottom: 0.25rem;
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   line-height: 1.35;
 }
 

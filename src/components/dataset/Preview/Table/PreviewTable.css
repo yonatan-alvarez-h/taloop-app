@@ -23,13 +23,13 @@
   min-width: 600px;
   border-collapse: collapse;
   background: #ffffff;
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
 }
 
 .preview-table th {
   background: #366ea6;
   color: #e1e2e3;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   padding: 10px 12px;
   text-align: center;
   font-size: var(--font-size-sm);
@@ -108,7 +108,7 @@
 }
 
 .preview-field-name {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   font-size: 0.8rem;
   letter-spacing: 0.025em;
   color: #e1e2e3;
@@ -122,7 +122,7 @@
   height: 18px;
   border-radius: 2px;
   font-size: 0.65rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   background: rgba(255, 255, 255, 0.9);
   color: #366ea6;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -141,7 +141,7 @@
   }
 
   .preview-field-name {
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
   }
 
   .preview-type-icon {
@@ -154,12 +154,12 @@
 @media (max-width: 480px) {
   .preview-table td {
     padding: 12px 14px;
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
   }
 
   .preview-table th {
     padding: 12px 14px;
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
   }
 
   .preview-type-icon {

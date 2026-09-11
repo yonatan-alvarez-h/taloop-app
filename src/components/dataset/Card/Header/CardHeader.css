@@ -40,8 +40,8 @@
 }
 
 .card-header__title {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
   color: #212529;
   margin: 0;
   line-height: 1.3;
@@ -58,13 +58,13 @@
 }
 
 .card-header--compact .card-header__title {
-  font-size: 16px;
+  font-size: var(--font-size-base);
   -webkit-line-clamp: 1;
   line-clamp: 1;
 }
 
 .card-header--detailed .card-header__title {
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   -webkit-line-clamp: 3;
   line-clamp: 3;
 }

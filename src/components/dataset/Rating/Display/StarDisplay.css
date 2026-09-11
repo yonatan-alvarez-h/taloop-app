@@ -5,15 +5,15 @@
 }
 
 .star-display--small .star {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
 }
 
 .star-display--medium .star {
-  font-size: 16px;
+  font-size: var(--font-size-base);
 }
 
 .star-display--large .star {
-  font-size: 20px;
+  font-size: var(--font-size-xl);
 }
 
 .star {

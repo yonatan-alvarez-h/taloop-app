@@ -1,6 +1,6 @@
 .rating-count {
   color: #6c757d;
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   margin-left: 8px;
 }
 
@@ -23,5 +23,5 @@
 
 .rating-count--detailed {
   color: #495057;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }

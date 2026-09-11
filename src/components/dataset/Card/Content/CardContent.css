@@ -47,9 +47,9 @@
 }
 
 .card-content__description-text {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: #6c757d;
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
   display: block;
   margin: 0;
 }
@@ -86,7 +86,7 @@
   padding: 12px 16px;
   border-radius: 3px;
   font-size: 13px;
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
   z-index: 1000;
   opacity: 0;
   visibility: hidden;

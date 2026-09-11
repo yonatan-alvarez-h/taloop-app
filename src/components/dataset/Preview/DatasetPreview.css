@@ -33,7 +33,7 @@
 
 .preview-title {
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: #374151;
   margin: 0;
   letter-spacing: 0.025em;
@@ -42,7 +42,7 @@
 .preview-description {
   margin: 0.25rem 0 0;
   color: #64748b;
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
 }
 
 /* Responsive adjustments */

@@ -23,7 +23,7 @@
   background: transparent;
   border: none;
   color: #64748b;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -64,7 +64,7 @@
 .tab-button.active {
   background: transparent;
   color: #366ea6;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   transform: translateY(-2px);
 }
 
@@ -99,12 +99,12 @@
 @media (max-width: 480px) {
   .tab-button {
     padding: 0.75rem 0.5rem;
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
     min-height: 48px;
   }
 
   .tab-label {
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
     line-height: 1.3;
   }
 

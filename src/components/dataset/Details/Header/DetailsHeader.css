@@ -10,7 +10,7 @@
   color: #64748b;
   font-family: var(--font-family-base);
   font-size: 0.78rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .details-header-breadcrumb a {
@@ -79,8 +79,8 @@
   color: #366ea6;
   cursor: pointer;
   font-family: var(--font-family-base);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
 }
 
 .details-header-description-toggle:hover {
@@ -126,7 +126,7 @@
   background: #f8fafc;
   color: #475569;
   font-size: 0.72rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .details-header-purchase {
@@ -170,7 +170,7 @@
 .details-header-metric dt {
   color: #64748b;
   font-size: 0.72rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .details-header-metric dd {
@@ -178,7 +178,7 @@
   overflow: hidden;
   color: #1e293b;
   font-size: 0.84rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -217,6 +217,6 @@
   }
 
   .details-header-title {
-    font-size: 1.25rem;
+    font-size: var(--font-size-xl);
   }
 }

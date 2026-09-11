@@ -40,15 +40,15 @@
 }
 
 .size-value {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
   color: #495057;
 }
 
 .size-label {
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   color: #6c757d;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 /* Responsive adjustments */

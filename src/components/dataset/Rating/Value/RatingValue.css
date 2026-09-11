@@ -1,29 +1,29 @@
 .rating-value {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: #495057;
   display: inline-flex;
   align-items: baseline;
 }
 
 .rating-value--small {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
 }
 
 .rating-value--medium {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
 }
 
 .rating-value--large {
-  font-size: 16px;
+  font-size: var(--font-size-base);
 }
 
 .rating-value--compact {
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: #6c757d;
 }
 
 .rating-value--detailed {
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: #212529;
 }
 

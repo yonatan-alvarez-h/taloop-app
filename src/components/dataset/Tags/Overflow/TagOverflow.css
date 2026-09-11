@@ -8,7 +8,7 @@
 .tag-overflow__more,
 .tag-overflow__less {
   color: #6c757d;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
   transition: color 0.2s ease;
   user-select: none;
@@ -27,10 +27,10 @@
 
 .tag-overflow__more--medium,
 .tag-overflow__less--medium {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
 }
 
 .tag-overflow__more--large,
 .tag-overflow__less--large {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
 }

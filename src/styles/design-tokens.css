@@ -87,6 +87,15 @@
   --font-family-mono: "JetBrains Mono", "SF Mono", "Monaco", "Inconsolata",
     "Roboto Mono", "Fira Code", monospace;
 
+  /* Integración con Bootstrap para conservar la misma tipografía en sus
+     componentes (botones, tooltips y elementos de formulario). */
+  --bs-font-sans-serif: var(--font-family-base);
+  --bs-font-monospace: var(--font-family-mono);
+  --bs-body-font-family: var(--font-family-base);
+  --bs-body-font-size: var(--font-size-base);
+  --bs-body-font-weight: var(--font-weight-normal);
+  --bs-body-line-height: var(--line-height-normal);
+
   /* Tamaños de fuente */
   --font-size-xs: 0.75rem; /* 12px */
   --font-size-sm: 0.875rem; /* 14px */
@@ -96,6 +105,8 @@
   --font-size-2xl: 1.5rem; /* 24px */
   --font-size-3xl: 1.875rem; /* 30px */
   --font-size-4xl: 2.25rem; /* 36px */
+  --font-size-5xl: 2.5rem; /* 40px */
+  --font-size-6xl: 3rem; /* 48px */
 
   /* Pesos de fuente */
   --font-weight-light: 300;

@@ -165,7 +165,7 @@
 .favorite-lists-empty__icon,
 .favorite-list-datasets-empty > span {
   color: var(--color-primary-600);
-  font-size: 3rem;
+  font-size: var(--font-size-6xl);
   line-height: 1;
 }
 

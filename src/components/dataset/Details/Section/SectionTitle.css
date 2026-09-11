@@ -6,7 +6,7 @@
   margin: 0;
   color: #1a202c;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   padding-bottom: 0.75rem;
   border-bottom: 1px solid #e2e8f0;
   position: relative;

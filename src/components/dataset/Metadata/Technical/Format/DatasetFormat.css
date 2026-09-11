@@ -17,7 +17,7 @@
   padding: 0.5rem 0.75rem;
   border-radius: 3px;
   color: white;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   font-size: 0.7rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: fit-content;
@@ -60,7 +60,7 @@
 .format-detail-label {
   font-size: 0.6rem;
   color: #6c757d;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.3px;
   line-height: 1;
@@ -69,7 +69,7 @@
 .format-detail-value {
   font-size: 0.7rem;
   color: #495057;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   line-height: 1;
 }
 
@@ -110,7 +110,7 @@
   }
 
   .format-detail-value {
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
   }
 }
 

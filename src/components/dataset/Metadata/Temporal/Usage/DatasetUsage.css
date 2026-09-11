@@ -20,7 +20,7 @@
   border-radius: 2px;
   color: white;
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -79,14 +79,14 @@
 
 .stat-value {
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: #495057;
 }
 
 .stat-label {
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   color: #6c757d;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 @media (max-width: 768px) {
@@ -97,7 +97,7 @@
   }
 
   .popularity-badge {
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
     padding: 0.35rem 0.6rem;
   }
 
@@ -124,7 +124,7 @@
   }
 
   .stat-value {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
   }
 
   .stat-label {

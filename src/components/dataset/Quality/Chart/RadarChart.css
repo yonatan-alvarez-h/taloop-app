@@ -34,14 +34,14 @@
 }
 
 .radar-chart-average-label {
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   color: #6b7280;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .radar-chart-average-value {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
 }
 
 .radar-chart-legend {
@@ -58,7 +58,7 @@
   background: #ffffff;
   border-radius: 2px;
   border: 1px solid #f3f4f6;
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   transition: all 0.2s ease;
 }
 
@@ -81,7 +81,7 @@
 }
 
 .radar-chart-legend-text strong {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 /* =================================================================
@@ -120,7 +120,7 @@
   }
 
   .radar-chart-average-value {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
   }
 }
 
@@ -154,7 +154,7 @@
   }
 
   .radar-chart-average-label {
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
   }
 
   .radar-chart-average-value {

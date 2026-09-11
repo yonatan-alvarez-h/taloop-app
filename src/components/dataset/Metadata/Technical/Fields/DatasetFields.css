@@ -12,7 +12,7 @@
   border-radius: 3px;
   padding: 6px 12px;
   font-size: 0.8em;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   white-space: nowrap;
   border: 1px solid #e2e8f0;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -41,14 +41,14 @@
   background: #ffffff;
   border-radius: 3px;
   overflow: hidden;
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 .fields-table th {
   background: #366ea6;
   color: #e1e2e3;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   padding: 14px 16px;
   text-align: center;
   font-size: var(--font-size-sm);
@@ -123,7 +123,7 @@
 
 .dataset-fields-table--compact .pagination-btn {
   padding: 0.35rem 0.6rem;
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
 }
 
 .dataset-fields-table--compact .pagination-info,
@@ -155,7 +155,7 @@
 
 .field-name {
   font-family: var(--font-family-mono);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: #334155;
   min-width: 120px;
   font-size: var(--font-size-sm);
@@ -187,8 +187,8 @@
   width: 24px;
   height: 24px;
   border-radius: 3px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   background: linear-gradient(135deg, #f8fafc, #e2e8f0);
   color: #475569;
   border: 1px solid #e2e8f0;
@@ -196,8 +196,8 @@
 }
 
 .type-text {
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #64748b;
@@ -208,7 +208,7 @@
 
 .field-description {
   color: #64748b;
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
   max-width: 300px;
   font-size: 0.85rem;
 }
@@ -237,14 +237,14 @@
 }
 
 .nullable-label {
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: #374151;
 }
 
 .field-index {
   text-align: center;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: #64748b;
   font-size: 0.8rem;
   width: 50px;
@@ -271,7 +271,7 @@
   padding-right: 2.5rem;
   border: 1px solid #d1d5db;
   border-radius: 3px;
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   background: #ffffff;
   transition: border-color 0.2s ease;
 }
@@ -288,13 +288,13 @@
   top: 50%;
   transform: translateY(-50%);
   color: #9ca3af;
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
 }
 
 .fields-summary {
   font-size: 0.8rem;
   color: #6b7280;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .fields-filtered {
@@ -322,8 +322,8 @@
   border-radius: 3px;
   background: #ffffff;
   color: #374151;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -340,9 +340,9 @@
 }
 
 .pagination-info {
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   color: #374151;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 /* Mensaje de no resultados */
@@ -356,7 +356,7 @@
   margin-top: 1.5rem;
   border: 2px dashed #cbd5e1;
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 /* Responsive */

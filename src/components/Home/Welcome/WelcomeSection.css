@@ -27,8 +27,8 @@
 }
 
 .welcome-title {
-  font-size: 3rem;
-  font-weight: 800;
+  font-size: var(--font-size-6xl);
+  font-weight: var(--font-weight-extrabold);
   color: #212529;
   margin-bottom: 1.5rem;
   line-height: 1.2;
@@ -81,7 +81,7 @@
 
 .welcome-subtitle strong {
   color: #3b82f6;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 /* Stats Section */
@@ -139,8 +139,8 @@
 
 .stat-number {
   display: block;
-  font-size: 2.5rem;
-  font-weight: 800;
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-extrabold);
   margin-bottom: 0.5rem;
 }
 
@@ -171,7 +171,7 @@
   color: #6c757d;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 /* Animations */
@@ -193,7 +193,7 @@
   }
 
   .welcome-title {
-    font-size: 2.25rem;
+    font-size: var(--font-size-4xl);
   }
 
   .welcome-subtitle {
@@ -220,7 +220,7 @@
   }
 
   .welcome-title {
-    font-size: 1.875rem;
+    font-size: var(--font-size-3xl);
   }
 
   .welcome-hero {

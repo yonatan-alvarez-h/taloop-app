@@ -21,6 +21,10 @@ ChartJS.register(
   Legend
 );
 
+// Chart.js no hereda la fuente del DOM porque renderiza sobre canvas.
+// Fijarla aquí evita que sus etiquetas usen la familia por defecto del gráfico.
+ChartJS.defaults.font.family = "Inter";
+
 interface RadarChartProps {
   metrics: Array<{
     key: string;

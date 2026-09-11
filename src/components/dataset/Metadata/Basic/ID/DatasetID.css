@@ -29,7 +29,7 @@
   border: none;
   color: #6c757d;
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   padding: 0.25rem;
   border-radius: 2px;
   transition: all 0.2s ease;
@@ -66,7 +66,7 @@
   padding: 0.5rem 0.75rem;
   border-radius: 2px;
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   white-space: nowrap;
   box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
   z-index: 9999;
@@ -118,7 +118,7 @@
   }
 
   .id-popup {
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
     padding: 0.4rem 0.6rem;
   }
 }
@@ -130,7 +130,7 @@
   }
 
   .id-value {
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -139,7 +139,7 @@
   .id-copy-btn {
     min-width: 20px;
     height: 20px;
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
   }
 
   .id-popup {

@@ -1,7 +1,7 @@
 /* Estilos para controles de vista previa */
 .dataset-preview-btn {
   border-radius: 2px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   padding: 0.38em 1.2em;
   font-size: 1em;
   margin-bottom: 0.5em;

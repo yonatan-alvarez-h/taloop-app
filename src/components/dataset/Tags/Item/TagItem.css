@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   border-radius: 3px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   white-space: nowrap;
   transition: all 0.2s ease;
   user-select: none;
@@ -18,13 +18,13 @@
 
 .tag-item--medium {
   padding: 4px 12px;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   gap: 4px;
 }
 
 .tag-item--large {
   padding: 6px 16px;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   gap: 6px;
 }
 

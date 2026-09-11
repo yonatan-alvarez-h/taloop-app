@@ -7,7 +7,7 @@
   align-items: center;
   gap: 8px;
   font-size: 1.04em;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -38,7 +38,7 @@
 }
 
 .dataset-owner__name {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   font-size: 1em;
 }
 
@@ -54,7 +54,7 @@
 .dataset-owner__description {
   font-size: 0.65em;
   color: rgb(80, 80, 81);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   margin-top: 2px;
   display: block;
 }

@@ -75,7 +75,7 @@
   font-size: 0.98em;
   min-width: 120px;
   color: #6c757d;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .datasetlist-controls nav {
@@ -123,23 +123,23 @@
 }
 
 .no-results-icon {
-  font-size: 3rem;
+  font-size: var(--font-size-6xl);
   margin-bottom: 1rem;
   opacity: 0.8;
 }
 
 .no-results-title {
   color: #2d3748;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   margin-bottom: 0.5rem;
-  font-size: 1.5rem;
+  font-size: var(--font-size-2xl);
 }
 
 .no-results-description {
   color: #4a5568;
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
 }
 
 .no-results-suggestions {
@@ -152,7 +152,7 @@
 
 .no-results-suggestions p {
   color: #2d3748;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   margin-bottom: 0.75rem;
 }
 
@@ -176,7 +176,7 @@
   position: absolute;
   left: 0;
   color: #6366f1;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 /* En HomePage (sin scroll global) */
@@ -229,7 +229,7 @@
   }
 
   .no-results-icon {
-    font-size: 2.5rem;
+    font-size: var(--font-size-5xl);
   }
 
   .no-results-title {
@@ -237,7 +237,7 @@
   }
 
   .no-results-description {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
   }
 
   .no-global-scroll .dataset-list-no-results {
