@@ -14,17 +14,28 @@ import Loading from "../components/UI/Loading";
 import AppHeader from "../components/layout/AppHeader";
 import { fetchDatasets } from "../services/datasetsService";
 import type { DatasetWithSamples } from "../types/dataset";
+import { useAuth } from "../context/useAuth";
 import { GuestRoute, ProtectedRoute } from "./RouteGuards";
 
 const AppRoutes: React.FC<{
   search: string;
   onSearch: (q: string) => void;
 }> = ({ search, onSearch }) => {
+  const { isAuthenticated } = useAuth();
   const [datasets, setDatasets] = useState<DatasetWithSamples[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const loadDatasets = useCallback(() => {
     let active = true;
+
+    if (!isAuthenticated) {
+      setDatasets([]);
+      setLoading(false);
+      return () => {
+        active = false;
+      };
+    }
+
     setLoading(true);
     setError(null);
 
@@ -49,7 +60,7 @@ const AppRoutes: React.FC<{
     return () => {
       active = false;
     };
-  }, []);
+  }, [isAuthenticated]);
 
   useEffect(() => loadDatasets(), [loadDatasets]);
 
@@ -60,39 +71,41 @@ const AppRoutes: React.FC<{
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/registro" element={<RegisterPage />} />
       </Route>
-      <Route
-        path="/"
-        element={
-          loading ? (
-            <>
-              <AppHeader />
-              <div className="mt-5 d-flex justify-content-center">
-                <Loading
-                  size="lg"
-                  variant="spinner"
-                  text="Cargando datasets..."
-                  color="primary"
-                />
-              </div>
-            </>
-          ) : error ? (
-            <>
-              <AppHeader />
-              <div className="alert alert-danger mt-5 text-center">
-                Error: {error}
-                <div className="mt-3">
-                  <button type="button" className="btn btn-outline-danger" onClick={loadDatasets}>
-                    Reintentar
-                  </button>
+      <Route element={<ProtectedRoute />}>
+        <Route
+          path="/"
+          element={
+            loading ? (
+              <>
+                <AppHeader />
+                <div className="mt-5 d-flex justify-content-center">
+                  <Loading
+                    size="lg"
+                    variant="spinner"
+                    text="Cargando datasets..."
+                    color="primary"
+                  />
                 </div>
-              </div>
-            </>
-          ) : (
-            <HomePage datasets={datasets} search={search} onSearch={onSearch} />
-          )
-        }
-      />
-      <Route path="/datasets/:_id" element={<DatasetDetailsPage />} />
+              </>
+            ) : error ? (
+              <>
+                <AppHeader />
+                <div className="alert alert-danger mt-5 text-center">
+                  Error: {error}
+                  <div className="mt-3">
+                    <button type="button" className="btn btn-outline-danger" onClick={loadDatasets}>
+                      Reintentar
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <HomePage datasets={datasets} search={search} onSearch={onSearch} />
+            )
+          }
+        />
+        <Route path="/datasets/:_id" element={<DatasetDetailsPage />} />
+      </Route>
       <Route path="/owners/:ownerId" element={<OwnerDetailPage />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/intereses" element={<Navigate to="/perfil" replace />} />

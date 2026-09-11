@@ -60,7 +60,7 @@ const normalizeDataset = (
 export async function fetchDatasets(): Promise<DatasetWithSamples[]> {
   const response = await requestJson<
     Array<DatasetWithSamples & { id?: string; ownerId?: string }>
-  >("/datasets", {}, { authenticated: false });
+  >("/datasets");
   return response.map(normalizeDataset);
 }
 
