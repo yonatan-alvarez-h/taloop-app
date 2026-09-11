@@ -1,12 +1,14 @@
 import React from "react";
+import logo from "../../../assets/taloop-logo.png";
 import "./NavBar.css";
 
 const NavBar: React.FC = () => {
   return (
-    <span className="taloop-logo">
-      ta
-      <span className="taloop-logo__pulse">loop</span>
-    </span>
+    <img
+      className="taloop-logo"
+      src={logo}
+      alt="taloop"
+    />
   );
 };
 
