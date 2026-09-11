@@ -11,6 +11,11 @@ export interface FavoriteMutationResult {
   succeeded: number;
 }
 
+export interface FavoriteUndoToast {
+  message: string;
+  onUndo: () => Promise<void>;
+}
+
 export interface FavoritesContextValue {
   lists: FavoriteList[];
   memberships: Record<string, string[]>;
@@ -30,6 +35,7 @@ export interface FavoritesContextValue {
     datasetId: string
   ) => Promise<FavoriteMutationResult>;
   loadListDatasets: (listId: string) => Promise<DatasetPublicResponse[]>;
+  showUndoToast: (toast: FavoriteUndoToast) => void;
 }
 
 export const FavoritesContext = createContext<

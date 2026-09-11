@@ -18,6 +18,14 @@
   --color-primary-900: #0c4a6e;
   --color-primary-950: #082f49;
 
+  /* Acento de marca: violeta del símbolo infinito del logo */
+  --color-brand-violet-50: #f5f3ff;
+  --color-brand-violet-100: #ede9fe;
+  --color-brand-violet-200: #ddd6fe;
+  --color-brand-violet-500: #7c3aed;
+  --color-brand-violet-600: #6d28d9;
+  --color-brand-violet-700: #5b21b6;
+
   /* Colores neutros */
   --color-neutral-0: #ffffff;
   --color-neutral-50: #f8fafc;

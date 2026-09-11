@@ -16,7 +16,9 @@ import {
   FavoritesContext,
   type FavoriteMutationFailure,
   type FavoriteMutationResult,
+  type FavoriteUndoToast,
 } from "./favoritesContext";
+import FavoriteUndoToastComponent from "../components/Favorites/FavoriteUndoToast";
 
 const uniqueIds = (ids: string[]) => [...new Set(ids)];
 
@@ -38,6 +40,7 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
   const [memberships, setMemberships] = useState<Record<string, string[]>>({});
   const [listsLoading, setListsLoading] = useState(false);
   const [listsError, setListsError] = useState<string | null>(null);
+  const [undoToast, setUndoToast] = useState<FavoriteUndoToast | null>(null);
 
   const refreshLists = useCallback(async () => {
     if (!isAuthenticated) {
@@ -227,6 +230,14 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
     []
   );
 
+  const showUndoToast = useCallback((toast: FavoriteUndoToast) => {
+    setUndoToast(toast);
+  }, []);
+
+  const dismissUndoToast = useCallback(() => {
+    setUndoToast(null);
+  }, []);
+
   const value = useMemo(
     () => ({
       lists,
@@ -241,6 +252,7 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
       updateDatasetLists,
       removeDatasetFromList,
       loadListDatasets,
+      showUndoToast,
     }),
     [
       createList,
@@ -254,6 +266,7 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
       refreshLists,
       removeDatasetFromList,
       renameList,
+      showUndoToast,
       updateDatasetLists,
     ]
   );
@@ -261,6 +274,7 @@ export const FavoritesProvider: React.FC<React.PropsWithChildren> = ({
   return (
     <FavoritesContext.Provider value={value}>
       {children}
+      <FavoriteUndoToastComponent toast={undoToast} onDismiss={dismissUndoToast} />
     </FavoritesContext.Provider>
   );
 };

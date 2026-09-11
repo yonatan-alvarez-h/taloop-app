@@ -22,17 +22,17 @@
 
 .favorite-button:hover,
 .favorite-button:focus-visible {
-  color: var(--color-error-500);
-  background: var(--color-error-50);
-  border-color: var(--color-error-100);
+  color: var(--color-brand-violet-600);
+  background: var(--color-brand-violet-50);
+  border-color: var(--color-brand-violet-200);
   outline: none;
   transform: scale(1.05);
 }
 
 .favorite-button--active {
-  color: var(--color-error-600);
-  background: var(--color-error-50);
-  border-color: var(--color-error-100);
+  color: var(--color-brand-violet-600);
+  background: var(--color-brand-violet-50);
+  border-color: var(--color-brand-violet-200);
 }
 
 .favorite-button svg {

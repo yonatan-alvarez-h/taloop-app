@@ -23,12 +23,14 @@ interface FavoriteDatasetCardProps {
   dataset: DatasetPublicResponse;
   listId: string;
   onRemoved: () => void;
+  onRestored: () => void;
 }
 
 const FavoriteDatasetCard: React.FC<FavoriteDatasetCardProps> = ({
   dataset,
   listId,
   onRemoved,
+  onRestored,
 }) => (
   <li className="favorite-dataset-card">
     <div className="favorite-dataset-card__header">
@@ -45,6 +47,7 @@ const FavoriteDatasetCard: React.FC<FavoriteDatasetCardProps> = ({
         datasetTitle={dataset.title}
         listId={listId}
         onRemoved={onRemoved}
+        onRestored={onRestored}
       />
     </div>
 
@@ -390,6 +393,13 @@ const FavoriteListsPage: React.FC = () => {
                       onRemoved={() =>
                         setFavoriteDatasets((current) =>
                           current.filter((item) => item._id !== dataset._id)
+                        )
+                      }
+                      onRestored={() =>
+                        setFavoriteDatasets((current) =>
+                          current.some((item) => item._id === dataset._id)
+                            ? current
+                            : [...current, dataset]
                         )
                       }
                     />

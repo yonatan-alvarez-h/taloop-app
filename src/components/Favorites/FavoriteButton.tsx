@@ -12,6 +12,7 @@ interface FavoriteButtonProps {
   datasetTitle: string;
   listId?: string;
   onRemoved?: () => void;
+  onRestored?: () => void;
 }
 
 const getMutationError = (result: FavoriteMutationResult, lists: FavoriteList[]) => {
@@ -34,6 +35,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   datasetTitle,
   listId,
   onRemoved,
+  onRestored,
 }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
@@ -43,6 +45,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
     listsLoading,
     ensureMemberships,
     createList,
+    showUndoToast,
     updateDatasetLists,
   } = useFavorites();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -76,6 +79,20 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
           setActionError(error);
         } else {
           onRemoved?.();
+          showUndoToast({
+            message: listId
+              ? "Dataset eliminado de esta lista."
+              : "Dataset eliminado de favoritos.",
+            onUndo: async () => {
+              const undoResult = await updateDatasetLists(
+                datasetId,
+                currentListIds
+              );
+              const undoError = getMutationError(undoResult, lists);
+              if (undoError) throw new Error(undoError);
+              onRestored?.();
+            },
+          });
         }
         return;
       }
