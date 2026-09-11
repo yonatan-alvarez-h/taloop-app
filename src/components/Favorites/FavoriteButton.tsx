@@ -49,6 +49,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
     updateDatasetLists,
   } = useFavorites();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogInitialListIds, setDialogInitialListIds] = useState<string[]>([]);
   const [isBusy, setIsBusy] = useState(false);
   const [dialogError, setDialogError] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
@@ -69,35 +70,8 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       const resolved = await ensureMemberships([datasetId]);
       const currentListIds = resolved[datasetId] ?? [];
 
-      if (currentListIds.length > 0) {
-        const targetListIds = listId
-          ? currentListIds.filter((id) => id !== listId)
-          : [];
-        const result = await updateDatasetLists(datasetId, targetListIds);
-        const error = getMutationError(result, lists);
-        if (error) {
-          setActionError(error);
-        } else {
-          onRemoved?.();
-          showUndoToast({
-            message: listId
-              ? "Dataset eliminado de esta lista."
-              : "Dataset eliminado de favoritos.",
-            onUndo: async () => {
-              const undoResult = await updateDatasetLists(
-                datasetId,
-                currentListIds
-              );
-              const undoError = getMutationError(undoResult, lists);
-              if (undoError) throw new Error(undoError);
-              onRestored?.();
-            },
-          });
-        }
-        return;
-      }
-
       setDialogError(null);
+      setDialogInitialListIds(currentListIds);
       setIsDialogOpen(true);
     } catch (error) {
       setActionError(
@@ -111,11 +85,50 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   };
 
   const handleSave = async (listIds: string[]) => {
+    const previousListIds = dialogInitialListIds;
     const result = await updateDatasetLists(datasetId, listIds);
     const error = getMutationError(result, lists);
     setDialogError(error);
-    if (!error) setActionError(null);
-    return !error;
+    if (error) return false;
+
+    setActionError(null);
+    setDialogInitialListIds(listIds);
+
+    const wasInCurrentList = listId
+      ? previousListIds.includes(listId)
+      : false;
+    const isInCurrentList = listId ? listIds.includes(listId) : false;
+    if (wasInCurrentList && !isInCurrentList) onRemoved?.();
+    if (!wasInCurrentList && isInCurrentList) onRestored?.();
+
+    if (result.succeeded > 0) {
+      const message = listIds.length === 0
+        ? "Dataset eliminado de favoritos."
+        : previousListIds.length === 0
+          ? `Dataset guardado en ${listIds.length} lista${
+              listIds.length === 1 ? "" : "s"
+            }.`
+          : "Listas de favoritos actualizadas.";
+
+      showUndoToast({
+        message,
+        action: {
+          label: "Ver favoritos",
+          onAction: () => navigate("/favoritos"),
+        },
+        onUndo: async () => {
+          const undoResult = await updateDatasetLists(datasetId, previousListIds);
+          const undoError = getMutationError(undoResult, lists);
+          if (undoError) throw new Error(undoError);
+
+          setDialogInitialListIds(previousListIds);
+          if (wasInCurrentList && !isInCurrentList) onRestored?.();
+          if (!wasInCurrentList && isInCurrentList) onRemoved?.();
+        },
+      });
+    }
+
+    return true;
   };
 
   const handleDialogClose = () => {
@@ -130,11 +143,13 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
         type="button"
         className={`favorite-button${isFavorite ? " favorite-button--active" : ""}`}
         aria-label={
-          isFavorite ? "Quitar dataset de favoritos" : "Agregar dataset a favoritos"
+          isFavorite
+            ? "Gestionar listas de favoritos"
+            : "Guardar dataset en listas"
         }
         aria-pressed={isFavorite}
         aria-busy={isBusy}
-        title={isFavorite ? "Quitar de favoritos" : "Agregar a favoritos"}
+        title={isFavorite ? "Gestionar listas" : "Guardar en listas"}
         onClick={handleClick}
         disabled={isBusy}
       >
@@ -151,7 +166,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
         isOpen={isDialogOpen}
         datasetTitle={datasetTitle}
         lists={lists}
-        selectedListIds={memberships[datasetId] ?? []}
+        selectedListIds={dialogInitialListIds}
         listsLoading={listsLoading}
         error={dialogError}
         onClose={handleDialogClose}

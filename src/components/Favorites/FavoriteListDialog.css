@@ -22,7 +22,7 @@
   width: min(100%, 480px);
   max-height: min(720px, calc(100vh - var(--space-8)));
   overflow-y: auto;
-  padding: var(--space-6);
+  padding: var(--space-5);
   background: var(--color-neutral-0);
   border: var(--border-width-1) solid var(--color-neutral-200);
   border-radius: var(--border-radius-xl);
@@ -34,16 +34,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-4);
-  margin-bottom: var(--space-6);
-}
-
-.favorite-dialog__eyebrow {
-  margin: 0 0 var(--space-1);
-  color: var(--color-primary-700);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  margin-bottom: var(--space-4);
 }
 
 .favorite-dialog h2 {
@@ -53,12 +44,44 @@
   line-height: var(--line-height-tight);
 }
 
-.favorite-dialog__dataset {
-  max-width: 360px;
-  margin: var(--space-2) 0 0;
-  overflow: hidden;
+.favorite-dialog__description {
+  margin: var(--space-1) 0 0;
   color: var(--color-neutral-600);
   font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+.favorite-dialog__dataset {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  margin-bottom: var(--space-4);
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-neutral-700);
+  background: var(--color-neutral-50);
+  border: var(--border-width-1) solid var(--color-neutral-200);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-sm);
+}
+
+.favorite-dialog__dataset > span {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  color: var(--color-brand-violet-600);
+  background: var(--color-brand-violet-50);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.favorite-dialog__dataset strong {
+  min-width: 0;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -101,33 +124,32 @@
   border: 0;
 }
 
-.favorite-dialog__lists legend,
-.favorite-dialog__create label {
-  margin-bottom: var(--space-2);
-  color: var(--color-neutral-700);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
+.favorite-dialog__visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .favorite-dialog__list {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  min-height: 44px;
-  padding: var(--space-2) var(--space-3);
+  min-height: 52px;
+  padding: var(--space-2) var(--space-1);
   color: var(--color-neutral-700);
-  border: var(--border-width-1) solid var(--color-neutral-200);
-  border-radius: var(--border-radius-lg);
+  border-bottom: var(--border-width-1) solid var(--color-neutral-200);
   cursor: pointer;
 }
 
-.favorite-dialog__list + .favorite-dialog__list {
-  margin-top: var(--space-2);
-}
-
 .favorite-dialog__list:hover {
+  color: var(--color-primary-800);
   background: var(--color-primary-50);
-  border-color: var(--color-primary-200);
 }
 
 .favorite-dialog__list input {
@@ -145,12 +167,55 @@
   font-size: var(--font-size-sm);
 }
 
+.favorite-dialog__create-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 48px;
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-1);
+  color: var(--color-brand-violet-600);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-align: left;
+}
+
+.favorite-dialog__create-toggle > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: var(--border-width-1) solid var(--color-brand-violet-200);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-normal);
+}
+
+.favorite-dialog__create-toggle:hover,
+.favorite-dialog__create-toggle:focus-visible {
+  background: var(--color-brand-violet-50);
+  outline: none;
+}
+
 .favorite-dialog__create {
-  margin-top: var(--space-6);
+  padding: var(--space-3);
+  background: var(--color-neutral-50);
+  border: var(--border-width-1) solid var(--color-neutral-200);
+  border-radius: var(--border-radius-lg);
 }
 
 .favorite-dialog__create label {
   display: block;
+  margin-bottom: var(--space-2);
+  color: var(--color-neutral-700);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
 }
 
 .favorite-dialog__create-row {
@@ -175,7 +240,6 @@
 }
 
 .favorite-dialog__create-button,
-.favorite-dialog__cancel,
 .favorite-dialog__save {
   min-height: 40px;
   padding: var(--space-2) var(--space-4);
@@ -211,19 +275,7 @@
   display: flex;
   justify-content: flex-end;
   gap: var(--space-2);
-  margin-top: var(--space-6);
-}
-
-.favorite-dialog__cancel {
-  color: var(--color-neutral-700);
-  background: var(--color-neutral-0);
-  border: var(--border-width-1) solid var(--color-neutral-300);
-}
-
-.favorite-dialog__cancel:hover,
-.favorite-dialog__cancel:focus-visible {
-  background: var(--color-neutral-100);
-  outline: none;
+  margin-top: var(--space-5);
 }
 
 .favorite-dialog__save {
@@ -239,16 +291,26 @@
 }
 
 .favorite-dialog__create-button:disabled,
-.favorite-dialog__cancel:disabled,
 .favorite-dialog__save:disabled,
-.favorite-dialog__close:disabled {
+.favorite-dialog__close:disabled,
+.favorite-dialog__create-toggle:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
 
 @media (max-width: 480px) {
+  .favorite-dialog-layer {
+    place-items: end stretch;
+    padding: 0;
+  }
+
   .favorite-dialog {
+    max-height: min(82vh, 720px);
     padding: var(--space-4);
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: var(--border-radius-xl) var(--border-radius-xl) 0 0;
   }
 
   .favorite-dialog__create-row,
@@ -257,7 +319,6 @@
   }
 
   .favorite-dialog__create-button,
-  .favorite-dialog__cancel,
   .favorite-dialog__save {
     width: 100%;
   }

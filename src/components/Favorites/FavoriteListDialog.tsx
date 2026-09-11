@@ -36,6 +36,7 @@ const FavoriteListDialog: React.FC<FavoriteListDialogProps> = ({
 }) => {
   const [selectedIds, setSelectedIds] = useState<string[]>(selectedListIds);
   const [newListName, setNewListName] = useState("");
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -46,6 +47,7 @@ const FavoriteListDialog: React.FC<FavoriteListDialogProps> = ({
     if (!isOpen) return;
     setSelectedIds(selectedListIdsRef.current);
     setNewListName("");
+    setIsCreateOpen(false);
     setFormError(null);
   }, [isOpen]);
 
@@ -66,6 +68,8 @@ const FavoriteListDialog: React.FC<FavoriteListDialogProps> = ({
   }, [isCreating, isOpen, isSaving, onClose]);
 
   if (!isOpen) return null;
+
+  const canClearAllLists = selectedListIdsRef.current.length > 0;
 
   const toggleList = (listId: string) => {
     setSelectedIds((current) =>
@@ -90,8 +94,11 @@ const FavoriteListDialog: React.FC<FavoriteListDialogProps> = ({
     setFormError(null);
     try {
       const createdList = await onCreateList(trimmedName);
-      setSelectedIds((current) => [...current, createdList.id]);
+      setSelectedIds((current) =>
+        current.includes(createdList.id) ? current : [...current, createdList.id]
+      );
       setNewListName("");
+      setIsCreateOpen(false);
     } catch (requestError) {
       setFormError(
         getRequestErrorMessage(
@@ -106,7 +113,7 @@ const FavoriteListDialog: React.FC<FavoriteListDialogProps> = ({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (selectedIds.length === 0) {
+    if (selectedIds.length === 0 && selectedListIdsRef.current.length === 0) {
       setFormError("Selecciona o crea una lista para guardar el dataset.");
       return;
     }
@@ -144,10 +151,9 @@ const FavoriteListDialog: React.FC<FavoriteListDialogProps> = ({
       >
         <div className="favorite-dialog__header">
           <div>
-            <p className="favorite-dialog__eyebrow">Mis favoritos</p>
-            <h2 id="favorite-dialog-title">Guardar dataset</h2>
-            <p className="favorite-dialog__dataset" title={datasetTitle}>
-              {datasetTitle}
+            <h2 id="favorite-dialog-title">Guardar en listas</h2>
+            <p className="favorite-dialog__description">
+              Selecciona una o varias listas para este dataset.
             </p>
           </div>
           <button
@@ -163,9 +169,16 @@ const FavoriteListDialog: React.FC<FavoriteListDialogProps> = ({
           </button>
         </div>
 
+        <div className="favorite-dialog__dataset" title={datasetTitle}>
+          <span aria-hidden="true">DB</span>
+          <strong>{datasetTitle}</strong>
+        </div>
+
         <form onSubmit={handleSubmit}>
           <fieldset className="favorite-dialog__lists">
-            <legend>Selecciona una o más listas</legend>
+            <legend className="favorite-dialog__visually-hidden">
+              Selecciona una o más listas
+            </legend>
             {listsLoading ? (
               <p className="favorite-dialog__muted">Cargando tus listas...</p>
             ) : lists.length === 0 ? (
@@ -187,28 +200,44 @@ const FavoriteListDialog: React.FC<FavoriteListDialogProps> = ({
             )}
           </fieldset>
 
-          <div className="favorite-dialog__create">
-            <label htmlFor="favorite-new-list-name">Crear una lista nueva</label>
-            <div className="favorite-dialog__create-row">
-              <input
-                id="favorite-new-list-name"
-                type="text"
-                value={newListName}
-                maxLength={100}
-                placeholder="Ej. Revisar esta semana"
-                onChange={(event) => setNewListName(event.target.value)}
-                disabled={isSaving || isCreating}
-              />
-              <button
-                type="button"
-                className="favorite-dialog__create-button"
-                onClick={() => void handleCreateList()}
-                disabled={isSaving || isCreating}
-              >
-                {isCreating ? "Creando..." : "Crear"}
-              </button>
+          <button
+            type="button"
+            className="favorite-dialog__create-toggle"
+            aria-expanded={isCreateOpen}
+            aria-controls="favorite-create-list"
+            onClick={() => setIsCreateOpen((current) => !current)}
+            disabled={isSaving || isCreating}
+          >
+            <span aria-hidden="true">+</span>
+            Crear nueva lista
+          </button>
+
+          {isCreateOpen && (
+            <div className="favorite-dialog__create" id="favorite-create-list">
+              <label htmlFor="favorite-new-list-name">
+                Nombre de la nueva lista
+              </label>
+              <div className="favorite-dialog__create-row">
+                <input
+                  id="favorite-new-list-name"
+                  type="text"
+                  value={newListName}
+                  maxLength={100}
+                  placeholder="Ej. Revisar esta semana"
+                  onChange={(event) => setNewListName(event.target.value)}
+                  disabled={isSaving || isCreating}
+                />
+                <button
+                  type="button"
+                  className="favorite-dialog__create-button"
+                  onClick={() => void handleCreateList()}
+                  disabled={isSaving || isCreating}
+                >
+                  {isCreating ? "Creando..." : "Crear"}
+                </button>
+              </div>
             </div>
-          </div>
+          )}
 
           {(formError || error) && (
             <p className="favorite-dialog__error" role="alert">
@@ -218,19 +247,18 @@ const FavoriteListDialog: React.FC<FavoriteListDialogProps> = ({
 
           <div className="favorite-dialog__actions">
             <button
-              type="button"
-              className="favorite-dialog__cancel"
-              onClick={onClose}
-              disabled={isSaving || isCreating}
-            >
-              Cancelar
-            </button>
-            <button
               type="submit"
               className="favorite-dialog__save"
-              disabled={isSaving || isCreating || listsLoading}
+              disabled={
+                isSaving ||
+                isCreating ||
+                listsLoading ||
+                (!canClearAllLists && selectedIds.length === 0)
+              }
             >
-              {isSaving ? "Guardando..." : "Guardar en favoritos"}
+              {isSaving
+                ? "Guardando..."
+                : "Confirmar"}
             </button>
           </div>
         </form>

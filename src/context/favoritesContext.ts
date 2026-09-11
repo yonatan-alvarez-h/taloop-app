@@ -13,7 +13,11 @@ export interface FavoriteMutationResult {
 
 export interface FavoriteUndoToast {
   message: string;
-  onUndo: () => Promise<void>;
+  onUndo?: () => Promise<void>;
+  action?: {
+    label: string;
+    onAction: () => void;
+  };
 }
 
 export interface FavoritesContextValue {

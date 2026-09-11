@@ -33,6 +33,10 @@
   font-weight: var(--font-weight-bold);
 }
 
+.favorite-undo-toast__action {
+  color: var(--color-primary-200) !important;
+}
+
 .favorite-undo-toast > button:hover,
 .favorite-undo-toast > button:focus-visible {
   color: var(--color-neutral-0);
@@ -70,5 +74,6 @@
     bottom: var(--space-4);
     left: var(--space-4);
     max-width: none;
+    flex-wrap: wrap;
   }
 }

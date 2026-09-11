@@ -28,6 +28,7 @@ const FavoriteUndoToast: React.FC<FavoriteUndoToastProps> = ({
   if (!toast) return null;
 
   const handleUndo = async () => {
+    if (!toast.onUndo) return;
     setIsUndoing(true);
     setError(null);
     try {
@@ -44,10 +45,25 @@ const FavoriteUndoToast: React.FC<FavoriteUndoToastProps> = ({
     }
   };
 
+  const handleAction = () => {
+    toast.action?.onAction();
+    onDismiss();
+  };
+
   return (
     <div className="favorite-undo-toast" role={error ? "alert" : "status"}>
       <p>{error ?? toast.message}</p>
-      {!error && (
+      {!error && toast.action && (
+        <button
+          type="button"
+          className="favorite-undo-toast__action"
+          onClick={handleAction}
+          disabled={isUndoing}
+        >
+          {toast.action.label}
+        </button>
+      )}
+      {!error && toast.onUndo && (
         <button type="button" onClick={() => void handleUndo()} disabled={isUndoing}>
           {isUndoing ? "Restaurando..." : "Deshacer"}
         </button>
