@@ -70,6 +70,36 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       const resolved = await ensureMemberships([datasetId]);
       const currentListIds = resolved[datasetId] ?? [];
 
+      if (currentListIds.length > 0) {
+        const targetListIds = listId
+          ? currentListIds.filter((id) => id !== listId)
+          : [];
+        const result = await updateDatasetLists(datasetId, targetListIds);
+        const error = getMutationError(result, lists);
+        if (error) {
+          setActionError(error);
+          return;
+        }
+
+        onRemoved?.();
+        showUndoToast({
+          message: listId
+            ? "Dataset eliminado de esta lista."
+            : "Dataset eliminado de favoritos.",
+          action: {
+            label: "Ver favoritos",
+            onAction: () => navigate("/favoritos"),
+          },
+          onUndo: async () => {
+            const undoResult = await updateDatasetLists(datasetId, currentListIds);
+            const undoError = getMutationError(undoResult, lists);
+            if (undoError) throw new Error(undoError);
+            onRestored?.();
+          },
+        });
+        return;
+      }
+
       setDialogError(null);
       setDialogInitialListIds(currentListIds);
       setIsDialogOpen(true);
@@ -144,12 +174,12 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
         className={`favorite-button${isFavorite ? " favorite-button--active" : ""}`}
         aria-label={
           isFavorite
-            ? "Gestionar listas de favoritos"
+            ? "Quitar dataset de favoritos"
             : "Guardar dataset en listas"
         }
         aria-pressed={isFavorite}
         aria-busy={isBusy}
-        title={isFavorite ? "Gestionar listas" : "Guardar en listas"}
+        title={isFavorite ? "Quitar de favoritos" : "Guardar en listas"}
         onClick={handleClick}
         disabled={isBusy}
       >
