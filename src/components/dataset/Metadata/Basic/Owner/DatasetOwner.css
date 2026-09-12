@@ -26,14 +26,32 @@
 }
 
 .dataset-owner-logo {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 6px;
+  flex: 0 0 auto;
+}
+
+.dataset-owner__avatar {
+  display: inline-flex;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-primary-100);
+  color: var(--color-primary-700);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
 }
 
 .dataset-owner__info {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   line-height: 1.2;
 }
 
@@ -44,11 +62,26 @@
 
 .dataset-owner__type {
   font-size: 0.7em;
-  margin-left: 6px;
-  padding: 2px 8px;
-  background: #e3f2fd;
-  color: #1976d2;
-  border-radius: 2px;
+  color: var(--color-neutral-500);
+}
+
+.dataset-owner--compact {
+  gap: 8px;
+  color: var(--color-neutral-600);
+  font-size: var(--font-size-xs);
+}
+
+.dataset-owner--compact .dataset-owner__name {
+  font-size: inherit;
+  font-weight: var(--font-weight-medium);
+}
+
+.dataset-owner--compact .dataset-owner__type {
+  font-size: inherit;
+}
+
+.dataset-owner--compact .dataset-owner__description {
+  display: none;
 }
 
 .dataset-owner__description {

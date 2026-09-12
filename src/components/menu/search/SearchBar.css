@@ -7,7 +7,7 @@
   position: relative;
   box-sizing: border-box;
   height: fit-content;
-  max-height: 40px;
+  max-height: 44px;
 }
 
 .search-bar-field {
@@ -15,10 +15,10 @@
   width: 100%;
   display: flex;
   align-items: center;
-  height: 40px;
+  height: 44px;
   overflow: hidden;
   border: var(--border-width-1) solid var(--color-neutral-300);
-  border-radius: var(--border-radius-md);
+  border-radius: 12px;
   background: var(--color-neutral-0);
   box-shadow: var(--shadow-xs);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
@@ -35,7 +35,8 @@
   width: 100%;
   min-width: 0;
   height: 100%;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-3) calc(46px + var(--space-2)) var(--space-3)
+    var(--space-4);
   font-size: var(--font-size-base);
   font-family: var(--font-family-base);
   border: 0;
@@ -51,29 +52,29 @@
 
 .search-bar-btn {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 44px;
-  min-width: 44px;
-  height: 100%;
+  top: 5px;
+  right: 5px;
+  width: 36px;
+  min-width: 36px;
+  height: 34px;
   padding: 0;
-  border-left: var(--border-width-1) solid var(--color-neutral-200);
-  border-radius: 0;
-  color: var(--color-neutral-700);
-  background: var(--color-neutral-0);
+  border: 0;
+  border-radius: 8px;
+  color: var(--color-primary-700);
+  background: var(--color-primary-50);
   box-shadow: none;
   transform: none;
 }
 
 .search-bar-btn:hover:not(.btn-unified--disabled) {
   color: var(--color-primary-700);
-  background: var(--color-neutral-50);
+  background: var(--color-primary-100);
   transform: none;
   box-shadow: none;
 }
 
 .search-bar-btn:active:not(.btn-unified--disabled) {
-  background: var(--color-neutral-100);
+  background: var(--color-primary-200);
   transform: none;
   box-shadow: none;
 }
@@ -98,22 +99,21 @@
 
   .search-bar-input {
     font-size: var(--font-size-sm);
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-2) calc(40px + var(--space-2)) var(--space-2)
+      var(--space-3);
   }
 
   .search-bar-field {
     height: 36px;
+    border-radius: 10px;
   }
 
   .search-bar-btn {
-    width: 40px;
-    min-width: 40px;
+    top: 3px;
+    right: 3px;
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 7px;
   }
-}
-
-@media (max-width: 480px) {
-  .search-bar-form {
-    max-height: 36px;
-  }
-
 }

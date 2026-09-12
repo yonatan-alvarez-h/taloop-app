@@ -31,7 +31,6 @@ const HomePage: React.FC<HomePageProps> = ({ datasets, search, onSearch }) => {
             datasets={datasets}
             search={search}
             onSearch={onSearch}
-            outerPagination
           />
         </div>
       </div>

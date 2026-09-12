@@ -1,9 +1,9 @@
 import React from "react";
 import CardHeader from "./Header";
 import CardContent from "./Content";
-import CardMeta from "./Meta";
 import CardActions from "./Actions";
 import FavoriteButton from "../../Favorites/FavoriteButton";
+import DatasetPrice from "../Price";
 import type { Dataset } from "../../../types/dataset";
 import "./DatasetCard.css";
 
@@ -38,15 +38,15 @@ const DatasetCard: React.FC<DatasetCardProps> = ({
     if (onDetailsClick) {
       onDetailsClick();
     } else {
-      window.open(`/datasets/${dataset._id}`, "_self");
+      window.open(`/datasets/${encodeURIComponent(dataset._id)}`, "_self");
     }
   };
 
   const actions = [
     {
-      label: "Ver detalles",
+      label: "Ver dataset",
       onClick: handleDetailsClick,
-      variant: "outline" as const,
+      variant: "primary" as const,
     },
   ];
 
@@ -56,40 +56,46 @@ const DatasetCard: React.FC<DatasetCardProps> = ({
         clickable ? "dataset-card--clickable" : ""
       }`}
     >
-      <CardHeader
-        title={dataset.title}
-        price={dataset.priceUsd}
-        variant={variant}
-        onClick={clickable ? onCardClick : undefined}
-        action={
-          <FavoriteButton
-            datasetId={dataset._id}
-            datasetTitle={dataset.title}
+      <div className="dataset-card__main">
+        <CardHeader
+          title={dataset.title}
+          variant={variant}
+          category={showCategory ? dataset.category : undefined}
+          owner={showOwner ? dataset.owner : undefined}
+          ownerId={dataset.owner_id}
+          datasetId={dataset._id || undefined}
+          onClick={clickable ? onCardClick : undefined}
+        />
+
+        <CardContent
+          dataset={dataset}
+          showRating={showRating}
+          showQuality={showQuality}
+          showTags={showTags}
+          showDescription={showDescription}
+          variant={variant}
+        />
+      </div>
+
+      <div
+        className="dataset-card__rail"
+        role="group"
+        aria-label={`Acciones para ${dataset.title}`}
+      >
+        <div className="dataset-card__price-row">
+          <DatasetPrice
+            price={dataset.priceUsd}
+            currency="USD"
+            showCurrencyCode
           />
-        }
-      />
-
-      <CardContent
-        dataset={dataset}
-        showRating={showRating}
-        showQuality={showQuality}
-        showTags={showTags}
-        showDescription={showDescription}
-        variant={variant}
-      />
-
-      <CardMeta
-        dataset={dataset}
-        showCategory={showCategory}
-        showOwner={showOwner}
-        variant={variant}
-      />
-
-      <CardActions
-        actions={actions}
-        variant={variant}
-        size={variant === "compact" ? "small" : "medium"}
-      />
+          <FavoriteButton datasetId={dataset._id} datasetTitle={dataset.title} />
+        </div>
+        <CardActions
+          actions={actions}
+          variant={variant}
+          size={variant === "compact" ? "small" : "medium"}
+        />
+      </div>
     </li>
   );
 };

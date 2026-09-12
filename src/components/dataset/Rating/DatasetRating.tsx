@@ -26,6 +26,9 @@ const DatasetRating: React.FC<DatasetRatingProps> = ({
   return (
     <div
       className={`dataset-rating dataset-rating--${size} dataset-rating--${variant}`}
+      aria-label={`Valoración: ${rating.toFixed(1)} de 5${
+        typeof ratingCount === "number" ? `, ${ratingCount} valoraciones` : ""
+      }`}
     >
       {showStars && (
         <StarDisplay

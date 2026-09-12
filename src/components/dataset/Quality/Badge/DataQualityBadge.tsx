@@ -30,6 +30,13 @@ const DataQualityBadge: React.FC<DataQualityBadgeProps> = ({
   score,
   compact = false,
 }) => {
+  const getScoreLevel = (qualityScore: number) => {
+    if (qualityScore >= 90) return "excellent";
+    if (qualityScore >= 80) return "very-good";
+    if (qualityScore >= 70) return "good";
+    if (qualityScore >= 60) return "regular";
+    return "low";
+  };
   const getScoreColor = (score: number) => {
     if (score >= 90) return "linear-gradient(135deg, #10b981 0%, #059669 100%)"; // Verde esmeralda - Excelente
     if (score >= 80) return "linear-gradient(135deg, #84cc16 0%, #65a30d 100%)"; // Verde lima - Muy bueno
@@ -49,15 +56,15 @@ const DataQualityBadge: React.FC<DataQualityBadgeProps> = ({
   if (compact) {
     return (
       <div
-        className="data-quality-badge-compact"
-        style={{
-          background: getScoreColor(score),
-          color: "white",
-        }}
-        title={`Calidad de datos: ${score}% (${getScoreLabel(score)})`}
+        className={`data-quality-badge-compact data-quality-badge-compact--${getScoreLevel(score)}`}
+        aria-label={`Calidad de datos: ${score}% (${getScoreLabel(score)})`}
       >
         <span className="badge-context">Calidad:</span>
         <span className="badge-score">{score}%</span>
+        <span className="badge-separator" aria-hidden="true">
+          ·
+        </span>
+        <span className="badge-label">{getScoreLabel(score)}</span>
       </div>
     );
   }

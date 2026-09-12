@@ -1,23 +1,28 @@
 import React from "react";
-import DatasetPrice from "../../Price";
+import { Link } from "react-router-dom";
+import DatasetCategory from "../../Metadata/Basic/Category/DatasetCategory";
+import DatasetOwner from "../../Metadata/Basic/Owner/DatasetOwner";
+import type { Dataset } from "../../../../types/dataset";
 import "./CardHeader.css";
 
 interface CardHeaderProps {
   title: string;
-  price: number;
-  currency?: string;
   variant?: "default" | "compact" | "detailed";
   onClick?: () => void;
-  action?: React.ReactNode;
+  category?: string;
+  owner?: Dataset["owner"];
+  ownerId?: string;
+  datasetId?: string;
 }
 
 const CardHeader: React.FC<CardHeaderProps> = ({
   title,
-  price,
-  currency = "USD",
   variant = "default",
   onClick,
-  action,
+  category,
+  owner,
+  ownerId,
+  datasetId,
 }) => {
   return (
     <div
@@ -27,16 +32,19 @@ const CardHeader: React.FC<CardHeaderProps> = ({
       onClick={onClick}
     >
       <div className="card-header__title-container">
-        <h4 className="card-header__title" title={title}>
-          {title}
-        </h4>
-      </div>
-
-      <div className="card-header__actions">
-        <div className="card-header__price-container">
-          <DatasetPrice price={price} currency={currency} />
-        </div>
-        {action}
+        {category && <DatasetCategory category={category} variant="soft" />}
+        <h3 className="card-header__title">
+          {datasetId ? (
+            <Link to={`/datasets/${encodeURIComponent(datasetId)}`}>
+              {title}
+            </Link>
+          ) : (
+            title
+          )}
+        </h3>
+        {owner && (
+          <DatasetOwner owner={owner} ownerId={ownerId} variant="compact" />
+        )}
       </div>
     </div>
   );

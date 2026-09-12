@@ -3,10 +3,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: var(--space-4) var(--space-4);
-  border-top: var(--border-width-1) solid var(--color-neutral-200);
-  background: var(--color-neutral-50);
-  border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
   gap: var(--space-3);
 }
 

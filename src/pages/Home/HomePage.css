@@ -45,8 +45,7 @@
 }
 
 .homepage-container {
-  padding-top: 60px; /* Compensar por navbar fijo cuando no hay padding en body */
-  margin-top: 0 !important; /* Eliminar cualquier margin de Bootstrap */
+  margin-top: 60px !important; /* Compensar por navbar fijo */
   height: calc(100vh - 60px); /* Altura exacta sin overflow */
   max-height: calc(100vh - 60px); /* Máxima altura para evitar overflow */
   display: flex;
@@ -69,7 +68,7 @@
 /* Override específico para container en HomePage */
 .homepage-container.container {
   padding-top: 0 !important;
-  margin-top: 0 !important;
+  margin-top: 60px !important;
   padding-left: 15px !important; /* Reducir padding lateral de Bootstrap */
   padding-right: 15px !important; /* Reducir padding lateral de Bootstrap */
   max-width: 100% !important; /* Asegurar que no exceda el viewport */
@@ -77,7 +76,7 @@
 
 /* En caso de que Bootstrap tenga otros margins/paddings */
 .homepage-wrapper .container {
-  margin-top: 0 !important;
+  margin-top: 60px !important;
   margin-left: auto !important;
   margin-right: auto !important;
   width: 100% !important;
@@ -113,14 +112,18 @@
   }
 
   .homepage-container {
-    padding-top: 56px; /* Compensar por navbar más pequeño en mobile */
+    padding-top: 0;
     height: calc(100vh - 56px); /* Ajustado para navbar en mobile sin padding */
     max-height: calc(
       100vh - 56px
     ); /* Máxima altura para evitar overflow en mobile */
-    margin-top: 0 !important; /* Eliminar margin en mobile también */
+    margin-top: 56px !important;
     padding-left: 10px !important; /* Reducir padding en mobile */
     padding-right: 10px !important; /* Reducir padding en mobile */
+  }
+
+  .homepage-wrapper .homepage-container.container {
+    margin-top: 56px !important;
   }
 
   .homepage-wrapper {

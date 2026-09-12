@@ -1,243 +1,454 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import DatasetGrid from "../Grid";
-import WelcomeSection from "../../Home/Welcome/WelcomeSection";
 import type { Dataset } from "../../../types/dataset";
 import "./DatasetList.css";
 
 interface DatasetListProps {
   datasets: Dataset[];
   search: string;
-  outerPagination?: boolean;
   onSearch?: (query: string) => void;
 }
 
-type PaginationItem = number | "ellipsis-start" | "ellipsis-end";
+type SortOption = "relevance" | "quality" | "rating" | "price";
+type PriceFilter = "zero" | "paid";
+type QualityFilter = "excellent" | "very-good" | "good" | "regular" | "low";
 
-const getPaginationItems = (
-  currentPage: number,
-  totalPages: number
-): PaginationItem[] => {
-  if (totalPages <= 5) {
-    return Array.from({ length: totalPages }, (_, index) => index + 1);
-  }
+const qualityLevels: {
+  value: QualityFilter;
+  label: string;
+  minimum: number;
+}[] = [
+  { value: "excellent", label: "Excelente", minimum: 90 },
+  { value: "very-good", label: "Muy buena", minimum: 80 },
+  { value: "good", label: "Buena", minimum: 70 },
+  { value: "regular", label: "Regular", minimum: 60 },
+  { value: "low", label: "Baja", minimum: 0 },
+];
 
-  if (currentPage <= 3) {
-    return [1, 2, 3, "ellipsis-end", totalPages];
-  }
-
-  if (currentPage >= totalPages - 2) {
-    return [1, "ellipsis-start", totalPages - 2, totalPages - 1, totalPages];
-  }
-
-  return [1, "ellipsis-start", currentPage, "ellipsis-end", totalPages];
+const score = (dataset: Dataset) => {
+  if (!dataset.dataQuality) return undefined;
+  const quality = dataset.dataQuality;
+  return Math.round(
+    (quality.completeness + quality.accuracy + quality.consistency +
+      quality.validity + quality.timeliness + quality.uniqueness) / 6
+  );
 };
 
-interface DatasetPaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-}
+const value = (item?: string) => item?.trim().toLocaleLowerCase() || "";
 
-const DatasetPagination: React.FC<DatasetPaginationProps> = ({
-  currentPage,
-  totalPages,
-  onPageChange,
-}) => {
-  if (totalPages <= 1) {
-    return null;
-  }
+const getQualityLevel = (quality?: number) =>
+  qualityLevels.find((level) => quality !== undefined && quality >= level.minimum)
+    ?.value;
 
-  return (
-    <nav aria-label="Paginación de resultados">
-      <ul className="pagination datasetlist-pagination">
-        <li className={`page-item${currentPage === 1 ? " disabled" : ""}`}>
-          <button
-            type="button"
-            className="page-link"
-            onClick={() => onPageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            aria-label="Ir a la página anterior"
-          >
-            Anterior
-          </button>
-        </li>
-        {getPaginationItems(currentPage, totalPages).map((item) => {
-          if (typeof item !== "number") {
-            return (
-              <li
-                key={item}
-                className="page-item pagination-ellipsis"
-                aria-hidden="true"
-              >
-                <span className="page-link">…</span>
-              </li>
-            );
-          }
-
-          return (
-            <li
-              key={item}
-              className={`page-item${currentPage === item ? " active" : ""}`}
-            >
-              <button
-                type="button"
-                className="page-link"
-                onClick={() => onPageChange(item)}
-                aria-current={currentPage === item ? "page" : undefined}
-                aria-label={`Ir a la página ${item}`}
-              >
-                {item}
-              </button>
-            </li>
-          );
-        })}
-        <li
-          className={`page-item${
-            currentPage === totalPages ? " disabled" : ""
-          }`}
-        >
-          <button
-            type="button"
-            className="page-link"
-            onClick={() => onPageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            aria-label="Ir a la página siguiente"
-          >
-            Siguiente
-          </button>
-        </li>
-      </ul>
-    </nav>
-  );
+const getTextOptions = (
+  datasets: Dataset[],
+  getLabel: (dataset: Dataset) => string | undefined,
+  exclude?: string
+) => {
+  const found = new Map<
+    string,
+    { value: string; label: string; count: number }
+  >();
+  datasets.forEach((dataset) => {
+    const label = getLabel(dataset)?.trim();
+    const normalized = value(label);
+    if (!label || !normalized || normalized === exclude) return;
+    const current = found.get(normalized);
+    found.set(normalized, {
+      value: normalized,
+      label: current?.label || label,
+      count: (current?.count || 0) + 1,
+    });
+  });
+  return [...found.values()].sort((a, b) => a.label.localeCompare(b.label, "es"));
 };
 
 const DatasetList: React.FC<DatasetListProps> = ({
   datasets,
   search,
-  outerPagination,
   onSearch = () => {},
 }) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(6);
-  const filtered = datasets.filter(
-    (ds) =>
-      ds.title.toLowerCase().includes(search.toLowerCase()) ||
-      ds.description.toLowerCase().includes(search.toLowerCase()) ||
-      ds.tags.some((tag) => tag.toLowerCase().includes(search.toLowerCase())) ||
-      ds.owner.name.toLowerCase().includes(search.toLowerCase())
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [owners, setOwners] = useState<string[]>([]);
+  const [prices, setPrices] = useState<PriceFilter[]>([]);
+  const [qualities, setQualities] = useState<QualityFilter[]>([]);
+  const [sort, setSort] = useState<SortOption>(search ? "relevance" : "quality");
+
+  const categoryOptions = useMemo(
+    () => getTextOptions(datasets, (dataset) => dataset.category),
+    [datasets]
+  );
+  const ownerOptions = useMemo(
+    () =>
+      getTextOptions(
+        datasets,
+        (dataset) => dataset.owner?.name,
+        "proveedor no disponible"
+      ),
+    [datasets]
+  );
+  const qualityOptions = useMemo(() => {
+    const counts = new Map<QualityFilter, number>();
+    datasets.forEach((dataset) => {
+      const level = getQualityLevel(score(dataset));
+      if (level) {
+        counts.set(level, (counts.get(level) || 0) + 1);
+      }
+    });
+    return qualityLevels
+      .filter((level) => counts.has(level.value))
+      .map((level) => ({
+        value: level.value,
+        label: level.label,
+        count: counts.get(level.value) || 0,
+      }));
+  }, [datasets]);
+  const priceOptions = useMemo(() => {
+    const zero = datasets.filter((dataset) => dataset.priceUsd === 0).length;
+    const paid = datasets.filter((dataset) => dataset.priceUsd > 0).length;
+    return [
+      ...(zero
+        ? [{ value: "zero" as PriceFilter, label: "$0", count: zero }]
+        : []),
+      ...(paid
+        ? [
+            {
+              value: "paid" as PriceFilter,
+              label: "Más de $0",
+              count: paid,
+            },
+          ]
+        : []),
+    ];
+  }, [datasets]);
+
+  const filtered = useMemo(() => {
+    const query = search.trim().toLocaleLowerCase();
+    return datasets.filter((dataset) => {
+      const searchable = [
+        dataset.title,
+        dataset.description,
+        dataset.category,
+        dataset.owner?.name,
+        dataset.owner?.description,
+        ...dataset.tags,
+        ...dataset.fields.flatMap((field) => [
+          field.name,
+          field.description,
+        ]),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLocaleLowerCase();
+      const quality = getQualityLevel(score(dataset));
+      const price: PriceFilter = dataset.priceUsd === 0 ? "zero" : "paid";
+      return (
+        (!query || searchable.includes(query)) &&
+        (!categories.length || categories.includes(value(dataset.category))) &&
+        (!owners.length || owners.includes(value(dataset.owner?.name))) &&
+        (!prices.length || prices.includes(price)) &&
+        (!qualities.length || (quality !== undefined && qualities.includes(quality)))
+      );
+    });
+  }, [categories, datasets, owners, prices, qualities, search]);
+
+  const results = useMemo(
+    () =>
+      [...filtered].sort((a, b) => {
+        if (sort === "relevance") return 0;
+        if (sort === "price") return a.priceUsd - b.priceUsd;
+        const first = sort === "quality" ? score(a) : a.rating;
+        const second = sort === "quality" ? score(b) : b.rating;
+        if (first === undefined && second === undefined) return 0;
+        if (first === undefined) return 1;
+        if (second === undefined) return -1;
+        return second - first;
+      }),
+    [filtered, sort]
   );
 
   useEffect(() => {
     setPage(1);
+  }, [categories, owners, prices, qualities, search, sort, pageSize]);
+
+  useEffect(() => {
+    setSort(search ? "relevance" : "quality");
   }, [search]);
 
-  if (!search && datasets.length === 0) {
-    return (
-      <div className="dataset-list-no-results alert alert-info">
-        <h5 className="no-results-title">No hay datasets públicos disponibles</h5>
-        <p className="no-results-description">Vuelve a intentarlo más tarde.</p>
-      </div>
+  const toggle = <T,>(
+    item: T,
+    selected: T[],
+    setSelected: React.Dispatch<React.SetStateAction<T[]>>
+  ) => {
+    setSelected(
+      selected.includes(item)
+        ? selected.filter((current) => current !== item)
+        : [...selected, item]
     );
-  }
-
-  if (!search) {
-    // Opción 1: Diseño colorido y dinámico (ACTIVO)
-    return <WelcomeSection datasets={datasets} onSearch={onSearch} />;
-
-    // Opción 2: Diseño corporativo y profesional
-    // return <WelcomeSectionAlt datasets={datasets} onSearch={onSearch} />;
-  }
-  if (filtered.length === 0) {
-    return (
-      <div className="dataset-list-no-results alert alert-info">
-        <div className="no-results-icon">🔍</div>
-        <h5 className="no-results-title">¡Ups! No encontramos datasets</h5>
-        <p className="no-results-description">
-          No hay datasets que coincidan con "<strong>{search}</strong>".
-        </p>
-        <div className="no-results-suggestions">
-          <p className="mb-2">
-            💡 <strong>Prueba con:</strong>
-          </p>
-          <ul className="suggestions-list">
-            <li>Términos más generales</li>
-            <li>Verificar la ortografía</li>
-            <li>Buscar por categoría o columna específica</li>
-            <li>Usar sinónimos o palabras relacionadas</li>
-          </ul>
-        </div>
-      </div>
-    );
-  }
-
-  const totalPages = Math.ceil(filtered.length / pageSize);
-  const currentPage = Math.min(page, totalPages);
-  const paginated = filtered.slice(
+  };
+  const totalPages = Math.ceil(results.length / pageSize);
+  const currentPage = Math.min(page, totalPages || 1);
+  const visible = results.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
+  const selectedCount =
+    categories.length + owners.length + prices.length + qualities.length;
 
-  const handlePageSizeChange = (value: number) => {
-    setPageSize(value);
-    setPage(1);
+  const renderGroup = <T extends string | number>(
+    label: string,
+    options: { value: T; label: string; count: number }[],
+    selected: T[],
+    setSelected: React.Dispatch<React.SetStateAction<T[]>>
+  ) => {
+    if (options.length === 0) return null;
+
+    return (
+      <fieldset className="dataset-list__filter-group">
+        <legend>{label}</legend>
+        {options.map((option) => (
+          <label key={option.value}>
+            <input
+              type="checkbox"
+              checked={selected.includes(option.value)}
+              onChange={() => toggle(option.value, selected, setSelected)}
+            />
+            <span>{option.label}</span>
+            <small>{option.count}</small>
+          </label>
+        ))}
+      </fieldset>
+    );
   };
 
-  return (
-    <div className="dataset-list">
-      {outerPagination && (
-        <div className="datasetlist-controls datasetlist-controls--outer">
-          <div className="page-size">
-            <label className="me-2 mb-0" htmlFor="pageSizeSelectOuter">
-              Resultados por página:
-            </label>
-            <select
-              id="pageSizeSelectOuter"
-              className="form-select form-select-sm w-auto"
-              value={pageSize}
-              onChange={(e) => handlePageSizeChange(Number(e.target.value))}
-            >
-              <option value={6}>6</option>
-              <option value={12}>12</option>
-              <option value={24}>24</option>
-            </select>
-          </div>
-          <span className="total-results">{filtered.length} resultados</span>
-          <DatasetPagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setPage}
-          />
+  const clearFilters = () => {
+    setCategories([]);
+    setOwners([]);
+    setPrices([]);
+    setQualities([]);
+  };
+
+  if (!datasets.length) {
+    return (
+      <main className="dataset-list">
+        <div className="dataset-list-no-results alert alert-info">
+          <h1 className="no-results-title">
+            No hay datasets públicos disponibles
+          </h1>
+          <p className="no-results-description">Vuelve a intentarlo más tarde.</p>
         </div>
-      )}
-      <div className="dataset-list__content">
-        {!outerPagination && (
-          <div className="datasetlist-controls datasetlist-controls--inner">
-            <div className="page-size">
-              <label className="me-2 mb-0" htmlFor="pageSizeSelectInner">
-                Resultados por página:
-              </label>
-              <select
-                id="pageSizeSelectInner"
-                className="form-select form-select-sm w-auto"
-                value={pageSize}
-                onChange={(e) => handlePageSizeChange(Number(e.target.value))}
-              >
-                <option value={6}>6</option>
-                <option value={12}>12</option>
-                <option value={24}>24</option>
-              </select>
-            </div>
-            <span className="total-results">{filtered.length} resultados</span>
-            <DatasetPagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={setPage}
-            />
+      </main>
+    );
+  }
+
+  return (
+    <main className="dataset-list">
+      <header className="dataset-list__heading">
+        <div>
+          <h1>Catálogo de datos</h1>
+          <p>Explora datasets públicos para tus próximos proyectos.</p>
+        </div>
+        <button
+          type="button"
+          className="dataset-list__filter-toggle"
+          onClick={() => setFiltersOpen(!filtersOpen)}
+          aria-expanded={filtersOpen}
+          aria-controls="catalog-filters"
+        >
+          Filtros{selectedCount ? ` (${selectedCount})` : ""}
+        </button>
+      </header>
+
+      <div className="dataset-list__layout">
+        <aside
+          id="catalog-filters"
+          className={`dataset-list__filters${
+            filtersOpen ? " dataset-list__filters--open" : ""
+          }`}
+          aria-label="Filtros del catálogo"
+        >
+          <div className="dataset-list__filter-heading">
+            <h2>Filtrar</h2>
+            <button
+              type="button"
+              className="dataset-list__clear"
+              onClick={clearFilters}
+              disabled={!selectedCount}
+            >
+              Limpiar
+            </button>
           </div>
-        )}
-        <DatasetGrid datasets={paginated} />
+          {renderGroup("Categoría", categoryOptions, categories, setCategories)}
+          {renderGroup("Proveedor", ownerOptions, owners, setOwners)}
+          {renderGroup("Precio", priceOptions, prices, setPrices)}
+          {renderGroup("Calidad", qualityOptions, qualities, setQualities)}
+        </aside>
+
+        <div className="dataset-list__results">
+          {(search || selectedCount > 0) && (
+            <div
+              className="dataset-list__chips"
+              role="group"
+              aria-label="Filtros activos"
+            >
+              {search && (
+                <button
+                  type="button"
+                  className="dataset-list__chip"
+                  aria-label={`Quitar filtro de búsqueda: ${search}`}
+                  onClick={() => onSearch("")}
+                >
+                  Búsqueda: {search} <span aria-hidden="true">×</span>
+                </button>
+              )}
+              {categories.map((item) => {
+                const label = categoryOptions.find(
+                  (option) => option.value === item
+                )?.label;
+                return (
+                  <button
+                    type="button"
+                    key={item}
+                    className="dataset-list__chip"
+                    aria-label={`Quitar filtro de categoría: ${label}`}
+                    onClick={() => toggle(item, categories, setCategories)}
+                  >
+                    {label} <span aria-hidden="true">×</span>
+                  </button>
+                );
+              })}
+              {owners.map((item) => {
+                const label = ownerOptions.find(
+                  (option) => option.value === item
+                )?.label;
+                return (
+                  <button
+                    type="button"
+                    key={item}
+                    className="dataset-list__chip"
+                    aria-label={`Quitar filtro de proveedor: ${label}`}
+                    onClick={() => toggle(item, owners, setOwners)}
+                  >
+                    {label} <span aria-hidden="true">×</span>
+                  </button>
+                );
+              })}
+              {prices.map((item) => {
+                const label = priceOptions.find(
+                  (option) => option.value === item
+                )?.label;
+                return (
+                  <button
+                    type="button"
+                    key={item}
+                    className="dataset-list__chip"
+                    aria-label={`Quitar filtro de precio: ${label}`}
+                    onClick={() => toggle(item, prices, setPrices)}
+                  >
+                    {label} <span aria-hidden="true">×</span>
+                  </button>
+                );
+              })}
+              {qualities.map((item) => {
+                const label = qualityOptions.find(
+                  (option) => option.value === item
+                )?.label;
+                return (
+                  <button
+                    type="button"
+                    key={item}
+                    className="dataset-list__chip"
+                    aria-label={`Quitar filtro de calidad: ${label}`}
+                    onClick={() => toggle(item, qualities, setQualities)}
+                  >
+                    Calidad: {label} <span aria-hidden="true">×</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          <div className="dataset-list__toolbar">
+            <p aria-live="polite">
+              {results.length}{" "}
+              {results.length === 1 ? "resultado" : "resultados"}
+              {search ? ` para «${search}»` : ""}
+            </p>
+            <label>
+              Ordenar por
+              <select
+                value={sort}
+                onChange={(event) => setSort(event.target.value as SortOption)}
+              >
+                {search && <option value="relevance">Relevancia</option>}
+                <option value="quality">Calidad</option>
+                <option value="rating">Valoración</option>
+                <option value="price">Precio: menor a mayor</option>
+              </select>
+            </label>
+          </div>
+
+          {!results.length ? (
+            <div className="dataset-list-no-results alert alert-info">
+              <h2 className="no-results-title">No encontramos datasets</h2>
+              <p className="no-results-description">
+                Prueba con otros términos o elimina algunos filtros.
+              </p>
+            </div>
+          ) : (
+            <>
+              <DatasetGrid datasets={visible} />
+              <footer className="dataset-list__pagination">
+                {results.length > pageSize && (
+                  <label>
+                    Resultados por página
+                    <select
+                      value={pageSize}
+                      onChange={(event) =>
+                        setPageSize(Number(event.target.value))
+                      }
+                    >
+                      <option value={6}>6</option>
+                      <option value={12}>12</option>
+                      <option value={24}>24</option>
+                    </select>
+                  </label>
+                )}
+                {totalPages > 1 && (
+                  <nav
+                    className="dataset-list__pager"
+                    aria-label="Paginación de resultados"
+                  >
+                    <button
+                      type="button"
+                      className="dataset-list__page-button"
+                      disabled={currentPage === 1}
+                      onClick={() => setPage(currentPage - 1)}
+                    >
+                      Anterior
+                    </button>
+                    <span>
+                      Página {currentPage} de {totalPages}
+                    </span>
+                    <button
+                      type="button"
+                      className="dataset-list__page-button"
+                      disabled={currentPage === totalPages}
+                      onClick={() => setPage(currentPage + 1)}
+                    >
+                      Siguiente
+                    </button>
+                  </nav>
+                )}
+              </footer>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 

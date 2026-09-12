@@ -48,26 +48,32 @@ const TagOverflow: React.FC<TagOverflowProps> = ({
         onTagClick={onTagClick}
       />
 
-      {hiddenCount > 0 && !isExpanded && (
-        <span
+      {hiddenCount > 0 && !isExpanded && expandable && (
+        <button
+          type="button"
           className={`tag-overflow__more tag-overflow__more--${size}`}
           onClick={toggleExpanded}
-          role={expandable ? "button" : undefined}
-          tabIndex={expandable ? 0 : undefined}
+          aria-expanded={false}
         >
+          +{hiddenCount} más
+        </button>
+      )}
+
+      {hiddenCount > 0 && !isExpanded && !expandable && (
+        <span className={`tag-overflow__more tag-overflow__more--${size}`}>
           +{hiddenCount} más
         </span>
       )}
 
       {isExpanded && expandable && (
-        <span
+        <button
+          type="button"
           className={`tag-overflow__less tag-overflow__less--${size}`}
           onClick={toggleExpanded}
-          role="button"
-          tabIndex={0}
+          aria-expanded
         >
           mostrar menos
-        </span>
+        </button>
       )}
     </div>
   );

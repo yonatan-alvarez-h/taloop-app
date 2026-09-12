@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NavBar from "../Menu/Nav/NavBar";
 import SearchBar from "../Menu/Search/SearchBar";
 import UserMenu from "../Menu/UserMenu/UserMenu";
@@ -21,11 +21,6 @@ const AppHeader: React.FC<AppHeaderProps> = ({ search, onSearch }) => {
         <NavBar />
       </Link>
       <div className="app-header__content">
-        <nav className="app-header__nav" aria-label="Navegación principal">
-          <NavLink to="/" end className="app-header__link">
-            Catálogo
-          </NavLink>
-        </nav>
         {onSearch && (
           <div className="app-header__search">
             <SearchBar onSearch={onSearch} initialQuery={search} />

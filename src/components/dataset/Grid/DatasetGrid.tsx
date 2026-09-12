@@ -23,13 +23,11 @@ const DatasetGrid: React.FC<DatasetGridProps> = ({ datasets }) => {
   }, [datasetIds, ensureMemberships, isAuthenticated]);
 
   return (
-    <div className="row g-4 dataset-grid-wrapper">
+    <ul className="dataset-grid-wrapper" aria-label="Datasets disponibles">
       {datasets.map((ds) => (
-        <div key={ds._id} className="col-12 col-md-6">
-          <DatasetCard dataset={ds} />
-        </div>
+        <DatasetCard key={ds._id || ds.title} dataset={ds} variant="compact" />
       ))}
-    </div>
+    </ul>
   );
 };
 

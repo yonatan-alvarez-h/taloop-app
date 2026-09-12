@@ -4,21 +4,22 @@ import "./DatasetCategory.css";
 
 interface DatasetCategoryProps {
   category: string;
+  variant?: "default" | "soft";
 }
 
-const DatasetCategory: React.FC<DatasetCategoryProps> = ({ category }) => {
+const DatasetCategory: React.FC<DatasetCategoryProps> = ({
+  category,
+  variant = "default",
+}) => {
   const color = categoryColors[category.toLowerCase()] || "#6366f1";
 
   return (
-    <div
-      className="dataset-category"
-      style={{
-        background: color,
-        boxShadow: `0 1px 6px ${color}22`,
-      }}
+    <span
+      className={`dataset-category dataset-category--${variant}`}
+      style={{ "--dataset-category-color": color } as React.CSSProperties}
     >
       {category}
-    </div>
+    </span>
   );
 };
 

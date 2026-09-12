@@ -1,270 +1,324 @@
-/* Estilos para DatasetList: alineación y controles de paginación */
 .dataset-list {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.dataset-list__content {
-  flex: 1;
+  max-width: none;
+  margin: 0;
+  padding: var(--space-6) max(15px, calc((100% - 1120px) / 2)) var(--space-8);
   overflow-y: auto;
-  min-height: 0;
-  padding-top: 80px; /* Espacio para los controles fijos */
-  padding-left: 1.5rem; /* Añadir padding izquierdo para separar del borde */
-  padding-right: 1.5rem; /* Padding derecho para balance */
+  overscroll-behavior: contain;
+  background: var(--color-neutral-50);
 }
 
-.datasetlist-controls {
-  position: sticky;
-  top: 60px; /* Justo debajo del navbar */
-  z-index: 100;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid #e5e7eb;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+.dataset-list__heading,
+.dataset-list__toolbar,
+.dataset-list__pagination,
+.dataset-list__pager {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
-  padding: 1rem;
-  margin-bottom: 0;
+  gap: var(--space-4);
 }
 
-.datasetlist-controls--outer {
-  position: sticky;
-  top: 60px; /* Debajo del navbar */
+.dataset-list__heading {
+  margin-bottom: var(--space-5);
 }
 
-.datasetlist-controls--inner {
-  position: sticky;
-  top: 0; /* Al inicio del contenedor scrolleable */
+.dataset-list__heading h1 {
+  margin: 0;
+  color: var(--color-neutral-900);
+  font-size: var(--font-size-3xl);
 }
 
-/* Ajuste del contenido según tipo de controles */
-.dataset-list:has(.datasetlist-controls--outer) .dataset-list__content {
-  padding-top: 80px; /* Espacio para controles fijos outer */
+.dataset-list__heading p {
+  margin: var(--space-1) 0 0;
+  color: var(--color-neutral-600);
 }
 
-.dataset-list:has(.datasetlist-controls--inner) .dataset-list__content {
-  padding-top: 0; /* No padding cuando los controles están dentro */
+.dataset-list__layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
 }
 
-/* Fallback para navegadores que no soportan :has() */
-.dataset-list__content {
-  position: relative;
+.dataset-list__results {
+  min-width: 0;
 }
 
-.datasetlist-controls--outer ~ .dataset-list__content {
-  padding-top: 80px;
+.dataset-list__filter-toggle,
+.dataset-list__clear,
+.dataset-list__chip,
+.dataset-list__page-button {
+  border: var(--border-width-1) solid var(--color-neutral-300);
+  border-radius: var(--border-radius-md);
+  background: var(--color-neutral-0);
+  color: var(--color-neutral-700);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast);
 }
 
-.datasetlist-controls--inner + * {
-  margin-top: 1rem; /* Espacio después de los controles internos */
+.dataset-list__filter-toggle,
+.dataset-list__clear,
+.dataset-list__page-button {
+  padding: var(--space-2) var(--space-3);
+  font-weight: var(--font-weight-semibold);
 }
 
-.datasetlist-controls .page-size {
-  min-width: 220px;
+.dataset-list__filter-toggle:hover,
+.dataset-list__clear:hover,
+.dataset-list__chip:hover,
+.dataset-list__page-button:hover:not(:disabled) {
+  border-color: var(--color-primary-600);
+  background: var(--color-primary-50);
+  color: var(--color-primary-700);
+}
+
+.dataset-list__filter-toggle:focus-visible,
+.dataset-list__clear:focus-visible,
+.dataset-list__chip:focus-visible,
+.dataset-list__page-button:focus-visible,
+.dataset-list select:focus-visible,
+.dataset-list__filter-group input:focus-visible {
+  outline: 2px solid var(--color-primary-600);
+  outline-offset: 2px;
+}
+
+.dataset-list__filters {
+  display: grid;
+  gap: var(--space-4);
+  align-items: start;
+  padding: var(--space-4);
+  border: var(--border-width-1) solid var(--color-neutral-200);
+  border-radius: 14px;
+  background: var(--color-neutral-0);
+}
+
+.dataset-list__filter-heading {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
 }
 
-.datasetlist-controls .total-results {
-  font-size: 0.98em;
-  min-width: 120px;
-  color: #6c757d;
-  font-weight: var(--font-weight-medium);
+.dataset-list__filter-heading h2 {
+  margin: 0;
+  color: var(--color-neutral-800);
+  font-size: var(--font-size-base);
 }
 
-.datasetlist-controls nav {
-  flex: 1;
-}
-
-.datasetlist-pagination {
-  justify-content: end;
-  margin-bottom: 0;
-  flex-wrap: nowrap;
-}
-
-.datasetlist-pagination .page-link {
-  min-width: 2.5rem;
-  text-align: center;
-}
-
-.datasetlist-pagination .pagination-ellipsis .page-link {
-  border-color: transparent;
+.dataset-list__filter-heading .dataset-list__clear {
+  padding: var(--space-1) 0;
+  border: 0;
   background: transparent;
-  color: #6c757d;
-  cursor: default;
-  pointer-events: none;
+  color: var(--color-primary-700);
+  font-size: var(--font-size-sm);
 }
 
-/* Efectos hover para los controles fijos */
-.datasetlist-controls:hover {
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+.dataset-list__filter-heading .dataset-list__clear:hover:not(:disabled) {
+  background: transparent;
+  color: var(--color-primary-800);
+  text-decoration: underline;
 }
 
-/* Mensaje de no resultados */
+.dataset-list__filter-heading .dataset-list__clear:disabled {
+  color: var(--color-neutral-400);
+  cursor: not-allowed;
+}
+
+.dataset-list__filter-group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-top: var(--border-width-1) solid var(--color-neutral-200);
+  padding-top: var(--space-4);
+}
+
+.dataset-list__filter-group legend {
+  margin-bottom: var(--space-2);
+  color: var(--color-neutral-800);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.dataset-list__filter-group label {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--space-2);
+  align-items: center;
+  min-height: 32px;
+  margin-bottom: var(--space-2);
+  overflow: hidden;
+  color: var(--color-neutral-700);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.dataset-list__filter-group label:last-child {
+  margin-bottom: 0;
+}
+
+.dataset-list__filter-group span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dataset-list__filter-group small {
+  color: var(--color-neutral-500);
+}
+
+.dataset-list__filter-group input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--color-primary-600);
+}
+
+.dataset-list__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.dataset-list__chip {
+  padding: var(--space-1) var(--space-2);
+  border-color: var(--color-primary-100);
+  border-radius: 999px;
+  background: var(--color-primary-50);
+  color: var(--color-primary-700);
+  font-size: var(--font-size-sm);
+}
+
+.dataset-list__toolbar {
+  padding: 0 0 var(--space-4);
+}
+
+.dataset-list__toolbar p {
+  margin: 0;
+  color: var(--color-neutral-600);
+}
+
+.dataset-list__toolbar label,
+.dataset-list__pagination label {
+  color: var(--color-neutral-700);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.dataset-list select {
+  margin-left: var(--space-2);
+  min-height: 40px;
+  padding: var(--space-2) var(--space-8) var(--space-2) var(--space-3);
+  border: var(--border-width-1) solid var(--color-neutral-300);
+  border-radius: 10px;
+  background: var(--color-neutral-0);
+  color: var(--color-neutral-800);
+}
+
+.dataset-list__pagination {
+  margin-top: var(--space-5);
+}
+
+.dataset-list__pager {
+  justify-content: flex-end;
+}
+
+.dataset-list__pager span {
+  color: var(--color-neutral-600);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.dataset-list__page-button:disabled {
+  color: var(--color-neutral-400);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 .dataset-list-no-results {
-  margin-top: 120px; /* Espacio para navbar fijo + controles */
-  margin-bottom: 2rem;
-  margin-left: auto;
-  margin-right: auto;
   max-width: 600px;
+  margin: var(--space-8) auto;
+  padding: var(--space-6);
   text-align: center;
-  padding: 2rem;
-  border-radius: 4px;
-  background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
-  border: 1px solid #e1e8ff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.no-results-icon {
-  font-size: var(--font-size-6xl);
-  margin-bottom: 1rem;
-  opacity: 0.8;
 }
 
 .no-results-title {
-  color: #2d3748;
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: 0.5rem;
-  font-size: var(--font-size-2xl);
+  margin: 0 0 var(--space-2);
+  color: var(--color-neutral-900);
+  font-size: var(--font-size-xl);
 }
 
 .no-results-description {
-  color: #4a5568;
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-  line-height: var(--line-height-normal);
-}
-
-.no-results-suggestions {
-  text-align: left;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 3px;
-  padding: 1.25rem;
-  margin-top: 1rem;
-}
-
-.no-results-suggestions p {
-  color: #2d3748;
-  font-size: var(--font-size-base);
-  margin-bottom: 0.75rem;
-}
-
-.suggestions-list {
-  list-style: none;
-  padding: 0;
   margin: 0;
+  color: var(--color-neutral-600);
 }
 
-.suggestions-list li {
-  color: #4a5568;
-  font-size: 0.95rem;
-  padding: 0.4rem 0;
-  padding-left: 1.25rem;
-  position: relative;
-  line-height: 1.4;
+@media (min-width: 769px) {
+  .dataset-list__filter-toggle {
+    display: none;
+  }
+
+  .dataset-list__filters {
+    position: sticky;
+    top: var(--space-4);
+    max-height: calc(100vh - 92px);
+    overflow-y: auto;
+  }
 }
 
-.suggestions-list li::before {
-  content: "→";
-  position: absolute;
-  left: 0;
-  color: #6366f1;
-  font-weight: var(--font-weight-bold);
-}
-
-/* En HomePage (sin scroll global) */
-.no-global-scroll .dataset-list-no-results {
-  margin-top: 80px; /* Menos espacio porque el contenedor ya tiene padding */
-}
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
-  .datasetlist-controls {
-    top: 56px; /* Altura menor del navbar en mobile */
-    padding: 0.75rem;
+  .dataset-list {
+    padding: var(--space-4) 15px;
+  }
+
+  .dataset-list__layout {
+    display: block;
+  }
+
+  .dataset-list__heading,
+  .dataset-list__toolbar,
+  .dataset-list__pagination {
+    align-items: flex-start;
     flex-direction: column;
-    gap: 0.75rem;
   }
 
-  .datasetlist-controls .page-size {
-    min-width: auto;
+  .dataset-list__filters {
+    display: none;
+    margin-bottom: var(--space-4);
+  }
+
+  .dataset-list__filters--open {
+    display: grid;
+  }
+
+  .dataset-list__pagination nav {
     width: 100%;
-    justify-content: center;
-  }
-
-  .datasetlist-controls nav {
-    width: 100%;
-  }
-
-  .datasetlist-pagination {
-    justify-content: center;
-    max-width: 100%;
-  }
-
-  .datasetlist-pagination .page-link {
-    min-width: 2.25rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-
-  /* Más espacio en mobile para controles apilados */
-  .dataset-list:has(.datasetlist-controls--outer) .dataset-list__content {
-    padding-top: 130px;
-  }
-
-  .datasetlist-controls--outer ~ .dataset-list__content {
-    padding-top: 130px;
-  } /* Ajustar mensaje de no resultados en mobile */
-  .dataset-list-no-results {
-    margin-top: 100px; /* Menos espacio en mobile */
-    padding: 1.5rem 1rem;
-    max-width: 90%;
-  }
-
-  .no-results-icon {
-    font-size: var(--font-size-5xl);
-  }
-
-  .no-results-title {
-    font-size: 1.3rem;
-  }
-
-  .no-results-description {
-    font-size: var(--font-size-base);
-  }
-
-  .no-global-scroll .dataset-list-no-results {
-    margin-top: 76px; /* Compensar navbar más pequeño */
-  }
-}
-
-/* Responsive adjustments para DatasetList content */
-@media (max-width: 768px) {
-  .dataset-list__content {
-    padding-left: 1rem; /* Menos padding en tablet */
-    padding-right: 1rem;
+    overflow-x: auto;
   }
 }
 
 @media (max-width: 480px) {
-  .dataset-list__content {
-    padding-left: 0.5rem; /* Mínimo padding en mobile */
-    padding-right: 0.5rem;
+  .dataset-list__heading h1 {
+    font-size: var(--font-size-2xl);
   }
-}
 
-@media (min-width: 1200px) {
-  .dataset-list__content {
-    padding-left: 2rem; /* Más padding en pantallas grandes */
-    padding-right: 2rem;
-    max-width: 1400px; /* Limitar ancho máximo */
-    margin: 0 auto; /* Centrar contenido */
+  .dataset-list__toolbar label,
+  .dataset-list__toolbar select,
+  .dataset-list__pagination label,
+  .dataset-list__pagination select {
+    width: 100%;
+  }
+
+  .dataset-list select {
+    margin-top: var(--space-1);
+    margin-left: 0;
+  }
+
+  .dataset-list__pager {
+    justify-content: space-between;
   }
 }

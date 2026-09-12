@@ -30,17 +30,9 @@ const StarDisplay: React.FC<StarDisplayProps> = ({
   };
 
   return (
-    <div className={`star-display star-display--${size}`}>
+    <div className={`star-display star-display--${size}`} aria-hidden="true">
       {stars.map((star) => (
-        <span
-          key={star}
-          className={getStarClass(star)}
-          aria-label={
-            getStarClass(star).includes("filled")
-              ? "Estrella llena"
-              : "Estrella vacía"
-          }
-        >
+        <span key={star} className={getStarClass(star)}>
           ★
         </span>
       ))}

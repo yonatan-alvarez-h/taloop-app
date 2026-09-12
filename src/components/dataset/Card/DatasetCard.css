@@ -1,58 +1,61 @@
 .dataset-card {
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  border: 1px solid #e3e6ea;
-  border-radius: 4px;
-  padding: 24px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--space-6);
+  align-items: stretch;
+  background: var(--color-neutral-0);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 14px;
+  padding: var(--space-5);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   list-style: none;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
 }
 
-.dataset-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #6c757d, #adb5bd, #6c757d);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.dataset-card__main {
+  min-width: 0;
+}
+
+.dataset-card__rail {
+  display: flex;
+  width: 152px;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+.dataset-card__price-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.dataset-card__price-row .dataset-price {
+  color: var(--color-neutral-800);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.dataset-card__rail .card-actions {
+  width: 100%;
+  padding: 0;
+}
+
+.dataset-card__rail .card-actions__button {
+  width: 100%;
+  min-height: 42px;
+  border-radius: 10px;
 }
 
 .dataset-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.06);
-  border-color: #dee2e6;
-}
-
-.dataset-card:hover::before {
-  opacity: 0.6;
+  border-color: var(--color-neutral-300);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
 }
 
 .dataset-card--compact {
   padding: 18px;
-  border-radius: 3px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
-}
-
-.dataset-card--compact::before {
-  height: 2px;
-}
-
-.dataset-card--detailed {
-  padding: 28px;
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.dataset-card--detailed::before {
-  height: 4px;
 }
 
 .dataset-card--clickable {
@@ -60,51 +63,46 @@
 }
 
 .dataset-card--clickable:hover {
-  border-color: #adb5bd;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08), 0 3px 10px rgba(0, 0, 0, 0.06);
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-color: var(--color-primary-300);
 }
 
-/* Efecto de brillo sutil */
-.dataset-card::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    135deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.02) 50%,
-    transparent 100%
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
+@media (max-width: 768px) {
+  .dataset-card {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .dataset-card__rail {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .dataset-card__rail .card-actions {
+    width: auto;
+  }
+
+  .dataset-card__rail .card-actions__button {
+    width: auto;
+  }
 }
 
-.dataset-card:hover::after {
-  opacity: 1;
-}
+@media (max-width: 480px) {
+  .dataset-card {
+    padding: var(--space-4);
+  }
 
-/* Estados especiales */
-.dataset-card--featured {
-  background: linear-gradient(135deg, #fffbf0 0%, #ffffff 100%);
-  border-color: #f8d7da;
-}
+  .dataset-card__rail {
+    align-items: stretch;
+    flex-direction: column;
+  }
 
-.dataset-card--featured::before {
-  background: linear-gradient(90deg, #ffc107, #ffca2c);
-  opacity: 0.7;
-}
+  .dataset-card__price-row {
+    justify-content: space-between;
+  }
 
-.dataset-card--premium {
-  background: linear-gradient(135deg, #faf5ff 0%, #ffffff 100%);
-  border-color: #e9d5ff;
-}
-
-.dataset-card--premium::before {
-  background: linear-gradient(90deg, #9c27b0, #ba68c8);
-  opacity: 0.7;
+  .dataset-card__rail .card-actions,
+  .dataset-card__rail .card-actions__button {
+    width: 100%;
+  }
 }
