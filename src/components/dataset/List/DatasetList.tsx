@@ -48,6 +48,38 @@ const value = (item?: string) => normalizeText(item?.trim() || "");
 const getOwnerValue = (dataset: Dataset) =>
   dataset.owner_id?.trim() || value(dataset.owner?.name);
 
+const getCatalogMetrics = (datasets: Dataset[]) => {
+  const categories = new Set(
+    datasets.map((dataset) => value(dataset.category)).filter(Boolean)
+  );
+  const owners = new Set(
+    datasets
+      .map(getOwnerValue)
+      .filter((owner) => owner && owner !== "proveedor no disponible")
+  );
+
+  return [
+    {
+      value: categories.size,
+      singular: "categoría para explorar",
+      plural: "categorías para explorar",
+      label: "Categorías",
+    },
+    {
+      value: owners.size,
+      singular: "proveedor de datos",
+      plural: "proveedores de datos",
+      label: "Proveedores",
+    },
+    {
+      value: datasets.length,
+      singular: "dataset disponible",
+      plural: "datasets disponibles",
+      label: "Datasets",
+    },
+  ];
+};
+
 const getQualityLevel = (quality?: number) =>
   qualityLevels.find((level) => quality !== undefined && quality >= level.minimum)
     ?.value;
@@ -128,7 +160,11 @@ const DatasetList: React.FC<DatasetListProps> = ({
   const [qualities, setQualities] = useState<QualityFilter[]>([]);
   const [sort, setSort] = useState<SortOption>(search ? "relevance" : "quality");
   const [facetResetKey, setFacetResetKey] = useState(0);
+  const [activeMetric, setActiveMetric] = useState(0);
+  const [isMetricRotationPaused, setIsMetricRotationPaused] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const normalizedSearch = value(search);
+  const catalogMetrics = useMemo(() => getCatalogMetrics(datasets), [datasets]);
 
   const indexedDatasets = useMemo(
     () =>
@@ -289,6 +325,27 @@ const DatasetList: React.FC<DatasetListProps> = ({
     setSort(search ? "relevance" : "quality");
   }, [search]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setReduceMotion(mediaQuery.matches);
+
+    updateMotionPreference();
+    mediaQuery.addEventListener("change", updateMotionPreference);
+    return () => mediaQuery.removeEventListener("change", updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    if (isMetricRotationPaused || reduceMotion || catalogMetrics.length < 2) {
+      return undefined;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setActiveMetric((current) => (current + 1) % catalogMetrics.length);
+    }, 6000);
+
+    return () => window.clearInterval(intervalId);
+  }, [catalogMetrics.length, isMetricRotationPaused, reduceMotion]);
+
   const toggle = <T,>(
     item: T,
     selected: T[],
@@ -308,6 +365,8 @@ const DatasetList: React.FC<DatasetListProps> = ({
   );
   const selectedCount =
     categories.length + owners.length + prices.length + qualities.length;
+  const showCatalogHero = !search && selectedCount === 0;
+  const metric = catalogMetrics[activeMetric] ?? catalogMetrics[0];
 
   const clearFilters = () => {
     setCategories([]);
@@ -332,11 +391,54 @@ const DatasetList: React.FC<DatasetListProps> = ({
 
   return (
     <main className="dataset-list">
-      <header className="dataset-list__heading">
-        <div>
-          <h1>Catálogo de datos</h1>
-          <p>Explora datasets públicos para tus próximos proyectos.</p>
-        </div>
+      {showCatalogHero && metric && (
+        <section
+          className="dataset-list__hero"
+          aria-labelledby="catalog-hero-title"
+          onMouseEnter={() => setIsMetricRotationPaused(true)}
+          onMouseLeave={() => setIsMetricRotationPaused(false)}
+          onFocus={() => setIsMetricRotationPaused(true)}
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) {
+              setIsMetricRotationPaused(false);
+            }
+          }}
+        >
+          <div className="dataset-list__hero-copy">
+            <p className="dataset-list__hero-eyebrow">Una colección para decidir mejor</p>
+            <h2 id="catalog-hero-title">Descubre datos que impulsan mejores decisiones</h2>
+          </div>
+          <div className="dataset-list__metric" aria-live="off">
+            <p className="dataset-list__metric-label">En el catálogo hoy</p>
+            <p className="dataset-list__metric-value" key={metric.label}>
+              <strong>{metric.value}</strong>{" "}
+              {metric.value === 1 ? metric.singular : metric.plural}
+            </p>
+            <div
+              className="dataset-list__metric-controls"
+              role="group"
+              aria-label="Resumen del catálogo"
+            >
+              {catalogMetrics.map((item, index) => (
+                <button
+                  type="button"
+                  key={item.label}
+                  className={`dataset-list__metric-dot${
+                    index === activeMetric ? " dataset-list__metric-dot--active" : ""
+                  }`}
+                  onClick={() => setActiveMetric(index)}
+                  aria-label={`Mostrar ${item.label.toLocaleLowerCase()}`}
+                  aria-current={index === activeMetric ? "true" : undefined}
+                >
+                  <span className="visually-hidden">{item.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <div className="dataset-list__mobile-controls">
         <button
           type="button"
           className="dataset-list__filter-toggle"
@@ -346,7 +448,7 @@ const DatasetList: React.FC<DatasetListProps> = ({
         >
           Filtros{selectedCount ? ` (${selectedCount})` : ""}
         </button>
-      </header>
+      </div>
 
       <div className="dataset-list__layout">
         <aside
