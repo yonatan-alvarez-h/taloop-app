@@ -144,7 +144,7 @@
   font-weight: var(--font-weight-semibold);
 }
 
-.dataset-list__filter-group label {
+.dataset-list__facet-option {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: var(--space-2);
@@ -157,21 +157,21 @@
   cursor: pointer;
 }
 
-.dataset-list__filter-group label:last-child {
+.dataset-list__facet-option:last-child {
   margin-bottom: 0;
 }
 
-.dataset-list__filter-group span {
+.dataset-list__facet-option span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.dataset-list__filter-group small {
+.dataset-list__facet-option small {
   color: var(--color-neutral-500);
 }
 
-.dataset-list__filter-group input {
+.dataset-list__facet-option input {
   width: 17px;
   height: 17px;
   accent-color: var(--color-primary-600);

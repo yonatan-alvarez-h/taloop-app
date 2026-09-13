@@ -1,5 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import DatasetGrid from "../Grid";
+import FacetFilter, {
+  type FacetOption,
+} from "../../common/FacetFilter";
 import type { Dataset } from "../../../types/dataset";
 import "./DatasetList.css";
 
@@ -10,7 +13,7 @@ interface DatasetListProps {
 }
 
 type SortOption = "relevance" | "quality" | "rating" | "price";
-type PriceFilter = "zero" | "paid";
+type PriceFilter = "free" | "under-25" | "25-49" | "50-99" | "100-plus";
 type QualityFilter = "excellent" | "very-good" | "good" | "regular" | "low";
 
 const qualityLevels: {
@@ -34,16 +37,42 @@ const score = (dataset: Dataset) => {
   );
 };
 
-const value = (item?: string) => item?.trim().toLocaleLowerCase() || "";
+const normalizeText = (item: string) =>
+  item
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase();
+
+const value = (item?: string) => normalizeText(item?.trim() || "");
+
+const getOwnerValue = (dataset: Dataset) =>
+  dataset.owner_id?.trim() || value(dataset.owner?.name);
 
 const getQualityLevel = (quality?: number) =>
   qualityLevels.find((level) => quality !== undefined && quality >= level.minimum)
     ?.value;
 
+const getPriceBucket = (price: number): PriceFilter => {
+  if (price === 0) return "free";
+  if (price < 25) return "under-25";
+  if (price < 50) return "25-49";
+  if (price < 100) return "50-99";
+  return "100-plus";
+};
+
+const priceBuckets: { value: PriceFilter; label: string }[] = [
+  { value: "free", label: "Gratis" },
+  { value: "under-25", label: "Menos de $25" },
+  { value: "25-49", label: "$25–$49" },
+  { value: "50-99", label: "$50–$99" },
+  { value: "100-plus", label: "$100 o más" },
+];
+
 const getTextOptions = (
   datasets: Dataset[],
   getLabel: (dataset: Dataset) => string | undefined,
-  exclude?: string
+  exclude?: string,
+  getOptionValue?: (dataset: Dataset) => string
 ) => {
   const found = new Map<
     string,
@@ -51,16 +80,38 @@ const getTextOptions = (
   >();
   datasets.forEach((dataset) => {
     const label = getLabel(dataset)?.trim();
-    const normalized = value(label);
-    if (!label || !normalized || normalized === exclude) return;
-    const current = found.get(normalized);
-    found.set(normalized, {
-      value: normalized,
+    const normalizedLabel = value(label);
+    const optionValue = getOptionValue?.(dataset) || normalizedLabel;
+    if (
+      !label ||
+      !normalizedLabel ||
+      !optionValue ||
+      normalizedLabel === exclude
+    ) {
+      return;
+    }
+    const current = found.get(optionValue);
+    found.set(optionValue, {
+      value: optionValue,
       label: current?.label || label,
       count: (current?.count || 0) + 1,
     });
   });
-  return [...found.values()].sort((a, b) => a.label.localeCompare(b.label, "es"));
+  return [...found.values()].sort(
+    (a, b) => b.count - a.count || a.label.localeCompare(b.label, "es")
+  );
+};
+
+const keepSelectedOptions = (
+  options: FacetOption[],
+  allOptions: FacetOption[],
+  selected: string[]
+) => {
+  const present = new Set(options.map((option) => option.value));
+  const selectedMissing = allOptions
+    .filter((option) => selected.includes(option.value) && !present.has(option.value))
+    .map((option) => ({ ...option, count: 0 }));
+  return [...options, ...selectedMissing];
 };
 
 const DatasetList: React.FC<DatasetListProps> = ({
@@ -76,84 +127,144 @@ const DatasetList: React.FC<DatasetListProps> = ({
   const [prices, setPrices] = useState<PriceFilter[]>([]);
   const [qualities, setQualities] = useState<QualityFilter[]>([]);
   const [sort, setSort] = useState<SortOption>(search ? "relevance" : "quality");
+  const [facetResetKey, setFacetResetKey] = useState(0);
+  const normalizedSearch = value(search);
 
-  const categoryOptions = useMemo(
-    () => getTextOptions(datasets, (dataset) => dataset.category),
-    [datasets]
-  );
-  const ownerOptions = useMemo(
+  const indexedDatasets = useMemo(
     () =>
-      getTextOptions(
-        datasets,
-        (dataset) => dataset.owner?.name,
-        "proveedor no disponible"
-      ),
+      datasets.map((dataset) => ({
+        dataset,
+        searchable: normalizeText(
+          [
+            dataset.title,
+            dataset.description,
+            dataset.category,
+            dataset.owner?.name,
+            dataset.owner?.description,
+            ...dataset.tags,
+            ...dataset.fields.flatMap((field) => [
+              field.name,
+              field.description,
+            ]),
+          ]
+            .filter(Boolean)
+            .join(" ")
+        ),
+        category: value(dataset.category),
+        owner: getOwnerValue(dataset),
+        price: getPriceBucket(dataset.priceUsd),
+        quality: getQualityLevel(score(dataset)),
+      })),
     [datasets]
   );
+  const matchesFilters = useCallback(
+    (
+      item: (typeof indexedDatasets)[number],
+      ignored?: "category" | "owner" | "price" | "quality"
+    ) => {
+      return (
+        (!normalizedSearch || item.searchable.includes(normalizedSearch)) &&
+        (ignored === "category" ||
+          !categories.length ||
+          categories.includes(item.category)) &&
+        (ignored === "owner" ||
+          !owners.length ||
+          owners.includes(item.owner)) &&
+        (ignored === "price" ||
+          !prices.length ||
+          prices.includes(item.price)) &&
+        (ignored === "quality" ||
+          !qualities.length ||
+          (item.quality !== undefined && qualities.includes(item.quality)))
+      );
+    },
+    [categories, normalizedSearch, owners, prices, qualities]
+  );
+
+  const categoryOptions = useMemo(() => {
+    const allOptions = getTextOptions(datasets, (dataset) => dataset.category);
+    return keepSelectedOptions(
+      getTextOptions(
+        indexedDatasets
+          .filter((item) => matchesFilters(item, "category"))
+          .map((item) => item.dataset),
+        (dataset) => dataset.category
+      ),
+      allOptions,
+      categories
+    );
+  }, [categories, datasets, indexedDatasets, matchesFilters]);
+  const ownerOptions = useMemo(() => {
+    const allOptions = getTextOptions(
+      datasets,
+      (dataset) => dataset.owner?.name,
+      "proveedor no disponible",
+      getOwnerValue
+    );
+    return keepSelectedOptions(
+      getTextOptions(
+        indexedDatasets
+          .filter((item) => matchesFilters(item, "owner"))
+          .map((item) => item.dataset),
+        (dataset) => dataset.owner?.name,
+        "proveedor no disponible",
+        getOwnerValue
+      ),
+      allOptions,
+      owners
+    );
+  }, [datasets, indexedDatasets, matchesFilters, owners]);
   const qualityOptions = useMemo(() => {
     const counts = new Map<QualityFilter, number>();
-    datasets.forEach((dataset) => {
-      const level = getQualityLevel(score(dataset));
-      if (level) {
-        counts.set(level, (counts.get(level) || 0) + 1);
-      }
-    });
-    return qualityLevels
-      .filter((level) => counts.has(level.value))
+    indexedDatasets
+      .filter((item) => matchesFilters(item, "quality"))
+      .forEach(({ quality }) => {
+        if (quality) {
+          counts.set(quality, (counts.get(quality) || 0) + 1);
+        }
+      });
+    const availableOptions = qualityLevels
       .map((level) => ({
         value: level.value,
         label: level.label,
         count: counts.get(level.value) || 0,
-      }));
-  }, [datasets]);
+      }))
+      .filter((level) => level.count > 0);
+    return keepSelectedOptions(
+      availableOptions,
+      qualityLevels.map((level) => ({
+        value: level.value,
+        label: level.label,
+        count: 0,
+      })),
+      qualities
+    );
+  }, [indexedDatasets, matchesFilters, qualities]);
   const priceOptions = useMemo(() => {
-    const zero = datasets.filter((dataset) => dataset.priceUsd === 0).length;
-    const paid = datasets.filter((dataset) => dataset.priceUsd > 0).length;
-    return [
-      ...(zero
-        ? [{ value: "zero" as PriceFilter, label: "$0", count: zero }]
-        : []),
-      ...(paid
-        ? [
-            {
-              value: "paid" as PriceFilter,
-              label: "Más de $0",
-              count: paid,
-            },
-          ]
-        : []),
-    ];
-  }, [datasets]);
+    const counts = new Map<PriceFilter, number>();
+    indexedDatasets
+      .filter((item) => matchesFilters(item, "price"))
+      .forEach(({ price }) => {
+        counts.set(price, (counts.get(price) || 0) + 1);
+      });
+    const availableOptions = priceBuckets
+      .map((bucket) => ({
+        ...bucket,
+        count: counts.get(bucket.value) || 0,
+      }))
+      .filter((bucket) => bucket.count > 0);
+    return keepSelectedOptions(
+      availableOptions,
+      priceBuckets.map((bucket) => ({ ...bucket, count: 0 })),
+      prices
+    );
+  }, [indexedDatasets, matchesFilters, prices]);
 
   const filtered = useMemo(() => {
-    const query = search.trim().toLocaleLowerCase();
-    return datasets.filter((dataset) => {
-      const searchable = [
-        dataset.title,
-        dataset.description,
-        dataset.category,
-        dataset.owner?.name,
-        dataset.owner?.description,
-        ...dataset.tags,
-        ...dataset.fields.flatMap((field) => [
-          field.name,
-          field.description,
-        ]),
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLocaleLowerCase();
-      const quality = getQualityLevel(score(dataset));
-      const price: PriceFilter = dataset.priceUsd === 0 ? "zero" : "paid";
-      return (
-        (!query || searchable.includes(query)) &&
-        (!categories.length || categories.includes(value(dataset.category))) &&
-        (!owners.length || owners.includes(value(dataset.owner?.name))) &&
-        (!prices.length || prices.includes(price)) &&
-        (!qualities.length || (quality !== undefined && qualities.includes(quality)))
-      );
-    });
-  }, [categories, datasets, owners, prices, qualities, search]);
+    return indexedDatasets
+      .filter((item) => matchesFilters(item))
+      .map((item) => item.dataset);
+  }, [indexedDatasets, matchesFilters]);
 
   const results = useMemo(
     () =>
@@ -198,37 +309,12 @@ const DatasetList: React.FC<DatasetListProps> = ({
   const selectedCount =
     categories.length + owners.length + prices.length + qualities.length;
 
-  const renderGroup = <T extends string | number>(
-    label: string,
-    options: { value: T; label: string; count: number }[],
-    selected: T[],
-    setSelected: React.Dispatch<React.SetStateAction<T[]>>
-  ) => {
-    if (options.length === 0) return null;
-
-    return (
-      <fieldset className="dataset-list__filter-group">
-        <legend>{label}</legend>
-        {options.map((option) => (
-          <label key={option.value}>
-            <input
-              type="checkbox"
-              checked={selected.includes(option.value)}
-              onChange={() => toggle(option.value, selected, setSelected)}
-            />
-            <span>{option.label}</span>
-            <small>{option.count}</small>
-          </label>
-        ))}
-      </fieldset>
-    );
-  };
-
   const clearFilters = () => {
     setCategories([]);
     setOwners([]);
     setPrices([]);
     setQualities([]);
+    setFacetResetKey((current) => current + 1);
   };
 
   if (!datasets.length) {
@@ -281,10 +367,38 @@ const DatasetList: React.FC<DatasetListProps> = ({
               Limpiar
             </button>
           </div>
-          {renderGroup("Categoría", categoryOptions, categories, setCategories)}
-          {renderGroup("Proveedor", ownerOptions, owners, setOwners)}
-          {renderGroup("Precio", priceOptions, prices, setPrices)}
-          {renderGroup("Calidad", qualityOptions, qualities, setQualities)}
+          <FacetFilter
+            key={`category-${facetResetKey}`}
+            label="Categoría"
+            options={categoryOptions}
+            selected={categories}
+            onToggle={(item) => toggle(item, categories, setCategories)}
+            searchable
+          />
+          <FacetFilter
+            key={`owner-${facetResetKey}`}
+            label="Proveedor"
+            options={ownerOptions}
+            selected={owners}
+            onToggle={(item) => toggle(item, owners, setOwners)}
+            searchable
+          />
+          <FacetFilter
+            key={`price-${facetResetKey}`}
+            label="Precio"
+            options={priceOptions}
+            selected={prices}
+            onToggle={(item) => toggle(item as PriceFilter, prices, setPrices)}
+          />
+          <FacetFilter
+            key={`quality-${facetResetKey}`}
+            label="Calidad"
+            options={qualityOptions}
+            selected={qualities}
+            onToggle={(item) =>
+              toggle(item as QualityFilter, qualities, setQualities)
+            }
+          />
         </aside>
 
         <div className="dataset-list__results">

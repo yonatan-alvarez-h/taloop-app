@@ -1,0 +1,63 @@
+.dataset-list__facet-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.dataset-list__facet-search {
+  margin-bottom: var(--space-2);
+}
+
+.dataset-list__facet-selected-count {
+  margin-left: var(--space-1);
+  color: var(--color-neutral-500);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+}
+
+.dataset-list__facet-search input {
+  width: 100%;
+  min-height: 36px;
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width-1) solid var(--color-neutral-300);
+  border-radius: var(--border-radius-md);
+  background: var(--color-neutral-0);
+  color: var(--color-neutral-800);
+  font: inherit;
+  font-size: var(--font-size-sm);
+}
+
+.dataset-list__facet-search input:focus-visible,
+.dataset-list__facet-toggle:focus-visible {
+  outline: 2px solid var(--color-primary-600);
+  outline-offset: 2px;
+}
+
+.dataset-list__facet-toggle {
+  margin-top: var(--space-2);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-primary-700);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+}
+
+.dataset-list__facet-toggle:hover {
+  color: var(--color-primary-800);
+  text-decoration: underline;
+}
+
+.dataset-list__facet-empty {
+  margin: var(--space-2) 0 0;
+  color: var(--color-neutral-600);
+  font-size: var(--font-size-sm);
+}
